@@ -1,4 +1,4 @@
-/**
+﻿/**
  * app.js - GiGa Labor
  * Logica completa del sito. Nessun import/export, nessun fetch.
  * Funziona su file://, HTTP e HTTPS.
@@ -786,7 +786,7 @@
   = */
   var Shell = (function () {
 
-    /* — Cursor — */
+    /* â€” Cursor â€” */
     function initCursor() {
       var cur  = document.getElementById('cur');
       var curR = document.getElementById('cur-r');
@@ -809,15 +809,15 @@
       }, 600);
     }
 
-    /* — Intro — */
+    /* â€” Intro â€” */
     function initIntroSplash() {
-      /* Usato da initSplash() — dismissal redirecta a home.html */
+      /* Usato da initSplash() â€” dismissal redirecta a home.html */
       var intro = document.getElementById('intro');
       if (!intro) return;
       function enter() {
         if (intro.classList.contains('out')) return;
         intro.classList.add('out');
-        setTimeout(function() { window.location.href = 'home.html'; }, 800);
+        setTimeout(function() { window.location.href = './home.html'; }, 800);
       }
       intro.addEventListener('click', enter);
       window.addEventListener('keydown', function handler(e) {
@@ -831,7 +831,7 @@
       initIntroSplash();
     }
 
-    /* — Panel content renderers — */
+    /* â€” Panel content renderers â€” */
     var PANEL_DEF = {
       proj: {
         kickerKey: 'sections.ecosystem_label',
@@ -951,7 +951,7 @@
           body.innerHTML =
             '<div class="p-sec">' + (I18n.t('sections.contact_title') || 'Contatti') + '</div>' +
             '<div class="cr"><span class="cr-icon">@</span><div class="cr-text"><a href="mailto:' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '">' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '</a></div></div>' +
-            '<div class="cr"><span class="cr-icon">⌘</span><div class="cr-text"><a href="https://gigalabor.it" target="_blank">gigalabor.it</a></div></div>' +
+            '<div class="cr"><span class="cr-icon">âŒ˜</span><div class="cr-text"><a href="https://gigalabor.it" target="_blank">gigalabor.it</a></div></div>' +
             '<div class="p-sec" style="margin-top:1.2rem">' + (I18n.t('contact.headline') || 'Messaggio') + '</div>' +
             '<form id="panel-contact-form">' +
               '<div class="p-form-field">' +
@@ -970,7 +970,7 @@
       }
     };
 
-    /* — Panel system — */
+    /* â€” Panel system â€” */
     var currentPanel = null;
     var panelEl, kicker, ptitle, psub, pbody, bbMsg, sideEl;
 
@@ -980,7 +980,7 @@
       root.innerHTML =
         '<div id="panel">' +
           '<div class="p-head">' +
-            '<div class="p-close" id="p-cls">✕</div>' +
+            '<div class="p-close" id="p-cls">âœ•</div>' +
             '<span class="p-kicker" id="p-kicker"></span>' +
             '<div class="p-title" id="p-title"></div>' +
             '<span class="p-sub" id="p-sub"></span>' +
@@ -1062,7 +1062,7 @@
       wrap.innerHTML =
         '<div class="panel-news-tip__backdrop" data-close-tip style="position:absolute;inset:0;background:rgba(0,0,0,.66)"></div>' +
         '<div class="panel-news-tip__panel" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 2rem));max-height:82vh;overflow:auto;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:12px;padding:1rem 1.2rem 1.3rem;">' +
-          '<button class="panel-news-tip__close" data-close-tip aria-label="close" style="position:absolute;right:.8rem;top:.7rem;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;">×</button>' +
+          '<button class="panel-news-tip__close" data-close-tip aria-label="close" style="position:absolute;right:.8rem;top:.7rem;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;">Ã—</button>' +
           '<div class="panel-news-tip__date" id="panel-news-tip-date" style="font-family:JetBrains Mono,monospace;font-size:.62rem;color:var(--text-muted);margin-bottom:.55rem;"></div>' +
           '<h3 class="panel-news-tip__title" id="panel-news-tip-title" style="font-size:.95rem;line-height:1.4;color:var(--text-primary);margin-bottom:.8rem;padding-right:1.6rem;"></h3>' +
           '<div class="panel-news-tip__body" id="panel-news-tip-body" style="font-size:.72rem;color:var(--text-secondary);line-height:1.75;"></div>' +
@@ -1148,7 +1148,7 @@
     }
 
     function initHome() {
-      /* Home: nessun intro (già rimosso dall'HTML), cursor + panels + tooltip ratio */
+      /* Home: nessun intro (giÃ  rimosso dall'HTML), cursor + panels + tooltip ratio */
       initCursor();
       initPanels();
       initRatioTooltip();
@@ -1488,6 +1488,7 @@
   = */
   function detectPage() {
     var path = window.location.pathname;
+    if (/\/$/.test(path) && !/\/pages\//.test(path)) return 'splash';
     if (path === '/' || path === '' || /index\.html$/.test(path)) return 'splash';
     if (/home\.html$/.test(path)) return 'home';
     if (/\/about/.test(path))              return 'about';
@@ -1506,7 +1507,7 @@
 
     var page = detectPage();
 
-    /* ── SPLASH ── entra sul sito, poi redirect a home.html */
+    /* â”€â”€ SPLASH â”€â”€ entra sul sito, poi redirect a home.html */
     if (page === 'splash') {
       I18n.init();
       var splashLoader = document.getElementById('page-loader');
@@ -1516,10 +1517,10 @@
       return;
     }
 
-    /* ── TUTTE LE ALTRE PAGINE (home + sub-pages) ── */
+    /* â”€â”€ TUTTE LE ALTRE PAGINE (home + sub-pages) â”€â”€ */
 
     /* layout shell V3 (topbar + sidenav + bottombar) - PRIMA di I18n
-       così applyStrings() trova già i nodi data-i18n nel DOM */
+       cosÃ¬ applyStrings() trova giÃ  i nodi data-i18n nel DOM */
     Layout.inject();
 
     /* lingua */
@@ -1578,3 +1579,4 @@
   document.addEventListener('DOMContentLoaded', boot);
 
 })();
+
