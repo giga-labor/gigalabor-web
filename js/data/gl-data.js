@@ -55,11 +55,11 @@ window.GL = {
           'Costruisco soluzioni.'
         ],
         canvas_words: {
-          ai:       ['Logica', 'Struttura', 'Metodo', 'Modulo', 'Processo'],
-          data:     ['Python', 'JSON', 'API', 'Analisi', 'Pattern'],
-          auto:     ['Script', 'Deploy', 'Pipeline', 'CI/CD', 'Shell'],
-          research: ['Prototipo', 'Modello', 'Test', 'Ricerca', 'Verifica'],
-          tech:     ['Linux', 'Node.js', 'Git', 'Docker', 'Web']
+          ai:       ['Logica', 'Struttura', 'Metodo', 'Modulo', 'Processo', 'Ragionamento', 'Inferenza', 'Memoria', 'Contesto', 'Agenti'],
+          data:     ['Python', 'JSON', 'API', 'Analisi', 'Pattern', 'Dataset', 'Feature', 'Segnale', 'Metriche', 'Validazione'],
+          auto:     ['Script', 'Deploy', 'Pipeline', 'CI/CD', 'Shell', 'Workflow', 'Orchestrazione', 'Scheduling', 'Monitoraggio', 'Trigger'],
+          research: ['Prototipo', 'Modello', 'Test', 'Ricerca', 'Verifica', 'Esperimento', 'Benchmark', 'Ipotesi', 'Studio', 'Ottimizzazione'],
+          tech:     ['Linux', 'Node.js', 'Git', 'Docker', 'Web', 'Backend', 'Frontend', 'Cloud', 'Security', 'Database']
         },
         subheadline:       'GiGa Labor è un laboratorio personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.',
         cta_primary:       'Esplora i progetti',
@@ -191,11 +191,11 @@ window.GL = {
           'Building solutions.'
         ],
         canvas_words: {
-          ai:       ['Logic', 'Structure', 'Method', 'Module', 'Process'],
-          data:     ['Python', 'JSON', 'API', 'Analysis', 'Pattern'],
-          auto:     ['Script', 'Deploy', 'Pipeline', 'CI/CD', 'Shell'],
-          research: ['Prototype', 'Model', 'Testing', 'Research', 'Review'],
-          tech:     ['Linux', 'Node.js', 'Git', 'Docker', 'Web']
+          ai:       ['Logic', 'Structure', 'Method', 'Module', 'Process', 'Reasoning', 'Inference', 'Memory', 'Context', 'Agents'],
+          data:     ['Python', 'JSON', 'API', 'Analysis', 'Pattern', 'Dataset', 'Features', 'Signal', 'Metrics', 'Validation'],
+          auto:     ['Script', 'Deploy', 'Pipeline', 'CI/CD', 'Shell', 'Workflow', 'Orchestration', 'Scheduling', 'Monitoring', 'Trigger'],
+          research: ['Prototype', 'Model', 'Testing', 'Research', 'Review', 'Experiment', 'Benchmark', 'Hypothesis', 'Study', 'Optimization'],
+          tech:     ['Linux', 'Node.js', 'Git', 'Docker', 'Web', 'Backend', 'Frontend', 'Cloud', 'Security', 'Database']
         },
         subheadline:      'GiGa Labor is a personal laboratory dedicated to software development, intelligent systems and applied research.',
         cta_primary:      'Explore projects',

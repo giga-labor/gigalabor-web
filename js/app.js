@@ -786,7 +786,7 @@
   = */
   var Shell = (function () {
 
-    /* â€” Cursor â€” */
+    /* - Cursor - */
     function initCursor() {
       var cur  = document.getElementById('cur');
       var curR = document.getElementById('cur-r');
@@ -809,9 +809,9 @@
       }, 600);
     }
 
-    /* â€” Intro â€” */
+    /* - Intro - */
     function initIntroSplash() {
-      /* Usato da initSplash() â€” dismissal redirecta a home.html */
+      /* Usato da initSplash() - dismissal redirecta a home.html */
       var intro = document.getElementById('intro');
       if (!intro) return;
       function enter() {
@@ -831,7 +831,7 @@
       initIntroSplash();
     }
 
-    /* â€” Panel content renderers â€” */
+    /* - Panel content renderers - */
     var PANEL_DEF = {
       proj: {
         kickerKey: 'sections.ecosystem_label',
@@ -907,7 +907,7 @@
             html += '<div style="font-size:.65rem;color:var(--text-muted);padding:.5rem 0">Nessuna notizia disponibile</div>';
           } else {
             list.forEach(function(n) {
-              html += '<div class="p-news-item" data-news-id="' + (n.id || '') + '">' +
+              html += '<div class="p-news-item" data-news-id="' + (n.id || '') + '" tabindex="0" role="button">' +
                 '<div class="p-news-meta">' +
                   '<span class="p-news-cat">' + (n.category || '') + '</span>' +
                   '<span class="p-news-date">' + (n.date || '') + '</span>' +
@@ -951,7 +951,7 @@
           body.innerHTML =
             '<div class="p-sec">' + (I18n.t('sections.contact_title') || 'Contatti') + '</div>' +
             '<div class="cr"><span class="cr-icon">@</span><div class="cr-text"><a href="mailto:' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '">' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '</a></div></div>' +
-            '<div class="cr"><span class="cr-icon">âŒ˜</span><div class="cr-text"><a href="https://gigalabor.it" target="_blank">gigalabor.it</a></div></div>' +
+            '<div class="cr"><span class="cr-icon">⌘</span><div class="cr-text"><a href="https://gigalabor.it" target="_blank">gigalabor.it</a></div></div>' +
             '<div class="p-sec" style="margin-top:1.2rem">' + (I18n.t('contact.headline') || 'Messaggio') + '</div>' +
             '<form id="panel-contact-form">' +
               '<div class="p-form-field">' +
@@ -970,7 +970,7 @@
       }
     };
 
-    /* â€” Panel system â€” */
+    /* - Panel system - */
     var currentPanel = null;
     var panelEl, kicker, ptitle, psub, pbody, bbMsg, sideEl;
 
@@ -980,7 +980,7 @@
       root.innerHTML =
         '<div id="panel">' +
           '<div class="p-head">' +
-            '<div class="p-close" id="p-cls">âœ•</div>' +
+            '<div class="p-close" id="p-cls">✕</div>' +
             '<span class="p-kicker" id="p-kicker"></span>' +
             '<div class="p-title" id="p-title"></div>' +
             '<span class="p-sub" id="p-sub"></span>' +
@@ -1062,7 +1062,7 @@
       wrap.innerHTML =
         '<div class="panel-news-tip__backdrop" data-close-tip style="position:absolute;inset:0;background:rgba(0,0,0,.66)"></div>' +
         '<div class="panel-news-tip__panel" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 2rem));max-height:82vh;overflow:auto;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:12px;padding:1rem 1.2rem 1.3rem;">' +
-          '<button class="panel-news-tip__close" data-close-tip aria-label="close" style="position:absolute;right:.8rem;top:.7rem;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;">Ã—</button>' +
+          '<button class="panel-news-tip__close" data-close-tip aria-label="close" style="position:absolute;right:.8rem;top:.7rem;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;">×</button>' +
           '<div class="panel-news-tip__date" id="panel-news-tip-date" style="font-family:JetBrains Mono,monospace;font-size:.62rem;color:var(--text-muted);margin-bottom:.55rem;"></div>' +
           '<h3 class="panel-news-tip__title" id="panel-news-tip-title" style="font-size:.95rem;line-height:1.4;color:var(--text-primary);margin-bottom:.8rem;padding-right:1.6rem;"></h3>' +
           '<div class="panel-news-tip__body" id="panel-news-tip-body" style="font-size:.72rem;color:var(--text-secondary);line-height:1.75;"></div>' +
@@ -1117,6 +1117,12 @@
         el.addEventListener('click', function() {
           openPanelNewsTip(el.getAttribute('data-news-id'));
         });
+        el.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openPanelNewsTip(el.getAttribute('data-news-id'));
+          }
+        });
       });
     }
 
@@ -1148,7 +1154,7 @@
     }
 
     function initHome() {
-      /* Home: nessun intro (giÃ  rimosso dall'HTML), cursor + panels + tooltip ratio */
+      /* Home: nessun intro (gia rimosso dall'HTML), cursor + panels + tooltip ratio */
       initCursor();
       initPanels();
       initRatioTooltip();
@@ -1170,22 +1176,54 @@
 
     function buildPool() {
       var groups = I18n.t('hero.canvas_words') || {};
-      function mapWords(arr, color, base, step) {
+      var CATEGORY = {
+        ai:       { color: '#b060ff', symbol: '◈' },
+        data:     { color: '#00b4ff', symbol: '◉' },
+        auto:     { color: '#d4883a', symbol: '⚙' },
+        research: { color: '#ffb000', symbol: '◌' },
+        tech:     { color: '#3a6880', symbol: '⬢' }
+      };
+      var KEYS = ['ai', 'data', 'auto', 'research', 'tech'];
+      var MAX_WORDS_PER_CATEGORY = 10;
+      function cleanList(arr) {
         if (!Array.isArray(arr)) return [];
+        var seen = Object.create(null);
+        var out = [];
+        for (var i = 0; i < arr.length; i++) {
+          var raw = String(arr[i] || '').trim();
+          if (!raw) continue;
+          var k = raw.toLowerCase();
+          if (seen[k]) continue;
+          seen[k] = 1;
+          out.push(raw);
+          if (out.length >= MAX_WORDS_PER_CATEGORY) break;
+        }
+        return out;
+      }
+      function mapWords(arr, key, base, step) {
+        arr = cleanList(arr);
+        if (!arr.length) return [];
+        var meta = CATEGORY[key] || { color: '#00b4ff', symbol: '•' };
         return arr.map(function(t, i) {
-          return { t: String(t), c: color, s: base + ((i % 3) * step) };
+          return {
+            t: String(t),
+            c: meta.color,
+            s: base + ((i % 3) * step),
+            k: key,
+            sym: meta.symbol
+          };
         });
       }
-      var pool = []
-        .concat(mapWords(groups.ai, '#b060ff', 11, 2))
-        .concat(mapWords(groups.data, '#00b4ff', 11, 2))
-        .concat(mapWords(groups.auto, '#d4883a', 11, 2))
-        .concat(mapWords(groups.research, '#ffb000', 11, 2))
-        .concat(mapWords(groups.tech, '#3a6880', 10, 1.5));
+      var pool = [];
+      KEYS.forEach(function(k) {
+        var base = (k === 'tech') ? 10 : 11;
+        var step = (k === 'tech') ? 1.5 : 2;
+        pool = pool.concat(mapWords(groups[k], k, base, step));
+      });
       return pool.length ? pool : [
-        { t: 'Digital', c: '#00b4ff', s: 13 },
-        { t: 'Systems', c: '#d4883a', s: 13 },
-        { t: 'Research', c: '#ffb000', s: 13 }
+        { t: 'Digital', c: '#00b4ff', s: 13, k: 'data', sym: '◉' },
+        { t: 'Systems', c: '#d4883a', s: 13, k: 'auto', sym: '⚙' },
+        { t: 'Research', c: '#ffb000', s: 13, k: 'research', sym: '◌' }
       ];
     }
 
@@ -1206,29 +1244,114 @@
         t:  def.t,
         c:  def.c,
         s:  def.s,
+        k:  def.k || 'tech',
+        sym:def.sym || '•',
         node: !!def.node,
         x:  m + Math.random() * (W - m * 2),
         y:  initial ? (m + Math.random() * (H - m * 2)) : (Math.random() > 0.5 ? -40 : H + 40),
+        ax: 0,
+        ay: 0,
         vx: (Math.random() - 0.5) * 0.25,
         vy: (Math.random() - 0.5) * 0.25,
         ph: Math.random() * Math.PI * 2,   /* phase per breath */
-        ba: 0.15 + Math.random() * 0.18,   /* base alpha */
+        ba: 0.11 + Math.random() * 0.14,   /* base alpha */
         a:  0                               /* current alpha */
       };
     }
 
     function populate() {
       var POOL = buildPool();
-      words = POOL.map(function(d) { return makeWord(d, true); });
-      // Densifica il grafo con micro-nodi neutrali, senza appesantire troppo.
+      words = [];
+      var MAX_DUPLICATES_PER_TERM = 2;
+      function shuffled(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = (Math.random() * (i + 1)) | 0;
+          var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+        }
+        return a;
+      }
+      var byCategory = {};
+      POOL.forEach(function(p) {
+        var k = p.k || 'tech';
+        if (!byCategory[k]) byCategory[k] = [];
+        byCategory[k].push(p);
+      });
+      var categories = Object.keys(byCategory);
+      var termCounts = Object.create(null);
+      var catState = {};
+      categories.forEach(function(k) {
+        catState[k] = { queue: shuffled(byCategory[k]), idx: 0 };
+      });
+      var cycle = shuffled(categories);
+      var cycleIdx = 0;
+
+      function nextCategory() {
+        if (!cycle.length) return 'tech';
+        if (cycleIdx >= cycle.length) {
+          cycle = shuffled(categories);
+          cycleIdx = 0;
+        }
+        return cycle[cycleIdx++];
+      }
+
+      function nextFromCategory(k) {
+        var state = catState[k];
+        if (!state || !state.queue.length) return { t: 'Node', c: '#00b4ff', s: 10, k: 'tech', sym: '⬢' };
+        for (var pass = 0; pass < 3; pass++) {
+          if (state.idx >= state.queue.length) {
+            state.queue = shuffled(byCategory[k]);
+            state.idx = 0;
+          }
+          for (var i = state.idx; i < state.queue.length; i++) {
+            var cand = state.queue[i];
+            var key = String(cand.t || '').toLowerCase();
+            var c = termCounts[key] || 0;
+            if (c < MAX_DUPLICATES_PER_TERM) {
+              state.idx = i + 1;
+              termCounts[key] = c + 1;
+              return cand;
+            }
+          }
+          state.queue = shuffled(byCategory[k]);
+          state.idx = 0;
+        }
+        return null;
+      }
+
+      function nextSemantic() {
+        var k = nextCategory();
+        return nextFromCategory(k);
+      }
+
+      POOL.forEach(function() {
+        var baseWord = nextSemantic();
+        if (!baseWord) return;
+        words.push(makeWord(baseWord, true));
+        if (Math.random() < 0.55) {
+          var secondWord = nextFromCategory(baseWord.k);
+          if (!secondWord) return;
+          words.push(makeWord({
+            t: secondWord.t,
+            c: secondWord.c,
+            s: Math.max(9, secondWord.s - 1.4),
+            k: secondWord.k,
+            sym: secondWord.sym
+          }, true));
+        }
+      });
+      // Densifica il grafo solo con nodi semantici (mai vuoti).
       var area = (W * H) || (window.innerWidth * window.innerHeight);
-      var extraNodes = Math.max(36, Math.min(110, Math.floor(area / 22000)));
+      var extraNodes = Math.max(55, Math.min(140, Math.floor(area / 17000)));
       for (var i = 0; i < extraNodes; i++) {
+        var src = nextSemantic();
+        if (!src) break;
         words.push(makeWord({
-          t: '',
-          c: NODE_COLORS[(Math.random() * NODE_COLORS.length) | 0],
-          s: 2 + Math.random() * 2.8,
-          node: true
+          t: src.t,
+          c: src.c || NODE_COLORS[(Math.random() * NODE_COLORS.length) | 0],
+          s: Math.max(8, (src.s || 10) - 2.4 + Math.random() * 2.2),
+          k: src.k,
+          sym: src.sym
         }, true));
       }
     }
@@ -1244,7 +1367,7 @@
     }
 
     function drawLinks() {
-      var MAX = 178, MAX2 = MAX * MAX;
+      var MAX = 198, MAX2 = MAX * MAX;
       var MOUSE_R = 96, MOUSE_R2 = MOUSE_R * MOUSE_R;
       var n = words.length;
       for (var i = 0; i < n; i++) {
@@ -1264,7 +1387,7 @@
           var speed = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy);
           boost += Math.min(0.3, speed * 0.018) * (md2 < 12000 ? 1 : 0);
 
-          var alpha = Math.min(0.85, base + boost);
+          var alpha = Math.min(0.55, base + boost * 0.75);
           alpha *= Math.min(1, wi.a / (wi.ba + 0.01)) * Math.min(1, wj.a / (wj.ba + 0.01));
           if (alpha < 0.01) continue;
 
@@ -1275,7 +1398,7 @@
           ctx.lineTo(wj.x, wj.y);
           ctx.strokeStyle  = col;
           ctx.globalAlpha  = alpha;
-          ctx.lineWidth    = boost > 0.15 ? 0.9 : 0.4;
+          ctx.lineWidth    = boost > 0.15 ? 0.58 : 0.26;
           ctx.stroke();
         }
       }
@@ -1304,16 +1427,25 @@
         }
       }
 
-      /* drift organico */
+      /* fluttuazione libera randomica in qualunque direzione */
       w.ph += 0.016;
-      w.vx += Math.sin(w.ph * 0.61) * 0.0065;
-      w.vy += Math.cos(w.ph * 0.43) * 0.0065;
+      var randAmp = (d2 < BIND_R2 ? 0.012 : 0.022);
+      w.vx += (Math.random() - 0.5) * randAmp;
+      w.vy += (Math.random() - 0.5) * randAmp;
+
+      /* vicino al mouse: vincolo morbido, evita collasso tra nodi */
+      var BIND_R2 = 17000;
+      if (d2 < BIND_R2) {
+        w.vx += (w.ax - w.x) * 0.0016;
+        w.vy += (w.ay - w.y) * 0.0016;
+      }
 
       /* cap velocita */
       var spd2 = Math.sqrt(w.vx * w.vx + w.vy * w.vy);
-      var cap  = 0.26;
+      var cap  = (d2 < BIND_R2 ? 0.26 : 0.36);
       if (spd2 > cap) { w.vx = w.vx / spd2 * cap; w.vy = w.vy / spd2 * cap; }
-      w.vx *= 0.82; w.vy *= 0.82;
+      w.vx *= (d2 < BIND_R2 ? 0.86 : 0.88);
+      w.vy *= (d2 < BIND_R2 ? 0.86 : 0.88);
       w.x  += w.vx;  w.y  += w.vy;
 
       /* wrap */
@@ -1322,6 +1454,7 @@
       if (w.x > W + m) w.x = -m;
       if (w.y < -m) w.y = H + m;
       if (w.y > H + m) w.y = -m;
+      if (w.ax === 0 && w.ay === 0) { w.ax = w.x; w.ay = w.y; }
 
       /* alpha: fade-in + respiro + vicinanza mouse */
       var breath   = Math.sin(w.ph) * 0.04;
@@ -1331,20 +1464,11 @@
     }
 
     function drawWord(w) {
-      if (w.node) {
-        ctx.globalAlpha = Math.max(0.08, w.a * 0.9);
-        ctx.fillStyle = w.c;
-        ctx.beginPath();
-        ctx.arc(w.x, w.y, w.s, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        return;
-      }
       ctx.font         = 'bold ' + w.s + 'px JetBrains Mono, monospace';
       ctx.fillStyle    = w.c;
-      ctx.globalAlpha  = Math.max(0, w.a);
+      ctx.globalAlpha  = Math.max(0, w.a * 0.82);
       ctx.textBaseline = 'middle';
-      ctx.fillText(w.t, w.x, w.y);
+      ctx.fillText((w.sym || '•') + ' ' + w.t, w.x, w.y);
       ctx.globalAlpha  = 1;
     }
 
@@ -1507,7 +1631,7 @@
 
     var page = detectPage();
 
-    /* â”€â”€ SPLASH â”€â”€ entra sul sito, poi redirect a home.html */
+    /* -- SPLASH -- entra sul sito, poi redirect a home.html */
     if (page === 'splash') {
       I18n.init();
       var splashLoader = document.getElementById('page-loader');
@@ -1517,10 +1641,10 @@
       return;
     }
 
-    /* â”€â”€ TUTTE LE ALTRE PAGINE (home + sub-pages) â”€â”€ */
+    /* -- TUTTE LE ALTRE PAGINE (home + sub-pages) -- */
 
     /* layout shell V3 (topbar + sidenav + bottombar) - PRIMA di I18n
-       cosÃ¬ applyStrings() trova giÃ  i nodi data-i18n nel DOM */
+       cosi applyStrings() trova gia i nodi data-i18n nel DOM */
     Layout.inject();
 
     /* lingua */
@@ -1579,4 +1703,5 @@
   document.addEventListener('DOMContentLoaded', boot);
 
 })();
+
 

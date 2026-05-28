@@ -1,4 +1,4 @@
-window.GL = window.GL || {};
+﻿window.GL = window.GL || {};
 window.GL.i18n = window.GL.i18n || {};
 window.GL.i18n.en = {
   "meta": {
@@ -28,8 +28,15 @@ window.GL.i18n.en = {
       "Cognitive architectures.",
       "Predictive analytics.",
       "Custom software."
-    ],
-    "subheadline": "GiGa Labor is a personal laboratory dedicated to software development, intelligent systems and applied research.",
+        ],
+    "canvas_words": {
+      "ai": ["Logic", "Structure", "Method", "Module", "Process", "Reasoning", "Inference", "Memory", "Context", "Agents"],
+      "data": ["Python", "JSON", "API", "Analysis", "Pattern", "Dataset", "Features", "Signal", "Metrics", "Validation"],
+      "auto": ["Script", "Deploy", "Pipeline", "CI/CD", "Shell", "Workflow", "Orchestration", "Scheduling", "Monitoring", "Trigger"],
+      "research": ["Prototype", "Model", "Testing", "Research", "Review", "Experiment", "Benchmark", "Hypothesis", "Study", "Optimization"],
+      "tech": ["Linux", "Node.js", "Git", "Docker", "Web", "Backend", "Frontend", "Cloud", "Security", "Database"]
+    },
+    "subheadline": "Personal laboratory dedicated to software development, intelligent systems and applied research.",
     "cta_primary": "Explore projects",
     "cta_secondary": "About us",
     "metric_projects": "Active projects",
@@ -41,7 +48,7 @@ window.GL.i18n.en = {
     "ratio_code": "CODE",
     "ratio_human": "human",
     "ratio_ai": "AI",
-    "tip_ratio": "At GiGa Labor every project is 95% human-conceived: vision, goals, design decisions and final validation always belong to the person building it. AI contributes 5% through suggestions and prompts.\n\nThis flips completely in code: 95% is AI-generated through vibe coding, while the remaining 5% human effort carries the most weight — deciding what to build, why, and which direction to take."
+    "tip_ratio": "At GiGa Labor every project is 95% human-conceived: vision, goals, design decisions and final validation always belong to the person building it. AI contributes 5% through suggestions and prompts.\n\nThis flips completely in code: 95% is AI-generated through vibe coding, while the remaining 5% human effort carries the most weight ? deciding what to build, why, and which direction to take."
   },
   "home": {
     "values_summary": "Autonomy, modularity, applied research, and technical quality in continuous evolution.",
@@ -237,7 +244,7 @@ window.GL.i18n.en = {
         "date": "2026-05-22"
       },
       "item2": {
-        "text": "I like EvoBrain’s modular approach. If you publish a technical roadmap, I will follow it.",
+        "text": "I like EvoBrain?s modular approach. If you publish a technical roadmap, I will follow it.",
         "author": "Reader",
         "date": "2026-05-18"
       },
@@ -309,7 +316,7 @@ window.GL.i18n.en = {
     "s8_text": "For communications:"
   },
   "footer": {
-    "copy": "© 2026 GiGa Labor. All rights reserved.",
+    "copy": "? 2026 GiGa Labor. All rights reserved.",
     "tagline": "Personal digital laboratory.",
     "site_title": "Site",
     "links": {
@@ -345,3 +352,4 @@ window.GL.i18n.en = {
     }
   }
 };
+

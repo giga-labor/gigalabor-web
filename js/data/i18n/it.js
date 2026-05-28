@@ -1,4 +1,4 @@
-window.GL = window.GL || {};
+﻿window.GL = window.GL || {};
 window.GL.i18n = window.GL.i18n || {};
 window.GL.i18n.it = {
   "meta": {
@@ -28,8 +28,15 @@ window.GL.i18n.it = {
       "Architetture cognitive.",
       "Analisi predittiva.",
       "Software su misura."
-    ],
-    "subheadline": "GiGa Labor è un laboratorio personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.",
+        ],
+    "canvas_words": {
+      "ai": ["Logica", "Struttura", "Metodo", "Modulo", "Processo", "Ragionamento", "Inferenza", "Memoria", "Contesto", "Agenti"],
+      "data": ["Python", "JSON", "API", "Analisi", "Pattern", "Dataset", "Feature", "Segnale", "Metriche", "Validazione"],
+      "auto": ["Script", "Deploy", "Pipeline", "CI/CD", "Shell", "Workflow", "Orchestrazione", "Scheduling", "Monitoraggio", "Trigger"],
+      "research": ["Prototipo", "Modello", "Test", "Ricerca", "Verifica", "Esperimento", "Benchmark", "Ipotesi", "Studio", "Ottimizzazione"],
+      "tech": ["Linux", "Node.js", "Git", "Docker", "Web", "Backend", "Frontend", "Cloud", "Security", "Database"]
+    },
+    "subheadline": "Laboratorio personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.",
     "cta_primary": "Esplora i progetti",
     "cta_secondary": "Scopri chi siamo",
     "metric_projects": "Progetti attivi",
@@ -41,7 +48,7 @@ window.GL.i18n.it = {
     "ratio_code": "CODICE",
     "ratio_human": "umano",
     "ratio_ai": "AI",
-    "tip_ratio": "In GiGa Labor ogni progetto nasce per il 95% dall'ideazione umana: visione, obiettivi, scelte progettuali e validazione finale sono sempre di chi costruisce. L'AI contribuisce al 5% con suggerimenti e spunti.\n\nLa situazione si ribalta nel codice: il 95% è generato dall'AI attraverso il vibe coding, mentre il restante 5% umano ha il compito più importante — decidere cosa costruire, perché e in quale direzione andare."
+    "tip_ratio": "In GiGa Labor ogni progetto nasce per il 95% dall'ideazione umana: visione, obiettivi, scelte progettuali e validazione finale sono sempre di chi costruisce. L'AI contribuisce al 5% con suggerimenti e spunti.\n\nLa situazione si ribalta nel codice: il 95% è generato dall'AI attraverso il vibe coding, mentre il restante 5% umano ha il compito più importante: decidere cosa costruire, perché e in quale direzione andare."
   },
   "home": {
     "values_summary": "Autonomia, modularità, ricerca applicata e qualità tecnica in evoluzione continua.",
@@ -50,7 +57,7 @@ window.GL.i18n.it = {
       "item1": {
         "date": "2 agosto 2026 (in arrivo)",
         "title": "AI Act UE: piena applicazione prevista",
-        "excerpt": "La piena applicazione dell’AI Act UE è prevista per il 2 agosto 2026."
+        "excerpt": "La piena applicazione dell'AI Act UE è prevista per il 2 agosto 2026."
       },
       "item2": {
         "date": "19 maggio 2026",
@@ -237,7 +244,7 @@ window.GL.i18n.it = {
         "date": "22/05/2026"
       },
       "item2": {
-        "text": "Mi piace l’approccio modulare di EvoBrain. Se pubblicate una roadmap tecnica la seguo volentieri.",
+        "text": "Mi piace l'approccio modulare di EvoBrain. Se pubblicate una roadmap tecnica la seguo volentieri.",
         "author": "Lettrice",
         "date": "18/05/2026"
       },
@@ -345,3 +352,4 @@ window.GL.i18n.it = {
     }
   }
 };
+
