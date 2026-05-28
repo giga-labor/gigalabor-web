@@ -718,3 +718,210 @@ body:not([data-page="home"]):not([data-page="splash"])::-webkit-scrollbar-thumb:
   background: var(--scrollbar-thumb-hover);
   box-shadow: 0 0 14px var(--scrollbar-glow), 0 0 24px var(--scrollbar-glow);
 }
+
+/* ============================================================
+   SHELL RESPONSIVE
+   Breakpoints:
+     md  : 768-1023px  (tablet)
+     sm  : ≤767px      (mobile portrait)
+     ls  : landscape + max-height 500px (phone landscape)
+   ============================================================ */
+
+/* ── TABLET 768-1023px ────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Topbar: leggermente più compatto */
+  #tb { height: 64px; padding: 0 1.2rem; gap: 1rem; }
+
+  /* Sidenav: più stretto */
+  #side {
+    top: 64px;
+    width: 56px;
+  }
+  .si { width: 36px; height: 48px; }
+  .si svg { width: 16px; height: 16px; }
+
+  /* Panel: più stretto */
+  #panel {
+    left: 56px;
+    top: 64px;
+    width: 340px;
+  }
+
+  /* Hero: adatta all'offset sidenav ridotto */
+  #hero { left: 56px; top: 64px; bottom: 52px; }
+
+  /* Sub-pages: padding adeguato */
+  body:not([data-page="home"]):not([data-page="splash"]) {
+    padding-top: 64px;
+    padding-left: 56px;
+  }
+
+  /* BottomBar */
+  #bb { height: 52px; }
+}
+
+/* ── MOBILE PORTRAIT ≤767px ──────────────────────────────── */
+@media (max-width: 767px) {
+  /* Topbar compatto */
+  #tb { height: 56px; padding: 0 1rem; gap: .8rem; }
+  .tb-status { display: none; }
+  .tb-time   { display: none; }
+
+  /* Sidenav → tab bar in basso (sopra #bb) */
+  #side {
+    top: auto;
+    bottom: 52px;
+    left: 0; right: 0;
+    width: 100%;
+    height: 48px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+    border-right: none;
+    border-top: 1px solid var(--navbar-border);
+    z-index: 49;
+  }
+  .si {
+    flex: 1;
+    width: auto;
+    height: 44px;
+    border-radius: 0;
+    border: none;
+    justify-content: center;
+  }
+  .si.on::after {
+    right: auto;
+    top: 0; left: 8px; right: 8px; bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  /* Nascondi tooltip e freccia su mobile */
+  .si-tt    { display: none; }
+  .si-arrow { display: none; }
+
+  /* Panel → bottom sheet */
+  #panel {
+    left: 0; right: 0;
+    top: auto;
+    bottom: calc(52px + 48px);   /* sopra bb + sidenav-tab */
+    width: 100%;
+    height: 70vh;
+    max-height: 70vh;
+    transform: translateY(110%);
+    border-right: none;
+    border-top: 1px solid var(--border);
+    border-radius: 12px 12px 0 0;
+  }
+  #panel.open { transform: translateY(0); }
+
+  /* Hero: larghezza piena, parte sotto topbar */
+  #hero {
+    left: 0;
+    top: 56px;
+    bottom: calc(52px + 48px);
+    padding: 0 1.25rem;
+  }
+
+  /* Hero bottom: impila verticalmente */
+  .h-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 1rem 1.25rem;
+    margin-top: 1.6rem;
+  }
+  .h-metrics { gap: 1.6rem; }
+  .h-ratio {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding-top: 1rem;
+    width: 100%;
+    align-items: center;
+  }
+  .h-ratio-row { justify-content: center; }
+
+  /* H-sub: testo più corto su mobile */
+  .h-sub { max-width: 100%; font-size: .78rem; }
+
+  /* H-title: ridotto su schermi piccoli */
+  .h-title { font-size: clamp(2.8rem, 10vw, 5rem); }
+
+  /* Intro splash: scala il titolo */
+  .i-title { font-size: clamp(3.8rem, 18vw, 8rem); }
+
+  /* Sub-pages: nessun padding laterale da sidenav */
+  body:not([data-page="home"]):not([data-page="splash"]) {
+    padding-top: 56px;
+    padding-left: 0;
+    padding-bottom: calc(52px + 48px);
+  }
+
+  /* BottomBar */
+  #bb { height: 52px; padding: 0 1rem; font-size: .55rem; }
+}
+
+/* ── MOBILE COMPACT ≤479px ───────────────────────────────── */
+@media (max-width: 479px) {
+  #tb { height: 52px; }
+  #hero { top: 52px; padding: 0 1rem; }
+  .h-title { font-size: clamp(2.4rem, 12vw, 4rem); }
+  .h-eyebrow { font-size: .55rem; letter-spacing: .28em; }
+  #hero-typewriter { font-size: .72rem; }
+  .h-m-val { font-size: 1.15rem; }
+  .i-title { font-size: clamp(3rem, 20vw, 6rem); }
+  .i-eyebrow { font-size: .62rem; letter-spacing: .3em; }
+  body:not([data-page="home"]):not([data-page="splash"]) {
+    padding-top: 52px;
+  }
+}
+
+/* ── PHONE LANDSCAPE (landscape + max-height 500px) ─────── */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Topbar: più basso */
+  #tb { height: 48px; padding: 0 1rem; gap: .8rem; }
+
+  /* Sidenav: laterale compatto */
+  #side {
+    top: 48px;
+    bottom: 36px;
+    width: 52px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .si { width: 36px; height: 40px; }
+
+  /* Panel */
+  #panel { left: 52px; top: 48px; bottom: 36px; width: 300px; }
+
+  /* Hero: compresso verticalmente */
+  #hero {
+    left: 52px;
+    top: 48px;
+    bottom: 36px;
+    padding: 0 1.5rem;
+  }
+  /* Nasconde elementi non essenziali */
+  .h-sub    { display: none; }
+  .h-bottom { margin-top: 1rem; }
+  .h-title  { font-size: clamp(2rem, 7vw, 3.5rem); margin-bottom: .8rem; }
+  .h-eyebrow { margin-bottom: .8rem; }
+
+  /* BottomBar */
+  #bb { height: 36px; padding: 0 1rem; font-size: .52rem; }
+
+  /* Sub-pages */
+  body:not([data-page="home"]):not([data-page="splash"]) {
+    padding-top: 48px;
+    padding-left: 52px;
+    padding-bottom: 36px;
+  }
+
+  /* Panel news tip: più compatto */
+  .panel-news-tip__panel {
+    max-height: 88vh;
+    padding: .8rem 1rem 1rem;
+  }
+}

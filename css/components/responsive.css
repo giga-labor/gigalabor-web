@@ -1,74 +1,89 @@
 /* ============================================================
    RESPONSIVE - GiGa Labor
-   Breakpoints:
-     sm  : max-width 480px  (mobile compatto)
-     md  : max-width 768px  (mobile grande / tablet portrait)
-     lg  : max-width 1024px (tablet landscape / small laptop)
+   Breakpoints (layout):
+     xs  : max-width 479px   (mobile compatto portrait)
+     sm  : max-width 767px   (mobile standard portrait)
+     md  : 768-1023px        (tablet portrait & landscape)
+     lg  : 1024-1279px       (laptop)
+     xl  : 1280px+           (desktop)
+   Orientamento:
+     portrait  : orientation: portrait
+     landscape-phone: orientation:landscape + max-height:500px
+   NOTA: il chrome UI (topbar/sidenav/panel/hero) e gestito
+         da shell.css — qui gestiamo solo contenuto e layout.
    ============================================================ */
 
-/* -- TABLET LANDSCAPE (<= 1024px) --------------------------- */
-@media (max-width: 1024px) {
-  /* Grid: 4-col -> 2-col */
+/* -- TABLET LANDSCAPE - 1024-1279px ------------------------ */
+@media (min-width: 1024px) and (max-width: 1279px) {
   .grid--4 { grid-template-columns: repeat(2, 1fr); }
 
-  /* Footer: 4-col -> 2-col */
+  .footer__inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .footer__brand { grid-column: 1 / -1; }
+  .section--lg { padding: 5rem 0; }
+}
+
+/* -- TABLET PORTRAIT & LANDSCAPE - 768-1023px -------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Grid */
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .grid--4 { grid-template-columns: repeat(2, 1fr); }
+
+  /* Layout */
+  .container { padding: 0 1.5rem; }
+  .section--lg { padding: 4.5rem 0; }
+
+  /* Footer */
   .footer__inner {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
   .footer__brand { grid-column: 1 / -1; }
 
-  /* Sezioni: riduci padding verticale */
-  .section--lg { padding: 5rem 0; }
+  /* Page hero */
+  .page-hero { padding: 6.5rem 0 3rem; }
 }
 
-/* -- TABLET PORTRAIT / MOBILE LARGE (<= 768px) ------------- */
-@media (max-width: 768px) {
-  /* -- LAYOUT -- */
-  .container { padding: 0 1.25rem; }
-  .section    { padding: 2.5rem 0; }
-  .section--sm{ padding: 1.75rem 0; }
-  .section--lg{ padding: 3.5rem 0; }
+/* -- TABLET PORTRAIT ONLY - 768-1023px, orientation portrait */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  /* Griglia news: 3 -> 2 col in portrait */
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
 
-  /* -- GRID -> singola colonna -- */
+  /* Section title leggermente ridotto */
+  .section-title { font-size: clamp(1.5rem, 3.2vw, 2.2rem); }
+}
+
+/* -- MOBILE PORTRAIT - <=767px ----------------------------- */
+@media (max-width: 767px) {
+  /* Layout base */
+  .container  { padding: 0 1.1rem; }
+  .section    { padding: 2.5rem 0; }
+  .section--sm{ padding: 1.5rem 0; }
+  .section--lg{ padding: 3rem 0; }
+
+  /* Griglia: tutto a 1 colonna */
   .grid--2,
   .grid--3,
   .grid--4 { grid-template-columns: 1fr; }
 
-  /* -- FLEX utilities -- */
+  /* Flex utils */
   .flex-between--stack {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
   }
 
-  /* -- SECTION HEADER -- */
-  .section-header { margin-bottom: 2rem; }
+  /* Titoli sezione */
+  .section-header { margin-bottom: 1.75rem; }
   .section-title  { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+  .section-subtitle { font-size: 0.9rem; }
 
-  /* -- HERO -- */
-  .hero { padding: 6rem 0 3rem; }
-  .hero__headline { font-size: clamp(2rem, 7vw, 3rem); letter-spacing: -0.02em; }
-  .hero__line2 {
-    height: auto;
-    min-height: 0;
-    white-space: normal;
-  }
-  .hero__sub { font-size: 0.95rem; }
-  .hero__cta { flex-direction: column; align-items: flex-start; }
-  .hero__metrics { flex-direction: column; }
-  .hero__metric {
-    flex: 1 1 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .hero__metric:last-child { border-bottom: none; }
+  /* Page hero (pagine interne) */
+  .page-hero { padding: 4.5rem 0 2rem; }
 
-  /* -- CARDS -- */
-  .project-card { padding: 1.25rem; }
-  .project-card__footer { flex-wrap: wrap; gap: 0.6rem; }
-
-  /* -- FOOTER -- */
+  /* Footer */
   .footer__inner {
     grid-template-columns: 1fr;
     gap: 1.75rem;
@@ -81,49 +96,129 @@
   }
   .footer__bottom-links { flex-wrap: wrap; gap: 1rem; }
 
-  /* -- BACK TO TOP -- */
-  #back-to-top { bottom: 1rem; right: 1rem; }
+  /* Back to top: sopra la tab bar + sidenav mobile */
+  #back-to-top {
+    bottom: calc(52px + 48px + env(safe-area-inset-bottom, 0px) + 0.75rem);
+    right: 1rem;
+  }
 
-  /* -- PAGE HERO (inner pages) -- */
-  .page-hero { padding: 5.5rem 0 2.5rem; }
+  /* Cards */
+  .project-card { padding: 1.25rem; }
+  .project-card__footer { flex-wrap: wrap; gap: 0.6rem; }
+
+  /* News filters: scroll orizzontale su mobile */
+  .news-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .news-filters::-webkit-scrollbar { display: none; }
+  .filter-btn { flex-shrink: 0; }
+
+  /* News modal: bottom sheet su mobile */
+  .news-modal__panel {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    border-radius: 12px 12px 0 0;
+    max-height: 82vh;
+    width: 100%;
+  }
+  .news-modal.open .news-modal__panel {
+    transform: translateY(0);
+  }
+
+  /* Badges e tag: leggermente ridotti */
+  .badge, .tag { font-size: 0.6rem; }
+
+  /* Theme buttons: touch target aumentato */
+  .theme-btn {
+    width: 26px;
+    height: 26px;
+  }
 }
 
-/* -- MOBILE COMPATTO (<= 480px) ----------------------------- */
-@media (max-width: 480px) {
+/* -- MOBILE COMPATTO - <=479px ----------------------------- */
+@media (max-width: 479px) {
   html { font-size: 15px; }
-  .container { padding: 0 1rem; }
+  .container { padding: 0 0.9rem; }
 
-  /* -- HERO -- */
-  .hero { padding: 5rem 0 2.5rem; }
-  .hero__headline { font-size: clamp(1.75rem, 8.5vw, 2.4rem); }
-  .hero__status { font-size: 0.65rem; padding: 0.28rem 0.6rem; }
-  .hero__metric-value { font-size: 1.3rem; }
-  .hero__cta .btn { width: 100%; justify-content: center; }
+  /* Titoli e testi */
+  .section-title    { font-size: clamp(1.2rem, 6vw, 1.6rem); }
+  .section-subtitle { font-size: 0.88rem; }
 
-  /* -- SECTION -- */
+  /* Sezioni */
   .section    { padding: 2rem 0; }
-  .section--lg{ padding: 2.75rem 0; }
+  .section--lg{ padding: 2.5rem 0; }
 
-  /* -- CARDS -- */
+  /* Cards: padding ridotto */
   .project-card { padding: 1rem; }
   .project-card__name { font-size: 1rem; }
+  .project-card__desc { font-size: 0.82rem; }
 
-  /* -- FOOTER -- */
-  .footer { padding: 2.25rem 0 1.25rem; }
+  /* Footer */
+  .footer { padding: 2rem 0 1rem; }
   .footer__tagline { max-width: 100%; }
 
-  /* -- TYPOGRAPHY -- */
-  .section-title { font-size: clamp(1.25rem, 6vw, 1.6rem); }
-  .section-subtitle { font-size: 0.9rem; }
-
-  /* -- MISC -- */
-  .badge, .tag { font-size: 0.6rem; }
-  .hero__scroll { display: none; }   /* nasconde scroll indicator su mobile */
+  /* Elementi minuscoli ridotti */
+  .hero__scroll { display: none; }
 }
 
-/* -- HOVER: disabilita effetti pesanti su touch device ------ */
+/* -- MOBILE LANDSCAPE - telefono orizzontale --------------- */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Sezioni: padding ridotto (altezza viewport limitata) */
+  .section    { padding: 1.5rem 0; }
+  .section--lg{ padding: 2rem 0; }
+
+  /* Page hero: molto compresso */
+  .page-hero { padding: 3.5rem 0 1.5rem; }
+
+  /* Griglia: sfrutta larghezza */
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+  /* Back to top: sopra la bottombar */
+  #back-to-top { bottom: calc(36px + 0.5rem); }
+
+  /* News modal: piu compatto */
+  .news-modal__panel {
+    max-height: 92vh;
+    padding: 1rem 1.25rem 1.5rem;
+  }
+}
+
+/* -- HOVER: disabilita effetti pesanti su touch device ----- */
 @media (hover: none) {
   .project-card:hover { transform: none; animation: none; }
   .project-card:hover::before { opacity: 0; }
+  .project-card:hover .project-card__arrow { transform: none; }
   .btn:hover { transform: none; }
+  .news-card:hover { transform: none; box-shadow: none; }
+  /* Mostra sempre il "leggi tutto" su touch (non c'e hover) */
+  .news-card__read { opacity: 1; }
+}
+
+/* -- STAMPA ------------------------------------------------- */
+@media print {
+  /* Nascondi chrome UI */
+  #tb, #side, #bb, #panel, #cur, #cur-r,
+  #page-loader, #hero-canvas,
+  .news-modal, #back-to-top,
+  .news-filters, .news-load-more { display: none !important; }
+
+  /* Nessun padding da shell */
+  body { padding: 0 !important; }
+
+  /* Contenuto leggibile in bianco/nero */
+  * { background: white !important; color: black !important; box-shadow: none !important; }
+  a { color: #1a1a1a !important; text-decoration: underline; }
+  .news-card { border: 1px solid #ccc !important; page-break-inside: avoid; }
+
+  /* Griglia: 2 col su carta A4 landscape */
+  .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
 }
