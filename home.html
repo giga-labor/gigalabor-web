@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="contrast">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="GiGa Labor">
+  <meta property="og:title"       content="GiGa Labor — Ingegneria digitale. Ricerca. Innovazione.">
+  <meta property="og:description" content="GiGa Labor è un laboratorio digitale personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.">
+  <meta property="og:url"         content="https://gigalabor.it/home.html">
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="GiGa Labor — Ingegneria digitale. Ricerca. Innovazione.">
+  <meta name="twitter:description" content="GiGa Labor è un laboratorio digitale personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.">
+  <meta name="robots"              content="index, follow">
+  <link rel="canonical"            href="https://gigalabor.it/home.html">
+</head>
+<body data-page="home">
+
+  <!-- Page loader -->
+  <div id="page-loader">
+    <div class="loader-logo">
+      <span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span>
+    </div>
+  </div>
+
+  <!-- Word cloud canvas (full screen background) -->
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Custom cursor -->
+  <div id="cur"></div>
+  <div id="cur-r"></div>
+
+  <!-- ═══ UI SHELL ═══ -->
+  <div id="ui">
+
+    <!-- Topbar + Sidenav injected by Layout.inject() -->
+    <div id="navbar-root"></div>
+
+    <!-- Hero overlay -->
+    <div id="hero">
+      <div class="h-eyebrow">Laboratorio digitale personale · Est. 2026</div>
+      <div class="h-title">
+        <span class="gi">Gi</span><span class="ga">Ga</span><br>
+        <span class="labor">LABOR</span>
+      </div>
+      <div class="h-tw-wrap">
+        <span id="hero-typewriter"></span><span class="h-cursor"></span>
+      </div>
+      <p class="h-sub" data-i18n="hero.subheadline"></p>
+      <div class="h-bottom">
+
+        <div class="h-metrics">
+          <div class="h-m">
+            <div class="h-m-val" data-count="4">4</div>
+            <div class="h-m-lbl" data-i18n="hero.metric_projects"></div>
+          </div>
+          <div class="h-m">
+            <div class="h-m-val">2026</div>
+            <div class="h-m-lbl" data-i18n="hero.metric_founded"></div>
+          </div>
+          <div class="h-m">
+            <div class="h-m-val" style="color:var(--accent-2)">IT</div>
+            <div class="h-m-lbl" data-i18n="hero.metric_origin"></div>
+          </div>
+        </div>
+
+        <!-- Ratio indicator: CONCEPT 95%H/5%AI · CODE 5%H/95%AI -->
+        <div class="h-ratio">
+          <div class="h-ratio-hd" data-i18n="hero.ratio_hd">// fatto con</div>
+          <div class="h-ratio-row">
+            <span class="h-ratio-tag" data-i18n="hero.ratio_concept">CONCEPT</span>
+            <div class="h-ratio-nums">
+              <span class="rn-human"><span class="rn-pct">95%</span> <span class="rn-lbl" data-i18n="hero.ratio_human">human</span></span>
+              <span class="rn-sep">·</span>
+              <span class="rn-ai"><span class="rn-pct">5%</span> <span class="rn-lbl" data-i18n="hero.ratio_ai">AI</span></span>
+            </div>
+          </div>
+          <div class="h-ratio-row">
+            <span class="h-ratio-tag" data-i18n="hero.ratio_code">CODE</span>
+            <div class="h-ratio-nums">
+              <span class="rn-human"><span class="rn-pct">5%</span> <span class="rn-lbl" data-i18n="hero.ratio_human">human</span></span>
+              <span class="rn-sep">·</span>
+              <span class="rn-ai"><span class="rn-pct">95%</span> <span class="rn-lbl" data-i18n="hero.ratio_ai">AI</span></span>
+            </div>
+          </div>
+          <!-- Tooltip gestito via JS (position:fixed su body per sfuggire alla mask) -->
+        </div>
+
+      </div><!-- /.h-bottom -->
+    </div>
+
+    <!-- Detail panel (injected by Shell) -->
+    <div id="panel-root"></div>
+
+    <!-- Bottombar injected by Layout.inject() -->
+    <div id="footer-root"></div>
+
+  </div><!-- /#ui -->
+
+  <script src="js/data/gl-data.js"></script>
+  <script src="js/data/gl-news.js"></script>
+  <script src="js/data/i18n/it.js"></script>
+  <script src="js/data/i18n/en.js"></script>
+  <script src="js/data/i18n/news-it.js"></script>
+  <script src="js/data/i18n/news-en.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

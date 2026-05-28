@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="contrast">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GiGa Labor</title>
+  <meta name="description" content="GiGa Labor — Ingegneria digitale. Ricerca. Innovazione.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gigalabor.it/">
+</head>
+<body data-page="splash">
+
+  <!-- Page loader -->
+  <div id="page-loader">
+    <div class="loader-logo">
+      <span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span>
+    </div>
+  </div>
+
+  <!-- Intro screen — click o tasto per entrare in home.html -->
+  <div id="intro">
+    <div class="i-eyebrow">Laboratorio digitale personale · Est. 2026</div>
+    <div class="i-title">
+      <span class="gi">Gi</span><span class="ga">Ga</span><br>
+      <span class="labor">LABOR</span>
+    </div>
+    <div class="i-divider"></div>
+    <div class="i-tagline" data-i18n="meta.tagline">Ingegneria digitale. Ricerca. Innovazione.</div>
+    <div class="i-hint">Clicca o premi un tasto per entrare</div>
+  </div>
+
+  <!-- Word cloud canvas (fullscreen background) -->
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Custom cursor -->
+  <div id="cur"></div>
+  <div id="cur-r"></div>
+
+  <script src="js/data/gl-data.js"></script>
+  <script src="js/data/i18n/it.js"></script>
+  <script src="js/data/i18n/en.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

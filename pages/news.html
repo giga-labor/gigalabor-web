@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="contrast">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+  <style>
+    /* ── Cards ─────────────────────────────────────── */
+    .animate { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .animate.animated { opacity: 1; transform: translateY(0); }
+
+    .news-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+    .news-card__date    { font-size: .78rem; color: var(--text-muted); margin-bottom: .75rem; font-family: 'JetBrains Mono', monospace; }
+    .news-card__title   { font-size: 1.08rem; font-weight: 600; margin-bottom: .75rem; color: var(--text-primary); }
+    .news-card__excerpt { font-size: .88rem; color: var(--text-secondary); line-height: 1.65; flex: 1; }
+    .news-card__footer  { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; flex-wrap: wrap; gap: .5rem; }
+    .news-card__read    { font-size: .75rem; color: var(--accent); font-family: 'JetBrains Mono', monospace; letter-spacing: .04em; opacity: .65; transition: opacity .2s; }
+    .news-card:hover .news-card__read { opacity: 1; }
+
+    /* ── Filters ────────────────────────────────────── */
+    .news-filters { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .filter-btn {
+      padding: .35rem .85rem;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .filter-btn.active,
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+
+    /* ── Load more ──────────────────────────────────── */
+    .news-load-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .news-load-more button {
+      padding: .6rem 1.8rem;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      border-radius: 24px;
+      font-size: .85rem;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .news-load-more button:hover { background: var(--accent); color: var(--text-on-accent); }
+    .news-load-more.hidden { display: none; }
+
+    /* ── Modal overlay ──────────────────────────────── */
+    .news-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .28s ease;
+    }
+    .news-modal.open { opacity: 1; pointer-events: all; }
+
+    .news-modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .news-modal__panel {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      max-height: 88vh;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-bottom: none;
+      border-radius: 18px 18px 0 0;
+      padding: 2rem 2rem 2.5rem;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform .32s cubic-bezier(.22,.68,0,1.2);
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+    }
+    .news-modal.open .news-modal__panel { transform: translateY(0); }
+
+    @media (min-width: 720px) {
+      .news-modal { align-items: center; padding: 1.5rem; }
+      .news-modal__panel {
+        border: 1px solid var(--border-light);
+        border-radius: 16px;
+        max-height: 82vh;
+        transform: translateY(12px) scale(.97);
+      }
+      .news-modal.open .news-modal__panel { transform: translateY(0) scale(1); }
+    }
+
+    .news-modal__panel::before {
+      content: '';
+      display: block;
+      width: 48px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0 auto 1.75rem;
+    }
+    .news-modal__close {
+      position: absolute;
+      top: 1.1rem; right: 1.1rem;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      transition: border-color .2s, color .2s;
+    }
+    .news-modal__close:hover { border-color: var(--accent); color: var(--accent); }
+
+    .news-modal__meta  { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .news-modal__date  { font-size: .78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+    .news-modal__title { font-size: 1.35rem; font-weight: 700; color: var(--text-primary); line-height: 1.35; margin-bottom: 1.5rem; padding-right: 2rem; }
+    .news-modal__body  { font-size: .95rem; color: var(--text-secondary); line-height: 1.85; }
+    .news-modal__body p { margin: 0 0 1.1rem; }
+    .news-modal__body p:last-child { margin-bottom: 0; }
+    .news-modal__source {
+      margin-top: 1.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      font-size: .8rem;
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .news-modal__source a { color: var(--accent); text-decoration: none; }
+    .news-modal__source a:hover { text-decoration: underline; }
+  </style>
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="GiGa Labor">
+  <meta property="og:title"       content="Notizie — GiGa Labor">
+  <meta property="og:description" content="Aggiornamenti, annunci e novità da GiGa Labor.">
+  <meta property="og:url"         content="https://gigalabor.it/pages/news.html">
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="Notizie — GiGa Labor">
+  <meta name="twitter:description" content="Aggiornamenti, annunci e novità da GiGa Labor.">
+  <meta name="robots"              content="index, follow">
+  <link rel="canonical"            href="https://gigalabor.it/pages/news.html">
+</head>
+<body data-page="news">
+  <div id="page-loader">
+    <div class="loader-logo">
+      <span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span>
+    </div>
+  </div>
+  <div id="navbar-root"></div>
+
+  <div class="page-hero">
+    <div class="container">
+      <a href="../index.html" class="back-link" data-i18n="ui.back"></a>
+      <span class="section-label" data-i18n="sections.updates_label"></span>
+      <h1 class="section-title" data-i18n="nav.news"></h1>
+      <p class="text-secondary mt-2" data-i18n="news.intro"></p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="news-filters animate">
+        <button class="filter-btn active" data-filter="all"       data-i18n="news.filters.all"></button>
+        <button class="filter-btn"        data-filter="platforms" data-i18n="news.filters.platforms"></button>
+        <button class="filter-btn"        data-filter="models"    data-i18n="news.filters.models"></button>
+        <button class="filter-btn"        data-filter="research"  data-i18n="news.filters.research"></button>
+        <button class="filter-btn"        data-filter="security"  data-i18n="news.filters.security"></button>
+      </div>
+
+      <div class="grid grid--3" id="news-grid" data-stagger="0.08"></div>
+
+      <div class="news-load-more hidden" id="load-more-wrap">
+        <button id="load-more-btn">↓ load more</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── News Modal ──────────────────────────────── -->
+  <div class="news-modal" id="news-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="news-modal__backdrop" id="modal-backdrop"></div>
+    <div class="news-modal__panel">
+      <button class="news-modal__close" id="modal-close" aria-label="Close">✕</button>
+      <div class="news-modal__meta">
+        <span class="news-modal__date" id="modal-date"></span>
+        <span class="badge"            id="modal-badge"></span>
+      </div>
+      <h2 class="news-modal__title" id="modal-title"></h2>
+      <div class="news-modal__body"  id="modal-body"></div>
+      <div class="news-modal__source" id="modal-source"></div>
+    </div>
+  </div>
+
+  <div id="footer-root"></div>
+
+  <script src="../js/data/gl-data.js"></script>
+  <script src="../js/data/gl-news.js"></script>
+  <script src="../js/data/i18n/it.js"></script>
+  <script src="../js/data/i18n/en.js"></script>
+  <script src="../js/data/i18n/news-it.js"></script>
+  <script src="../js/data/i18n/news-en.js"></script>
+  <script src="../js/app.js"></script>
+
+  <script>
+  (function () {
+    /* ── Config ───────────────────────────────────────── */
+    var PAGE_SIZE = 9;   /* news visibili inizialmente */
+    var MAX_NEWS  = 50;  /* massimo assoluto da mostrare */
+
+    /* ── State ────────────────────────────────────────── */
+    var _currentFilter = 'all';
+    var _visibleCount  = PAGE_SIZE;
+    var _filtered      = [];
+
+    /* ── Helpers ──────────────────────────────────────── */
+    function getLang () {
+      return (typeof I18n !== 'undefined' && I18n.current)
+        ? I18n.current
+        : (localStorage.getItem('gl_lang') || 'it');
+    }
+
+    function getStrings (id) {
+      var lang = getLang();
+      var ns   = (window.GL && window.GL.newsStrings) ? window.GL.newsStrings : {};
+      return (ns[lang] && ns[lang][id]) || (ns['it'] && ns['it'][id]) || null;
+    }
+
+    function bodyToParagraphs (text) {
+      return text.split('\n\n').map(function (p) {
+        return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
+      }).join('');
+    }
+
+    function readMoreLabel () {
+      return (typeof I18n !== 'undefined') ? I18n.t('news.read_more') : '→';
+    }
+
+    /* ── Build a single card HTML ─────────────────────── */
+    function cardHTML (item) {
+      var t = getStrings(item.id);
+      if (!t) return '';
+      return '<div class="news-card animate animated" data-news-id="' + item.id + '" data-category="' + item.category + '">' +
+        '<div class="news-card__date">' + t.date + '</div>' +
+        '<h3 class="news-card__title">' + t.title + '</h3>' +
+        '<p class="news-card__excerpt">' + t.excerpt + '</p>' +
+        '<div class="news-card__footer">' +
+          '<span class="badge ' + item.badge_class + '">' + t.badge + '</span>' +
+          '<span class="news-card__read">→ ' + readMoreLabel() + '</span>' +
+        '</div>' +
+      '</div>';
+    }
+
+    /* ── Render grid ──────────────────────────────────── */
+    function renderGrid (reset) {
+      var grid = document.getElementById('news-grid');
+      if (!grid) return;
+
+      if (reset) {
+        _filtered = (window.GL.NEWS || [])
+          .filter(function (n) { return _currentFilter === 'all' || n.category === _currentFilter; })
+          .sort(function (a, b) { return b.sort_date.localeCompare(a.sort_date); })
+          .slice(0, MAX_NEWS);
+        _visibleCount = PAGE_SIZE;
+      }
+
+      var slice = _filtered.slice(0, _visibleCount);
+      grid.innerHTML = slice.map(cardHTML).join('');
+
+      /* stagger animate-in */
+      requestAnimationFrame(function () {
+        grid.querySelectorAll('.news-card').forEach(function (card, i) {
+          setTimeout(function () { card.classList.add('animated'); }, i * 70);
+        });
+      });
+
+      /* click → open modal */
+      grid.querySelectorAll('.news-card').forEach(function (card) {
+        card.addEventListener('click', function () { openModal(card.dataset.newsId); });
+      });
+
+      /* load-more button */
+      var wrap = document.getElementById('load-more-wrap');
+      if (wrap) {
+        if (_visibleCount < _filtered.length) {
+          wrap.classList.remove('hidden');
+        } else {
+          wrap.classList.add('hidden');
+        }
+      }
+    }
+
+    /* ── Open modal ───────────────────────────────────── */
+    function openModal (newsId) {
+      var item = (window.GL.NEWS || []).find(function (n) { return n.id === newsId; });
+      if (!item) return;
+      var t = getStrings(newsId);
+      if (!t) return;
+
+      document.getElementById('modal-date').textContent  = t.date;
+      var badge = document.getElementById('modal-badge');
+      badge.textContent = t.badge;
+      badge.className   = 'badge ' + item.badge_class;
+      document.getElementById('modal-title').textContent = t.title;
+      document.getElementById('modal-body').innerHTML    = bodyToParagraphs(t.body);
+
+      var srcLabel = (typeof I18n !== 'undefined') ? I18n.t('news.source') : 'Fonte';
+      document.getElementById('modal-source').innerHTML =
+        '<span>' + srcLabel + ':</span> ' +
+        '<a href="' + t.source_url + '" target="_blank" rel="noopener">' + t.source_name + '</a>';
+
+      var modal = document.getElementById('news-modal');
+      modal.dataset.openId = newsId;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      modal.querySelector('.news-modal__panel').scrollTop = 0;
+    }
+
+    function closeModal () {
+      document.getElementById('news-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ── Filters ──────────────────────────────────────── */
+    function initFilters () {
+      document.querySelectorAll('.filter-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          _currentFilter = btn.dataset.filter || 'all';
+          renderGrid(true);
+        });
+      });
+    }
+
+    /* ── Load more ────────────────────────────────────── */
+    var loadBtn = document.getElementById('load-more-btn');
+    if (loadBtn) {
+      loadBtn.addEventListener('click', function () {
+        _visibleCount += PAGE_SIZE;
+        renderGrid(false);
+      });
+    }
+
+    /* ── Close handlers ──────────────────────────────── */
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ── Lang change → rebuild ────────────────────────── */
+    document.addEventListener('langChange', function () {
+      renderGrid(false);   /* stesse news, testi aggiornati */
+      /* se modal è aperto, ricaricalo nella nuova lingua */
+      var modal = document.getElementById('news-modal');
+      if (modal.classList.contains('open') && modal.dataset.openId) {
+        openModal(modal.dataset.openId);
+      }
+    });
+
+    /* ── Boot ─────────────────────────────────────────── */
+    function hasNewsData () {
+      return !!(window.GL && Array.isArray(window.GL.NEWS) && window.GL.NEWS.length &&
+                window.GL.newsStrings && window.GL.newsStrings.it && window.GL.newsStrings.en);
+    }
+
+    function init () {
+      if (!hasNewsData()) return false;
+      initFilters();
+      renderGrid(true);
+      return true;
+    }
+
+    function bootWithRetry () {
+      var tries = 0;
+      var maxTries = 40; // ~4s
+      function attempt () {
+        tries++;
+        if (init()) return;
+        if (tries < maxTries) setTimeout(attempt, 100);
+      }
+      attempt();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bootWithRetry);
+    } else {
+      setTimeout(bootWithRetry, 0);
+    }
+  })();
+  </script>
+</body>
+</html>

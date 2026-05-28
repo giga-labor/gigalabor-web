@@ -1,0 +1,209 @@
+/* ============================================================
+   GIGALABOR - THEMES v2
+   Laboratorio analogico x AI visiva
+   ============================================================ */
+
+/* -- 1. DARK LAB (default) -------------------------------- */
+:root,
+[data-theme="dark-tech"] {
+  /* Backgrounds */
+  --bg-base:        #020408;
+  --bg-surface:     #04080f;
+  --bg-card:        #070d16;
+  --bg-card-hover:  #0b1420;
+  --bg-overlay:     rgba(2, 4, 8, 0.94);
+
+  /* Borders */
+  --border:         rgba(212, 136, 58, 0.18);
+  --border-light:   rgba(212, 136, 58, 0.30);
+  --border-blue:    rgba(0, 180, 255, 0.18);
+
+  /* Text */
+  --text-primary:   #f0ebe4;
+  --text-secondary: #b8a898;
+  --text-muted:     #7a6a58;
+  --text-on-accent: #020408;
+
+  /* Accents - doppia identita G+G */
+  --accent:         #d4883a;        /* Ambra bruciata - Gi */
+  --accent-hover:   #be7830;
+  --accent-glow:    rgba(212, 136, 58, 0.22);
+  --accent-2:       #00b4ff;        /* Blu elettrico - Ga */
+  --accent-2-glow:  rgba(0, 180, 255, 0.20);
+  --accent-3:       #8b5cf6;        /* Viola profondo - AI */
+  --accent-amber:   #ffb000;        /* Ambra - Lab */
+
+  /* Status */
+  --success:        #4a9e6e;
+  --warning:        #ffb000;
+  --danger:         #ff4466;
+
+  /* Navbar */
+  --navbar-bg:      rgba(2, 4, 8, 0.88);
+  --navbar-border:  rgba(212, 136, 58, 0.10);
+
+  /* Shadows & glow */
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.7);
+  --shadow-md:   0 4px 20px rgba(0,0,0,0.8);
+  --shadow-lg:   0 8px 40px rgba(0,0,0,0.9);
+  --shadow-glow: 0 0 24px var(--accent-glow), 0 0 48px var(--accent-glow);
+  --shadow-glow-blue: 0 0 24px var(--accent-2-glow);
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(160deg, #020408 0%, #030a12 40%, #020408 100%);
+  --gradient-card: linear-gradient(135deg, #070d16 0%, #0a1420 100%);
+
+  /* Scanlines overlay */
+  --scanline-color: rgba(212, 136, 58, 0.010);
+
+  /* Scrollbar */
+  --scrollbar-bg:          #04080f;
+  --scrollbar-thumb:       rgba(212, 136, 58, 0.55);
+  --scrollbar-thumb-hover: rgba(212, 136, 58, 1);
+  --scrollbar-glow:        rgba(212, 136, 58, 0.45);
+
+  /* Tooltip frosted glass */
+  --tooltip-bg:     rgba(4, 8, 15, 0.52);
+  --tooltip-border: rgba(212, 136, 58, 0.30);
+}
+
+/* -- 2. LIGHT MINIMAL ------------------------------------- */
+[data-theme="light"] {
+  --bg-base:        #f4eee5;
+  --bg-surface:     #fbf5ea;
+  --bg-card:        #fff9ef;
+  --bg-card-hover:  #f6ecd8;
+  --bg-overlay:     rgba(244, 238, 229, 0.95);
+
+  --border:         #decfb8;
+  --border-light:   #eadfcf;
+  --border-blue:    #c9d8df;
+
+  --text-primary:   #2c2318;
+  --text-secondary: #6c5841;
+  --text-muted:     #ab9578;
+  --text-on-accent: #ffffff;
+
+  --accent:         #b66a1f;
+  --accent-hover:   #985417;
+  --accent-glow:    rgba(182, 106, 31, 0.16);
+  --accent-2:       #3f7f8d;
+  --accent-2-glow:  rgba(63, 127, 141, 0.14);
+  --accent-3:       #7c5b42;
+  --accent-amber:   #c48a2c;
+
+  --success:        #4f8a54;
+  --warning:        #c48a2c;
+  --danger:         #b54f4f;
+
+  --navbar-bg:      rgba(251, 245, 234, 0.92);
+  --navbar-border:  #decfb8;
+
+  --shadow-sm:   0 1px 3px rgba(70,40,10,0.08);
+  --shadow-md:   0 4px 16px rgba(70,40,10,0.11);
+  --shadow-lg:   0 8px 32px rgba(70,40,10,0.14);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+  --shadow-glow-blue: 0 0 20px var(--accent-2-glow);
+
+  --gradient-hero: linear-gradient(160deg, #efe4d2 0%, #f4eee5 50%, #ecdfcb 100%);
+  --gradient-card: linear-gradient(135deg, #fff9ef, #f6ecd8);
+
+  --scanline-color: transparent;
+  --scrollbar-bg:          #e8dcd0;
+  --scrollbar-thumb:       #a07840;
+  --scrollbar-thumb-hover: #7a5520;
+  --scrollbar-glow:        rgba(160, 120, 64, 0.35);
+
+  /* Tooltip frosted glass */
+  --tooltip-bg:     rgba(251, 245, 234, 0.55);
+  --tooltip-border: rgba(182, 106, 31, 0.35);
+}
+
+/* -- 3. HIGH CONTRAST ------------------------------------- */
+[data-theme="contrast"] {
+  --bg-base:        #000000;
+  --bg-surface:     #050505;
+  --bg-card:        #080808;
+  --bg-card-hover:  #101010;
+  --bg-overlay:     rgba(0,0,0,0.97);
+
+  --border:         rgba(255, 176, 0, 0.20);
+  --border-light:   rgba(255, 176, 0, 0.35);
+  --border-blue:    rgba(255, 176, 0, 0.15);
+
+  --text-primary:   #ffffff;
+  --text-secondary: #c0aa80;
+  --text-muted:     #504030;
+  --text-on-accent: #000000;
+
+  --accent:         #ffb000;
+  --accent-hover:   #ffd000;
+  --accent-glow:    rgba(255, 176, 0, 0.20);
+  --accent-2:       #ff6600;
+  --accent-2-glow:  rgba(255, 102, 0, 0.15);
+  --accent-3:       #ff3366;
+  --accent-amber:   #ffb000;
+
+  --success:        #ffb000;
+  --warning:        #ff6600;
+  --danger:         #ff3366;
+
+  --navbar-bg:      rgba(0,0,0,0.96);
+  --navbar-border:  rgba(255,176,0,0.18);
+
+  --shadow-sm:   0 1px 4px rgba(255,176,0,0.05);
+  --shadow-md:   0 4px 20px rgba(255,176,0,0.05);
+  --shadow-lg:   0 8px 40px rgba(255,176,0,0.08);
+  --shadow-glow: 0 0 24px var(--accent-glow);
+  --shadow-glow-blue: 0 0 24px var(--accent-2-glow);
+
+  --gradient-hero: linear-gradient(160deg, #000000 0%, #080500 40%, #000000 100%);
+  --gradient-card: linear-gradient(135deg, #080808, #101008);
+
+  --scanline-color: rgba(255,176,0,0.012);
+  --scrollbar-bg:          #050505;
+  --scrollbar-thumb:       rgba(255, 176, 0, 0.65);
+  --scrollbar-thumb-hover: rgba(255, 176, 0, 1);
+  --scrollbar-glow:        rgba(255, 176, 0, 0.55);
+
+  /* Tooltip frosted glass */
+  --tooltip-bg:     rgba(5, 5, 5, 0.50);
+  --tooltip-border: rgba(255, 176, 0, 0.35);
+}
+
+/* -- TRANSIZIONI TEMA ------------------------------------- */
+*, *::before, *::after {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+/* -- SCANLINES OVERLAY ------------------------------------ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    var(--scanline-color) 0px,
+    var(--scanline-color) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* -- NOISE TEXTURE (via SVG URI) -------------------------- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  pointer-events: none;
+  z-inde

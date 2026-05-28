@@ -1,0 +1,211 @@
+/* ============================================================
+   NAVBAR v2 - Lab aesthetic
+   ============================================================ */
+
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  height: 60px;
+  background: var(--navbar-bg);
+  border-bottom: 1px solid var(--navbar-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: box-shadow 0.3s, background 0.3s;
+}
+.navbar.scrolled {
+  background: var(--bg-overlay);
+  box-shadow: 0 1px 0 var(--accent-glow), var(--shadow-md);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -- LOGO ------------------------------------------------- */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.navbar__logo-mark {
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+.navbar__logo-mark svg {
+  width: 30px;
+  height: 30px;
+  overflow: visible;
+}
+.navbar__logo-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+.navbar__logo-text .gi { color: var(--accent); }
+.navbar__logo-text .ga { color: var(--accent-2); }
+.navbar__logo-text .labor {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.8rem;
+  margin-left: 0.15em;
+}
+
+/* -- NAV LINKS -------------------------------------------- */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  list-style: none;
+}
+.navbar__links a {
+  display: flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s, background 0.2s;
+  position: relative;
+}
+.navbar__links a::before {
+  content: '>';
+  margin-right: 0.3em;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.75rem;
+}
+.navbar__links a:hover { color: var(--text-primary); }
+.navbar__links a:hover::before,
+.navbar__links a.active::before { opacity: 1; }
+.navbar__links a.active { color: var(--accent); }
+
+/* -- ACTIONS ---------------------------------------------- */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Theme panel */
+.theme-panel {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.theme-btn {
+  width: 20px; height: 20px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn.active { border-color: var(--accent); box-shadow: 0 0 6px var(--accent-glow); }
+.theme-btn--dark     { background: #020408; box-shadow: inset 0 0 0 1px rgba(0,255,136,0.15); }
+.theme-btn--light    { background: #f5f7fa; box-shadow: inset 0 0 0 1px #dde4ee; }
+.theme-btn--contrast { background: #000; box-shadow: inset 0 0 0 1px rgba(255,176,0,0.3); }
+
+/* Lang */
+.navbar__lang-btn {
+  position: relative;
+  overflow: hidden;
+  --lang-flag-text: #f8fbff;
+  padding: 0.3rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  -webkit-text-stroke: 0.65px rgba(255,255,255,0.95);
+  text-shadow:
+    0 0 1px rgba(255,255,255,1),
+    0 0 3px rgba(255,255,255,0.9),
+    0 0 6px rgba(0,0,0,0.95),
+    0 1px 10px rgba(0,0,0,0.98);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.navbar__lang-btn:hover {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 8px var(--accent-2-glow);
+  transform: translateY(-1px);
+}
+
+/* CSS fallback (if JS style injection is delayed/missing) */
+.navbar__lang-btn[data-lang="it"] {
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.32), rgba(0,0,0,0.24)), url('../../assets/flags/it.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.navbar__lang-btn[data-lang="en"] {
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.32), rgba(0,0,0,0.24)), url('../../assets/flags/en.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* -- HAMBURGER -------------------------------------------- */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.navbar__hamburger span {
+  display: block;
+  width: 18px; height: 1.5px;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.navbar__hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.navbar__hamburger.open span:nth-child(2) { opacity: 0; }
+.navbar__hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+/* -- MOBILE MENU ------------------------------------------ */
+.navbar__mobile-menu {
+  display: none;
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  background: var(--bg-overlay);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  padding: 1rem 1.5rem 1.5rem;
+  z-index: 999;
+  animation: slideDown 0.2s ease;
+}
+.navbar__mobile-menu.open { display: block; }
+.navbar__mobile-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 

@@ -1,0 +1,81 @@
+/* ============================================================
+   BUTTONS v2 - Lab aesthetic
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.35rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s,
+              box-shadow 0.2s, transform 0.15s;
+}
+.btn:active { transform: scale(0.97); }
+
+/* PRIMARY */
+.btn--primary {
+  background: var(--accent);
+  color: var(--bg-base);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.btn--primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: var(--shadow-glow);
+  color: var(--bg-base);
+}
+
+/* SECONDARY */
+.btn--secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-light);
+}
+.btn--secondary:hover {
+  background: var(--bg-card);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* GHOST */
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+.btn--ghost:hover { background: var(--bg-card); color: var(--text-primary); }
+
+/* SIZES */
+.btn--sm { padding: 0.35rem 0.85rem; font-size: 0.75rem; border-radius: 4px; }
+.btn--lg { padding: 0.8rem 1.85rem; font-size: 0.92rem; border-radius: 6px; }
+.btn--icon { width: 36px; height: 36px; padding: 0; border-radius: 5px; }
+.btn--full { width: 100%; }
+
+/* DISABLED */
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+/* LOADING */
+.btn.loading { pointer-events: none; opacity: 0.6; }
+.btn.loading::after {
+  content: '';
+  width: 12px; height: 12px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-left: 0.3rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

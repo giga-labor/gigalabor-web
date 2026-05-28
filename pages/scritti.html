@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="it" data-theme="contrast">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+  <style>
+    .animate { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .animate.animated { opacity: 1; transform: translateY(0); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.04em; }
+    .form-input, .form-textarea { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 0.7rem 1rem; color: var(--text-primary); font-size: 0.9rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .form-textarea { min-height: 140px; resize: vertical; }
+    .form-feedback { display:none; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.875rem; margin-top: 0.5rem; }
+    .form-feedback--success { background: rgba(16,185,129,.12); color: var(--success); border: 1px solid rgba(16,185,129,.25); }
+    .form-feedback--error   { background: rgba(239,68,68,.12); color: var(--danger); border: 1px solid rgba(239,68,68,.25); }
+    .message-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; position: relative; }
+    .message-card::before { content: '"'; position: absolute; top: -0.5rem; left: 1rem; font-size: 3rem; color: var(--accent); line-height: 1; font-family: Georgia, serif; }
+    .message-card__text { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; padding-top: 1rem; }
+    .message-card__meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .message-card__author { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
+    .message-card__date { font-size: 0.78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+    .section-split { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+    .scritti-toolbar { display: flex; justify-content: flex-end; }
+    .scritti-form-wrap { display: none; }
+    .scritti-form-wrap.open { display: block; }
+    @media (max-width: 900px) { .scritti-toolbar { justify-content: stretch; } .scritti-toolbar .btn { width: 100%; } }
+  </style>
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="GiGa Labor">
+  <meta property="og:title"       content="Scritti da voi — GiGa Labor">
+  <meta property="og:description" content="Messaggi, suggerimenti e feedback dalla community di GiGa Labor.">
+  <meta property="og:url"         content="https://gigalabor.it/pages/scritti.html">
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="Scritti da voi — GiGa Labor">
+  <meta name="twitter:description" content="Messaggi, suggerimenti e feedback dalla community di GiGa Labor.">
+  <meta name="robots"              content="index, follow">
+  <link rel="canonical"            href="https://gigalabor.it/pages/scritti.html">
+</head>
+<body data-page="scritti">
+  <div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div>
+  <div id="navbar-root"></div>
+
+  <div class="page-hero">
+    <div class="container">
+      <a href="../index.html" class="back-link" data-i18n="ui.back"></a>
+      <span class="section-label" data-i18n="sections.community_label"></span>
+      <h1 class="section-title" data-i18n="nav.scritti"></h1>
+      <p class="text-secondary mt-2" data-i18n="scritti.intro"></p>
+    </div>
+  </div>
+
+  <section class="section"><div class="container"><div class="section-split">
+    <div class="animate scritti-toolbar">
+      <button type="button" class="btn btn--primary" id="toggle-scritti-form" data-i18n="scritti.open_form_btn"></button>
+    </div>
+    <div class="animate scritti-form-wrap" id="scritti-form-wrap">
+      <h2 class="section-title mb-2" style="font-size: 1.4rem;" data-i18n="scritti.form_title"></h2>
+      <p class="text-secondary mb-4" style="font-size: 0.9rem;" data-i18n="scritti.form_intro"></p>
+      <form class="contact-form" id="scritti-form" novalidate>
+        <div class="form-group"><label class="form-label" for="s-name" data-i18n="scritti.name_label"></label><input class="form-input" type="text" id="s-name" name="name" data-i18n-attr="placeholder:scritti.name_placeholder"></div>
+        <div class="form-group"><label class="form-label" for="s-email" data-i18n="scritti.email_label"></label><input class="form-input" type="email" id="s-email" name="email" data-i18n-attr="placeholder:scritti.email_placeholder" required></div>
+        <div class="form-group"><label class="form-label" for="s-subject" data-i18n="scritti.subject_label"></label>
+          <select class="form-input" id="s-subject" name="subject">
+            <option value="feedback" data-i18n="scritti.subjects.feedback"></option>
+            <option value="idea" data-i18n="scritti.subjects.idea"></option>
+            <option value="bug" data-i18n="scritti.subjects.bug"></option>
+            <option value="collaborazione" data-i18n="scritti.subjects.collab"></option>
+            <option value="altro" data-i18n="scritti.subjects.other"></option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label" for="s-message" data-i18n="scritti.message_label"></label><textarea class="form-textarea" id="s-message" name="message" data-i18n-attr="placeholder:scritti.message_placeholder" required></textarea></div>
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.5rem;"><input type="checkbox" id="s-publish" name="publish" checked style="accent-color: var(--accent);"><label for="s-publish" class="form-label" style="margin: 0; cursor: pointer;" data-i18n="scritti.publish_consent"></label></div>
+        <button type="submit" class="btn btn--primary" data-i18n="contact.send_btn"></button>
+        <div id="scritti-feedback" class="form-feedback"></div>
+      </form>
+    </div>
+
+    <div class="animate">
+      <h2 class="section-title mb-4" style="font-size: 1.4rem;" data-i18n="scritti.community_title"></h2>
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;" id="messages-list">
+        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item1.text"></p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item1.author"></span><span class="message-card__date" data-i18n="scritti.samples.item1.date"></span></div></div>
+        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item2.text"></p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item2.author"></span><span class="message-card__date" data-i18n="scritti.samples.item2.date"></span></div></div>
+        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item3.text"></p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item3.author"></span><span class="message-card__date" data-i18n="scritti.samples.item3.date"></span></div></div>
+      </div>
+    </div>
+  </div></div></section>
+
+  <div id="footer-root"></div>
+  <script src="../js/data/gl-data.js"></script>
+  <script src="../js/data/i18n/it.js"></script>
+  <script src="../js/data/i18n/en.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "controlchaos",
+    "slug": "controlchaos",
+    "icon": "⬡",
+    "color": "#3b82f6",
+    "page": "pages/projects/controlchaos.html",
+    "featured": true,
+    "order": 1
+  },
+  {
+    "id": "evobrain",
+    "slug": "evobrain",
+    "icon": "◈",
+    "color": "#8b5cf6",
+    "page": "pages/projects/evobrain.html",
+    "featured": true,
+    "order": 2
+  },
+  {
+    "id": "iargos",
+    "slug": "iargos",
+    "icon": "◎",
+    "color": "#10b981",
+    "page": "pages/projects/iargos.html",
+    "featured": true,
+    "order": 3
+  },
+  {
+    "id": "lab",
+    "slug": "lab",
+    "icon": "◇",
+    "color": "#f59e0b",
+    "page": "pages/projects/lab.html",
+    "featured": true,
+    "order": 4
+  }
+]

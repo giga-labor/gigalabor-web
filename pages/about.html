@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="it" data-theme="contrast">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+  <style>
+    .animate { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .animate.animated { opacity: 1; transform: translateY(0); }
+    .about-lead { font-size: clamp(1.1rem, 2.5vw, 1.35rem); line-height: 1.8; color: var(--text-secondary); max-width: 720px; border-left: 3px solid var(--accent); padding-left: 1.5rem; margin: 2rem 0 3rem; }
+    .values-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+    .value-item { padding: 0.5rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); transition: border-color 0.2s, color 0.2s; }
+    .value-item:hover { border-color: var(--accent); color: var(--accent); }
+  </style>
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="GiGa Labor">
+  <meta property="og:title"       content="Chi siamo — GiGa Labor">
+  <meta property="og:description" content="Scopri approccio, valori e storia di GiGa Labor, laboratorio digitale personale.">
+  <meta property="og:url"         content="https://gigalabor.it/pages/about.html">
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="Chi siamo — GiGa Labor">
+  <meta name="twitter:description" content="Scopri approccio, valori e storia di GiGa Labor, laboratorio digitale personale.">
+  <meta name="robots"              content="index, follow">
+  <link rel="canonical"            href="https://gigalabor.it/pages/about.html">
+</head>
+<body data-page="about">
+  <div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div>
+  <div id="navbar-root"></div>
+
+  <div class="page-hero">
+    <div class="container">
+      <a href="../index.html" class="back-link" data-i18n="ui.back"></a>
+      <span class="section-label" data-i18n="sections.about_title"></span>
+      <h1 class="section-title" data-i18n="about.headline"></h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <p class="about-lead animate" data-i18n="about.body"></p>
+
+      <div class="animate">
+        <h2 class="section-title mb-3" data-i18n="about.mission_title"></h2>
+        <p class="text-secondary" style="font-size: 1.1rem; line-height: 1.8;" data-i18n="about.mission"></p>
+      </div>
+
+      <div class="divider mt-4 mb-4"></div>
+
+      <div class="animate">
+        <h2 class="section-title mb-3" data-i18n="about.values_title"></h2>
+        <div class="values-list" id="values-list"></div>
+      </div>
+
+      <div class="divider mt-4 mb-4"></div>
+
+      <div class="grid grid--2 animate" style="gap: 1.25rem;">
+        <div class="feature-card"><div class="feature-card__icon">⚗</div><div class="feature-card__title" data-i18n="about.features.item1.title"></div><div class="feature-card__desc" data-i18n="about.features.item1.desc"></div></div>
+        <div class="feature-card"><div class="feature-card__icon">⬡</div><div class="feature-card__title" data-i18n="about.features.item2.title"></div><div class="feature-card__desc" data-i18n="about.features.item2.desc"></div></div>
+        <div class="feature-card"><div class="feature-card__icon">⛨</div><div class="feature-card__title" data-i18n="about.features.item3.title"></div><div class="feature-card__desc" data-i18n="about.features.item3.desc"></div></div>
+        <div class="feature-card"><div class="feature-card__icon">◍</div><div class="feature-card__title" data-i18n="about.features.item4.title"></div><div class="feature-card__desc" data-i18n="about.features.item4.desc"></div></div>
+      </div>
+
+      <div class="text-center mt-6">
+        <a href="contact.html" class="btn btn--primary" data-i18n="contact.headline"></a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-root"></div>
+  <script src="../js/data/gl-data.js"></script>
+  <script src="../js/data/i18n/it.js"></script>
+  <script src="../js/data/i18n/en.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>
+
+
+

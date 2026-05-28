@@ -1,0 +1,48 @@
+# ──────────────────────────────────────────────────────────────
+#  GiGa Labor — Deploy su GitHub Pages
+#  Si attiva ad ogni push su main (o manualmente da Actions)
+#  Abilita Pages prima in: Settings → Pages → Source: GitHub Actions
+# ──────────────────────────────────────────────────────────────
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:       # permette di avviarlo a mano dalla tab Actions
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita deploy sovrapposti: se un nuovo push arriva, aspetta quello in corso
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # La root del repo coincide con la root del sito
+          path: "."
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
