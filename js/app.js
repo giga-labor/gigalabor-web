@@ -1173,20 +1173,21 @@
     }
 
     function initScrollToPanel() {
-      /* Scroll/swipe verso il basso sulla home apre il pannello LABs */
+      /* Scroll/swipe sulla home: riattiva animazione icone SOLO se nessun panel è aperto */
       var triggered = false;
 
-      function openLab() {
+      function onScroll() {
+        /* Ignora se un panel è già aperto */
+        if (currentPanel && panelEl && panelEl.classList.contains('open')) return;
         if (triggered) return;
         triggered = true;
-        showPanel('lab');
-        /* Dopo che il panel è aperto, resetta il flag così si può richiudere e riaprire */
-        setTimeout(function() { triggered = false; }, 800);
+        triggerNavAnim();
+        setTimeout(function() { triggered = false; }, 1000);
       }
 
       /* Mouse wheel / trackpad */
       window.addEventListener('wheel', function(e) {
-        if (e.deltaY > 30) openLab();
+        if (e.deltaY > 30) onScroll();
       }, { passive: true });
 
       /* Touch swipe verso l'alto (= intento di scroll down) */
@@ -1196,14 +1197,14 @@
       }, { passive: true });
       window.addEventListener('touchend', function(e) {
         var dy = _tStartY - e.changedTouches[0].clientY;
-        if (dy > 40) openLab();   /* swipe up ≥ 40px */
+        if (dy > 40) onScroll();
       }, { passive: true });
 
       /* Tastiera: freccia giù, Page Down, spazio */
       window.addEventListener('keydown', function(e) {
         if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
           e.preventDefault();
-          openLab();
+          onScroll();
         }
       });
     }
