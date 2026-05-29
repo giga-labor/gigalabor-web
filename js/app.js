@@ -1324,7 +1324,18 @@
         return nextFromCategory(k);
       }
 
+      // Densità nodi proporzionale ai pixel quadrati.
+      // Riferimento desktop: 1920×1080 → scale 1.0, ~130 extra nodi.
+      // Su schermi più piccoli scala con sqrt(area/refArea) per riduzione graduale.
+      var area = (W * H) || (window.innerWidth * window.innerHeight);
+      var REF_AREA   = 1920 * 1080;               // ~2 073 600 px²
+      var scale      = Math.sqrt(Math.min(1, area / REF_AREA));  // 0..1
+      var maxPool    = Math.max(6, Math.round(POOL.length * scale));
+      var loopCount  = 0;
+
       POOL.forEach(function() {
+        if (loopCount >= maxPool) return;
+        loopCount++;
         var baseWord = nextSemantic();
         if (!baseWord) return;
         words.push(makeWord(baseWord, true));
@@ -1340,9 +1351,8 @@
           }, true));
         }
       });
-      // Densifica il grafo solo con nodi semantici (mai vuoti).
-      var area = (W * H) || (window.innerWidth * window.innerHeight);
-      var extraNodes = Math.max(55, Math.min(140, Math.floor(area / 17000)));
+      // Nodi extra: proporzionali all'area, nessun minimo fisso.
+      var extraNodes = Math.max(4, Math.min(140, Math.round(scale * 130)));
       for (var i = 0; i < extraNodes; i++) {
         var src = nextSemantic();
         if (!src) break;
@@ -1495,7 +1505,12 @@
       ctx = canvas.getContext('2d');
       resize();
       populate();
-      window.addEventListener('resize', function() { resize(); populate(); });
+      var _resizeTimer;
+      window.addEventListener('resize', function() {
+        resize();                                     // aggiorna W/H subito
+        clearTimeout(_resizeTimer);
+        _resizeTimer = setTimeout(populate, 150);     // ripopola dopo 150ms di quiete
+      });
       document.addEventListener('langChange', function() { populate(); });
       window.addEventListener('mousemove', function(e) {
         mouse.x = e.clientX;
