@@ -1223,6 +1223,14 @@
     var words = [];
     var time  = 0;
 
+    /* ── FADE GLOBALE — nodi e link si affievoliscono dopo inattività ── */
+    var globalFade      = 1;        /* moltiplicatore 0..1 applicato a tutti gli alpha */
+    var lastInteraction = 0;        /* timestamp ultima interazione utente (ms) */
+    var FADE_DELAY_MS   = 8000;     /* inattività prima che inizi il fade (8 s) */
+    var FADE_MIN        = 0.06;     /* opacità minima a cui si stabilizza */
+    var FADE_SPEED      = 0.0025;   /* decadimento per frame (~11 s dal 100% al minimo) */
+    var RECOVER_SPEED   = 0.055;    /* recupero per frame (~0.5 s per tornare al 100%) */
+
     function buildPool() {
       var groups = I18n.t('hero.canvas_words') || {};
       var CATEGORY = {
@@ -1456,7 +1464,7 @@
           ctx.moveTo(wi.x, wi.y);
           ctx.lineTo(wj.x, wj.y);
           ctx.strokeStyle  = col;
-          ctx.globalAlpha  = alpha;
+          ctx.globalAlpha  = alpha * globalFade;
           ctx.lineWidth    = boost > 0.15 ? 0.58 : 0.26;
           ctx.stroke();
         }
@@ -1525,7 +1533,7 @@
     function drawWord(w) {
       ctx.font         = 'bold ' + w.s + 'px JetBrains Mono, monospace';
       ctx.fillStyle    = w.c;
-      ctx.globalAlpha  = Math.max(0, w.a * 0.82);
+      ctx.globalAlpha  = Math.max(0, w.a * 0.82 * globalFade);
       ctx.textBaseline = 'middle';
       ctx.fillText((w.sym || '•') + ' ' + w.t, w.x, w.y);
       ctx.globalAlpha  = 1;
@@ -1534,6 +1542,14 @@
     function frame() {
       ctx.clearRect(0, 0, W, H);
       time += 0.01;
+
+      /* Aggiorna globalFade: decade dopo FADE_DELAY_MS di inattività */
+      if (Date.now() - lastInteraction > FADE_DELAY_MS) {
+        globalFade = Math.max(FADE_MIN, globalFade - FADE_SPEED);
+      } else {
+        globalFade = Math.min(1, globalFade + RECOVER_SPEED);
+      }
+
       /* velocita mouse (per scia) */
       mouse.vx = mouse.x - mouse.px;
       mouse.vy = mouse.y - mouse.py;
