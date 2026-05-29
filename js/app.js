@@ -1227,7 +1227,7 @@
     var globalFade      = 1;        /* moltiplicatore 0..1 applicato a tutti gli alpha */
     var lastInteraction = 0;        /* timestamp ultima interazione utente (ms) */
     var FADE_DELAY_MS   = 8000;     /* inattività prima che inizi il fade (8 s) */
-    var FADE_MIN        = 0.06;     /* opacità minima a cui si stabilizza */
+    var FADE_MIN        = 0.28;     /* opacità minima a cui si stabilizza */
     var FADE_SPEED      = 0.0025;   /* decadimento per frame (~11 s dal 100% al minimo) */
     var RECOVER_SPEED   = 0.055;    /* recupero per frame (~0.5 s per tornare al 100%) */
 
@@ -1583,11 +1583,16 @@
       window.addEventListener('mousemove', function(e) {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+        lastInteraction = Date.now();
       });
       window.addEventListener('touchmove', function(e) {
         var t = e.touches[0];
         mouse.x = t.clientX;
         mouse.y = t.clientY;
+        lastInteraction = Date.now();
+      }, { passive: true });
+      window.addEventListener('touchstart', function() {
+        lastInteraction = Date.now();
       }, { passive: true });
       frame();
     }
