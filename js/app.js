@@ -185,8 +185,6 @@
           '<div class="tb-logo-mark">' + logoSVG() + '</div>' +
           '<div class="tb-logo-text"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div>' +
         '</a>' +
-        '<div class="tb-sep"></div>' +
-        '<div class="tb-live"><div class="pip"></div><span data-i18n="hero.system_status"></span></div>' +
         '<div class="tb-r">' +
           '<div class="theme-panel" role="group" aria-label="Seleziona tema">' +
             '<button class="theme-btn theme-btn--dark"     data-theme="dark-tech" title="Dark Tech"     aria-label="Dark Tech"></button>' +
@@ -218,21 +216,26 @@
 
       var itemsHTML = items.map(function(item) {
         var activeClass = isActive(item) ? ' on' : '';
+        // .si-lbl: etichetta visibile sul tab bar mobile (nascosta su desktop)
+        var lbl = '<span class="si-lbl" data-i18n="' + item.labelKey + '"></span>';
         if (isHome) {
           return '<div class="si' + activeClass + '" data-p="' + item.id + '" role="button" tabindex="0" aria-label="">' +
             icon(item.id) +
+            lbl +
             '<span class="si-tt" data-i18n="' + item.labelKey + '"></span>' +
             '<span class="si-arrow">\u203a</span>' +
           '</div>';
         } else {
           return '<a class="si' + activeClass + '" href="' + item.href + '" aria-label="">' +
             icon(item.id) +
+            lbl +
             '<span class="si-tt" data-i18n="' + item.labelKey + '"></span>' +
           '</a>';
         }
       }).join('');
 
-      return '<nav id="side" aria-label="Navigazione principale">' + itemsHTML + '</nav>';
+      // La classe si-animate è sempre presente; JS la rimuove e riagginge per re-trigger
+      return '<nav id="side" class="si-animate" aria-label="Navigazione principale">' + itemsHTML + '</nav>';
     }
 
     function bottombarHTML() {
@@ -1158,6 +1161,51 @@
       initCursor();
       initPanels();
       initRatioTooltip();
+      initScrollToPanel();
+    }
+
+    function triggerNavAnim() {
+      var side = document.getElementById('side');
+      if (!side) return;
+      side.classList.remove('si-animate');
+      void side.offsetWidth;   /* force reflow */
+      side.classList.add('si-animate');
+    }
+
+    function initScrollToPanel() {
+      /* Scroll/swipe verso il basso sulla home apre il pannello LABs */
+      var triggered = false;
+
+      function openLab() {
+        if (triggered) return;
+        triggered = true;
+        showPanel('lab');
+        /* Dopo che il panel è aperto, resetta il flag così si può richiudere e riaprire */
+        setTimeout(function() { triggered = false; }, 800);
+      }
+
+      /* Mouse wheel / trackpad */
+      window.addEventListener('wheel', function(e) {
+        if (e.deltaY > 30) openLab();
+      }, { passive: true });
+
+      /* Touch swipe verso l'alto (= intento di scroll down) */
+      var _tStartY = 0;
+      window.addEventListener('touchstart', function(e) {
+        _tStartY = e.touches[0].clientY;
+      }, { passive: true });
+      window.addEventListener('touchend', function(e) {
+        var dy = _tStartY - e.changedTouches[0].clientY;
+        if (dy > 40) openLab();   /* swipe up ≥ 40px */
+      }, { passive: true });
+
+      /* Tastiera: freccia giù, Page Down, spazio */
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+          e.preventDefault();
+          openLab();
+        }
+      });
     }
 
     return { initHome: initHome, initSplash: initSplash, showPanel: showPanel };
@@ -1329,7 +1377,7 @@
       // Su schermi più piccoli scala con sqrt(area/refArea) per riduzione graduale.
       var area = (W * H) || (window.innerWidth * window.innerHeight);
       var REF_AREA   = 1920 * 1080;               // ~2 073 600 px²
-      var scale      = Math.sqrt(Math.min(1, area / REF_AREA));  // 0..1
+      var scale      = Math.min(1, area / REF_AREA);              // lineare: densita costante
       var maxPool    = Math.max(6, Math.round(POOL.length * scale));
       var loopCount  = 0;
 
@@ -1507,9 +1555,12 @@
       populate();
       var _resizeTimer;
       window.addEventListener('resize', function() {
-        resize();                                     // aggiorna W/H subito
+        resize();
         clearTimeout(_resizeTimer);
-        _resizeTimer = setTimeout(populate, 150);     // ripopola dopo 150ms di quiete
+        _resizeTimer = setTimeout(function() {
+          populate();
+          triggerNavAnim();  // riattiva animazione icone dopo resize
+        }, 150);
       });
       document.addEventListener('langChange', function() { populate(); });
       window.addEventListener('mousemove', function(e) {

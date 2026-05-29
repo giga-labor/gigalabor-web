@@ -8,7 +8,16 @@
 .font-bio { font-family: 'BioRhyme', serif; }
 
 /* ── CUSTOM CURSOR (solo home) ── */
-body[data-page="home"] { cursor: none; overflow: hidden; }
+body[data-page="home"] {
+  cursor: none;
+  overflow: hidden;
+  /* Blocca rubber-band scroll su iOS Safari */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  overscroll-behavior: none;
+}
 
 #cur {
   position: fixed; width: 6px; height: 6px;
@@ -178,7 +187,7 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
   position: relative; width: 40px; height: 56px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: color .2s, background .2s, border-color .2s;
-  color: var(--text-muted);
+  color: var(--text-secondary);          /* visibile su tutti gli schermi */
   border: 1px solid transparent; border-radius: 2px;
   text-decoration: none;
 }
@@ -193,7 +202,7 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
   background: linear-gradient(180deg, var(--accent), var(--accent-2));
   z-index: 1;
 }
-.si svg { width: 18px; height: 18px; }
+.si svg { width: 22px; height: 22px; }   /* dimensione uniforme su tutti gli schermi */
 .si-tt {
   position: absolute; left: calc(100% + 10px);
   background: var(--bg-overlay); border: 1px solid var(--border-light);
@@ -468,7 +477,8 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
 .h-eyebrow {
   font-family: 'JetBrains Mono', monospace;
   font-size: .62rem; letter-spacing: .42em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 1.6rem;
+  color: var(--text-secondary); margin-bottom: 1.6rem;
+  text-shadow: 0 0 12px var(--bg-base);
   animation: shellFU .7s .3s both;
   position: relative;
   isolation: isolate;
@@ -508,9 +518,10 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
   color: var(--text-secondary);
 }
 .h-sub {
-  font-size: .8rem; line-height: 1.85; color: var(--text-muted);
+  font-size: .8rem; line-height: 1.85; color: var(--text-secondary);
   max-width: 420px; animation: shellFU .7s .9s both;
   font-family: 'JetBrains Mono', monospace;
+  text-shadow: 0 0 10px var(--bg-base);
   position: relative;
   isolation: isolate;
 }
@@ -528,8 +539,8 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
   pointer-events: none;
   z-index: -1;
   background: transparent;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(32px) brightness(0.82);
+  -webkit-backdrop-filter: blur(32px) brightness(0.82);
   -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%,
     black 25%, rgba(0,0,0,.7) 50%, transparent 75%
   );
@@ -537,10 +548,10 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
     black 25%, rgba(0,0,0,.7) 50%, transparent 75%
   );
 }
-.h-eyebrow::before { width: min(700px, 96vw); height: 94px; }
+.h-eyebrow::before { width: min(900px, 100vw); height: 120px; }
 .h-title::before   { width: min(1180px, 100vw); height: clamp(190px, 30vw, 360px); }
-.h-tw-wrap::before { width: min(860px, 97vw); height: 108px; }
-.h-sub::before     { width: min(780px, 96vw); height: 170px; }
+.h-tw-wrap::before { width: min(1000px, 100vw); height: 130px; }
+.h-sub::before     { width: min(900px, 100vw); height: 200px; }
 /* ── HERO BOTTOM — metrics + ratio side by side ── */
 .h-bottom {
   display: flex;
@@ -572,7 +583,8 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
 .h-m-lbl {
   font-family: 'JetBrains Mono', monospace;
   font-size: .55rem; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--text-muted); margin-top: .3rem;
+  color: var(--text-secondary); margin-top: .3rem;
+  text-shadow: 0 0 8px var(--bg-base);
 }
 
 /* ── RATIO INDICATOR (CONCEPT / CODE) — testo + tooltip ── */
@@ -816,12 +828,19 @@ body:not([data-page="home"]):not([data-page="splash"])::-webkit-scrollbar-thumb:
   }
   #panel.open { transform: translateY(0); }
 
-  /* Hero: larghezza piena, parte sotto topbar */
+  /* Hero: larghezza piena, parte sotto topbar — overflow hidden per evitare scroll */
   #hero {
     left: 0;
     top: 56px;
     bottom: calc(52px + 48px);
     padding: 0 1.25rem;
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  /* Canvas: blocca scroll/pan su touch */
+  #hero-canvas {
+    touch-action: none;
   }
 
   /* Hero bottom: impila verticalmente */
@@ -851,6 +870,11 @@ body:not([data-page="home"]):not([data-page="splash"])::-webkit-scrollbar-thumb:
 
   /* Intro splash: scala il titolo */
   .i-title { font-size: clamp(3.8rem, 18vw, 8rem); }
+
+  /* Home: blocca rubber-band scroll su Android Chrome */
+  body[data-page="home"] {
+    overscroll-behavior: none;
+  }
 
   /* Sub-pages: nessun padding laterale da sidenav */
   body:not([data-page="home"]):not([data-page="splash"]) {
@@ -924,4 +948,97 @@ body:not([data-page="home"]):not([data-page="splash"])::-webkit-scrollbar-thumb:
     max-height: 88vh;
     padding: .8rem 1rem 1rem;
   }
+}
+
+/* ── SI-LBL: etichetta icone (visibile solo su mobile tab bar) ── */
+.si-lbl {
+  display: none;   /* nascosta su desktop — visibile via media query mobile */
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .5rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);   /* partono già visibili */
+  line-height: 1;
+  pointer-events: none;
+  transition: color .2s;
+}
+.si.on  .si-lbl { color: var(--accent); font-weight: 700; }
+.si:hover .si-lbl { color: var(--text-primary); }
+
+/* ── FIRST-VISIT ATTENTION ANIMATION ─────────────────────── */
+@keyframes siAttention {
+  0%   { transform: translateY(0)    scale(1);    }
+  15%  { transform: translateY(-8px) scale(1.25); }
+  32%  { transform: translateY(2px)  scale(0.96); }
+  50%  { transform: translateY(-5px) scale(1.16); }
+  68%  { transform: translateY(1px)  scale(0.98); }
+  82%  { transform: translateY(-2px) scale(1.06); }
+  100% { transform: translateY(0)    scale(1);    }
+}
+/* Glow pulse separato per il colore */
+@keyframes siGlow {
+  0%, 100% { filter: drop-shadow(0 0 0px var(--accent)); }
+  25%       { filter: drop-shadow(0 0 14px var(--accent)) drop-shadow(0 0 28px var(--accent)); }
+  60%       { filter: drop-shadow(0 0 6px var(--accent)); }
+}
+
+/* Animazione staggerata globale — vale su tutti gli schermi */
+#side.si-animate .si:nth-child(1) { animation: siAttention 1.4s 1.6s both, siGlow 1.4s 1.6s both; }
+#side.si-animate .si:nth-child(2) { animation: siAttention 1.4s 1.82s both, siGlow 1.4s 1.82s both; }
+#side.si-animate .si:nth-child(3) { animation: siAttention 1.4s 2.04s both, siGlow 1.4s 2.04s both; }
+#side.si-animate .si:nth-child(4) { animation: siAttention 1.4s 2.26s both, siGlow 1.4s 2.26s both; }
+#side.si-animate .si:nth-child(5) { animation: siAttention 1.4s 2.48s both, siGlow 1.4s 2.48s both; }
+
+/* Layout mobile: tab bar orizzontale con etichette */
+@media (max-width: 767px) {
+  /* Mostra etichette nel tab bar */
+  .si-lbl { display: block; }
+
+  /* Tab bar più alta per ospitare icona + etichetta */
+  #side {
+    height: 60px;
+    border-top: 1px solid var(--accent-glow);   /* linea accent in cima al tab bar */
+    box-shadow: 0 -2px 16px rgba(0,0,0,.35);     /* ombra verso l'alto */
+  }
+  .si {
+    flex-direction: column;
+    gap: 2px;
+    height: 56px;
+    padding-top: 4px;
+  }
+  /* Stato attivo: linea in cima + colore accent pieno */
+  .si.on {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+  /* Tab bar: bordo superiore accent sulla voce attiva */
+  .si.on::after {
+    top: 0; left: 12px; right: 12px; bottom: auto;
+    width: auto; height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  /* Regola il padding-bottom delle sub-pages (tab bar più alta) */
+  body:not([data-page="home"]):not([data-page="splash"]) {
+    padding-bottom: calc(52px + 60px);
+  }
+  /* Back-to-top: sopra il tab bar aggiornato */
+  #back-to-top {
+    bottom: calc(52px + 60px + env(safe-area-inset-bottom, 0px) + .75rem);
+  }
+  /* Panel bottom sheet: adeguato alla tab bar più alta */
+  #panel {
+    bottom: calc(52px + 60px);
+  }
+  /* Hero: aggiorna bottom */
+  #hero {
+    bottom: calc(52px + 60px);
+  }
+}
+
+/* Rispetta prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  #side.si-animate .si { animation: none !important; }
 }
