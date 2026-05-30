@@ -919,6 +919,7 @@
               '</div>';
             });
           }
+          html += '<a href="' + rootPrefix() + 'pages/news.html" style="display:block;margin-top:1.1rem;font-family:JetBrains Mono,monospace;font-size:.62rem;color:var(--accent);text-decoration:none;letter-spacing:.04em;opacity:.8;">' + (I18n.t('news.all_news') || 'Tutte le notizie →') + '</a>';
           body.innerHTML = html;
           bindPanelNewsTips(body);
         }
