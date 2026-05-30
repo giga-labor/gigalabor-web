@@ -9,6 +9,39 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['en'] = {
 
+  'claude-opus-4-8': {
+    date:         'May 28, 2026',
+    title:        'Anthropic releases Claude Opus 4.8',
+    excerpt:      'The new model brings improvements in coding, agentic tasks, and extended autonomy, with a fast mode running 2.5× faster at the same price.',
+    body:         "On May 28, 2026, Anthropic released Claude Opus 4.8, its most capable generally available model. The primary improvements over Opus 4.7 span three areas: coding across complex repositories, the ability to operate autonomously for extended sessions without quality degradation, and greater honesty when reporting its own progress on long-running tasks.\n\nAmong the operational changes, claude.ai users can now adjust the model's computational effort via a dedicated control — useful for balancing speed and response depth based on the task at hand. Claude Code introduces 'dynamic workflows', allowing the model to break down and tackle large-scale problems in a structured way. Fast mode, which operates at 2.5× standard speed, is now three times cheaper than in previous models.\n\nPricing remains unchanged from Opus 4.7: $5 per million input tokens and $25 per million output tokens, with discounts up to 90% with prompt caching. The model is available on claude.ai for Pro, Max, Team, and Enterprise plans, and via API on Claude Platform, AWS, Google Cloud, and Microsoft Foundry.",
+    badge:        'Release',
+    source_label: 'Source:',
+    source_name:  'Anthropic',
+    source_url:   'https://www.anthropic.com/news/claude-opus-4-8'
+  },
+
+  'openai-ipo-2026': {
+    date:         'May 22, 2026 (upcoming)',
+    title:        'OpenAI confidentially files for IPO',
+    excerpt:      'OpenAI submitted a confidential S-1 to the SEC targeting a September 2026 listing at a valuation of up to $1 trillion.',
+    body:         "On May 22, 2026, OpenAI confidentially submitted its S-1 IPO documentation to the U.S. Securities and Exchange Commission. Goldman Sachs and Morgan Stanley are co-leading the deal, targeting a valuation between $852 billion and $1 trillion, with a public market debut set for September 2026.\n\nA confidential filing allows OpenAI to begin the SEC review process without any public disclosure obligation, working through regulatory comments privately before the definitive prospectus. The financial backdrop draws scrutiny: in 2025, OpenAI generated $13.1 billion in revenue while burning through approximately $22 billion, resulting in a net loss of around $9 billion. Internal projections point to a $14 billion operating loss for 2026 despite rapidly growing revenues.\n\nThe IPO represents a historic milestone for the company and for the AI sector at large. The listing arrives alongside an intense valuation race: Anthropic announced a $30 billion funding round at a valuation above $900 billion, overtaking OpenAI on private markets for the first time. The competition between the two leading AI labs has now extended to financial markets.",
+    badge:        'Upcoming',
+    source_label: 'Source:',
+    source_name:  'Fortune',
+    source_url:   'https://fortune.com/2026/05/22/openai-ipo-filing-1-trillion-may-finally-answer-these-big-questions/'
+  },
+
+  'google-io-2026': {
+    date:         'May 20, 2026',
+    title:        'Google I/O 2026: Gemini 3.5 Flash, Omni, and Spark',
+    excerpt:      'Google I/O 2026 launched a new generation of Gemini models with advanced multimodal capabilities and a 24/7 personal agent for Ultra subscribers.',
+    body:         "On May 20, 2026, during Google I/O, CEO Sundar Pichai unveiled the new generation of Gemini models. Gemini 3.5 Flash is the flagship of this release: it surpasses Gemini 3.1 Pro on coding, agentic, and multimodal benchmarks while maintaining the speed and cost of the Flash series — 4× faster than competing frontier models. It rolled out immediately in the Gemini app, Search, and via the Gemini API.\n\nGemini Omni is a new model series that unifies reasoning and generation: it accepts text, image, audio, and video input and produces video output grounded in real-world knowledge. Gemini Spark is Google's first truly proactive personal agent — it runs in the background across email, calendar, and notifications, completing tasks on the user's behalf without active supervision. It becomes available the following week to Google AI Ultra subscribers in the US.\n\nOther notable announcements: the AI Ultra subscription was cut from $250 to $100 per month, Daily Brief delivers a personalized morning digest drawn from Gmail and Calendar, and Canva, Adobe, and CapCut announced native integrations directly inside the Gemini app for image and video editing. Google also confirmed that Gemini 3.5 Pro is in testing and will be available the following month.",
+    badge:        'Product',
+    source_label: 'Source:',
+    source_name:  'Google Blog',
+    source_url:   'https://blog.google/innovation-and-ai/technology/ai/google-io-2026-all-our-announcements/'
+  },
+
   'ai-act-2026': {
     date:         'August 2, 2026 (upcoming)',
     title:        'EU AI Act: full applicability scheduled',

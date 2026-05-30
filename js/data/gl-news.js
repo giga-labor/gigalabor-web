@@ -10,6 +10,9 @@
 window.GL = window.GL || {};
 
 window.GL.NEWS = [
+  { id: 'claude-opus-4-8',      category: 'models',    sort_date: '2026-05-28', badge_class: 'badge--active'      },
+  { id: 'openai-ipo-2026',      category: 'platforms', sort_date: '2026-05-22', badge_class: 'badge--development' },
+  { id: 'google-io-2026',       category: 'models',    sort_date: '2026-05-20', badge_class: 'badge--active'      },
   { id: 'ai-act-2026',         category: 'research',  sort_date: '2026-08-02', badge_class: 'badge--development' },
   { id: 'gpt-5-5',             category: 'models',    sort_date: '2026-04-23', badge_class: 'badge--active'      },
   { id: 'openai-voice-realtime',category: 'models',    sort_date: '2026-05-07', badge_class: 'badge--development' },
