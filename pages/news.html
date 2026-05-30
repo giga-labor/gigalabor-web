@@ -59,6 +59,22 @@
     .filter-btn.active,
     .filter-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
 
+    /* ── Week group labels ──────────────────────────── */
+    .news-group__label {
+      grid-column: 1 / -1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: .65;
+      padding: .4rem 0 .3rem;
+      margin-top: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-group__label:first-child { margin-top: 0; }
+
     /* ── Load more ──────────────────────────────────── */
     .news-load-more {
       display: flex;
@@ -283,6 +299,23 @@
       return (typeof I18n !== 'undefined') ? I18n.t('news.read_more') : '→';
     }
 
+    /* ISO week number (1-53) for a YYYY-MM-DD string */
+    function getISOWeek (dateStr) {
+      var d = new Date(dateStr + 'T00:00:00');
+      d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+      var w1 = new Date(d.getFullYear(), 0, 4);
+      return 1 + Math.round(((d - w1) / 86400000 - 3 + (w1.getDay() + 6) % 7) / 7);
+    }
+
+    /* ISO week-year (may differ from calendar year near year boundaries) */
+    function getISOYear (dateStr) {
+      var d = new Date(dateStr + 'T00:00:00');
+      d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+      return d.getFullYear();
+    }
+
+    function pad2 (n) { return n < 10 ? '0' + n : '' + n; }
+
     /* ── Build a single card HTML ─────────────────────── */
     function cardHTML (item) {
       var t = getStrings(item.id);
@@ -303,6 +336,8 @@
       var grid = document.getElementById('news-grid');
       if (!grid) return;
 
+      var today = new Date().toISOString().slice(0, 10); /* YYYY-MM-DD */
+
       if (reset) {
         _filtered = (window.GL.NEWS || [])
           .filter(function (n) { return _currentFilter === 'all' || n.category === _currentFilter; })
@@ -312,7 +347,45 @@
       }
 
       var slice = _filtered.slice(0, _visibleCount);
-      grid.innerHTML = slice.map(cardHTML).join('');
+
+      /* i18n labels */
+      var futureLabel = (typeof I18n !== 'undefined') ? I18n.t('news.group_future') : 'In futuro';
+      var weekPrefix  = (typeof I18n !== 'undefined') ? I18n.t('news.group_week')   : 'Settimana';
+
+      /* separate future vs past, group past by ISO week+year */
+      var future    = [];
+      var weekGroups = [];   /* [{key, label, items}] in desc date order */
+      var weekMap   = {};
+
+      slice.forEach(function (n) {
+        if (n.sort_date > today) {
+          future.push(n);
+        } else {
+          var w   = getISOWeek(n.sort_date);
+          var y   = getISOYear(n.sort_date);
+          var key = y + '-W' + pad2(w);
+          if (!weekMap[key]) {
+            weekMap[key] = { key: key, label: weekPrefix + ' ' + pad2(w) + '/' + y, items: [] };
+            weekGroups.push(weekMap[key]);
+          }
+          weekMap[key].items.push(n);
+        }
+      });
+
+      /* build HTML: future group first, then weekly groups */
+      var html = '';
+
+      if (future.length) {
+        html += '<div class="news-group__label">' + futureLabel + '</div>';
+        html += future.map(cardHTML).join('');
+      }
+
+      weekGroups.forEach(function (g) {
+        html += '<div class="news-group__label">' + g.label + '</div>';
+        html += g.items.map(cardHTML).join('');
+      });
+
+      grid.innerHTML = html;
 
       /* stagger animate-in */
       requestAnimationFrame(function () {

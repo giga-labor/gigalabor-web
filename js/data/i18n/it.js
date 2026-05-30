@@ -266,7 +266,9 @@ window.GL.i18n.it = {
     },
     "read_more": "Leggi tutto",
     "close": "Chiudi",
-    "source": "Fonte"
+    "source": "Fonte",
+    "group_future": "In futuro",
+    "group_week": "Settimana"
   },
   "privacy_page": {
     "meta_title": "Privacy Policy - GiGa Labor",
