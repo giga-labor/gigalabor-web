@@ -340,6 +340,7 @@ window.GL.i18n.en = {
     "scroll_down": "Scroll down",
     "back_to_top": "Back to top",
     "all_news": "All news ->",
+    "open_page": "Open →",
     "read_write": "Read and write ->",
     "view_all_projects": "View all projects ->"
   },

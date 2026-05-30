@@ -340,6 +340,7 @@ window.GL.i18n.it = {
     "scroll_down": "Scorri in basso",
     "back_to_top": "Torna su",
     "all_news": "Tutte le notizie ->",
+    "open_page": "Apri →",
     "read_write": "Leggi e scrivi ->",
     "view_all_projects": "Vedi tutti i progetti ->"
   },
