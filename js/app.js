@@ -841,6 +841,8 @@
         titleKey:  'sections.projects_title',
         subKey:    'sections.projects_subtitle',
         msgKey:    'nav.projects',
+        pageUrl:   'pages/projects.html',
+        actionKey: 'nav.projects',
         render: function(body) {
           var i18nProj   = get(I18N_ALL[I18n.current], 'projects') || {};
           var i18nStatus = get(I18N_ALL[I18n.current], 'status')   || {};
@@ -885,6 +887,8 @@
         titleKey:  'nav.news',
         subKey:    'sections.updates_label',
         msgKey:    'nav.news',
+        pageUrl:   'pages/news.html',
+        actionKey: 'nav.news',
         render: function(body) {
           var lang = (I18n && I18n.current) ? I18n.current : 'it';
           var meta = (window.GL && Array.isArray(window.GL.NEWS)) ? window.GL.NEWS : [];
@@ -928,6 +932,8 @@
         titleKey:  'about.headline',
         subKey:    'meta.tagline',
         msgKey:    'nav.about',
+        pageUrl:   'pages/about.html',
+        actionKey: 'nav.about',
         render: function(body) {
           var vals = I18n.t('about.values');
           var features = I18n.t('about.features') || {};
@@ -950,6 +956,8 @@
         titleKey:  'contact.headline',
         subKey:    'contact.subheadline',
         msgKey:    'nav.contact',
+        pageUrl:   'pages/contact.html',
+        actionKey: 'nav.contact',
         render: function(body) {
           body.innerHTML =
             '<div class="p-sec">' + (I18n.t('sections.contact_title') || 'Contatti') + '</div>' +
@@ -984,6 +992,7 @@
         '<div id="panel">' +
           '<div class="p-head">' +
             '<div class="p-close" id="p-cls">✕</div>' +
+            '<a id="p-action-btn" href="#" style="display:none;position:absolute;top:1.2rem;right:calc(1.2rem + 36px + .55rem);height:36px;padding:0 .8rem;border:1px solid var(--accent);border-radius:2px;font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:600;color:var(--accent);text-decoration:none;letter-spacing:.04em;white-space:nowrap;align-items:center;transition:background .18s,color .18s,box-shadow .18s;" onmouseover=\"this.style.background=\'var(--accent)\';this.style.color=\'var(--text-on-accent)\';this.style.boxShadow=\'0 0 10px var(--accent-glow)\'\" onmouseout=\"this.style.background=\'\';this.style.color=\'var(--accent)\';this.style.boxShadow=\'\'\"></a>' +
             '<span class="p-kicker" id="p-kicker"></span>' +
             '<div class="p-title" id="p-title"></div>' +
             '<span class="p-sub" id="p-sub"></span>' +
@@ -1011,13 +1020,12 @@
       if (psub)    psub.textContent   = I18n.t(def.subKey)    || '';
       if (bbMsg)   bbMsg.textContent  = I18n.t(def.msgKey)    || '';
       if (pbody)   def.render(pbody);
-      /* action button: visibile solo per il pannello news */
       var actionBtn = document.getElementById('p-action-btn');
       if (actionBtn) {
-        if (id === 'news') {
-          actionBtn.textContent = I18n.t('news.all_news') || 'Tutte le notizie →';
-          actionBtn.href = rootPrefix() + 'pages/news.html';
-          actionBtn.style.display = 'inline-block';
+        if (def.pageUrl && def.actionKey) {
+          actionBtn.textContent = '→ ' + (I18n.t(def.actionKey) || '');
+          actionBtn.href = rootPrefix() + def.pageUrl;
+          actionBtn.style.display = 'flex';
         } else {
           actionBtn.style.display = 'none';
         }
