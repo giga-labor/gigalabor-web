@@ -1,18 +1,644 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it" data-theme="contrast">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content=""><link rel="stylesheet" href="../../css/main.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml"><style>.animate{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}.animate.animated{opacity:1;transform:translateY(0)}:root{--project-color:#10b981}.project-accent{color:var(--project-color)}.project-hero{border-top:3px solid var(--project-color)}</style>  <meta property="og:type"        content="website">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iARGOS — GiGa Labor</title>
+  <meta name="description" content="Agente backend autonomo per automazione di processi, monitoraggio sistemi e orchestrazione di task.">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <meta property="og:type"        content="website">
   <meta property="og:site_name"   content="GiGa Labor">
   <meta property="og:title"       content="iARGOS — GiGa Labor">
-  <meta property="og:description" content="Agente operativo autonomo per automazione backend, monitoraggio e orchestrazione task.">
+  <meta property="og:description" content="Agente backend autonomo per automazione di processi, monitoraggio sistemi e orchestrazione di task.">
   <meta property="og:url"         content="https://gigalabor.it/pages/projects/iargos.html">
-  <meta name="twitter:card"        content="summary">
-  <meta name="twitter:title"       content="iARGOS — GiGa Labor">
-  <meta name="twitter:description" content="Agente operativo autonomo per automazione backend, monitoraggio e orchestrazione task.">
-  <meta name="robots"              content="index, follow">
-  <link rel="canonical"            href="https://gigalabor.it/pages/projects/iargos.html">
-</head>
-<body data-page="project-detail"><div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div><div id="navbar-root"></div>
-<div class="page-hero project-hero"><div class="container"><a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a><div class="flex-gap mb-3" style="align-items:center;"><span style="font-size:2rem;">IA</span><span class="badge badge--development" data-i18n="status.development"></span></div><h1 class="section-title project-accent" data-i18n="projects.iargos.name"></h1><p class="text-secondary mt-2" style="font-size:1.1rem;" data-i18n="projects.iargos.short"></p></div></div>
-<section class="section"><div class="container"><div class="grid grid--2" style="gap:4rem;align-items:start;"><div><div class="animate"><span class="section-label" data-i18n="projects.iargos.category"></span><h2 class="section-title mb-3" style="font-size:1.4rem;" data-i18n="project_detail.description_title"></h2><p class="text-secondary" style="line-height:1.8;" data-i18n="projects.iargos.description"></p></div><div class="animate mt-4"><h3 style="font-size:1rem;margin-bottom:1rem;" data-i18n="project_detail.stack_title"></h3><div class="tags" id="ia-tags" data-project-tags="iargos"></div></div><div class="flex-gap mt-4 animate"><a href="#" class="btn btn--secondary" data-i18n="ui.view_docs"></a><a href="#" class="btn btn--secondary" data-i18n="ui.view_github"></a></div></div><div class="animate"><div class="card" style="display:flex;flex-direction:column;gap:1.25rem;"><div><div class="text-muted text-sm mb-1" data-i18n="project_detail.status_label"></div><span class="badge badge--development" data-i18n="status.development"></span></div><div class="divider" style="margin:0;"></div><div><div class="text-muted text-sm mb-1" data-i18n="project_detail.type_label"></div><span class="text-secondary" data-i18n="projects.iargos.type"></span></div><div class="divider" style="margin:0;"></div><div><div class="text-muted text-sm mb-1" data-i18n="project_detail.part_of_label"></div><a href="../../index.html" class="text-accent font-medium">GiGa Labor</a></div></div></div></div></div></section>
-<div id="footer-root"></div><script src="../../js/data/gl-data.js"></script><script src="../../js/data/i18n/it.js"></script><script src="../../js/data/i18n/en.js"></script><script src="../../js/app.js"></script></body></html>
+  <meta name="twitter:card"       content="summary">
+  <meta name="robots"             content="index, follow">
+  <link rel="canonical"           href="https://gigalabor.it/pages/projects/iargos.html">
+  <style>
+    :root { --project-color: #10b981; --project-glow: rgba(16,185,129,.18); }
+    .animate { opacity:0; transform:translateY(24px); transition:opacity .5s ease,transform .5s ease; }
+    .animate.animated { opacity:1; transform:translateY(0); }
+    .project-accent { color: var(--project-color); }
+    .project-hero { border-top: 3px solid var(--project-color); }
 
+    .sec { padding: 3rem 0; border-top: 1px solid var(--border); }
+    .sec:first-child { border-top: none; }
+    .sec-label { font-family: 'JetBrains Mono',monospace; font-size:.7rem; font-weight:600;
+                 letter-spacing:.12em; text-transform:uppercase; color:var(--project-color);
+                 opacity:.75; margin-bottom:.6rem; }
+    .sec-title { font-size:1.35rem; font-weight:700; color:var(--text-primary); margin-bottom:1.2rem; line-height:1.3; }
+    .sec-body  { font-size:.95rem; color:var(--text-secondary); line-height:1.85; max-width:720px; }
+    .sec-body p { margin:0 0 1rem; }
+    .sec-body p:last-child { margin-bottom:0; }
+
+    .callout { background: color-mix(in srgb,var(--project-color) 7%,var(--bg-card));
+               border:1px solid color-mix(in srgb,var(--project-color) 25%,var(--border));
+               border-left:3px solid var(--project-color); border-radius:8px;
+               padding:1rem 1.25rem; font-size:.88rem; line-height:1.75;
+               color:var(--text-secondary); margin:1.25rem 0; }
+    .callout strong { color:var(--text-primary); }
+
+    /* Module cards */
+    .module-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .module-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                   padding:1.25rem; transition:border-color .2s,box-shadow .2s; }
+    .module-card:hover { border-color:var(--project-color); box-shadow:0 0 0 1px color-mix(in srgb,var(--project-color) 20%,transparent); }
+    .module-icon { font-size:1.6rem; margin-bottom:.55rem; }
+    .module-name { font-weight:700; font-size:.9rem; color:var(--project-color); margin-bottom:.4rem; }
+    .module-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.65; }
+
+    /* Steps */
+    .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .step-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.25rem; transition:border-color .2s; }
+    .step-card:hover { border-color:var(--project-color); }
+    .step-num { font-family:'JetBrains Mono',monospace; font-size:1.8rem; font-weight:700;
+                color:var(--project-color); opacity:.28; line-height:1; margin-bottom:.65rem; }
+    .step-icon { font-size:1.4rem; margin-bottom:.55rem; }
+    .step-title { font-weight:600; font-size:.88rem; margin-bottom:.45rem; color:var(--text-primary); }
+    .step-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+
+    /* Tech cards */
+    .tech-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .tech-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                 padding:1.1rem 1.2rem; display:flex; gap:.9rem; align-items:flex-start; }
+    .tech-icon { font-size:1.6rem; line-height:1; flex-shrink:0; margin-top:.1rem; }
+    .tech-name { font-weight:600; font-size:.88rem; color:var(--text-primary); margin-bottom:.3rem; }
+    .tech-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+
+    /* Timeline */
+    .tl { position:relative; padding-left:2.25rem; margin-top:1.5rem; }
+    .tl::before { content:''; position:absolute; left:8px; top:6px; bottom:0; width:2px;
+                  background:linear-gradient(to bottom,var(--project-color),var(--border) 70%); }
+    .tl-item { position:relative; padding-bottom:1.75rem; }
+    .tl-item:last-child { padding-bottom:0; }
+    .tl-dot { position:absolute; left:-2.25rem; top:4px; width:14px; height:14px; border-radius:50%;
+              background:var(--project-color); border:2px solid var(--bg-surface);
+              box-shadow:0 0 0 2px color-mix(in srgb,var(--project-color) 35%,transparent); }
+    .tl-dot.future { background:var(--bg-card); border-color:var(--border); box-shadow:none; }
+    .tl-tag { font-family:'JetBrains Mono',monospace; font-size:.68rem; color:var(--text-muted); margin-bottom:.3rem; letter-spacing:.06em; }
+    .tl-title { font-weight:600; font-size:.92rem; color:var(--text-primary); margin-bottom:.35rem; }
+    .tl-desc { font-size:.82rem; color:var(--text-secondary); line-height:1.65; }
+
+    /* Progress */
+    .prog-list { display:flex; flex-direction:column; gap:.85rem; margin-top:1.25rem; }
+    .prog-header { display:flex; justify-content:space-between; font-size:.8rem; margin-bottom:.4rem; }
+    .prog-label { color:var(--text-secondary); }
+    .prog-val { font-family:'JetBrains Mono',monospace; color:var(--project-color); font-weight:600; }
+    .prog-bar { height:4px; background:var(--bg-card); border-radius:2px; overflow:hidden; }
+    .prog-fill { height:100%; background:var(--project-color); border-radius:2px; }
+
+    /* Feature list */
+    .feat { list-style:none; padding:0; margin:1rem 0 0; display:flex; flex-direction:column; gap:.55rem; }
+    .feat li { display:flex; gap:.75rem; align-items:flex-start; font-size:.88rem; color:var(--text-secondary); line-height:1.55; }
+    .feat li .dot { flex-shrink:0; margin-top:.38rem; width:7px; height:7px; border-radius:50%; }
+    .feat li.done .dot { background:#22c55e; }
+    .feat li.wip  .dot { background:var(--project-color); animation:blink 2s infinite; }
+    .feat li.plan .dot { background:var(--border); }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* Stat row */
+    .stat-row { display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1.25rem; }
+    .stat-box { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                padding:1rem 1.4rem; text-align:center; min-width:90px; }
+    .stat-val { font-family:'JetBrains Mono',monospace; font-size:1.4rem; font-weight:700;
+                color:var(--project-color); line-height:1; margin-bottom:.3rem; }
+    .stat-lbl { font-size:.72rem; color:var(--text-muted); letter-spacing:.06em; text-transform:uppercase; }
+
+    /* Two col */
+    .two-col { display:grid; grid-template-columns:1fr 340px; gap:3rem; align-items:start; }
+    @media(max-width:860px){ .two-col { grid-template-columns:1fr; gap:1.75rem; } }
+
+    /* Sidebar */
+    .side-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+                 padding:1.5rem; display:flex; flex-direction:column; gap:1.1rem; position:sticky; top:80px; }
+    .side-row { display:flex; flex-direction:column; gap:.3rem; }
+    .side-label { font-size:.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace;
+                  letter-spacing:.06em; text-transform:uppercase; }
+    .side-val { font-size:.9rem; color:var(--text-secondary); }
+
+    .dev-badge { display:inline-flex; align-items:center; gap:.45rem; font-family:'JetBrains Mono',monospace;
+                 font-size:.72rem; padding:.3rem .7rem; border-radius:20px;
+                 background:color-mix(in srgb,var(--project-color) 12%,var(--bg-card));
+                 border:1px solid color-mix(in srgb,var(--project-color) 30%,var(--border));
+                 color:var(--project-color); width:fit-content; }
+    .dev-dot { width:6px; height:6px; border-radius:50%; background:var(--project-color); animation:blink 2s infinite; }
+
+    .divider { height:1px; background:var(--border); margin:0; }
+    .link-grid { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2rem; }
+  </style>
+</head>
+<body data-page="project-detail">
+<div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div>
+<div id="navbar-root"></div>
+
+<!-- ── HERO ─────────────────────────────────────── -->
+<div class="page-hero project-hero">
+  <div class="container">
+    <a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a>
+    <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem;">
+      <span style="font-size:2rem;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--project-color);">Ar</span>
+      <span class="dev-badge"><span class="dev-dot"></span>IN SVILUPPO</span>
+    </div>
+    <h1 class="section-title project-accent" data-i18n="projects.iargos.name"></h1>
+    <p class="text-secondary mt-2" style="font-size:1.05rem;" data-i18n="projects.iargos.short"></p>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ──────────────────────────────── -->
+<div class="container" style="padding-top:2.5rem;padding-bottom:4rem;">
+  <div class="two-col">
+
+    <!-- ════ LEFT COLUMN ════ -->
+    <div>
+
+      <!-- PANORAMICA -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Il progetto in parole semplici</div>
+        <div class="sec-label" data-lang="en">The project in plain words</div>
+
+        <div data-lang="it">
+          <h2 class="sec-title">Il guardiano che non dorme mai — e agisce da solo</h2>
+          <div class="sec-body">
+            <p>Nella mitologia greca, Argo era il gigante dai cento occhi che Zeus aveva incaricato di vigilare su Io: non dormiva mai, vedeva tutto, non lasciava passare nulla. iARGOS prende questo nome non per caso: è un agente software che monitora continuamente i tuoi sistemi, intercetta i problemi prima che diventino crisi, e agisce in autonomia per risolverli.</p>
+            <p>Pensa a iARGOS come a un amministratore di sistema che lavora 24 ore su 24: esegue script automatici, controlla la salute dei tuoi server, gestisce code di task, integra servizi esterni — tutto senza che tu debba alzare un dito.</p>
+          </div>
+          <div class="callout">
+            <strong>🎯 Il vantaggio principale:</strong> iARGOS è modulare e orientato all'operatività continua. Non è uno strumento che usi — è un sistema che lavora per te, in background, tutto il tempo.
+          </div>
+        </div>
+
+        <div data-lang="en">
+          <h2 class="sec-title">The guardian that never sleeps — and acts autonomously</h2>
+          <div class="sec-body">
+            <p>In Greek mythology, Argus was the hundred-eyed giant whom Zeus tasked with watching over Io: he never slept, saw everything, let nothing slip through. iARGOS takes this name deliberately: it's a software agent that continuously monitors your systems, catches problems before they become crises, and acts autonomously to resolve them.</p>
+            <p>Think of iARGOS as a system administrator who works 24 hours a day: runs automated scripts, checks the health of your servers, manages task queues, integrates external services — all without you lifting a finger.</p>
+          </div>
+          <div class="callout">
+            <strong>🎯 The main advantage:</strong> iARGOS is modular and oriented towards continuous operation. It's not a tool you use — it's a system that works for you, in the background, all the time.
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULI -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Architettura hub-and-spoke</div>
+        <div class="sec-label" data-lang="en">Hub-and-spoke architecture</div>
+        <div data-lang="it"><h2 class="sec-title">Il Core Agent e i suoi quattro bracci</h2></div>
+        <div data-lang="en"><h2 class="sec-title">The Core Agent and its four arms</h2></div>
+
+        <div data-lang="it">
+          <p class="sec-body" style="margin-bottom:.5rem;">iARGOS è costruito attorno a un agente centrale che coordina quattro moduli specializzati. Come un polpo con tentacoli autonomi ma un cervello centrale, ogni modulo può agire indipendentemente ma risponde a un unico nucleo di controllo.</p>
+        </div>
+        <div data-lang="en">
+          <p class="sec-body" style="margin-bottom:.5rem;">iARGOS is built around a central agent that coordinates four specialised modules. Like an octopus with autonomous tentacles but a single central brain, each module can act independently but responds to a single control core.</p>
+        </div>
+
+        <!-- SVG hub-and-spoke -->
+        <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg"
+             style="width:100%;max-width:680px;margin-top:1.25rem;border-radius:10px;
+                    background:#091a12;border:1px solid #0d2318;display:block;">
+          <defs>
+            <marker id="arr3" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+              <polygon points="0 0,7 2.5,0 5" fill="#10b981" opacity=".7"/>
+            </marker>
+            <marker id="arr3r" markerWidth="7" markerHeight="5" refX="0" refY="2.5" orient="auto">
+              <polygon points="7 0,0 2.5,7 5" fill="#10b981" opacity=".4"/>
+            </marker>
+          </defs>
+
+          <!-- Core Agent (center) -->
+          <rect x="260" y="110" width="160" height="80" rx="10" fill="#0d2318" stroke="#10b981" stroke-width="2" stroke-opacity=".8"/>
+          <text x="340" y="143" text-anchor="middle" fill="#10b981" font-family="monospace" font-size="9" font-weight="700" letter-spacing=".06em">CORE AGENT</text>
+          <text x="340" y="159" text-anchor="middle" font-size="18" fill="#10b981" opacity=".6">⚙️</text>
+          <text x="340" y="180" text-anchor="middle" fill="#34d399" font-family="sans-serif" font-size="7.5" opacity=".6">orchestrazione &amp; decisioni</text>
+
+          <!-- Monitor module (top-left) -->
+          <rect x="40" y="40" width="130" height="66" rx="8" fill="#0d1f15" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3"/>
+          <text x="105" y="62" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="8.5" font-weight="600">MONITOR</text>
+          <text x="105" y="76" text-anchor="middle" font-size="14" fill="#34d399" opacity=".7">👁️</text>
+          <text x="105" y="95" text-anchor="middle" fill="#4b5563" font-family="sans-serif" font-size="7.5">salute sistemi</text>
+          <line x1="170" y1="73" x2="259" y2="130" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr3)"/>
+
+          <!-- Scheduler module (bottom-left) -->
+          <rect x="40" y="194" width="130" height="66" rx="8" fill="#0d1f15" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3"/>
+          <text x="105" y="216" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="8.5" font-weight="600">SCHEDULER</text>
+          <text x="105" y="230" text-anchor="middle" font-size="14" fill="#34d399" opacity=".7">🕐</text>
+          <text x="105" y="249" text-anchor="middle" fill="#4b5563" font-family="sans-serif" font-size="7.5">pianificazione task</text>
+          <line x1="170" y1="227" x2="259" y2="175" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr3)"/>
+
+          <!-- Executor module (top-right) -->
+          <rect x="510" y="40" width="130" height="66" rx="8" fill="#0d1f15" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3"/>
+          <text x="575" y="62" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="8.5" font-weight="600">EXECUTOR</text>
+          <text x="575" y="76" text-anchor="middle" font-size="14" fill="#34d399" opacity=".7">▶️</text>
+          <text x="575" y="95" text-anchor="middle" fill="#4b5563" font-family="sans-serif" font-size="7.5">esecuzione script</text>
+          <line x1="420" y1="130" x2="511" y2="73" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr3)"/>
+
+          <!-- Connector module (bottom-right) -->
+          <rect x="510" y="194" width="130" height="66" rx="8" fill="#0d1f15" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3"/>
+          <text x="575" y="216" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="8.5" font-weight="600">CONNECTOR</text>
+          <text x="575" y="230" text-anchor="middle" font-size="14" fill="#34d399" opacity=".7">🔌</text>
+          <text x="575" y="249" text-anchor="middle" fill="#4b5563" font-family="sans-serif" font-size="7.5">servizi esterni</text>
+          <line x1="420" y1="175" x2="511" y2="227" stroke="#10b981" stroke-opacity=".5" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr3)"/>
+
+          <!-- Trigger input -->
+          <rect x="268" y="14" width="144" height="36" rx="7" fill="#112" stroke="#10b981" stroke-opacity=".25" stroke-width="1"/>
+          <text x="340" y="28" text-anchor="middle" fill="#10b981" font-family="monospace" font-size="8" opacity=".7">TRIGGER / TIMER</text>
+          <text x="340" y="42" text-anchor="middle" fill="#4b5563" font-family="sans-serif" font-size="7">eventi, schedule, webhook</text>
+          <line x1="340" y1="50" x2="340" y2="108" stroke="#10b981" stroke-opacity=".4" stroke-width="1.3" marker-end="url(#arr3)"/>
+
+          <!-- Output -->
+          <rect x="268" y="250" width="144" height="36" rx="7" fill="#091a0e" stroke="#10b981" stroke-opacity=".25" stroke-width="1"/>
+          <text x="340" y="264" text-anchor="middle" fill="#10b981" font-family="monospace" font-size="8" opacity=".7">AZIONI / NOTIFICHE</text>
+          <text x="340" y="278" text-anchor="middle" fill="#4b5563" font-family="sans-serif" font-size="7">webhook, log, alert, API call</text>
+          <line x1="340" y1="190" x2="340" y2="248" stroke="#10b981" stroke-opacity=".4" stroke-width="1.3" marker-end="url(#arr3)"/>
+        </svg>
+
+        <div class="module-grid" style="margin-top:1.25rem;">
+          <div class="module-card">
+            <div class="module-icon">👁️</div>
+            <div class="module-name">Monitor</div>
+            <div class="module-desc" data-lang="it">Controlla in continuo la salute di server, servizi e processi. Intercetta anomalie, picchi di carico, errori e guasti prima che diventino visibili agli utenti.</div>
+            <div class="module-desc" data-lang="en">Continuously checks the health of servers, services, and processes. Intercepts anomalies, load spikes, errors, and failures before they become visible to users.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-icon">🕐</div>
+            <div class="module-name">Scheduler</div>
+            <div class="module-desc" data-lang="it">Gestisce l'agenda dei task. Sa quando ogni operazione deve essere eseguita, in quale ordine, con quale priorità — come un direttore d'orchestra per i processi automatici.</div>
+            <div class="module-desc" data-lang="en">Manages the task schedule. Knows when each operation should run, in what order, with what priority — like a conductor for automated processes.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-icon">▶️</div>
+            <div class="module-name">Executor</div>
+            <div class="module-desc" data-lang="it">Esegue concretamente gli script e le operazioni. Riceve gli ordini dallo Scheduler o dal Core Agent e li porta a termine, gestendo errori e retry automatici.</div>
+            <div class="module-desc" data-lang="en">Concretely executes scripts and operations. Receives orders from the Scheduler or Core Agent and carries them out, handling errors and automatic retries.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-icon">🔌</div>
+            <div class="module-name">Connector</div>
+            <div class="module-desc" data-lang="it">Fa parlare iARGOS con il mondo esterno: API di terzi, webhook, database remoti, servizi di notifica, piattaforme cloud. Ogni integrazione è un plugin aggiuntivo.</div>
+            <div class="module-desc" data-lang="en">Makes iARGOS talk to the outside world: third-party APIs, webhooks, remote databases, notification services, cloud platforms. Each integration is an additional plugin.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COME FUNZIONA -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Come funziona nella pratica</div>
+        <div class="sec-label" data-lang="en">How it works in practice</div>
+        <div data-lang="it"><h2 class="sec-title">Dalla regola all'azione automatica</h2></div>
+        <div data-lang="en"><h2 class="sec-title">From rule to automatic action</h2></div>
+
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-icon">📋</div>
+            <div class="step-title" data-lang="it">Definisci le regole</div>
+            <div class="step-title" data-lang="en">Define rules</div>
+            <div class="step-desc" data-lang="it">L'utente configura trigger, schedule e soglie di allerta. "Se il server usa più del 90% della RAM, esegui questa pulizia."</div>
+            <div class="step-desc" data-lang="en">The user configures triggers, schedules, and alert thresholds. "If the server uses more than 90% RAM, run this cleanup."</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-icon">👁️</div>
+            <div class="step-title" data-lang="it">Monitor vigila</div>
+            <div class="step-title" data-lang="en">Monitor watches</div>
+            <div class="step-desc" data-lang="it">Il modulo Monitor controlla continuamente i parametri definiti — CPU, RAM, spazio disco, uptime dei servizi, log di errore.</div>
+            <div class="step-desc" data-lang="en">The Monitor module continuously checks defined parameters — CPU, RAM, disk space, service uptime, error logs.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-icon">⚡</div>
+            <div class="step-title" data-lang="it">Core Agent decide</div>
+            <div class="step-title" data-lang="en">Core Agent decides</div>
+            <div class="step-desc" data-lang="it">Quando una soglia è superata o una schedule si attiva, il Core Agent valuta la situazione e decide quale azione intraprendere.</div>
+            <div class="step-desc" data-lang="en">When a threshold is exceeded or a schedule triggers, the Core Agent assesses the situation and decides what action to take.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <div class="step-icon">▶️</div>
+            <div class="step-title" data-lang="it">Executor agisce</div>
+            <div class="step-title" data-lang="en">Executor acts</div>
+            <div class="step-desc" data-lang="it">L'Executor esegue lo script o l'operazione stabilita. Se fallisce, ritenta automaticamente con logica di backoff esponenziale.</div>
+            <div class="step-desc" data-lang="en">The Executor runs the script or operation. If it fails, it automatically retries with exponential backoff logic.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">05</div>
+            <div class="step-icon">📣</div>
+            <div class="step-title" data-lang="it">Notifica e registra</div>
+            <div class="step-title" data-lang="en">Notifies and logs</div>
+            <div class="step-desc" data-lang="it">Il Connector invia notifiche (email, Slack, webhook) e registra ogni azione in un log dettagliato per l'analisi futura.</div>
+            <div class="step-desc" data-lang="en">The Connector sends notifications (email, Slack, webhook) and logs every action in a detailed log for future analysis.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECNOLOGIE -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Tecnologie chiave</div>
+        <div class="sec-label" data-lang="en">Key technologies</div>
+        <div data-lang="it"><h2 class="sec-title">Cosa c'è sotto il cofano</h2></div>
+        <div data-lang="en"><h2 class="sec-title">What's under the hood</h2></div>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">🐍</div>
+            <div>
+              <div class="tech-name">Python async</div>
+              <div class="tech-desc" data-lang="it">Il cuore di iARGOS è scritto in Python asincrono: riesce a gestire decine di processi contemporaneamente senza bloccarsi, come un operatore che tiene d'occhio molti monitor in parallelo.</div>
+              <div class="tech-desc" data-lang="en">iARGOS's heart is written in async Python: it can manage dozens of processes simultaneously without blocking, like an operator watching many monitors in parallel.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📅</div>
+            <div>
+              <div class="tech-name">Task Queue (Celery / APScheduler)</div>
+              <div class="tech-desc" data-lang="it">Un sistema di code distribuisce i task in modo ordinato. Come una segreteria organizzata, assicura che ogni operazione venga eseguita nell'ordine giusto, senza conflitti.</div>
+              <div class="tech-desc" data-lang="en">A queue system distributes tasks in an orderly way. Like an organised secretary, it ensures every operation runs in the right order, without conflicts.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🗄️</div>
+            <div>
+              <div class="tech-name">Event Bus &amp; Messaging</div>
+              <div class="tech-desc" data-lang="it">Un bus di eventi permette ai moduli di comunicare tra loro senza dipendenze dirette. Monitor pubblica un evento, Executor lo ascolta — come una radio interna al sistema.</div>
+              <div class="tech-desc" data-lang="en">An event bus lets modules communicate without direct dependencies. Monitor publishes an event, Executor listens — like an internal system radio.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🔌</div>
+            <div>
+              <div class="tech-name">Plugin Architecture</div>
+              <div class="tech-desc" data-lang="it">Ogni connettore è un plugin indipendente. Vuoi aggiungere l'integrazione con Slack? Installa il plugin Slack. Vuoi rimuovere AWS? Rimuovi quel plugin. Zero impatto sul resto.</div>
+              <div class="tech-desc" data-lang="en">Each connector is an independent plugin. Want to add Slack integration? Install the Slack plugin. Want to remove AWS? Remove that plugin. Zero impact on the rest.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📊</div>
+            <div>
+              <div class="tech-name">Logging &amp; Observability</div>
+              <div class="tech-desc" data-lang="it">Ogni azione è registrata con timestamp, risultato e contesto. Il sistema tiene un audit trail completo: sai sempre cosa ha fatto iARGOS, quando e perché.</div>
+              <div class="tech-desc" data-lang="en">Every action is logged with timestamp, result, and context. The system maintains a complete audit trail: you always know what iARGOS did, when, and why.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🐳</div>
+            <div>
+              <div class="tech-name">Docker / Containerization</div>
+              <div class="tech-desc" data-lang="it">iARGOS gira in container Docker: può essere distribuito su qualsiasi server senza configurazioni complesse. Portabile, isolato, replicabile.</div>
+              <div class="tech-desc" data-lang="en">iARGOS runs in Docker containers: it can be deployed on any server without complex configuration. Portable, isolated, replicable.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Timeline di sviluppo</div>
+        <div class="sec-label" data-lang="en">Development timeline</div>
+        <div data-lang="it"><h2 class="sec-title">Come si sta costruendo iARGOS</h2></div>
+        <div data-lang="en"><h2 class="sec-title">How iARGOS is being built</h2></div>
+
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag">2024 · Q3</div>
+            <div class="tl-title" data-lang="it">🌱 Idea e architettura</div>
+            <div class="tl-title" data-lang="en">🌱 Idea and architecture</div>
+            <div class="tl-desc" data-lang="it">Nasce il concetto di agente backend autonomo. Studio delle architetture agentic esistenti, definizione del pattern hub-and-spoke, scelta dello stack tecnologico.</div>
+            <div class="tl-desc" data-lang="en">The concept of an autonomous backend agent takes shape. Study of existing agentic architectures, definition of the hub-and-spoke pattern, technology stack selection.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag">2024 · Q4</div>
+            <div class="tl-title" data-lang="it">🔧 Core Agent e Monitor</div>
+            <div class="tl-title" data-lang="en">🔧 Core Agent and Monitor</div>
+            <div class="tl-desc" data-lang="it">Primi due moduli funzionanti: il Core Agent che orchestra e il Monitor che raccoglie metriche di sistema in tempo reale. Prima prova di alert automatico.</div>
+            <div class="tl-desc" data-lang="en">First two working modules: the Core Agent that orchestrates and the Monitor that collects system metrics in real time. First test of automatic alerting.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag">2025 · Q1</div>
+            <div class="tl-title" data-lang="it">⏱️ Scheduler e Executor</div>
+            <div class="tl-title" data-lang="en">⏱️ Scheduler and Executor</div>
+            <div class="tl-desc" data-lang="it">Implementazione dello Scheduler con supporto cron e schedule dinamiche, e dell'Executor con gestione errori e retry. Il sistema esegue i primi task autonomi.</div>
+            <div class="tl-desc" data-lang="en">Implementation of the Scheduler with cron and dynamic schedule support, and the Executor with error handling and retry. The system runs its first autonomous tasks.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag">2025 · Q2–Q3</div>
+            <div class="tl-title" data-lang="it">🔌 Sistema plugin e Connector</div>
+            <div class="tl-title" data-lang="en">🔌 Plugin system and Connector</div>
+            <div class="tl-desc" data-lang="it">Sviluppo dell'architettura a plugin e dei primi connettori: Slack, email, webhook HTTP. Il sistema inizia a "parlare" con il mondo esterno.</div>
+            <div class="tl-desc" data-lang="en">Development of the plugin architecture and first connectors: Slack, email, HTTP webhook. The system starts to "talk" to the outside world.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag">2025 · Q4</div>
+            <div class="tl-title" data-lang="it">🧪 Integrazione e testing</div>
+            <div class="tl-title" data-lang="en">🧪 Integration and testing</div>
+            <div class="tl-desc" data-lang="it">I quattro moduli lavorano insieme. Testing su scenari reali: failover automatico, recovery da errori, gestione di task paralleli, stress test.</div>
+            <div class="tl-desc" data-lang="en">All four modules work together. Testing on real-world scenarios: automatic failover, error recovery, parallel task management, stress tests.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag">2026 · In corso</div>
+            <div class="tl-title" data-lang="it">⚡ Ottimizzazione e nuovi connettori</div>
+            <div class="tl-title" data-lang="en">⚡ Optimisation and new connectors</div>
+            <div class="tl-desc" data-lang="it">Ottimizzazione delle performance, sviluppo di nuovi plugin (AWS, GCP, Kubernetes), interfaccia di configurazione web. Preparazione alla versione beta.</div>
+            <div class="tl-desc" data-lang="en">Performance optimisation, development of new plugins (AWS, GCP, Kubernetes), web configuration interface. Preparation for beta version.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot future"></div>
+            <div class="tl-tag" data-lang="it">Prossimamente</div>
+            <div class="tl-tag" data-lang="en">Coming next</div>
+            <div class="tl-title" data-lang="it">🚀 Beta release e documentazione</div>
+            <div class="tl-title" data-lang="en">🚀 Beta release and documentation</div>
+            <div class="tl-desc" data-lang="it">Prima versione beta pubblica, documentazione completa per sviluppatori, marketplace plugin, dashboard web per la gestione visuale.</div>
+            <div class="tl-desc" data-lang="en">First public beta version, complete developer documentation, plugin marketplace, web dashboard for visual management.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATO ATTUALE -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Stato attuale</div>
+        <div class="sec-label" data-lang="en">Current state</div>
+        <div data-lang="it"><h2 class="sec-title">Dove siamo ora</h2></div>
+        <div data-lang="en"><h2 class="sec-title">Where we are now</h2></div>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-val">4</div>
+            <div class="stat-lbl" data-lang="it">Moduli core</div>
+            <div class="stat-lbl" data-lang="en">Core modules</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">3+</div>
+            <div class="stat-lbl" data-lang="it">Connettori attivi</div>
+            <div class="stat-lbl" data-lang="en">Active connectors</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">Beta</div>
+            <div class="stat-lbl" data-lang="it">Prossima fase</div>
+            <div class="stat-lbl" data-lang="en">Next phase</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.75rem;">
+          <div class="prog-list">
+            <div>
+              <div class="prog-header">
+                <span class="prog-label">Core Agent</span>
+                <span class="prog-val">90%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:90%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label">Monitor</span>
+                <span class="prog-val">85%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:85%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label">Scheduler</span>
+                <span class="prog-val">80%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:80%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label">Executor</span>
+                <span class="prog-val">80%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:80%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label" data-lang="it">Sistema Plugin / Connector</span>
+                <span class="prog-label" data-lang="en">Plugin / Connector system</span>
+                <span class="prog-val">65%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label" data-lang="it">Dashboard web</span>
+                <span class="prog-label" data-lang="en">Web dashboard</span>
+                <span class="prog-val">20%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:20%"></div></div>
+            </div>
+          </div>
+
+          <ul class="feat" style="margin-top:1.5rem;">
+            <li class="done"><span class="dot"></span><span data-lang="it">Core Agent funzionante con logica di orchestrazione</span><span data-lang="en">Working Core Agent with orchestration logic</span></li>
+            <li class="done"><span class="dot"></span><span data-lang="it">Monitor con raccolta metriche real-time</span><span data-lang="en">Monitor with real-time metric collection</span></li>
+            <li class="done"><span class="dot"></span><span data-lang="it">Scheduler con cron e schedule dinamiche</span><span data-lang="en">Scheduler with cron and dynamic schedules</span></li>
+            <li class="done"><span class="dot"></span><span data-lang="it">Executor con retry e gestione errori</span><span data-lang="en">Executor with retry and error handling</span></li>
+            <li class="done"><span class="dot"></span><span data-lang="it">Connettori Slack, email, webhook</span><span data-lang="en">Slack, email, webhook connectors</span></li>
+            <li class="wip"><span class="dot"></span><span data-lang="it">Nuovi plugin cloud (AWS, GCP) in sviluppo</span><span data-lang="en">New cloud plugins (AWS, GCP) in development</span></li>
+            <li class="wip"><span class="dot"></span><span data-lang="it">Dashboard web di configurazione (in sviluppo)</span><span data-lang="en">Configuration web dashboard (in development)</span></li>
+            <li class="plan"><span class="dot"></span><span data-lang="it">Plugin marketplace (pianificato)</span><span data-lang="en">Plugin marketplace (planned)</span></li>
+            <li class="plan"><span class="dot"></span><span data-lang="it">Beta pubblica con documentazione (pianificato)</span><span data-lang="en">Public beta with documentation (planned)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- VISION -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Perché esiste</div>
+        <div class="sec-label" data-lang="en">Why it exists</div>
+        <div data-lang="it">
+          <h2 class="sec-title">L'automazione intelligente non dovrebbe richiedere un team DevOps</h2>
+          <div class="sec-body">
+            <p>Grandi aziende hanno team interi dedicati all'automazione dei processi backend. iARGOS nasce dall'idea che questa potenza debba essere accessibile anche a chi lavora da solo o in team piccoli: uno strumento modulare, estendibile, che cresce con le esigenze senza richiedere competenze enterprise.</p>
+            <p>La visione a lungo termine è un agente backend universale: connetti i tuoi sistemi, definisci le tue regole, lascia che iARGOS pensi al resto.</p>
+          </div>
+        </div>
+        <div data-lang="en">
+          <h2 class="sec-title">Intelligent automation shouldn't require a DevOps team</h2>
+          <div class="sec-body">
+            <p>Large companies have entire teams dedicated to backend process automation. iARGOS was born from the idea that this power should be accessible even to those working alone or in small teams: a modular, extensible tool that grows with requirements without demanding enterprise expertise.</p>
+            <p>The long-term vision is a universal backend agent: connect your systems, define your rules, let iARGOS take care of the rest.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left column -->
+
+    <!-- ════ RIGHT COLUMN – SIDEBAR ════ -->
+    <div>
+      <div class="side-card animate">
+        <div class="side-row">
+          <span class="side-label" data-i18n="project_detail.status_label"></span>
+          <span class="dev-badge"><span class="dev-dot"></span><span data-lang="it">In sviluppo</span><span data-lang="en">In development</span></span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Categoria</span>
+          <span class="side-label" data-lang="en">Category</span>
+          <span class="side-val" data-lang="it">Automazione &amp; Orchestrazione</span>
+          <span class="side-val" data-lang="en">Automation &amp; Orchestration</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Avviato</span>
+          <span class="side-label" data-lang="en">Started</span>
+          <span class="side-val">2024</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Fase attuale</span>
+          <span class="side-label" data-lang="en">Current phase</span>
+          <span class="side-val" data-lang="it">Sviluppo attivo → Beta</span>
+          <span class="side-val" data-lang="en">Active dev → Beta</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Stack principale</span>
+          <span class="side-label" data-lang="en">Main stack</span>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem;">
+            <span class="tag">Python</span>
+            <span class="tag">Async</span>
+            <span class="tag">Celery</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Plugin API</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-i18n="project_detail.part_of_label"></span>
+          <a href="../../index.html" class="text-accent font-medium" style="font-size:.9rem;">GiGa Labor</a>
+        </div>
+      </div>
+    </div><!-- /right column -->
+
+  </div><!-- /two-col -->
+</div><!-- /container -->
+
+<div id="footer-root"></div>
+<script src="../../js/data/gl-data.js"></script>
+<script src="../../js/data/i18n/it.js"></script>
+<script src="../../js/data/i18n/en.js"></script>
+<script src="../../js/app.js"></script>
+<script>
+(function () {
+  function applyLang(lang) {
+    document.querySelectorAll('[data-lang]').forEach(function (el) {
+      el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+    });
+  }
+  var saved = (function () {
+    try { return localStorage.getItem('gl_lang') || 'it'; } catch (e) { return 'it'; }
+  })();
+  applyLang(saved);
+  document.addEventListener('langChange', function (e) { applyLang(e.detail.lang); });
+})();
+</script>
+</body>
+</html>

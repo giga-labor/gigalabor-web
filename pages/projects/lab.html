@@ -1,18 +1,572 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it" data-theme="contrast">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title></title><meta name="description" content=""><link rel="stylesheet" href="../../css/main.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml"><style>.animate{opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .5s ease}.animate.animated{opacity:1;transform:translateY(0)}:root{--project-color:#f59e0b}.project-accent{color:var(--project-color)}.project-hero{border-top:3px solid var(--project-color)}</style>  <meta property="og:type"        content="website">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GiGa Lab — GiGa Labor</title>
+  <meta name="description" content="Lo spazio di ricerca libera, prototipazione rapida ed esperimenti tecnici di GiGa Labor.">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <meta property="og:type"        content="website">
   <meta property="og:site_name"   content="GiGa Labor">
   <meta property="og:title"       content="GiGa Lab — GiGa Labor">
-  <meta property="og:description" content="Spazio aperto per ricerca libera, prototipazione rapida e sperimentazione tecnica.">
+  <meta property="og:description" content="Lo spazio di ricerca libera, prototipazione rapida ed esperimenti tecnici di GiGa Labor.">
   <meta property="og:url"         content="https://gigalabor.it/pages/projects/lab.html">
-  <meta name="twitter:card"        content="summary">
-  <meta name="twitter:title"       content="GiGa Lab — GiGa Labor">
-  <meta name="twitter:description" content="Spazio aperto per ricerca libera, prototipazione rapida e sperimentazione tecnica.">
-  <meta name="robots"              content="index, follow">
-  <link rel="canonical"            href="https://gigalabor.it/pages/projects/lab.html">
-</head>
-<body data-page="project-detail"><div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div><div id="navbar-root"></div>
-<div class="page-hero project-hero"><div class="container"><a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a><div class="flex-gap mb-3" style="align-items:center;"><span style="font-size:2rem;">GL</span><span class="badge badge--ongoing" data-i18n="status.ongoing"></span></div><h1 class="section-title project-accent" data-i18n="projects.lab.name"></h1><p class="text-secondary mt-2" style="font-size:1.1rem;" data-i18n="projects.lab.short"></p></div></div>
-<section class="section"><div class="container"><div class="animate mb-4"><p class="text-secondary" style="font-size:1.05rem;line-height:1.8;max-width:680px;" data-i18n="projects.lab.description"></p></div><div class="animate mb-4"><h3 style="font-size:1rem;margin-bottom:1rem;" data-i18n="project_detail.stack_title"></h3><div class="tags" id="lab-tags" data-project-tags="lab"></div></div></div></section>
-<div id="footer-root"></div><script src="../../js/data/gl-data.js"></script><script src="../../js/data/i18n/it.js"></script><script src="../../js/data/i18n/en.js"></script><script src="../../js/app.js"></script></body></html>
+  <meta name="twitter:card"       content="summary">
+  <meta name="robots"             content="index, follow">
+  <link rel="canonical"           href="https://gigalabor.it/pages/projects/lab.html">
+  <style>
+    :root { --project-color: #f59e0b; --project-glow: rgba(245,158,11,.18); }
+    .animate { opacity:0; transform:translateY(24px); transition:opacity .5s ease,transform .5s ease; }
+    .animate.animated { opacity:1; transform:translateY(0); }
+    .project-accent { color: var(--project-color); }
+    .project-hero { border-top: 3px solid var(--project-color); }
 
+    .sec { padding: 3rem 0; border-top: 1px solid var(--border); }
+    .sec:first-child { border-top: none; }
+    .sec-label { font-family: 'JetBrains Mono',monospace; font-size:.7rem; font-weight:600;
+                 letter-spacing:.12em; text-transform:uppercase; color:var(--project-color);
+                 opacity:.75; margin-bottom:.6rem; }
+    .sec-title { font-size:1.35rem; font-weight:700; color:var(--text-primary); margin-bottom:1.2rem; line-height:1.3; }
+    .sec-body  { font-size:.95rem; color:var(--text-secondary); line-height:1.85; max-width:720px; }
+    .sec-body p { margin:0 0 1rem; }
+    .sec-body p:last-child { margin-bottom:0; }
+
+    .callout { background: color-mix(in srgb,var(--project-color) 7%,var(--bg-card));
+               border:1px solid color-mix(in srgb,var(--project-color) 25%,var(--border));
+               border-left:3px solid var(--project-color); border-radius:8px;
+               padding:1rem 1.25rem; font-size:.88rem; line-height:1.75;
+               color:var(--text-secondary); margin:1.25rem 0; }
+    .callout strong { color:var(--text-primary); }
+
+    /* Phase cards */
+    .phase-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .phase-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                  padding:1.25rem; text-align:center; transition:border-color .2s; position:relative; }
+    .phase-card:hover { border-color:var(--project-color); }
+    .phase-icon { font-size:1.8rem; margin-bottom:.65rem; }
+    .phase-name { font-weight:700; font-size:.9rem; color:var(--project-color); margin-bottom:.4rem; }
+    .phase-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+    .phase-arrow { position:absolute; right:-0.9rem; top:50%; transform:translateY(-50%);
+                   color:var(--project-color); opacity:.4; font-size:.9rem; z-index:1; }
+    @media(max-width:600px){ .phase-arrow { display:none; } }
+
+    /* Experiment cards */
+    .exp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .exp-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                padding:1.25rem; transition:border-color .2s; }
+    .exp-card:hover { border-color:var(--project-color); }
+    .exp-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.75rem; }
+    .exp-icon { font-size:1.3rem; }
+    .exp-status { font-family:'JetBrains Mono',monospace; font-size:.65rem; padding:.2rem .55rem;
+                  border-radius:10px; font-weight:600; }
+    .exp-status.graduated { background:color-mix(in srgb,#22c55e 12%,var(--bg-card));
+                             color:#22c55e; border:1px solid color-mix(in srgb,#22c55e 30%,var(--border)); }
+    .exp-status.active    { background:color-mix(in srgb,var(--project-color) 12%,var(--bg-card));
+                             color:var(--project-color); border:1px solid color-mix(in srgb,var(--project-color) 30%,var(--border)); }
+    .exp-status.archived  { background:var(--bg-card); color:var(--text-muted);
+                             border:1px solid var(--border); }
+    .exp-title { font-weight:700; font-size:.9rem; color:var(--text-primary); margin-bottom:.4rem; }
+    .exp-desc { font-size:.8rem; color:var(--text-secondary); line-height:1.65; }
+    .exp-tech { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.75rem; }
+
+    /* Tech cards */
+    .tech-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .tech-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                 padding:1.1rem 1.2rem; display:flex; gap:.9rem; align-items:flex-start; }
+    .tech-icon { font-size:1.6rem; line-height:1; flex-shrink:0; margin-top:.1rem; }
+    .tech-name { font-weight:600; font-size:.88rem; color:var(--text-primary); margin-bottom:.3rem; }
+    .tech-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+
+    /* Two col */
+    .two-col { display:grid; grid-template-columns:1fr 340px; gap:3rem; align-items:start; }
+    @media(max-width:860px){ .two-col { grid-template-columns:1fr; gap:1.75rem; } }
+
+    /* Sidebar */
+    .side-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+                 padding:1.5rem; display:flex; flex-direction:column; gap:1.1rem; position:sticky; top:80px; }
+    .side-row { display:flex; flex-direction:column; gap:.3rem; }
+    .side-label { font-size:.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace;
+                  letter-spacing:.06em; text-transform:uppercase; }
+    .side-val { font-size:.9rem; color:var(--text-secondary); }
+
+    /* Ongoing badge */
+    .ongoing-badge { display:inline-flex; align-items:center; gap:.45rem; font-family:'JetBrains Mono',monospace;
+                     font-size:.72rem; padding:.3rem .7rem; border-radius:20px;
+                     background:color-mix(in srgb,var(--project-color) 12%,var(--bg-card));
+                     border:1px solid color-mix(in srgb,var(--project-color) 30%,var(--border));
+                     color:var(--project-color); width:fit-content; }
+    .ongoing-dot { width:6px; height:6px; border-radius:50%; background:var(--project-color); animation:blink 2.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .divider { height:1px; background:var(--border); margin:0; }
+    .link-grid { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2rem; }
+
+    /* Stat row */
+    .stat-row { display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1.25rem; }
+    .stat-box { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                padding:1rem 1.4rem; text-align:center; min-width:90px; }
+    .stat-val { font-family:'JetBrains Mono',monospace; font-size:1.6rem; font-weight:700;
+                color:var(--project-color); line-height:1; margin-bottom:.3rem; }
+    .stat-lbl { font-size:.72rem; color:var(--text-muted); letter-spacing:.06em; text-transform:uppercase; }
+
+    /* Principle list */
+    .principles { list-style:none; padding:0; margin:1rem 0 0; display:flex; flex-direction:column; gap:.8rem; }
+    .principles li { display:flex; gap:.9rem; align-items:flex-start; font-size:.9rem; color:var(--text-secondary); line-height:1.6; }
+    .principles li .num { font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--project-color);
+                          font-weight:700; background:color-mix(in srgb,var(--project-color) 10%,var(--bg-card));
+                          border:1px solid color-mix(in srgb,var(--project-color) 25%,var(--border));
+                          border-radius:6px; padding:.2rem .5rem; flex-shrink:0; margin-top:.15rem; }
+  </style>
+</head>
+<body data-page="project-detail">
+<div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div>
+<div id="navbar-root"></div>
+
+<!-- ── HERO ─────────────────────────────────────── -->
+<div class="page-hero project-hero">
+  <div class="container">
+    <a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a>
+    <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem;">
+      <span style="font-size:2rem;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--project-color);">⚗️</span>
+      <span class="ongoing-badge"><span class="ongoing-dot"></span>ONGOING</span>
+    </div>
+    <h1 class="section-title project-accent" data-i18n="projects.lab.name"></h1>
+    <p class="text-secondary mt-2" style="font-size:1.05rem;" data-i18n="projects.lab.short"></p>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ──────────────────────────────── -->
+<div class="container" style="padding-top:2.5rem;padding-bottom:4rem;">
+  <div class="two-col">
+
+    <!-- ════ LEFT COLUMN ════ -->
+    <div>
+
+      <!-- PANORAMICA -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Cos'è il Lab</div>
+        <div class="sec-label" data-lang="en">What the Lab is</div>
+
+        <div data-lang="it">
+          <h2 class="sec-title">Il garage dove nascono le idee prima di diventare progetti</h2>
+          <div class="sec-body">
+            <p>Ogni grande progetto nasce da un'idea grezza che qualcuno ha avuto il coraggio di sporcarsi le mani per testare. GiGa Lab è esattamente questo: lo spazio dove le idee vengono esplorate <em>prima</em> di sapere se vale la pena costruirci sopra qualcosa di serio.</p>
+            <p>Niente roadmap fisse, niente scadenze, niente stakeholder da soddisfare. Solo curiosità tecnica, prototipazione rapida e la libertà di sbagliare velocemente — perché fallire in fretta in un Lab è infinitamente meglio che scoprire i problemi dopo mesi di sviluppo strutturato.</p>
+          </div>
+          <div class="callout">
+            <strong>🧪 La filosofia:</strong> "Prototipa in giorni, non in settimane. Scopri se un'idea ha gambe prima di costruirle il corpo." Ogni esperimento del Lab ha un tempo massimo: se non mostra promesse entro quel limite, viene archiviato senza rimpianti.
+          </div>
+        </div>
+
+        <div data-lang="en">
+          <h2 class="sec-title">The garage where ideas are born before becoming projects</h2>
+          <div class="sec-body">
+            <p>Every great project starts from a rough idea that someone had the courage to get their hands dirty testing. GiGa Lab is exactly that: the space where ideas are explored <em>before</em> knowing whether it's worth building something serious on top of them.</p>
+            <p>No fixed roadmaps, no deadlines, no stakeholders to satisfy. Just technical curiosity, rapid prototyping, and the freedom to fail fast — because failing quickly in a Lab is infinitely better than discovering problems after months of structured development.</p>
+          </div>
+          <div class="callout">
+            <strong>🧪 The philosophy:</strong> "Prototype in days, not weeks. Discover if an idea has legs before building it a body." Every Lab experiment has a maximum time budget: if it shows no promise within that limit, it's archived without regrets.
+          </div>
+        </div>
+      </div>
+
+      <!-- CICLO DI RICERCA -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Il ciclo di ricerca</div>
+        <div class="sec-label" data-lang="en">The research cycle</div>
+        <div data-lang="it"><h2 class="sec-title">Dall'idea all'archivio o al progetto — in quattro fasi</h2></div>
+        <div data-lang="en"><h2 class="sec-title">From idea to archive or project — in four phases</h2></div>
+
+        <!-- SVG ciclo di ricerca -->
+        <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg"
+             style="width:100%;max-width:700px;margin-top:1.25rem;border-radius:10px;
+                    background:#1a1205;border:1px solid #2a1e08;display:block;">
+          <defs>
+            <marker id="arr4" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+              <polygon points="0 0,7 2.5,0 5" fill="#f59e0b" opacity=".7"/>
+            </marker>
+            <marker id="arrg" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+              <polygon points="0 0,7 2.5,0 5" fill="#22c55e" opacity=".7"/>
+            </marker>
+            <marker id="arrr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+              <polygon points="0 0,7 2.5,0 5" fill="#94a3b8" opacity=".5"/>
+            </marker>
+          </defs>
+
+          <!-- IDEA -->
+          <rect x="18" y="74" width="110" height="56" rx="8" fill="#1f1505" stroke="#f59e0b" stroke-opacity=".5" stroke-width="1.3"/>
+          <text x="73" y="96" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="9" font-weight="600">IDEA</text>
+          <text x="73" y="112" text-anchor="middle" font-size="16" fill="#f59e0b" opacity=".6">💡</text>
+
+          <!-- Arrow 1 -->
+          <line x1="128" y1="102" x2="165" y2="102" stroke="#f59e0b" stroke-opacity=".6" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+          <!-- PROTOTIPO -->
+          <rect x="167" y="74" width="130" height="56" rx="8" fill="#1f1505" stroke="#f59e0b" stroke-opacity=".7" stroke-width="1.5"/>
+          <text x="232" y="96" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="9" font-weight="600">PROTOTIPO</text>
+          <text x="232" y="112" text-anchor="middle" font-size="16" fill="#f59e0b" opacity=".6">🔧</text>
+
+          <!-- Arrow 2 -->
+          <line x1="297" y1="102" x2="334" y2="102" stroke="#f59e0b" stroke-opacity=".6" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+          <!-- TEST -->
+          <rect x="336" y="74" width="110" height="56" rx="8" fill="#1f1505" stroke="#f59e0b" stroke-opacity=".7" stroke-width="1.5"/>
+          <text x="391" y="96" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="9" font-weight="600">TEST</text>
+          <text x="391" y="112" text-anchor="middle" font-size="16" fill="#f59e0b" opacity=".6">🔬</text>
+
+          <!-- Arrow 3 -->
+          <line x1="446" y1="102" x2="483" y2="102" stroke="#f59e0b" stroke-opacity=".6" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+          <!-- DECIDE -->
+          <rect x="485" y="74" width="110" height="56" rx="8" fill="#1f1505" stroke="#f59e0b" stroke-opacity=".9" stroke-width="2"/>
+          <text x="540" y="96" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="9" font-weight="600">DECIDE</text>
+          <text x="540" y="112" text-anchor="middle" font-size="16" fill="#f59e0b" opacity=".6">🎯</text>
+
+          <!-- PROGETTO (success) -->
+          <rect x="580" y="20" width="100" height="38" rx="7" fill="#0d1f12" stroke="#22c55e" stroke-opacity=".5" stroke-width="1.2"/>
+          <text x="630" y="35" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="8" font-weight="600">→ PROGETTO</text>
+          <text x="630" y="49" text-anchor="middle" fill="#4ade80" font-family="sans-serif" font-size="7.5">nasce qualcosa</text>
+          <line x1="585" y1="74" x2="630" y2="58" stroke="#22c55e" stroke-opacity=".5" stroke-width="1.3" marker-end="url(#arrg)"/>
+
+          <!-- ARCHIVIO (failure/neutral) -->
+          <rect x="580" y="142" width="100" height="38" rx="7" fill="#111" stroke="#475569" stroke-opacity=".4" stroke-width="1"/>
+          <text x="630" y="157" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="8" font-weight="600">→ ARCHIVIO</text>
+          <text x="630" y="171" text-anchor="middle" fill="#475569" font-family="sans-serif" font-size="7.5">esperienza acquisita</text>
+          <line x1="585" y1="130" x2="630" y2="142" stroke="#475569" stroke-opacity=".4" stroke-width="1.3" marker-end="url(#arrr)"/>
+
+          <!-- Loop back arrow -->
+          <path d="M 232 74 Q 232 30 391 30 Q 391 30 391 74" fill="none" stroke="#f59e0b" stroke-opacity=".15" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="310" y="22" text-anchor="middle" fill="#f59e0b" font-family="sans-serif" font-size="7" opacity=".35" data-lang="it">iterazione rapida</text>
+          <text x="310" y="22" text-anchor="middle" fill="#f59e0b" font-family="sans-serif" font-size="7" opacity=".35" data-lang="en">rapid iteration</text>
+        </svg>
+
+        <div class="phase-grid" style="margin-top:1.25rem;">
+          <div class="phase-card">
+            <div class="phase-icon">💡</div>
+            <div class="phase-name" data-lang="it">Idea</div>
+            <div class="phase-name" data-lang="en">Idea</div>
+            <div class="phase-desc" data-lang="it">Un'intuizione tecnica, un problema da risolvere, una tecnologia da esplorare. Documenta il "perché" in poche righe.</div>
+            <div class="phase-desc" data-lang="en">A technical intuition, a problem to solve, a technology to explore. Document the "why" in a few lines.</div>
+            <div class="phase-arrow">›</div>
+          </div>
+          <div class="phase-card">
+            <div class="phase-icon">🔧</div>
+            <div class="phase-name" data-lang="it">Prototipo</div>
+            <div class="phase-name" data-lang="en">Prototype</div>
+            <div class="phase-desc" data-lang="it">Costruisci qualcosa di funzionante nel minor tempo possibile. Niente architettura perfetta, solo verificare se l'idea regge.</div>
+            <div class="phase-desc" data-lang="en">Build something working in the shortest time possible. No perfect architecture, just verify whether the idea holds up.</div>
+            <div class="phase-arrow">›</div>
+          </div>
+          <div class="phase-card">
+            <div class="phase-icon">🔬</div>
+            <div class="phase-name" data-lang="it">Test</div>
+            <div class="phase-name" data-lang="en">Test</div>
+            <div class="phase-desc" data-lang="it">Usa il prototipo in condizioni reali. Raccogli dati, osserva i punti di rottura, misura l'effettiva utilità.</div>
+            <div class="phase-desc" data-lang="en">Use the prototype in real conditions. Collect data, observe breaking points, measure actual usefulness.</div>
+            <div class="phase-arrow">›</div>
+          </div>
+          <div class="phase-card">
+            <div class="phase-icon">🎯</div>
+            <div class="phase-name" data-lang="it">Decide</div>
+            <div class="phase-name" data-lang="en">Decide</div>
+            <div class="phase-desc" data-lang="it">Ha senso continuare? → diventa progetto strutturato. Non convince? → archivio, con note sulle lezioni apprese.</div>
+            <div class="phase-desc" data-lang="en">Does it make sense to continue? → becomes a structured project. Not convincing? → archive, with notes on lessons learned.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESPERIMENTI -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Esperimenti recenti e passati</div>
+        <div class="sec-label" data-lang="en">Recent and past experiments</div>
+        <div data-lang="it"><h2 class="sec-title">Cosa è passato per il Lab</h2></div>
+        <div data-lang="en"><h2 class="sec-title">What has passed through the Lab</h2></div>
+
+        <div data-lang="it">
+          <p class="sec-body" style="margin-bottom:.5rem;">Alcuni esperimenti hanno "laureato" diventando progetti strutturati. Altri hanno prodotto conoscenza preziosa prima di essere archiviati. Tutti hanno avuto uno scopo.</p>
+        </div>
+        <div data-lang="en">
+          <p class="sec-body" style="margin-bottom:.5rem;">Some experiments "graduated" to become structured projects. Others produced valuable knowledge before being archived. All had a purpose.</p>
+        </div>
+
+        <div class="exp-grid">
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-icon">📊</span>
+              <span class="exp-status graduated" data-lang="it">→ Progetto</span>
+              <span class="exp-status graduated" data-lang="en">→ Project</span>
+            </div>
+            <div class="exp-title" data-lang="it">Analisi statistica lotterie</div>
+            <div class="exp-title" data-lang="en">Lottery statistical analysis</div>
+            <div class="exp-desc" data-lang="it">Prototipo iniziale di analisi delle frequenze del SuperEnalotto. Risultati abbastanza interessanti da giustificare lo sviluppo di ControlChaos.</div>
+            <div class="exp-desc" data-lang="en">Initial prototype of SuperEnalotto frequency analysis. Results interesting enough to justify developing ControlChaos.</div>
+            <div class="exp-tech"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span></div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-icon">🤖</span>
+              <span class="exp-status graduated" data-lang="it">→ Progetto</span>
+              <span class="exp-status graduated" data-lang="en">→ Project</span>
+            </div>
+            <div class="exp-title" data-lang="it">Memoria persistente per LLM locali</div>
+            <div class="exp-title" data-lang="en">Persistent memory for local LLMs</div>
+            <div class="exp-desc" data-lang="it">Esperimento su come dare "memoria" a un LLM locale tra sessioni diverse. Funzionava sorprendentemente bene — è diventato il nucleo di EvoBrain.</div>
+            <div class="exp-desc" data-lang="en">Experiment on giving "memory" to a local LLM across different sessions. It worked surprisingly well — became the core of EvoBrain.</div>
+            <div class="exp-tech"><span class="tag">Python</span><span class="tag">Ollama</span><span class="tag">ChromaDB</span></div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-icon">⚙️</span>
+              <span class="exp-status graduated" data-lang="it">→ Progetto</span>
+              <span class="exp-status graduated" data-lang="en">→ Project</span>
+            </div>
+            <div class="exp-title" data-lang="it">Micro-scheduler per script automatici</div>
+            <div class="exp-title" data-lang="en">Micro-scheduler for automated scripts</div>
+            <div class="exp-desc" data-lang="it">Piccolo orchestratore per eseguire script in sequenza con retry automatici. Il punto di partenza dell'architettura di iARGOS.</div>
+            <div class="exp-desc" data-lang="en">Small orchestrator to run scripts in sequence with automatic retries. The starting point for iARGOS's architecture.</div>
+            <div class="exp-tech"><span class="tag">Python</span><span class="tag">APScheduler</span><span class="tag">Redis</span></div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-icon">🔍</span>
+              <span class="exp-status active" data-lang="it">In corso</span>
+              <span class="exp-status active" data-lang="en">Active</span>
+            </div>
+            <div class="exp-title" data-lang="it">RAG su documenti locali</div>
+            <div class="exp-title" data-lang="en">RAG on local documents</div>
+            <div class="exp-desc" data-lang="it">Retrieval-Augmented Generation applicato a PDF e documenti locali. Interrogare una libreria di documenti con linguaggio naturale, completamente offline.</div>
+            <div class="exp-desc" data-lang="en">Retrieval-Augmented Generation applied to local PDFs and documents. Query a document library with natural language, completely offline.</div>
+            <div class="exp-tech"><span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">FAISS</span></div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-icon">🎨</span>
+              <span class="exp-status active" data-lang="it">In corso</span>
+              <span class="exp-status active" data-lang="en">Active</span>
+            </div>
+            <div class="exp-title" data-lang="it">Generazione automatica UI da schema</div>
+            <div class="exp-title" data-lang="en">Automatic UI generation from schema</div>
+            <div class="exp-desc" data-lang="it">Dato un file di configurazione JSON, generare automaticamente un'interfaccia web funzionale. Ridurre a zero il boilerplate per dashboard admin.</div>
+            <div class="exp-desc" data-lang="en">Given a JSON configuration file, automatically generate a functional web interface. Reduce admin dashboard boilerplate to zero.</div>
+            <div class="exp-tech"><span class="tag">Python</span><span class="tag">Jinja2</span><span class="tag">JavaScript</span></div>
+          </div>
+
+          <div class="exp-card">
+            <div class="exp-header">
+              <span class="exp-icon">🌐</span>
+              <span class="exp-status archived" data-lang="it">Archiviato</span>
+              <span class="exp-status archived" data-lang="en">Archived</span>
+            </div>
+            <div class="exp-title" data-lang="it">Web scraper semantico</div>
+            <div class="exp-title" data-lang="en">Semantic web scraper</div>
+            <div class="exp-desc" data-lang="it">Tentativo di scraping intelligente basato sul significato delle pagine, non sulla struttura HTML. Tecnicamente funzionante ma troppo lento per uso pratico.</div>
+            <div class="exp-desc" data-lang="en">Attempt at intelligent scraping based on page meaning, not HTML structure. Technically working but too slow for practical use. Archived with lessons learned.</div>
+            <div class="exp-tech"><span class="tag">Python</span><span class="tag">BeautifulSoup</span><span class="tag">Transformers</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRINCIPI -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">I principi del Lab</div>
+        <div class="sec-label" data-lang="en">Lab principles</div>
+        <div data-lang="it"><h2 class="sec-title">Le regole non scritte che guidano ogni esperimento</h2></div>
+        <div data-lang="en"><h2 class="sec-title">The unwritten rules that guide every experiment</h2></div>
+
+        <div data-lang="it">
+          <ul class="principles">
+            <li><span class="num">01</span>Costruisci prima il pezzo più difficile. Se il cuore dell'idea non funziona, non serve fare tutto il resto.</li>
+            <li><span class="num">02</span>Niente architettura perfetta in fase di esplorazione. Il codice del Lab può essere brutto — deve essere veloce.</li>
+            <li><span class="num">03</span>Definisci un "criterio di successo" prima di iniziare. Senza di esso, ogni esperimento diventa eterno.</li>
+            <li><span class="num">04</span>Archiviare non è fallire. Un esperimento archiviato con note chiare vale quanto uno riuscito.</li>
+            <li><span class="num">05</span>La documentazione del Lab è minimale ma esiste. Ogni esperimento ha un README con ipotesi, risultati e lezioni.</li>
+          </ul>
+        </div>
+        <div data-lang="en">
+          <ul class="principles">
+            <li><span class="num">01</span>Build the hardest part first. If the idea's core doesn't work, there's no point doing everything else.</li>
+            <li><span class="num">02</span>No perfect architecture in exploration phase. Lab code can be ugly — it must be fast.</li>
+            <li><span class="num">03</span>Define a "success criterion" before starting. Without one, every experiment becomes eternal.</li>
+            <li><span class="num">04</span>Archiving is not failing. An experiment archived with clear notes is as valuable as a successful one.</li>
+            <li><span class="num">05</span>Lab documentation is minimal but exists. Every experiment has a README with hypotheses, results, and lessons.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- STRUMENTI -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Strumenti frequenti</div>
+        <div class="sec-label" data-lang="en">Frequent tools</div>
+        <div data-lang="it"><h2 class="sec-title">Il kit del prototipatore rapido</h2></div>
+        <div data-lang="en"><h2 class="sec-title">The rapid prototyper's toolkit</h2></div>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">🐍</div>
+            <div>
+              <div class="tech-name">Python</div>
+              <div class="tech-desc" data-lang="it">Il coltellino svizzero del Lab. Dalla manipolazione dati all'AI, dal web scraping alle API: Python permette di provare qualsiasi idea in poche ore.</div>
+              <div class="tech-desc" data-lang="en">The Lab's Swiss Army knife. From data manipulation to AI, web scraping to APIs: Python lets you try any idea in a few hours.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📓</div>
+            <div>
+              <div class="tech-name">Jupyter Notebooks</div>
+              <div class="tech-desc" data-lang="it">L'ambiente ideale per esplorare dati e idee in modo interattivo. Esegui un blocco di codice, guarda il risultato, modifica, itera — tutto in tempo reale.</div>
+              <div class="tech-desc" data-lang="en">The ideal environment for exploring data and ideas interactively. Run a block of code, see the result, modify, iterate — all in real time.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🤖</div>
+            <div>
+              <div class="tech-name">LLM locali (Ollama)</div>
+              <div class="tech-desc" data-lang="it">Molti esperimenti recenti coinvolgono modelli linguistici locali. Ollama permette di eseguire modelli come Llama e Mistral sul proprio hardware in pochi comandi.</div>
+              <div class="tech-desc" data-lang="en">Many recent experiments involve local language models. Ollama allows running models like Llama and Mistral on your own hardware in a few commands.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🐳</div>
+            <div>
+              <div class="tech-name">Docker</div>
+              <div class="tech-desc" data-lang="it">I prototipi che richiedono servizi esterni (database, code, API) vengono avvolti in container Docker. Setup in minuti, teardown in secondi, nessun residuo sul sistema.</div>
+              <div class="tech-desc" data-lang="en">Prototypes requiring external services (databases, queues, APIs) are wrapped in Docker containers. Setup in minutes, teardown in seconds, no residue on the system.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🌐</div>
+            <div>
+              <div class="tech-name">FastAPI / Flask</div>
+              <div class="tech-desc" data-lang="it">Per gli esperimenti che richiedono un'API o un'interfaccia web minimale. In poche righe di codice si espone qualsiasi funzionalità su HTTP.</div>
+              <div class="tech-desc" data-lang="en">For experiments requiring an API or minimal web interface. In a few lines of code, any functionality can be exposed over HTTP.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">📊</div>
+            <div>
+              <div class="tech-name">Pandas / NumPy / Matplotlib</div>
+              <div class="tech-desc" data-lang="it">La triade per l'analisi dati rapida. Carica, trasforma, visualizza qualsiasi dataset in pochi minuti. Essenziale per esperimenti con dati strutturati.</div>
+              <div class="tech-desc" data-lang="en">The triad for fast data analysis. Load, transform, visualize any dataset in minutes. Essential for experiments with structured data.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATO -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Il Lab non finisce mai</div>
+        <div class="sec-label" data-lang="en">The Lab never ends</div>
+        <div data-lang="it">
+          <h2 class="sec-title">Un progetto senza timeline è per definizione always-on</h2>
+          <div class="sec-body">
+            <p>GiGa Lab è l'unico progetto di GiGa Labor senza una roadmap definita. Non perché manchino le idee — anzi, ce ne sono sempre troppe — ma perché la sua natura è quella di uno spazio aperto e continuo.</p>
+            <p>Nuovi esperimenti nascono quando nasce una domanda interessante. Vecchi esperimenti vengono riesumati quando nuove tecnologie li rendono praticabili. Il Lab è vivo finché c'è curiosità tecnica da soddisfare.</p>
+          </div>
+        </div>
+        <div data-lang="en">
+          <h2 class="sec-title">A project without a timeline is by definition always-on</h2>
+          <div class="sec-body">
+            <p>GiGa Lab is the only GiGa Labor project without a defined roadmap. Not because ideas are lacking — there are always too many — but because its nature is that of an open and continuous space.</p>
+            <p>New experiments are born when an interesting question arises. Old experiments are revived when new technologies make them viable. The Lab is alive as long as there's technical curiosity to satisfy.</p>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-val">3</div>
+            <div class="stat-lbl" data-lang="it">Progetti nati qui</div>
+            <div class="stat-lbl" data-lang="en">Projects born here</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">2</div>
+            <div class="stat-lbl" data-lang="it">Esperimenti attivi</div>
+            <div class="stat-lbl" data-lang="en">Active experiments</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">∞</div>
+            <div class="stat-lbl" data-lang="it">Idee in coda</div>
+            <div class="stat-lbl" data-lang="en">Ideas in queue</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left column -->
+
+    <!-- ════ RIGHT COLUMN – SIDEBAR ════ -->
+    <div>
+      <div class="side-card animate">
+        <div class="side-row">
+          <span class="side-label" data-i18n="project_detail.status_label"></span>
+          <span class="ongoing-badge"><span class="ongoing-dot"></span><span data-lang="it">Continuo</span><span data-lang="en">Ongoing</span></span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Natura</span>
+          <span class="side-label" data-lang="en">Nature</span>
+          <span class="side-val" data-lang="it">Ricerca &amp; Prototipazione</span>
+          <span class="side-val" data-lang="en">Research &amp; Prototyping</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Attivo dal</span>
+          <span class="side-label" data-lang="en">Active since</span>
+          <span class="side-val">2023</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Roadmap</span>
+          <span class="side-label" data-lang="en">Roadmap</span>
+          <span class="side-val" data-lang="it">Nessuna — è il punto</span>
+          <span class="side-val" data-lang="en">None — that's the point</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Tecnologie principali</span>
+          <span class="side-label" data-lang="en">Main technologies</span>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem;">
+            <span class="tag">Python</span>
+            <span class="tag">Jupyter</span>
+            <span class="tag">Docker</span>
+            <span class="tag">LLM</span>
+            <span class="tag">FastAPI</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-i18n="project_detail.part_of_label"></span>
+          <a href="../../index.html" class="text-accent font-medium" style="font-size:.9rem;">GiGa Labor</a>
+        </div>
+      </div>
+    </div><!-- /right column -->
+
+  </div><!-- /two-col -->
+</div><!-- /container -->
+
+<div id="footer-root"></div>
+<script src="../../js/data/gl-data.js"></script>
+<script src="../../js/data/i18n/it.js"></script>
+<script src="../../js/data/i18n/en.js"></script>
+<script src="../../js/app.js"></script>
+<script>
+(function () {
+  function applyLang(lang) {
+    document.querySelectorAll('[data-lang]').forEach(function (el) {
+      el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+    });
+  }
+  var saved = (function () {
+    try { return localStorage.getItem('gl_lang') || 'it'; } catch (e) { return 'it'; }
+  })();
+  applyLang(saved);
+  document.addEventListener('langChange', function (e) { applyLang(e.detail.lang); });
+})();
+</script>
+</body>
+</html>
