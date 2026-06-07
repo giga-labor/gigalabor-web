@@ -9,6 +9,50 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['en'] = {
 
+  'anthropic-recursive-self-improvement': {
+    date:         'June 4, 2026',
+    title:        'Anthropic: "AI is learning to build itself"',
+    excerpt:      "The Anthropic Institute documents how AI is accelerating its own development: today more than 80% of Anthropic's code is authored by Claude, with engineers 8× more productive than in 2024.",
+    body:         "On June 4, 2026, the Anthropic Institute published 'When AI builds itself', a detailed analysis of how AI is accelerating its own development toward a potential recursive loop. Anthropic's internal data is striking: more than 80% of the code merged into Anthropic's codebase is now authored by Claude. In Q2 2026, the typical engineer merges 8× more code per day than in 2024 — not because they work more, but because Claude writes the code while the researcher directs and reviews. Software engineering benchmarks (SWE-bench) went from single-digit scores to saturation in two years; Claude Mythos Preview achieves ~52× speedup in training code optimization (vs. ~3× for Opus 4 a year ago and ~4× for a skilled human expert in 4–8 hours).\n\nOn research autonomy, in April 2026 Claude autonomously ran an entire AI safety experiment — from proposing hypotheses to iterating on findings — recovering 97% of the measurable gap, versus 23% achieved by two human researchers in a week. On open-ended tasks, Claude Code's session success rate climbed from 26% to 76% in six months. Claude Mythos Preview worked autonomously for 'at least 16 hours' according to METR, 'at the upper end of what they can measure without new tasks.'\n\nAnthropic identifies three possible futures: the capability curve bends before the critical threshold; efficiency gains compound with humans still steering decisions; or true recursive self-improvement is reached, where models design and train their own successors. In the third scenario — considered plausible but not inevitable — AI progress would be bounded only by compute availability. The paper closes with a call to build international verification mechanisms that would make a credible, coordinated pause in frontier AI development possible if ever needed.",
+    badge:        'Research',
+    source_label: 'Source:',
+    source_name:  'Anthropic Institute',
+    source_url:   'https://www.anthropic.com/institute/recursive-self-improvement'
+  },
+
+  'anthropic-ipo-2026': {
+    date:         'June 1, 2026 (upcoming)',
+    title:        'Anthropic confidentially files for IPO',
+    excerpt:      "Anthropic submitted a confidential S-1 to the SEC on June 1, 2026, backed by a $965 billion valuation after closing a record $65 billion funding round.",
+    body:         "On June 1, 2026, Anthropic confidentially submitted its IPO registration documentation to the U.S. Securities and Exchange Commission. The announcement came just days after closing a $65 billion Series H funding round — the largest in AI industry history — pushing the company's valuation to $965 billion, within reach of the $1 trillion milestone.\n\nAnthropic's revenue run rate has reached $47 billion annually, up sharply from $10 billion in 2025, driven primarily by Claude Code — its AI coding assistant — and enterprise API services. The confidential filing allows the company to begin the SEC review process without any immediate public disclosure requirement, handling regulatory comments privately before the definitive prospectus.\n\nThe timing surprised markets: Anthropic is getting ahead of rival OpenAI in the race to Wall Street too. OpenAI was preparing its own IPO filing, but Anthropic moved first. The listing, expected in fall 2026, would be one of the largest tech IPOs in history.",
+    badge:        'Upcoming',
+    source_label: 'Source:',
+    source_name:  'Fortune',
+    source_url:   'https://fortune.com/2026/06/01/anthropic-confidentially-files-ipo-965-billion-valuation/'
+  },
+
+  'microsoft-build-2026': {
+    date:         'June 2, 2026',
+    title:        'Microsoft Build 2026: seven MAI models and Windows as AI agent OS',
+    excerpt:      "Build 2026 unveiled seven new in-house MAI models, repositioned Windows as a first-class platform for autonomous agents, and announced the Majorana 2 quantum chip.",
+    body:         "On June 2, 2026, Microsoft held its annual Build event at Fort Mason Center in San Francisco. CEO Satya Nadella introduced seven new AI models developed in-house by the Microsoft AI Superintelligence Team: MAI-Thinking-1 (reasoning, 35B active parameters, 256K context window), MAI-Code-1-Flash (coding), MAI-Image-2.5 (image generation), MAI-Transcribe-1.5 (transcription), and MAI-Voice-2 (speech synthesis). MAI-Code-1 is already available in Copilot and VS Code.\n\nThe most significant strategic signal is the repositioning of Windows: Microsoft redefines it as a secure, first-class execution environment for autonomous AI agents — no longer merely a desktop operating system for running applications. Alongside this, Project Solara was announced: a new Android-based platform for agent-driven devices where AI agents replace traditional apps.\n\nOther notable announcements: Work IQ APIs (generally available June 16) provide programmatic access to the enterprise intelligence layer; Web IQ is an AI-first, MCP-native search stack for real-time grounding, running 2.5× faster than competing alternatives. On the hardware front, Majorana 2 is a new quantum chip with qubit reliability 1,000× higher than the previous generation, on a path toward one million qubits on a single chip.",
+    badge:        'Platform',
+    source_label: 'Source:',
+    source_name:  'Microsoft Blog',
+    source_url:   'https://blogs.microsoft.com/blog/2026/06/02/microsoft-build-2026-be-yourself-at-work/'
+  },
+
+  'anthropic-mythos': {
+    date:         'June 2, 2026',
+    title:        'Claude Mythos and Project Glasswing: 150 organizations across 15+ countries',
+    excerpt:      "Anthropic expanded Project Glasswing, giving Claude Mythos Preview — an unreleased frontier model optimized for cybersecurity — to 150 new critical infrastructure organizations.",
+    body:         "On June 2, 2026, Anthropic announced the second phase of Project Glasswing, its program to strengthen critical infrastructure security using Claude Mythos Preview. After an initial phase involving 50 partners — including U.S. government agencies — access was extended to 150 new organizations across 15+ countries, focused on power, water, healthcare, communications, and hardware sectors.\n\nClaude Mythos Preview is an unreleased frontier model optimized for cybersecurity, with capabilities that surpass all but the most skilled human experts at finding and exploiting software vulnerabilities. In the weeks before the announcement, the model had already identified thousands of high-severity vulnerabilities, including some present in every major operating system and web browser. The Japanese government, Japan's major financial institutions, and the Australian government all received access.\n\nProject Glasswing represents a paradigm shift: rather than waiting for vendors to patch vulnerabilities, Anthropic puts a tool directly in the hands of critical infrastructure owners to find and fix flaws before they can be exploited. Access to the model remains controlled and subject to vetting, given the dual-use risk of the technology.",
+    badge:        'Security',
+    source_label: 'Source:',
+    source_name:  'TechCrunch',
+    source_url:   'https://techcrunch.com/2026/06/02/anthropic-scales-claude-mythos-to-critical-infrastructure-in-15-countries/'
+  },
+
   'claude-opus-4-8': {
     date:         'May 28, 2026',
     title:        'Anthropic releases Claude Opus 4.8',
@@ -43,14 +87,14 @@ window.GL.newsStrings['en'] = {
   },
 
   'ai-act-2026': {
-    date:         'August 2, 2026 (upcoming)',
-    title:        'EU AI Act: full applicability scheduled',
-    excerpt:      'According to the European Commission, the AI Act becomes fully applicable on August 2, 2026, with direct impact on AI development and deployment.',
-    body:         "The European Union's AI Act has become the first global regulatory framework dedicated to artificial intelligence. After a long legislative process that started in 2021, the regulation entered into force in 2024 with a phased implementation schedule.\n\nFrom August 2, 2026, it becomes fully applicable for most AI systems, imposing precise obligations around transparency, risk assessment, and technical documentation. Systems classified as high-risk — in areas such as healthcare, credit, public safety, and education — will need to meet strict compliance requirements before being put into operation.\n\nFines for non-compliance can reach up to 3% of global annual turnover or €15 million, whichever is higher. For prohibited AI systems (such as general social scoring) fines rise to 6%. This forces all companies operating in the EU market — regardless of where they are based — to comply.",
+    date:         'August 2, 2026 (upcoming) — updated May 2026',
+    title:        'EU AI Act: transparency confirmed for August, high-risk deadline shifted to 2027',
+    excerpt:      'The EU Digital Omnibus (May 2026) postponed high-risk AI obligations to December 2027, while transparency requirements for chatbots remain on track for August 2, 2026.',
+    body:         "The EU AI Act is the world's first dedicated regulatory framework for artificial intelligence, in force since 2024 with a phased implementation schedule. On May 7, 2026, the EU Council, European Parliament, and Commission reached a provisional agreement on the Digital AI Omnibus, introducing significant changes to the original timeline.\n\nKey update: obligations for high-risk AI systems (Annex III, use-based) have been postponed from August 2, 2026 to December 2, 2027 — a 16-month deferral. Obligations for product-regulated systems (Annex I, including medical devices and lifts) shift from August 2027 to August 2028. The simplified compliance framework for SMEs has been extended to companies with up to 750 employees and €150 million in annual revenue.\n\nWhat remains confirmed from August 2, 2026: the Article 50 transparency obligations, including the requirement to notify users when they are interacting with an AI system (chatbots, voice assistants). New prohibitions on AI-generated non-consensual intimate material and CSAM take effect December 2, 2026. Formal adoption of the Omnibus is expected in June 2026, with publication in July. Fines for non-compliance with applicable obligations remain unchanged: up to 3% of global annual turnover (6% for prohibited systems).",
     badge:        'Upcoming',
     source_label: 'Source:',
-    source_name:  'European Commission',
-    source_url:   'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai'
+    source_name:  'Inside Privacy / EU Commission',
+    source_url:   'https://www.insideprivacy.com/artificial-intelligence/eu-ai-act-update-timeline-relief-targeted-simplification-and-new-prohibitions/'
   },
 
   'gpt-5-5': {

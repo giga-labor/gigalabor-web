@@ -10,6 +10,10 @@
 window.GL = window.GL || {};
 
 window.GL.NEWS = [
+  { id: 'anthropic-recursive-self-improvement', category: 'research', sort_date: '2026-06-04', badge_class: 'badge--active' },
+  { id: 'anthropic-ipo-2026',    category: 'platforms', sort_date: '2026-06-01', badge_class: 'badge--development' },
+  { id: 'microsoft-build-2026',  category: 'platforms', sort_date: '2026-06-02', badge_class: 'badge--active'      },
+  { id: 'anthropic-mythos',      category: 'security',  sort_date: '2026-06-02', badge_class: 'badge--active'      },
   { id: 'claude-opus-4-8',      category: 'models',    sort_date: '2026-05-28', badge_class: 'badge--active'      },
   { id: 'openai-ipo-2026',      category: 'platforms', sort_date: '2026-05-22', badge_class: 'badge--development' },
   { id: 'google-io-2026',       category: 'models',    sort_date: '2026-05-20', badge_class: 'badge--active'      },
