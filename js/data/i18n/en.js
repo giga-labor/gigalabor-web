@@ -21,13 +21,56 @@ window.GL.i18n.en = {
     "headline_line2": "Digital engineering.",
     "system_status": "SYSTEM ONLINE - GiGa Labor v1.0",
     "typewriter_phrases": [
-      "Digital engineering.",
-      "Intelligent systems.",
-      "Applied research.",
-      "Automation.",
+      "Software forge.",
       "Cognitive architectures.",
+      "Applied research.",
+      "Intelligent systems.",
+      "Operational automation.",
+      "Custom software.",
+      "Rapid prototyping.",
+      "Autonomous agents.",
+      "Persistent memory.",
+      "Backend orchestration.",
       "Predictive analytics.",
-      "Custom software."
+      "Data pipelines.",
+      "Modular tools.",
+      "Digital laboratory.",
+      "Technical experimentation.",
+      "Conscious vibe coding.",
+      "Pragmatic engineering.",
+      "Local AI.",
+      "Adaptive reasoning.",
+      "Operational dashboards.",
+      "Intelligent monitoring.",
+      "Extensible systems.",
+      "Free research.",
+      "Ideas turned into code.",
+      "From prototype to project.",
+      "Autonomous backends.",
+      "Patterns from data.",
+      "Continuous validation.",
+      "Real experiments.",
+      "Tools for better work.",
+      "Structured knowledge.",
+      "Reliable automations.",
+      "Clean technical design.",
+      "Verifiable methods.",
+      "Data-driven decisions.",
+      "Essential interfaces.",
+      "Composable systems.",
+      "Code serving ideas.",
+      "Independent projects.",
+      "AI as co-pilot.",
+      "Continuous learning.",
+      "Lab without fixed roadmaps.",
+      "Experiments that mature.",
+      "Data, agents, prototypes.",
+      "Technical curiosity.",
+      "Personal tools.",
+      "Lightweight infrastructure.",
+      "Automated processes.",
+      "Authorial vision.",
+      "Solutions built in the field."
         ],
     "canvas_words": {
       "ai": ["Logic", "Structure", "Method", "Module", "Process", "Reasoning", "Inference", "Memory", "Context", "Agents"],
@@ -159,12 +202,32 @@ window.GL.i18n.en = {
         "github": "#",
         "docs": "#"
       }
+    },
+    "kairos": {
+      "name": "KAIROS",
+      "domain": "",
+      "category": "AI & Causal Inference",
+      "short": "Experimental paradigm for adaptive causal inference beyond statistical learning.",
+      "description": "KAIROS is a conceptual project for an ontological system of adaptive causal inference: an internal geometry designed to distinguish structure, novelty and coherence from statistical noise.",
+      "status": "concept",
+      "tags": [
+        "AI",
+        "Inference",
+        "Causality",
+        "Ontology"
+      ],
+      "links": {
+        "site": "#",
+        "github": "#",
+        "docs": "#"
+      }
     }
   },
   "status": {
     "active": "Active",
     "development": "In development",
     "ongoing": "Ongoing",
+    "concept": "Concept",
     "archived": "Archived"
   },
   "about": {
@@ -355,4 +418,3 @@ window.GL.i18n.en = {
     }
   }
 };
-

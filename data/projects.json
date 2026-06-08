@@ -34,5 +34,14 @@
     "page": "pages/projects/lab.html",
     "featured": true,
     "order": 4
+  },
+  {
+    "id": "kairos",
+    "slug": "kairos",
+    "icon": "K·O",
+    "color": "#7aae8a",
+    "page": "pages/projects/kairos.html",
+    "featured": true,
+    "order": 5
   }
 ]

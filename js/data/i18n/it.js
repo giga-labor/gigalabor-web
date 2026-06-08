@@ -21,13 +21,56 @@ window.GL.i18n.it = {
     "headline_line2": "Ingegneria digitale.",
     "system_status": "SYSTEM ONLINE - GiGa Labor v1.0",
     "typewriter_phrases": [
-      "Ingegneria digitale.",
-      "Sistemi intelligenti.",
-      "Ricerca applicata.",
-      "Automazione.",
+      "Fucina del software.",
       "Architetture cognitive.",
+      "Ricerca applicata.",
+      "Sistemi intelligenti.",
+      "Automazione operativa.",
+      "Software su misura.",
+      "Prototipazione rapida.",
+      "Agenti autonomi.",
+      "Memoria persistente.",
+      "Orchestrazione backend.",
       "Analisi predittiva.",
-      "Software su misura."
+      "Pipeline dati.",
+      "Strumenti modulari.",
+      "Laboratorio digitale.",
+      "Sperimentazione tecnica.",
+      "Vibe coding consapevole.",
+      "Ingegneria pragmatica.",
+      "AI locale.",
+      "Ragionamento adattivo.",
+      "Dashboard operative.",
+      "Monitoraggio intelligente.",
+      "Sistemi estendibili.",
+      "Ricerca libera.",
+      "Idee che diventano codice.",
+      "Dal prototipo al progetto.",
+      "Backend autonomi.",
+      "Pattern dai dati.",
+      "Validazione continua.",
+      "Esperimenti reali.",
+      "Tool per lavorare meglio.",
+      "Conoscenza strutturata.",
+      "Automazioni affidabili.",
+      "Design tecnico pulito.",
+      "Metodi verificabili.",
+      "Decisioni data-driven.",
+      "Interfacce essenziali.",
+      "Sistemi componibili.",
+      "Codice al servizio delle idee.",
+      "Progetti indipendenti.",
+      "AI come co-pilota.",
+      "Apprendimento continuo.",
+      "Laboratorio senza roadmap fisse.",
+      "Esperimenti che maturano.",
+      "Dati, agenti, prototipi.",
+      "Curiosità tecnica.",
+      "Strumenti personali.",
+      "Infrastrutture leggere.",
+      "Processi automatizzati.",
+      "Visione autoriale.",
+      "Soluzioni costruite sul campo."
         ],
     "canvas_words": {
       "ai": ["Logica", "Struttura", "Metodo", "Modulo", "Processo", "Ragionamento", "Inferenza", "Memoria", "Contesto", "Agenti"],
@@ -159,12 +202,32 @@ window.GL.i18n.it = {
         "github": "#",
         "docs": "#"
       }
+    },
+    "kairos": {
+      "name": "KAIROS",
+      "domain": "",
+      "category": "AI & Inferenza causale",
+      "short": "Paradigma sperimentale per inferenza causale adattiva oltre l'apprendimento statistico.",
+      "description": "KAIROS è un progetto concettuale dedicato a un sistema ontologico di inferenza causale adattiva: una geometria interna capace di distinguere struttura, novità e coerenza dal semplice rumore statistico.",
+      "status": "concept",
+      "tags": [
+        "AI",
+        "Inferenza",
+        "Causalità",
+        "Ontologia"
+      ],
+      "links": {
+        "site": "#",
+        "github": "#",
+        "docs": "#"
+      }
     }
   },
   "status": {
     "active": "Attivo",
     "development": "In sviluppo",
     "ongoing": "In corso",
+    "concept": "Concetto",
     "archived": "Archiviato"
   },
   "about": {
@@ -355,4 +418,3 @@ window.GL.i18n.it = {
     }
   }
 };
-

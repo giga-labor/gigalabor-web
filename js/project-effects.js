@@ -12,7 +12,8 @@
     controlchaos: drawControlChaos,
     evobrain: drawEvoBrain,
     iargos: drawIargos,
-    lab: drawLab
+    lab: drawLab,
+    kairos: drawKairos
   };
 
   function readSize(canvas, host, fallbackW, fallbackH) {
@@ -62,7 +63,7 @@
   }
 
   function getProjectIdFromHref(href) {
-    var m = (href || '').match(/(?:^|\/)(controlchaos|evobrain|iargos|lab)\.html(?:[?#].*)?$/);
+    var m = (href || '').match(/(?:^|\/)(controlchaos|evobrain|iargos|lab|kairos)\.html(?:[?#].*)?$/);
     return m ? m[1] : null;
   }
 
@@ -733,6 +734,174 @@
         if (it.p > 1) it.p -= 1;
 
         drawItem(it, pos.x, pos.y, active);
+      }
+
+      if (!REDUCED_MOTION) requestAnimationFrame(frame);
+    }
+    frame();
+  }
+
+  function drawKairos(ctx, getSize, mouse, compact) {
+    var canvas = ctx.canvas;
+    var nodes = [];
+    var links = [];
+    var lastW = 0;
+    var lastH = 0;
+    var t = 0;
+    var palette = [
+      [122, 174, 138],
+      [90, 138, 106],
+      [232, 228, 220],
+      [58, 106, 78]
+    ];
+
+    function init(w, h) {
+      nodes = [];
+      links = [];
+      lastW = w;
+      lastH = h;
+      var count = compact ? 14 : 24;
+      for (var i = 0; i < count; i++) {
+        var col = palette[i % palette.length];
+        nodes.push({
+          x: w * (0.12 + Math.random() * 0.76),
+          y: h * (0.16 + Math.random() * 0.68),
+          ox: 0,
+          oy: 0,
+          r: compact ? 2.2 + Math.random() * 2.8 : 2.8 + Math.random() * 4.2,
+          color: col,
+          phase: Math.random() * TWO_PI,
+          type: i % 3
+        });
+      }
+
+      for (var a = 0; a < nodes.length; a++) {
+        var distances = [];
+        for (var b = 0; b < nodes.length; b++) {
+          if (a === b) continue;
+          var dx = nodes[a].x - nodes[b].x;
+          var dy = nodes[a].y - nodes[b].y;
+          distances.push({ i: b, d: Math.sqrt(dx * dx + dy * dy) });
+        }
+        distances.sort(function (p, q) { return p.d - q.d; });
+        var max = compact ? 2 : 3;
+        for (var k = 0; k < max; k++) {
+          var bi = distances[k] && distances[k].i;
+          if (bi == null) continue;
+          var exists = links.some(function (ln) {
+            return (ln.a === a && ln.b === bi) || (ln.a === bi && ln.b === a);
+          });
+          if (!exists && distances[k].d < (compact ? 125 : 210)) {
+            links.push({ a: a, b: bi, rest: distances[k].d, pulse: Math.random() * TWO_PI });
+          }
+        }
+      }
+    }
+
+    function nodePos(n) {
+      return {
+        x: n.x + n.ox + Math.sin(t * 0.55 + n.phase) * 3,
+        y: n.y + n.oy + Math.cos(t * 0.45 + n.phase) * 3
+      };
+    }
+
+    function drawNode(n, p, active) {
+      var c = n.color;
+      if (active > 0.04) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, n.r + active * 16, 0, TWO_PI);
+        ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (active * 0.13) + ')';
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      if (n.type === 0) {
+        ctx.arc(p.x, p.y, n.r, 0, TWO_PI);
+      } else if (n.type === 1) {
+        ctx.roundRect(p.x - n.r, p.y - n.r, n.r * 2, n.r * 2, 2);
+      } else {
+        ctx.moveTo(p.x, p.y - n.r * 1.25);
+        ctx.lineTo(p.x + n.r * 1.1, p.y + n.r * 0.7);
+        ctx.lineTo(p.x - n.r * 1.1, p.y + n.r * 0.7);
+        ctx.closePath();
+      }
+      ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (0.48 + active * 0.28) + ')';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(232,228,220,' + (0.18 + active * 0.35) + ')';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+
+    function frame() {
+      if (!canvas.isConnected) return;
+      t += 0.018;
+      var wh = getSize(), w = wh[0], h = wh[1];
+      if ((!nodes.length && w && h) || Math.abs(w - lastW) > 2 || Math.abs(h - lastH) > 2) init(w, h);
+      ctx.clearRect(0, 0, w, h);
+
+      var positions = nodes.map(nodePos);
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var p = positions[i];
+        var mdx = p.x - mouse.x;
+        var mdy = p.y - mouse.y;
+        var md = Math.sqrt(mdx * mdx + mdy * mdy);
+        var active = mouse.inside ? Math.max(0, 1 - md / (compact ? 92 : 150)) : 0;
+        if (active > 0.02 && md > 1) {
+          n.ox += (mdx / md) * active * 0.45;
+          n.oy += (mdy / md) * active * 0.45;
+        }
+        n.ox *= 0.92;
+        n.oy *= 0.92;
+      }
+
+      for (var l = 0; l < links.length; l++) {
+        var link = links[l];
+        var a = positions[link.a];
+        var b = positions[link.b];
+        var na = nodes[link.a];
+        var nb = nodes[link.b];
+        var ax = a.x - mouse.x;
+        var ay = a.y - mouse.y;
+        var bx = b.x - mouse.x;
+        var by = b.y - mouse.y;
+        var activeLink = mouse.inside ? Math.max(
+          0,
+          1 - Math.min(Math.sqrt(ax * ax + ay * ay), Math.sqrt(bx * bx + by * by)) / (compact ? 105 : 170)
+        ) : 0;
+        var pulse = 0.07 + Math.sin(t * 1.15 + link.pulse) * 0.035;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = 'rgba(122,174,138,' + (pulse + activeLink * 0.22) + ')';
+        ctx.lineWidth = 0.7 + activeLink * 0.8;
+        ctx.stroke();
+
+        if (!compact && activeLink > 0.08) {
+          var midX = (a.x + b.x) / 2;
+          var midY = (a.y + b.y) / 2;
+          ctx.beginPath();
+          ctx.arc(midX, midY, 1.2 + activeLink * 2.5, 0, TWO_PI);
+          ctx.fillStyle = 'rgba(232,228,220,' + (0.12 + activeLink * 0.22) + ')';
+          ctx.fill();
+        }
+        na.ox += (nb.ox - na.ox) * 0.018;
+        na.oy += (nb.oy - na.oy) * 0.018;
+      }
+
+      for (var j = 0; j < nodes.length; j++) {
+        var pp = positions[j];
+        var dx = pp.x - mouse.x;
+        var dy = pp.y - mouse.y;
+        var activeNode = mouse.inside ? Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / (compact ? 92 : 150)) : 0;
+        drawNode(nodes[j], pp, activeNode);
+      }
+
+      if (!compact) {
+        ctx.font = '10px JetBrains Mono, monospace';
+        ctx.textAlign = 'right';
+        ctx.fillStyle = 'rgba(122,174,138,.22)';
+        ctx.fillText('KAIROS // causal resonance', w - 28, h - 26);
       }
 
       if (!REDUCED_MOTION) requestAnimationFrame(frame);

@@ -852,7 +852,9 @@
             if (!data) return;
             var statusLabel = i18nStatus[data.status] || data.status;
             var sc = data.status === 'active' ? 'badge badge--active' :
-                     data.status === 'development' ? 'badge badge--development' : 'badge badge--ongoing';
+                     data.status === 'development' ? 'badge badge--development' :
+                     data.status === 'concept' ? 'badge badge--concept' :
+                     data.status === 'archived' ? 'badge badge--archived' : 'badge badge--ongoing';
             html += '<a class="pc" href="' + rootPrefix() + meta.page + '" style="--pc-color:' + meta.color + '">' +
               '<div class="pc-top"><span class="pc-name">' + data.name + '</span><span class="pc-icon">' + meta.icon + '</span></div>' +
               '<div class="pc-cat">' + data.category + '</div>' +
@@ -1629,6 +1631,17 @@
     var PAUSE_FULL   = 3800;
     var PAUSE_EMPTY  = 550;
 
+    function pickNextIndex() {
+      if (!phrases || phrases.length <= 1) return 0;
+      var next = idx;
+      var guard = 0;
+      while (next === idx && guard < 8) {
+        next = Math.floor(Math.random() * phrases.length);
+        guard++;
+      }
+      return next === idx ? (idx + 1) % phrases.length : next;
+    }
+
     function tick() {
       var phrase = phrases[idx];
       if (!deleting) {
@@ -1643,7 +1656,7 @@
         el.textContent = phrase.slice(0, charIdx);
         if (charIdx <= 0) {
           deleting = false;
-          idx = (idx + 1) % phrases.length;
+          idx = pickNextIndex();
           timer = setTimeout(tick, PAUSE_EMPTY);
           return;
         }
@@ -1663,7 +1676,7 @@
       if (!el) return;
       phrases = I18n.t('hero.typewriter_phrases');
       if (!Array.isArray(phrases) || !phrases.length) phrases = ['GiGa Labor.'];
-      idx = 0; charIdx = 0; deleting = false;
+      idx = Math.floor(Math.random() * phrases.length); charIdx = 0; deleting = false;
       clearTimeout(timer);
       tick();
     }
@@ -1673,7 +1686,7 @@
       clearTimeout(timer);
       phrases = I18n.t('hero.typewriter_phrases');
       if (!Array.isArray(phrases) || !phrases.length) phrases = ['GiGa Labor.'];
-      idx = 0; charIdx = 0; deleting = false;
+      idx = Math.floor(Math.random() * phrases.length); charIdx = 0; deleting = false;
       tick();
     }
 
@@ -1811,5 +1824,3 @@
   document.addEventListener('DOMContentLoaded', boot);
 
 })();
-
-

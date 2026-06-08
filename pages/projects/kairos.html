@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="contrast">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAIROS — GiGa Labor</title>
+  <meta name="description" content="KAIROS è un progetto concettuale di GiGa Labor dedicato all'inferenza causale adattiva e ai sistemi ontologici.">
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="GiGa Labor">
+  <meta property="og:title"       content="KAIROS — GiGa Labor">
+  <meta property="og:description" content="Un nuovo paradigma per l'inferenza causale adattiva oltre l'apprendimento statistico.">
+  <meta property="og:url"         content="https://gigalabor.it/pages/projects/kairos.html">
+  <meta name="twitter:card"       content="summary">
+  <meta name="robots"             content="index, follow">
+  <link rel="canonical"           href="https://gigalabor.it/pages/projects/kairos.html">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+    :root { --project-color:#7aae8a; --project-muted:#3a6a4e; --project-glow:rgba(122,174,138,.18); }
+    body.kairos-page { background:#050508; color:#e8e4dc; }
+    .kairos-page #navbar-root,
+    .kairos-page #footer-root,
+    .kairos-page .project-hero,
+    .kairos-page .kairos-wrap { position:relative; z-index:1; }
+    .kairos-bg-canvas { position:fixed; inset:0; width:100%; height:100%; z-index:0; opacity:.12; pointer-events:none; }
+    .project-hero { border-top:3px solid var(--project-color); background:#050508; overflow:hidden; }
+    #project-hero-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:0; opacity:.7; pointer-events:none; }
+    .kairos-hero-panel { position:relative; max-width:760px; padding:1.6rem 0; }
+    .kairos-eyebrow { font-family:'Space Mono',monospace; font-size:.74rem; letter-spacing:.36em; color:#7aae8a; text-transform:uppercase; margin-bottom:2rem; opacity:.9; }
+    .kairos-name { font-family:'Cormorant Garamond',serif; font-size:clamp(4.4rem,14vw,9.5rem); font-weight:300; letter-spacing:-.02em; line-height:.9; margin:.2rem 0 1.9rem; }
+    .kairos-name .kair { color:#e8e4dc; }
+    .kairos-name .sep { color:#5a8a6a; margin:0 .08em; }
+    .kairos-name .os { color:#3a6a4e; }
+    .kairos-divider { height:1px; width:min(100%,720px); background:linear-gradient(90deg,#5a8a6a 0%,rgba(90,138,106,.35) 45%,transparent 100%); margin:0 0 1.8rem; }
+    .kairos-tagline { font-family:'Cormorant Garamond',serif; font-size:clamp(1.35rem,2.8vw,2rem); font-weight:300; font-style:italic; color:#c9c3b8; line-height:1.45; max-width:680px; text-shadow:0 2px 18px rgba(0,0,0,.65); }
+    .kairos-tagline .accent { color:#8bc89d; font-style:normal; font-weight:600; }
+    .kairos-sub { font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.15em; color:#6f7f72; margin-top:1rem; text-transform:uppercase; }
+
+    .kairos-wrap { padding-top:2.5rem; padding-bottom:4rem; }
+    .kairos-container { min-width:0; }
+    .two-col { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:2.5rem; align-items:start; }
+    .kairos-section { padding:5rem 0; border-top:1px solid #111610; }
+    .kairos-section:first-child { border-top:none; }
+    .kairos-label { font-family:'Space Mono',monospace; font-size:.76rem; letter-spacing:.42em; color:#5a8a6a; text-transform:uppercase; margin-bottom:2.7rem; }
+    .kairos-split { display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-bottom:3rem; }
+    .kairos-part-big { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,8vw,4.4rem); font-weight:300; line-height:1; margin-bottom:.9rem; }
+    .kairos-part-big.kair-col { color:#e8e4dc; }
+    .kairos-part-big.os-col { color:#3a6a4e; }
+    .kairos-part-tag { font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.22em; color:#7aae8a; text-transform:uppercase; margin-bottom:.7rem; }
+    .kairos-copy,
+    .kairos-part-desc,
+    .kairos-body,
+    .kairos-pillar-body { font-size:1rem; line-height:1.85; color:#9e9a90; }
+    .kairos-part-desc { font-family:'Cormorant Garamond',serif; font-size:1.16rem; font-style:italic; color:#8b877d; }
+
+    .kairos-letters { display:flex; flex-direction:column; }
+    .kairos-letter-row { display:grid; grid-template-columns:48px 1fr minmax(220px,.9fr); gap:1.25rem; align-items:baseline; padding:1rem 0; border-bottom:1px solid #101410; }
+    .kairos-letter-row:last-child { border-bottom:none; }
+    .kairos-lchar { font-family:'Cormorant Garamond',serif; font-size:2.1rem; font-weight:600; color:#7aae8a; }
+    .kairos-lchar.os-char { color:#3a6a4e; }
+    .kairos-lword { font-family:'Space Mono',monospace; font-size:.86rem; letter-spacing:.18em; color:#e8e4dc; text-transform:uppercase; }
+    .kairos-lmeaning { font-family:'Cormorant Garamond',serif; font-size:1.08rem; color:#7f887d; font-style:italic; text-align:right; }
+
+    .kairos-pillars { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
+    .kairos-pillar { background:rgba(9,12,10,.92); padding:2rem; position:relative; overflow:hidden; transition:background .25s,border-color .25s; border:1px solid rgba(122,174,138,.06); }
+    .kairos-pillar:hover { background:#0c120e; border-color:rgba(122,174,138,.22); }
+    .kairos-pillar::before { content:''; position:absolute; top:0; left:0; width:2px; height:0; background:#7aae8a; transition:height .35s ease; }
+    .kairos-pillar:hover::before { height:100%; }
+    .kairos-pillar-num { font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.32em; color:#2f4635; margin-bottom:1rem; }
+    .kairos-pillar-title { font-family:'Cormorant Garamond',serif; font-size:1.55rem; color:#e8e4dc; margin-bottom:.7rem; }
+
+    .kairos-box { border:1px solid #182018; padding:2.6rem; position:relative; background:rgba(5,8,7,.44); }
+    .kairos-box::before { content:'ORIGINE'; position:absolute; top:-.55rem; left:1.5rem; background:#050508; padding:0 .7rem; font-family:'Space Mono',monospace; font-size:.66rem; letter-spacing:.34em; color:#4f6e58; }
+    .kairos-glyph { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:#1a241a; line-height:1; margin-bottom:1rem; }
+    .kairos-def { font-family:'Cormorant Garamond',serif; font-size:1.42rem; color:#7aae8a; font-style:italic; margin-bottom:1rem; }
+    .kairos-statement { padding:5rem 0; text-align:center; }
+    .kairos-quote { font-family:'Cormorant Garamond',serif; font-size:clamp(1.55rem,3.5vw,2.55rem); font-weight:300; font-style:italic; color:#a7a197; line-height:1.55; max-width:760px; margin:0 auto; }
+    .kairos-quote em { color:#8bc89d; font-style:normal; }
+    .kairos-attr { margin-top:1.8rem; font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.34em; color:#445845; text-transform:uppercase; }
+    .kairos-timeline { display:grid; gap:1rem; }
+    .kairos-time-row { display:grid; grid-template-columns:180px 1fr; gap:1.5rem; padding:1.25rem 0; border-top:1px solid #111610; }
+    .kairos-time-date { font-family:'Space Mono',monospace; color:#7aae8a; font-size:.86rem; letter-spacing:.08em; }
+    .kairos-footnote { display:flex; justify-content:space-between; gap:1rem; padding:2.2rem 0 3rem; border-top:1px solid #101410; font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.22em; color:#304132; text-transform:uppercase; }
+    .status-line { display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.5rem; }
+    .project-accent { color:var(--project-color); }
+    .side-card { position:sticky; top:96px; background:color-mix(in srgb,var(--project-color) 4%,var(--bg-card)); border:1px solid color-mix(in srgb,var(--project-color) 16%,var(--border)); border-radius:10px; padding:1.35rem; }
+    .side-title { font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--project-color); margin-bottom:1.2rem; }
+    .side-row { display:flex; flex-direction:column; gap:.25rem; padding:.55rem 0; }
+    .side-label { font-size:.72rem; color:var(--text-muted); font-family:'Space Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
+    .side-val { font-size:.9rem; color:var(--text-primary); }
+
+    @media (max-width:720px) {
+      .kairos-eyebrow { letter-spacing:.22em; font-size:.66rem; }
+      .kairos-split,
+      .kairos-pillars,
+      .two-col,
+      .kairos-time-row { grid-template-columns:1fr; }
+      .kairos-letter-row { grid-template-columns:38px 1fr; }
+      .kairos-lmeaning { grid-column:2; text-align:left; }
+      .kairos-box { padding:2rem 1.3rem; }
+      .kairos-footnote { flex-direction:column; }
+      .side-card { position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body data-page="project-detail" class="kairos-page">
+<div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div>
+<div id="navbar-root"></div>
+
+<svg class="kairos-bg-canvas" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g stroke="#7aae8a" fill="none">
+    <polygon points="140,90 290,70 240,210" fill="#4a8a5e" fill-opacity="0.04"/>
+    <polygon points="290,70 440,110 340,240" fill="#4a8a5e" fill-opacity="0.03"/>
+    <polygon points="590,45 740,95 670,195" fill="#4a8a5e" fill-opacity="0.04"/>
+    <polygon points="190,290 390,270 340,440" fill="#4a8a5e" fill-opacity="0.03"/>
+    <polygon points="490,190 690,170 640,340" fill="#4a8a5e" fill-opacity="0.04"/>
+    <line x1="140" y1="90" x2="590" y2="45"/><line x1="290" y1="70" x2="740" y2="95"/>
+    <line x1="240" y1="210" x2="670" y2="195"/><line x1="340" y1="240" x2="810" y2="410"/>
+  </g>
+  <g fill="#7aae8a">
+    <circle cx="140" cy="90" r="3"/><circle cx="290" cy="70" r="4"/><circle cx="240" cy="210" r="2.5"/>
+    <circle cx="440" cy="110" r="3.5"/><circle cx="590" cy="45" r="4"/><circle cx="740" cy="95" r="3"/>
+    <circle cx="190" cy="290" r="3"/><circle cx="390" cy="270" r="2"/><circle cx="640" cy="340" r="2"/>
+    <circle cx="810" cy="410" r="3"/>
+  </g>
+</svg>
+
+<section class="project-hero">
+  <canvas id="project-hero-canvas" aria-hidden="true"></canvas>
+  <div class="container" style="position:relative;z-index:1;">
+    <a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a>
+    <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem;">
+      <span style="font-size:1.65rem;font-family:'Space Mono',monospace;font-weight:700;color:var(--project-color);">K·O</span>
+      <span class="badge badge--concept" data-lang="it">Concetto</span>
+      <span class="badge badge--concept" data-lang="en">Concept</span>
+      <span class="tag">Project Identity</span>
+    </div>
+    <h1 class="section-title project-accent" data-i18n="projects.kairos.name"></h1>
+    <p class="text-secondary mt-2" style="font-size:1.05rem;" data-i18n="projects.kairos.short"></p>
+    <div class="status-line">
+      <span class="tag">AI</span><span class="tag">Inference</span><span class="tag">Causality</span><span class="tag">Ontology</span>
+    </div>
+  </div>
+</section>
+
+<main class="kairos-wrap">
+  <div class="container">
+  <div class="two-col">
+  <div class="kairos-container">
+    <section class="kairos-section" style="padding-top:1rem;">
+      <div class="kairos-hero-panel">
+        <div class="kairos-eyebrow">Project Identity Document — v0.1 — 2026</div>
+        <div class="kairos-name"><span class="kair">KAIR</span><span class="sep">·</span><span class="os">OS</span></div>
+        <div class="kairos-divider"></div>
+        <div class="kairos-tagline" data-lang="it">Un nuovo paradigma per <span class="accent">l'inferenza causale adattiva</span><br>oltre l'apprendimento statistico</div>
+        <div class="kairos-tagline" data-lang="en">A new paradigm for <span class="accent">adaptive causal inference</span><br>beyond statistical learning</div>
+        <div class="kairos-sub" data-lang="it">Sistema ontologico concettuale — ideato l'8 giugno 2026</div>
+        <div class="kairos-sub" data-lang="en">Conceptual ontological system — conceived on June 8, 2026</div>
+      </div>
+    </section>
+    <section class="kairos-section">
+      <div class="kairos-label" data-lang="it">Struttura del nome</div>
+      <div class="kairos-label" data-lang="en">Name structure</div>
+      <div class="kairos-split">
+        <div>
+          <div class="kairos-part-big kair-col">KAIR</div>
+          <div class="kairos-part-tag" data-lang="it">Il meccanismo</div>
+          <div class="kairos-part-tag" data-lang="en">The mechanism</div>
+          <p class="kairos-part-desc" data-lang="it">Kinetic Adaptive Inference Resonance: il motore interno, il processo vivo di inferenza per risonanza causale.</p>
+          <p class="kairos-part-desc" data-lang="en">Kinetic Adaptive Inference Resonance: the inner engine, a living process of inference through causal resonance.</p>
+        </div>
+        <div>
+          <div class="kairos-part-big os-col">OS</div>
+          <div class="kairos-part-tag" data-lang="it">Cosa è</div>
+          <div class="kairos-part-tag" data-lang="en">What it is</div>
+          <p class="kairos-part-desc" data-lang="it">Ontological System: un substrato, non un'applicazione. Come un sistema operativo: la base su cui il resto può essere costruito.</p>
+          <p class="kairos-part-desc" data-lang="en">Ontological System: a substrate, not an application. Like an operating system: the base on which the rest can be built.</p>
+        </div>
+      </div>
+      <div class="kairos-letters">
+        <div class="kairos-letter-row"><span class="kairos-lchar">K</span><span class="kairos-lword">Kinetic</span><span class="kairos-lmeaning" data-lang="it">in continuo movimento adattivo</span><span class="kairos-lmeaning" data-lang="en">in continuous adaptive motion</span></div>
+        <div class="kairos-letter-row"><span class="kairos-lchar">A</span><span class="kairos-lword">Adaptive</span><span class="kairos-lmeaning" data-lang="it">deformazione strutturale locale</span><span class="kairos-lmeaning" data-lang="en">local structural deformation</span></div>
+        <div class="kairos-letter-row"><span class="kairos-lchar">I</span><span class="kairos-lword">Inference</span><span class="kairos-lmeaning" data-lang="it">ragionamento, non interpolazione</span><span class="kairos-lmeaning" data-lang="en">reasoning, not interpolation</span></div>
+        <div class="kairos-letter-row"><span class="kairos-lchar">R</span><span class="kairos-lword">Resonance</span><span class="kairos-lmeaning" data-lang="it">accordo per coerenza, non per gradiente</span><span class="kairos-lmeaning" data-lang="en">agreement by coherence, not by gradient</span></div>
+        <div class="kairos-letter-row"><span class="kairos-lchar os-char">O</span><span class="kairos-lword">Ontological</span><span class="kairos-lmeaning" data-lang="it">modella la struttura causale del reale</span><span class="kairos-lmeaning" data-lang="en">models the causal structure of reality</span></div>
+        <div class="kairos-letter-row"><span class="kairos-lchar os-char">S</span><span class="kairos-lword">System</span><span class="kairos-lmeaning" data-lang="it">substrato fondativo, non applicazione</span><span class="kairos-lmeaning" data-lang="en">foundational substrate, not an application</span></div>
+      </div>
+    </section>
+
+    <section class="kairos-section">
+      <div class="kairos-label" data-lang="it">Pilastri del paradigma</div>
+      <div class="kairos-label" data-lang="en">Paradigm pillars</div>
+      <div class="kairos-pillars">
+        <article class="kairos-pillar"><div class="kairos-pillar-num">01</div><h2 class="kairos-pillar-title" data-lang="it">Geometria causale</h2><h2 class="kairos-pillar-title" data-lang="en">Causal geometry</h2><p class="kairos-pillar-body" data-lang="it">Il significato non è un vettore in uno spazio euclideo: è una posizione topologica dentro una struttura viva. Le relazioni causali formano l'ossatura, non i pesi.</p><p class="kairos-pillar-body" data-lang="en">Meaning is not a vector in Euclidean space: it is a topological position inside a living structure. Causal relations form the skeleton, not the weights.</p></article>
+        <article class="kairos-pillar"><div class="kairos-pillar-num">02</div><h2 class="kairos-pillar-title" data-lang="it">Apprendimento locale</h2><h2 class="kairos-pillar-title" data-lang="en">Local learning</h2><p class="kairos-pillar-body" data-lang="it">Nessuna backpropagation globale come presupposto. Ogni struttura conosce prima i suoi vicini; la coerenza complessiva emerge dal rinforzo locale.</p><p class="kairos-pillar-body" data-lang="en">No global backpropagation as a premise. Each structure first knows its neighbors; global coherence emerges from local reinforcement.</p></article>
+        <article class="kairos-pillar"><div class="kairos-pillar-num">03</div><h2 class="kairos-pillar-title" data-lang="it">Cristallizzazione</h2><h2 class="kairos-pillar-title" data-lang="en">Crystallization</h2><p class="kairos-pillar-body" data-lang="it">Le strutture molto confermate diventano stabili per emergenza, non per imposizione. La memoria permanente nasce dalla centralità topologica.</p><p class="kairos-pillar-body" data-lang="en">Highly confirmed structures become stable by emergence, not by imposition. Permanent memory is born from topological centrality.</p></article>
+        <article class="kairos-pillar"><div class="kairos-pillar-num">04</div><h2 class="kairos-pillar-title" data-lang="it">Decadimento differenziale</h2><h2 class="kairos-pillar-title" data-lang="en">Differential decay</h2><p class="kairos-pillar-body" data-lang="it">Le strutture inutilizzate decadono. Non è un limite: è efficienza attiva. Il sistema conserva ciò che resta rilevante per l'ambiente corrente.</p><p class="kairos-pillar-body" data-lang="en">Unused structures decay. This is not a limitation: it is active efficiency. The system preserves what remains relevant to the current environment.</p></article>
+      </div>
+    </section>
+
+    <section class="kairos-section">
+      <div class="kairos-label" data-lang="it">Origine del nome</div>
+      <div class="kairos-label" data-lang="en">Name origin</div>
+      <div class="kairos-box">
+        <div class="kairos-glyph">καιρός</div>
+        <div class="kairos-def" data-lang="it">"Il momento opportuno": il tempo qualitativo</div>
+        <div class="kairos-def" data-lang="en">"The opportune moment": qualitative time</div>
+        <p class="kairos-body" data-lang="it">In greco antico esistono due parole per il tempo: χρόνος, il tempo quantitativo, lineare e misurabile; e καιρός, il momento giusto, il tempo della qualità e dell'opportunità. KAIROS risponde alla novità genuina, non al rumore: distingue il momento che conta dalla corrente continua del già noto.</p>
+        <p class="kairos-body" data-lang="en">Ancient Greek has two words for time: χρόνος, quantitative, linear and measurable time; and καιρός, the right moment, the time of quality and opportunity. KAIROS responds to genuine novelty, not to noise: it separates the moment that matters from the continuous stream of what is already known.</p>
+      </div>
+    </section>
+
+    <section class="kairos-section">
+      <div class="kairos-label" data-lang="it">Timeline</div>
+      <div class="kairos-label" data-lang="en">Timeline</div>
+      <div class="kairos-timeline">
+        <div class="kairos-time-row">
+          <div class="kairos-time-date" data-lang="it">8 giugno 2026</div>
+          <div class="kairos-time-date" data-lang="en">June 8, 2026</div>
+          <p class="kairos-copy" data-lang="it">Ideazione e definizione dell'identità progettuale. La timeline è volutamente ferma qui: KAIROS entra in GiGa Labor come concetto formalizzato, non come prodotto già implementato.</p>
+          <p class="kairos-copy" data-lang="en">Conception and definition of the project identity. The timeline intentionally stops here: KAIROS enters GiGa Labor as a formalized concept, not as an already implemented product.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="kairos-statement">
+      <div class="kairos-quote" data-lang="it">"Un sistema intelligente non deve memorizzare il mondo:<br>deve sviluppare una <em>geometria interna</em><br>isomorfa alle strutture causali del reale."</div>
+      <div class="kairos-quote" data-lang="en">"An intelligent system should not memorize the world:<br>it should develop an <em>internal geometry</em><br>isomorphic to the causal structures of reality."</div>
+      <div class="kairos-attr">KAIROS · Foundational Principle</div>
+    </section>
+
+    <div class="kairos-footnote">
+      <span>K · A · I · R · O · S</span>
+      <span data-lang="it">Versione 0.1 — Concept stage — 2026</span>
+      <span data-lang="en">Version 0.1 — Concept stage — 2026</span>
+    </div>
+  </div><!-- /left column -->
+
+  <aside class="side-card">
+    <div class="side-title">KAIROS</div>
+    <div class="side-row">
+      <span class="side-label" data-i18n="project_detail.status_label"></span>
+      <span class="badge badge--concept" data-lang="it">Concetto</span>
+      <span class="badge badge--concept" data-lang="en">Concept</span>
+    </div>
+    <div class="divider"></div>
+    <div class="side-row">
+      <span class="side-label" data-lang="it">Categoria</span>
+      <span class="side-label" data-lang="en">Category</span>
+      <span class="side-val" data-lang="it">AI & Inferenza causale</span>
+      <span class="side-val" data-lang="en">AI & Causal inference</span>
+    </div>
+    <div class="divider"></div>
+    <div class="side-row">
+      <span class="side-label" data-lang="it">Ideato</span>
+      <span class="side-label" data-lang="en">Conceived</span>
+      <span class="side-val" data-lang="it">8 giugno 2026</span>
+      <span class="side-val" data-lang="en">June 8, 2026</span>
+    </div>
+    <div class="divider"></div>
+    <div class="side-row">
+      <span class="side-label" data-lang="it">Fase</span>
+      <span class="side-label" data-lang="en">Stage</span>
+      <span class="side-val" data-lang="it">Project identity v0.1</span>
+      <span class="side-val" data-lang="en">Project identity v0.1</span>
+    </div>
+    <div class="divider"></div>
+    <div class="side-row">
+      <span class="side-label" data-lang="it">Natura</span>
+      <span class="side-label" data-lang="en">Nature</span>
+      <span class="side-val" data-lang="it">Framework sperimentale</span>
+      <span class="side-val" data-lang="en">Experimental framework</span>
+    </div>
+    <div class="divider"></div>
+    <div class="side-row">
+      <span class="side-label" data-lang="it">Concetti chiave</span>
+      <span class="side-label" data-lang="en">Key concepts</span>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem;">
+        <span class="tag">AI</span>
+        <span class="tag">Causality</span>
+        <span class="tag">Ontology</span>
+        <span class="tag">Inference</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="side-row">
+      <span class="side-label" data-i18n="project_detail.part_of_label"></span>
+      <a href="../../index.html" class="text-accent font-medium" style="font-size:.9rem;">GiGa Labor</a>
+    </div>
+  </aside>
+
+  </div><!-- /two-col -->
+  </div><!-- /container -->
+</main>
+
+<div id="footer-root"></div>
+<script src="../../js/data/gl-data.js"></script>
+<script src="../../js/data/i18n/it.js"></script>
+<script src="../../js/data/i18n/en.js"></script>
+<script src="../../js/app.js"></script>
+<script>
+(function () {
+  function applyLang(lang) {
+    document.querySelectorAll('[data-lang]').forEach(function (el) {
+      if (el.closest('#navbar-root') || el.closest('#footer-root')) return;
+      el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+    });
+  }
+  var saved = (function () {
+    try { return localStorage.getItem('gl_lang') || 'it'; } catch (e) { return 'it'; }
+  })();
+  applyLang(saved);
+  document.addEventListener('langChange', function (e) { applyLang(e.detail.lang); });
+})();
+</script>
+<script src="../../js/project-effects.js"></script>
+</body>
+</html>

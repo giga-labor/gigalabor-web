@@ -184,6 +184,11 @@ code, pre, .mono {
   color: var(--warning);
   border: 1px solid rgba(255, 176, 0, 0.2);
 }
+.badge--concept {
+  background: rgba(122, 174, 138, 0.08);
+  color: #7aae8a;
+  border: 1px solid rgba(122, 174, 138, 0.25);
+}
 .badge--archived {
   background: rgba(100, 116, 139, 0.08);
   color: var(--text-muted);
