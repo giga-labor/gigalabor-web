@@ -135,8 +135,9 @@
 <div id="navbar-root"></div>
 
 <!-- ── HERO ─────────────────────────────────────── -->
-<div class="page-hero project-hero">
-  <div class="container">
+<div class="page-hero project-hero" style="position:relative;overflow:hidden;">
+  <canvas id="project-hero-canvas" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
+  <div class="container" style="position:relative;z-index:1;">
     <a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a>
     <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem;">
       <span style="font-size:2rem;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--project-color);">Ar</span>
@@ -696,5 +697,6 @@
   document.addEventListener('langChange', function (e) { applyLang(e.detail.lang); });
 })();
 </script>
+<script src="../../js/project-effects.js"></script>
 </body>
 </html>
