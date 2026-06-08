@@ -20,71 +20,139 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap');
 
-    :root { --project-color:#7aae8a; --project-muted:#3a6a4e; --project-glow:rgba(122,174,138,.18); }
-    body.kairos-page { background:#050508; color:#e8e4dc; }
+    :root {
+      --project-color:#7aae8a;
+      --project-muted:#3a6a4e;
+      --project-glow:rgba(122,174,138,.18);
+      --kairos-bg:#050508;
+      --kairos-surface:#090c0a;
+      --kairos-panel:rgba(9,12,10,.92);
+      --kairos-soft-panel:rgba(5,8,7,.44);
+      --kairos-ink:#e8e4dc;
+      --kairos-text:#c9c3b8;
+      --kairos-copy:#9e9a90;
+      --kairos-muted:#7f887d;
+      --kairos-faint:#304132;
+      --kairos-line:#111610;
+      --kairos-line-soft:#182018;
+      --kairos-label-bg:#050508;
+      --kairos-glyph:#1a241a;
+      --kairos-shadow:0 22px 70px rgba(0,0,0,.28);
+    }
+    html[data-theme="light"] {
+      --project-color:#4f8a54;
+      --project-muted:#2f6a45;
+      --project-glow:rgba(79,138,84,.16);
+      --kairos-bg:#f7f1e7;
+      --kairos-surface:#fffaf1;
+      --kairos-panel:rgba(255,250,241,.92);
+      --kairos-soft-panel:rgba(255,250,241,.72);
+      --kairos-ink:#253227;
+      --kairos-text:#465443;
+      --kairos-copy:#5f6c5c;
+      --kairos-muted:#6f806d;
+      --kairos-faint:#7a987d;
+      --kairos-line:rgba(79,138,84,.20);
+      --kairos-line-soft:rgba(79,138,84,.26);
+      --kairos-label-bg:#f7f1e7;
+      --kairos-glyph:rgba(79,138,84,.18);
+      --kairos-shadow:0 18px 50px rgba(70,85,62,.12);
+    }
+    html[data-theme="contrast"] {
+      --kairos-bg:#050508;
+      --kairos-surface:#090c0a;
+      --kairos-panel:rgba(9,12,10,.92);
+      --kairos-soft-panel:rgba(5,8,7,.44);
+      --kairos-ink:#f3efe7;
+      --kairos-text:#d1cabe;
+      --kairos-copy:#aaa59a;
+      --kairos-muted:#859183;
+      --kairos-faint:#405842;
+      --kairos-line:#111610;
+      --kairos-line-soft:#182018;
+      --kairos-label-bg:#050508;
+      --kairos-glyph:#1a241a;
+    }
+    body.kairos-page { background:var(--kairos-bg); color:var(--kairos-ink); }
     .kairos-page #navbar-root,
     .kairos-page #footer-root,
     .kairos-page .project-hero,
     .kairos-page .kairos-wrap { position:relative; z-index:1; }
     .kairos-bg-canvas { position:fixed; inset:0; width:100%; height:100%; z-index:0; opacity:.12; pointer-events:none; }
-    .project-hero { border-top:3px solid var(--project-color); background:#050508; overflow:hidden; }
+    html[data-theme="light"] .kairos-bg-canvas { opacity:.18; }
+    .project-hero { border-top:3px solid var(--project-color); background:var(--kairos-bg); overflow:hidden; }
     #project-hero-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:0; opacity:.7; pointer-events:none; }
+    html[data-theme="light"] #project-hero-canvas { opacity:.46; }
+    .kairos-page .project-hero-fx-veil {
+      background:
+        linear-gradient(90deg,rgba(5,8,7,.90) 0%,rgba(5,8,7,.72) 38%,rgba(5,8,7,.34) 70%,rgba(5,8,7,.18) 100%),
+        linear-gradient(180deg,rgba(5,8,7,.40) 0%,rgba(5,8,7,.08) 42%,rgba(5,8,7,.52) 100%) !important;
+      backdrop-filter:blur(2.5px) !important;
+      -webkit-backdrop-filter:blur(2.5px) !important;
+    }
+    html[data-theme="light"] .kairos-page .project-hero-fx-veil {
+      background:
+        linear-gradient(90deg,rgba(247,241,231,.96) 0%,rgba(247,241,231,.84) 42%,rgba(247,241,231,.50) 75%,rgba(247,241,231,.25) 100%),
+        linear-gradient(180deg,rgba(247,241,231,.52) 0%,rgba(247,241,231,.22) 48%,rgba(247,241,231,.68) 100%) !important;
+      box-shadow:inset 0 0 0 1px rgba(79,138,84,.08);
+    }
     .kairos-hero-panel { position:relative; max-width:760px; padding:1.6rem 0; }
     .kairos-eyebrow { font-family:'Space Mono',monospace; font-size:.74rem; letter-spacing:.36em; color:#7aae8a; text-transform:uppercase; margin-bottom:2rem; opacity:.9; }
     .kairos-name { font-family:'Cormorant Garamond',serif; font-size:clamp(4.4rem,14vw,9.5rem); font-weight:300; letter-spacing:-.02em; line-height:.9; margin:.2rem 0 1.9rem; }
-    .kairos-name .kair { color:#e8e4dc; }
-    .kairos-name .sep { color:#5a8a6a; margin:0 .08em; }
-    .kairos-name .os { color:#3a6a4e; }
-    .kairos-divider { height:1px; width:min(100%,720px); background:linear-gradient(90deg,#5a8a6a 0%,rgba(90,138,106,.35) 45%,transparent 100%); margin:0 0 1.8rem; }
-    .kairos-tagline { font-family:'Cormorant Garamond',serif; font-size:clamp(1.35rem,2.8vw,2rem); font-weight:300; font-style:italic; color:#c9c3b8; line-height:1.45; max-width:680px; text-shadow:0 2px 18px rgba(0,0,0,.65); }
-    .kairos-tagline .accent { color:#8bc89d; font-style:normal; font-weight:600; }
-    .kairos-sub { font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.15em; color:#6f7f72; margin-top:1rem; text-transform:uppercase; }
+    .kairos-name .kair { color:var(--kairos-ink); }
+    .kairos-name .sep { color:var(--project-color); margin:0 .08em; }
+    .kairos-name .os { color:var(--project-muted); }
+    .kairos-divider { height:1px; width:min(100%,720px); background:linear-gradient(90deg,var(--project-color) 0%,rgba(90,138,106,.35) 45%,transparent 100%); margin:0 0 1.8rem; }
+    .kairos-tagline { font-family:'Cormorant Garamond',serif; font-size:clamp(1.35rem,2.8vw,2rem); font-weight:300; font-style:italic; color:var(--kairos-text); line-height:1.45; max-width:680px; text-shadow:0 2px 18px rgba(0,0,0,.28); }
+    html[data-theme="light"] .kairos-tagline { text-shadow:0 1px 0 rgba(255,255,255,.55); }
+    .kairos-tagline .accent { color:var(--project-color); font-style:normal; font-weight:600; }
+    .kairos-sub { font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.15em; color:var(--kairos-muted); margin-top:1rem; text-transform:uppercase; }
 
     .kairos-wrap { padding-top:2.5rem; padding-bottom:4rem; }
     .kairos-container { min-width:0; }
     .two-col { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:2.5rem; align-items:start; }
-    .kairos-section { padding:5rem 0; border-top:1px solid #111610; }
+    .kairos-section { padding:5rem 0; border-top:1px solid var(--kairos-line); }
     .kairos-section:first-child { border-top:none; }
-    .kairos-label { font-family:'Space Mono',monospace; font-size:.76rem; letter-spacing:.42em; color:#5a8a6a; text-transform:uppercase; margin-bottom:2.7rem; }
+    .kairos-label { font-family:'Space Mono',monospace; font-size:.76rem; letter-spacing:.42em; color:var(--project-color); text-transform:uppercase; margin-bottom:2.7rem; }
     .kairos-split { display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-bottom:3rem; }
     .kairos-part-big { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,8vw,4.4rem); font-weight:300; line-height:1; margin-bottom:.9rem; }
-    .kairos-part-big.kair-col { color:#e8e4dc; }
-    .kairos-part-big.os-col { color:#3a6a4e; }
-    .kairos-part-tag { font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.22em; color:#7aae8a; text-transform:uppercase; margin-bottom:.7rem; }
+    .kairos-part-big.kair-col { color:var(--kairos-ink); }
+    .kairos-part-big.os-col { color:var(--project-muted); }
+    .kairos-part-tag { font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.22em; color:var(--project-color); text-transform:uppercase; margin-bottom:.7rem; }
     .kairos-copy,
     .kairos-part-desc,
     .kairos-body,
-    .kairos-pillar-body { font-size:1rem; line-height:1.85; color:#9e9a90; }
-    .kairos-part-desc { font-family:'Cormorant Garamond',serif; font-size:1.16rem; font-style:italic; color:#8b877d; }
+    .kairos-pillar-body { font-size:1rem; line-height:1.85; color:var(--kairos-copy); }
+    .kairos-part-desc { font-family:'Cormorant Garamond',serif; font-size:1.16rem; font-style:italic; color:var(--kairos-muted); }
 
     .kairos-letters { display:flex; flex-direction:column; }
-    .kairos-letter-row { display:grid; grid-template-columns:48px 1fr minmax(220px,.9fr); gap:1.25rem; align-items:baseline; padding:1rem 0; border-bottom:1px solid #101410; }
+    .kairos-letter-row { display:grid; grid-template-columns:48px 1fr minmax(220px,.9fr); gap:1.25rem; align-items:baseline; padding:1rem 0; border-bottom:1px solid var(--kairos-line); }
     .kairos-letter-row:last-child { border-bottom:none; }
-    .kairos-lchar { font-family:'Cormorant Garamond',serif; font-size:2.1rem; font-weight:600; color:#7aae8a; }
-    .kairos-lchar.os-char { color:#3a6a4e; }
-    .kairos-lword { font-family:'Space Mono',monospace; font-size:.86rem; letter-spacing:.18em; color:#e8e4dc; text-transform:uppercase; }
-    .kairos-lmeaning { font-family:'Cormorant Garamond',serif; font-size:1.08rem; color:#7f887d; font-style:italic; text-align:right; }
+    .kairos-lchar { font-family:'Cormorant Garamond',serif; font-size:2.1rem; font-weight:600; color:var(--project-color); }
+    .kairos-lchar.os-char { color:var(--project-muted); }
+    .kairos-lword { font-family:'Space Mono',monospace; font-size:.86rem; letter-spacing:.18em; color:var(--kairos-ink); text-transform:uppercase; }
+    .kairos-lmeaning { font-family:'Cormorant Garamond',serif; font-size:1.08rem; color:var(--kairos-muted); font-style:italic; text-align:right; }
 
     .kairos-pillars { display:grid; grid-template-columns:1fr 1fr; gap:2px; }
-    .kairos-pillar { background:rgba(9,12,10,.92); padding:2rem; position:relative; overflow:hidden; transition:background .25s,border-color .25s; border:1px solid rgba(122,174,138,.06); }
-    .kairos-pillar:hover { background:#0c120e; border-color:rgba(122,174,138,.22); }
-    .kairos-pillar::before { content:''; position:absolute; top:0; left:0; width:2px; height:0; background:#7aae8a; transition:height .35s ease; }
+    .kairos-pillar { background:var(--kairos-panel); padding:2rem; position:relative; overflow:hidden; transition:background .25s,border-color .25s,box-shadow .25s; border:1px solid rgba(122,174,138,.12); box-shadow:var(--kairos-shadow); }
+    .kairos-pillar:hover { background:var(--kairos-surface); border-color:rgba(122,174,138,.30); }
+    .kairos-pillar::before { content:''; position:absolute; top:0; left:0; width:2px; height:0; background:var(--project-color); transition:height .35s ease; }
     .kairos-pillar:hover::before { height:100%; }
-    .kairos-pillar-num { font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.32em; color:#2f4635; margin-bottom:1rem; }
-    .kairos-pillar-title { font-family:'Cormorant Garamond',serif; font-size:1.55rem; color:#e8e4dc; margin-bottom:.7rem; }
+    .kairos-pillar-num { font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.32em; color:var(--kairos-faint); margin-bottom:1rem; }
+    .kairos-pillar-title { font-family:'Cormorant Garamond',serif; font-size:1.55rem; color:var(--kairos-ink); margin-bottom:.7rem; }
 
-    .kairos-box { border:1px solid #182018; padding:2.6rem; position:relative; background:rgba(5,8,7,.44); }
-    .kairos-box::before { content:'ORIGINE'; position:absolute; top:-.55rem; left:1.5rem; background:#050508; padding:0 .7rem; font-family:'Space Mono',monospace; font-size:.66rem; letter-spacing:.34em; color:#4f6e58; }
-    .kairos-glyph { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:#1a241a; line-height:1; margin-bottom:1rem; }
-    .kairos-def { font-family:'Cormorant Garamond',serif; font-size:1.42rem; color:#7aae8a; font-style:italic; margin-bottom:1rem; }
+    .kairos-box { border:1px solid var(--kairos-line-soft); padding:2.6rem; position:relative; background:var(--kairos-soft-panel); box-shadow:var(--kairos-shadow); }
+    .kairos-box::before { content:'ORIGINE'; position:absolute; top:-.55rem; left:1.5rem; background:var(--kairos-label-bg); padding:0 .7rem; font-family:'Space Mono',monospace; font-size:.66rem; letter-spacing:.34em; color:var(--kairos-faint); }
+    .kairos-glyph { font-family:'Cormorant Garamond',serif; font-size:clamp(4rem,10vw,6rem); font-weight:300; color:var(--kairos-glyph); line-height:1; margin-bottom:1rem; }
+    .kairos-def { font-family:'Cormorant Garamond',serif; font-size:1.42rem; color:var(--project-color); font-style:italic; margin-bottom:1rem; }
     .kairos-statement { padding:5rem 0; text-align:center; }
-    .kairos-quote { font-family:'Cormorant Garamond',serif; font-size:clamp(1.55rem,3.5vw,2.55rem); font-weight:300; font-style:italic; color:#a7a197; line-height:1.55; max-width:760px; margin:0 auto; }
-    .kairos-quote em { color:#8bc89d; font-style:normal; }
-    .kairos-attr { margin-top:1.8rem; font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.34em; color:#445845; text-transform:uppercase; }
+    .kairos-quote { font-family:'Cormorant Garamond',serif; font-size:clamp(1.55rem,3.5vw,2.55rem); font-weight:300; font-style:italic; color:var(--kairos-copy); line-height:1.55; max-width:760px; margin:0 auto; }
+    .kairos-quote em { color:var(--project-color); font-style:normal; }
+    .kairos-attr { margin-top:1.8rem; font-family:'Space Mono',monospace; font-size:.72rem; letter-spacing:.34em; color:var(--kairos-faint); text-transform:uppercase; }
     .kairos-timeline { display:grid; gap:1rem; }
-    .kairos-time-row { display:grid; grid-template-columns:180px 1fr; gap:1.5rem; padding:1.25rem 0; border-top:1px solid #111610; }
-    .kairos-time-date { font-family:'Space Mono',monospace; color:#7aae8a; font-size:.86rem; letter-spacing:.08em; }
-    .kairos-footnote { display:flex; justify-content:space-between; gap:1rem; padding:2.2rem 0 3rem; border-top:1px solid #101410; font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.22em; color:#304132; text-transform:uppercase; }
+    .kairos-time-row { display:grid; grid-template-columns:180px 1fr; gap:1.5rem; padding:1.25rem 0; border-top:1px solid var(--kairos-line); }
+    .kairos-time-date { font-family:'Space Mono',monospace; color:var(--project-color); font-size:.86rem; letter-spacing:.08em; }
+    .kairos-footnote { display:flex; justify-content:space-between; gap:1rem; padding:2.2rem 0 3rem; border-top:1px solid var(--kairos-line); font-family:'Space Mono',monospace; font-size:.78rem; letter-spacing:.22em; color:var(--kairos-faint); text-transform:uppercase; }
     .status-line { display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.5rem; }
     .project-accent { color:var(--project-color); }
     .side-card { position:sticky; top:96px; background:color-mix(in srgb,var(--project-color) 4%,var(--bg-card)); border:1px solid color-mix(in srgb,var(--project-color) 16%,var(--border)); border-radius:10px; padding:1.35rem; }
@@ -133,6 +201,7 @@
   <canvas id="project-hero-canvas" aria-hidden="true"></canvas>
   <div class="container" style="position:relative;z-index:1;">
     <a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a>
+    <span class="section-label" data-i18n="sections.ecosystem_label"></span>
     <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem;">
       <span style="font-size:1.65rem;font-family:'Space Mono',monospace;font-weight:700;color:var(--project-color);">K·O</span>
       <span class="badge badge--concept" data-lang="it">Concetto</span>

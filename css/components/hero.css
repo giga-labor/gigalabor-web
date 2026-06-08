@@ -214,11 +214,16 @@
   color: var(--text-muted);
   font-size: 0.78rem;
   font-family: 'JetBrains Mono', monospace;
-  margin-bottom: 1.5rem;
+  margin-right: 1rem;
+  margin-bottom: 1.2rem;
   transition: color 0.2s;
   text-decoration: none;
 }
 .page-hero .back-link:hover { color: var(--accent); }
+.page-hero .back-link + .section-label {
+  vertical-align: middle;
+  margin-bottom: 1.2rem;
+}
 
 /* -- RESPONSIVE ------------------------------------------- */
 @media (max-width: 768px) {
