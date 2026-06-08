@@ -57,4 +57,591 @@
     .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-top:1.5rem; }
     .step-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.25rem; transition:border-color .2s; }
     .step-card:hover { border-color:var(--project-color); }
-    .step-num { font-family:'JetBrains Mono',monospace; font-size:1.8re
+    .step-num { font-family:'JetBrains Mono',monospace; font-size:1.8rem; font-weight:700;
+                color:var(--project-color); opacity:.28; line-height:1; margin-bottom:.65rem; }
+    .step-icon { font-size:1.4rem; margin-bottom:.55rem; }
+    .step-title { font-weight:600; font-size:.88rem; margin-bottom:.45rem; color:var(--text-primary); }
+    .step-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+
+    /* Tech cards */
+    .tech-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .tech-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                 padding:1.1rem 1.2rem; display:flex; gap:.9rem; align-items:flex-start; }
+    .tech-icon { font-size:1.6rem; line-height:1; flex-shrink:0; margin-top:.1rem; }
+    .tech-name { font-weight:600; font-size:.88rem; color:var(--text-primary); margin-bottom:.3rem; }
+    .tech-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+
+    /* Timeline */
+    .tl { position:relative; padding-left:2.25rem; margin-top:1.5rem; }
+    .tl::before { content:''; position:absolute; left:8px; top:6px; bottom:0; width:2px;
+                  background:linear-gradient(to bottom,var(--project-color),var(--border) 70%); }
+    .tl-item { position:relative; padding-bottom:1.75rem; }
+    .tl-item:last-child { padding-bottom:0; }
+    .tl-dot { position:absolute; left:-2.25rem; top:4px; width:14px; height:14px; border-radius:50%;
+              background:var(--project-color); border:2px solid var(--bg-surface);
+              box-shadow:0 0 0 2px color-mix(in srgb,var(--project-color) 35%,transparent); }
+    .tl-dot.future { background:var(--bg-card); border-color:var(--border); box-shadow:none; }
+    .tl-tag { font-family:'JetBrains Mono',monospace; font-size:.68rem; color:var(--text-muted); margin-bottom:.3rem; letter-spacing:.06em; }
+    .tl-title { font-weight:600; font-size:.92rem; color:var(--text-primary); margin-bottom:.35rem; }
+    .tl-desc { font-size:.82rem; color:var(--text-secondary); line-height:1.65; }
+
+    /* Progress */
+    .prog-list { display:flex; flex-direction:column; gap:.85rem; margin-top:1.25rem; }
+    .prog-header { display:flex; justify-content:space-between; font-size:.8rem; margin-bottom:.4rem; }
+    .prog-label { color:var(--text-secondary); }
+    .prog-val { font-family:'JetBrains Mono',monospace; color:var(--project-color); font-weight:600; }
+    .prog-bar { height:4px; background:var(--bg-card); border-radius:2px; overflow:hidden; }
+    .prog-fill { height:100%; background:var(--project-color); border-radius:2px; }
+
+    /* Feature list */
+    .feat { list-style:none; padding:0; margin:1rem 0 0; display:flex; flex-direction:column; gap:.55rem; }
+    .feat li { display:flex; gap:.75rem; align-items:flex-start; font-size:.88rem; color:var(--text-secondary); line-height:1.55; }
+    .feat li .dot { flex-shrink:0; margin-top:.38rem; width:7px; height:7px; border-radius:50%; }
+    .feat li.done .dot { background:#22c55e; }
+    .feat li.wip  .dot { background:var(--project-color); animation:blink 2s infinite; }
+    .feat li.plan .dot { background:var(--border); }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* Stat row */
+    .stat-row { display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1.25rem; }
+    .stat-box { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+                padding:1rem 1.4rem; text-align:center; min-width:90px; }
+    .stat-val { font-family:'JetBrains Mono',monospace; font-size:1.4rem; font-weight:700;
+                color:var(--project-color); line-height:1; margin-bottom:.3rem; }
+    .stat-lbl { font-size:.72rem; color:var(--text-muted); letter-spacing:.06em; text-transform:uppercase; }
+
+    /* Two col */
+    .two-col { display:grid; grid-template-columns:1fr 340px; gap:3rem; align-items:start; }
+    @media(max-width:860px){ .two-col { grid-template-columns:1fr; gap:1.75rem; } }
+
+    /* Sidebar */
+    .side-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+                 padding:1.5rem; display:flex; flex-direction:column; gap:1.1rem; position:sticky; top:80px; }
+    .side-row { display:flex; flex-direction:column; gap:.3rem; }
+    .side-label { font-size:.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace;
+                  letter-spacing:.06em; text-transform:uppercase; }
+    .side-val { font-size:.9rem; color:var(--text-secondary); }
+
+    /* Dev badge */
+    .dev-badge { display:inline-flex; align-items:center; gap:.45rem; font-family:'JetBrains Mono',monospace;
+                 font-size:.72rem; padding:.3rem .7rem; border-radius:20px;
+                 background:color-mix(in srgb,var(--project-color) 12%,var(--bg-card));
+                 border:1px solid color-mix(in srgb,var(--project-color) 30%,var(--border));
+                 color:var(--project-color); width:fit-content; }
+    .dev-dot { width:6px; height:6px; border-radius:50%; background:var(--project-color); animation:blink 2s infinite; }
+
+    .divider { height:1px; background:var(--border); margin:0; }
+    .link-grid { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2rem; }
+  </style>
+</head>
+<body data-page="project-detail">
+<div id="page-loader"><div class="loader-logo"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div></div>
+<div id="navbar-root"></div>
+
+<!-- ── HERO ─────────────────────────────────────── -->
+<div class="page-hero project-hero">
+  <div class="container">
+    <a href="../projects.html" class="back-link" data-i18n="ui.back_projects"></a>
+    <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem;">
+      <span style="font-size:2rem;font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--project-color);">EB</span>
+      <span class="dev-badge"><span class="dev-dot"></span>IN SVILUPPO</span>
+    </div>
+    <h1 class="section-title project-accent" data-i18n="projects.evobrain.name"></h1>
+    <p class="text-secondary mt-2" style="font-size:1.05rem;" data-i18n="projects.evobrain.short"></p>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ──────────────────────────────── -->
+<div class="container" style="padding-top:2.5rem;padding-bottom:4rem;">
+  <div class="two-col">
+
+    <!-- ════ LEFT COLUMN ════ -->
+    <div>
+
+      <!-- PANORAMICA -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Il progetto in parole semplici</div>
+        <div class="sec-label" data-lang="en">The project in plain words</div>
+
+        <div data-lang="it">
+          <h2 class="sec-title">Un assistente AI che ti conosce davvero — e gira sul tuo computer</h2>
+          <div class="sec-body">
+            <p>Immagina un assistente personale che non dimentica mai nulla di ciò che gli hai detto, ha accesso a una biblioteca di conoscenza che cresce con te, e ragiona in modo sempre più sofisticato man mano che lo usi. Ora immagina che giri completamente sul tuo computer, senza inviare nulla a nessun server esterno.</p>
+            <p>Questo è EvoBrain: un sistema di intelligenza artificiale <em>locale</em> progettato con tre pilastri fondamentali — <strong>memoria persistente</strong> (ricorda tutto), <strong>base di conoscenza strutturata</strong> (sa dove cercare), e <strong>ragionamento adattivo</strong> (migliora col tempo).</p>
+          </div>
+          <div class="callout callout-info">
+            <strong>🔒 Privacy by design:</strong> EvoBrain funziona interamente offline. I tuoi dati, le tue conversazioni, la tua base di conoscenza — tutto rimane sul tuo hardware. Zero cloud, zero API esterne, zero telemetria.
+          </div>
+        </div>
+
+        <div data-lang="en">
+          <h2 class="sec-title">An AI assistant that truly knows you — running on your own computer</h2>
+          <div class="sec-body">
+            <p>Imagine a personal assistant that never forgets anything you've told it, has access to a knowledge library that grows with you, and reasons in increasingly sophisticated ways the more you use it. Now imagine it runs entirely on your computer, sending nothing to any external server.</p>
+            <p>That's EvoBrain: a <em>local</em> artificial intelligence system built on three pillars — <strong>persistent memory</strong> (remembers everything), <strong>structured knowledge base</strong> (knows where to look), and <strong>adaptive reasoning</strong> (improves over time).</p>
+          </div>
+          <div class="callout callout-info">
+            <strong>🔒 Privacy by design:</strong> EvoBrain runs entirely offline. Your data, your conversations, your knowledge base — all stay on your hardware. Zero cloud, zero external APIs, zero telemetry.
+          </div>
+        </div>
+      </div>
+
+      <!-- ARCHITETTURA COGNITIVA -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Architettura cognitiva</div>
+        <div class="sec-label" data-lang="en">Cognitive architecture</div>
+        <div data-lang="it"><h2 class="sec-title">I quattro moduli del "cervello"</h2></div>
+        <div data-lang="en"><h2 class="sec-title">The four modules of the "brain"</h2></div>
+
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-icon">🧠</div>
+            <div class="module-name" data-lang="it">Memory Manager</div>
+            <div class="module-name" data-lang="en">Memory Manager</div>
+            <div class="module-desc" data-lang="it">Gestisce la memoria a breve e lungo termine. Come il cervello umano, distingue le informazioni temporanee da quelle da conservare stabilmente nel tempo.</div>
+            <div class="module-desc" data-lang="en">Manages short and long-term memory. Like the human brain, it distinguishes between temporary information and what should be stored permanently.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-icon">📚</div>
+            <div class="module-name">Knowledge Base</div>
+            <div class="module-desc" data-lang="it">Una biblioteca digitale strutturata di concetti, fatti e relazioni. Non solo testo: un grafo di conoscenza dove ogni informazione è collegata alle altre.</div>
+            <div class="module-desc" data-lang="en">A structured digital library of concepts, facts, and relationships. Not just text: a knowledge graph where every piece of information is connected to others.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-icon">⚡</div>
+            <div class="module-name" data-lang="it">Reasoning Engine</div>
+            <div class="module-name" data-lang="en">Reasoning Engine</div>
+            <div class="module-desc" data-lang="it">Il motore di ragionamento che combina memoria e conoscenza per formulare risposte, fare inferenze e risolvere problemi in modo sempre più sofisticato.</div>
+            <div class="module-desc" data-lang="en">The reasoning engine that combines memory and knowledge to formulate answers, make inferences, and solve problems in increasingly sophisticated ways.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-icon">🤖</div>
+            <div class="module-name" data-lang="it">LLM Locale</div>
+            <div class="module-name" data-lang="en">Local LLM</div>
+            <div class="module-desc" data-lang="it">Il modello linguistico che gira direttamente sul tuo hardware. Utilizza la GPU o CPU del tuo computer per generare risposte, senza connessione internet.</div>
+            <div class="module-desc" data-lang="en">The language model that runs directly on your hardware. Uses your computer's GPU or CPU to generate responses, with no internet connection needed.</div>
+          </div>
+        </div>
+
+        <!-- SVG ARCHITETTURA -->
+        <svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg"
+             style="width:100%;max-width:700px;margin-top:1.5rem;border-radius:10px;
+                    background:#0f0a1a;border:1px solid #1a1030;display:block;">
+          <defs>
+            <marker id="arr2" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+              <polygon points="0 0,7 2.5,0 5" fill="#8b5cf6" opacity=".8"/>
+            </marker>
+            <marker id="arr2r" markerWidth="7" markerHeight="5" refX="0" refY="2.5" orient="auto">
+              <polygon points="7 0,0 2.5,7 5" fill="#8b5cf6" opacity=".5"/>
+            </marker>
+          </defs>
+
+          <!-- Input -->
+          <rect x="18" y="94" width="90" height="52" rx="8" fill="#1a0f30" stroke="#8b5cf6" stroke-opacity=".4" stroke-width="1.2"/>
+          <text x="63" y="116" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="8" font-weight="600" letter-spacing=".04em">INPUT</text>
+          <text x="63" y="130" text-anchor="middle" font-size="14" fill="#a78bfa" opacity=".7">💬</text>
+
+          <!-- Arrow in -->
+          <line x1="108" y1="120" x2="148" y2="120" stroke="#8b5cf6" stroke-opacity=".6" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+          <!-- Central block -->
+          <rect x="150" y="34" width="340" height="172" rx="10" fill="#1a0f30" stroke="#8b5cf6" stroke-opacity=".25" stroke-width="1" stroke-dasharray="5 3"/>
+          <text x="320" y="52" text-anchor="middle" fill="#8b5cf6" font-family="monospace" font-size="8" opacity=".5" font-weight="600" letter-spacing=".08em">EVOBRAIN CORE</text>
+
+          <!-- Memory Manager -->
+          <rect x="165" y="62" width="130" height="54" rx="7" fill="#1e1040" stroke="#8b5cf6" stroke-opacity=".5" stroke-width="1.3"/>
+          <text x="230" y="82" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="8" font-weight="600">MEMORY MANAGER</text>
+          <text x="230" y="96" text-anchor="middle" font-size="12" fill="#a78bfa" opacity=".7">🧠</text>
+          <text x="230" y="110" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="7">breve / lungo termine</text>
+
+          <!-- Knowledge Base -->
+          <rect x="165" y="130" width="130" height="54" rx="7" fill="#1e1040" stroke="#8b5cf6" stroke-opacity=".5" stroke-width="1.3"/>
+          <text x="230" y="150" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="8" font-weight="600">KNOWLEDGE BASE</text>
+          <text x="230" y="164" text-anchor="middle" font-size="12" fill="#a78bfa" opacity=".7">📚</text>
+          <text x="230" y="178" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="7">grafo di conoscenza</text>
+
+          <!-- Reasoning Engine -->
+          <rect x="310" y="62" width="165" height="54" rx="7" fill="#1e1040" stroke="#8b5cf6" stroke-opacity=".7" stroke-width="1.5"/>
+          <text x="393" y="82" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="8" font-weight="600">REASONING ENGINE</text>
+          <text x="393" y="96" text-anchor="middle" font-size="12" fill="#a78bfa" opacity=".7">⚡</text>
+          <text x="393" y="110" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="7">ragionamento adattivo</text>
+
+          <!-- LLM Locale -->
+          <rect x="310" y="130" width="165" height="54" rx="7" fill="#1e1040" stroke="#8b5cf6" stroke-opacity=".7" stroke-width="1.5"/>
+          <text x="393" y="150" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="8" font-weight="600">LLM LOCALE</text>
+          <text x="393" y="164" text-anchor="middle" font-size="12" fill="#a78bfa" opacity=".7">🤖</text>
+          <text x="393" y="178" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="7">GPU / CPU on-device</text>
+
+          <!-- Internal connections -->
+          <line x1="295" y1="89"  x2="308" y2="89"  stroke="#8b5cf6" stroke-opacity=".4" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="295" y1="157" x2="308" y2="157" stroke="#8b5cf6" stroke-opacity=".4" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="393" y1="116" x2="393" y2="128" stroke="#8b5cf6" stroke-opacity=".4" stroke-width="1" marker-end="url(#arr2)"/>
+          <line x1="230" y1="116" x2="230" y2="128" stroke="#8b5cf6" stroke-opacity=".3" stroke-width="1" marker-end="url(#arr2)"/>
+
+          <!-- Arrow out -->
+          <line x1="490" y1="120" x2="580" y2="120" stroke="#8b5cf6" stroke-opacity=".6" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+          <!-- Output -->
+          <rect x="582" y="94" width="100" height="52" rx="8" fill="#0d1f1a" stroke="#22c55e" stroke-opacity=".4" stroke-width="1.2"/>
+          <text x="632" y="116" text-anchor="middle" fill="#4ade80" font-family="monospace" font-size="8" font-weight="600" letter-spacing=".04em">OUTPUT</text>
+          <text x="632" y="130" text-anchor="middle" font-size="14" fill="#4ade80" opacity=".7">✨</text>
+
+          <!-- Privacy label -->
+          <text x="350" y="225" text-anchor="middle" fill="#8b5cf6" font-family="sans-serif" font-size="8" opacity=".4">🔒 tutto locale — nessun dato esce dal tuo dispositivo</text>
+        </svg>
+      </div>
+
+      <!-- COME FUNZIONA -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Come funziona nella pratica</div>
+        <div class="sec-label" data-lang="en">How it works in practice</div>
+        <div data-lang="it"><h2 class="sec-title">Dal tuo input alla risposta intelligente</h2></div>
+        <div data-lang="en"><h2 class="sec-title">From your input to an intelligent response</h2></div>
+
+        <div class="steps">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-icon">📝</div>
+            <div class="step-title" data-lang="it">Ricevi l'input</div>
+            <div class="step-title" data-lang="en">Receives input</div>
+            <div class="step-desc" data-lang="it">L'utente pone una domanda o fornisce una informazione. EvoBrain riceve il testo e lo analizza.</div>
+            <div class="step-desc" data-lang="en">The user asks a question or provides information. EvoBrain receives the text and analyses it.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-icon">🔍</div>
+            <div class="step-title" data-lang="it">Cerca in memoria</div>
+            <div class="step-title" data-lang="en">Searches memory</div>
+            <div class="step-desc" data-lang="it">Il Memory Manager cerca nelle conversazioni passate e nella knowledge base tutto ciò che è rilevante per questa domanda specifica.</div>
+            <div class="step-desc" data-lang="en">The Memory Manager searches past conversations and the knowledge base for everything relevant to this specific question.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-icon">⚡</div>
+            <div class="step-title" data-lang="it">Ragiona e connette</div>
+            <div class="step-title" data-lang="en">Reasons and connects</div>
+            <div class="step-desc" data-lang="it">Il Reasoning Engine combina la domanda con il contesto recuperato, costruendo un ragionamento coerente con tutto ciò che sa di te.</div>
+            <div class="step-desc" data-lang="en">The Reasoning Engine combines the question with retrieved context, building a reasoning process consistent with everything it knows about you.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <div class="step-icon">🤖</div>
+            <div class="step-title" data-lang="it">LLM genera la risposta</div>
+            <div class="step-title" data-lang="en">LLM generates response</div>
+            <div class="step-desc" data-lang="it">Il modello linguistico locale usa tutto questo contesto per produrre una risposta precisa, personalizzata e coerente — senza internet.</div>
+            <div class="step-desc" data-lang="en">The local language model uses all this context to produce a precise, personalised, and consistent answer — without internet access.</div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">05</div>
+            <div class="step-icon">📌</div>
+            <div class="step-title" data-lang="it">Impara e aggiorna</div>
+            <div class="step-title" data-lang="en">Learns and updates</div>
+            <div class="step-desc" data-lang="it">Ogni interazione arricchisce la memoria e la knowledge base. EvoBrain diventa progressivamente più utile quanto più lo usi.</div>
+            <div class="step-desc" data-lang="en">Every interaction enriches the memory and knowledge base. EvoBrain becomes progressively more useful the more you use it.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECNOLOGIE -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Tecnologie chiave</div>
+        <div class="sec-label" data-lang="en">Key technologies</div>
+        <div data-lang="it"><h2 class="sec-title">Cosa rende possibile tutto questo</h2></div>
+        <div data-lang="en"><h2 class="sec-title">What makes all this possible</h2></div>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-icon">🤖</div>
+            <div>
+              <div class="tech-name" data-lang="it">LLM locale (Ollama / llama.cpp)</div>
+              <div class="tech-name" data-lang="en">Local LLM (Ollama / llama.cpp)</div>
+              <div class="tech-desc" data-lang="it">Framework che permettono di eseguire modelli linguistici avanzati (come Llama, Mistral, Phi) direttamente sul tuo computer, senza nessun account o pagamento esterno.</div>
+              <div class="tech-desc" data-lang="en">Frameworks that let you run advanced language models (like Llama, Mistral, Phi) directly on your computer, without any external account or payment.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🔢</div>
+            <div>
+              <div class="tech-name">Vector Database</div>
+              <div class="tech-desc" data-lang="it">Un tipo speciale di database che capisce il "significato" delle frasi, non solo le parole esatte. Permette di trovare ricordi e conoscenze rilevanti anche quando usi parole diverse da quelle originali.</div>
+              <div class="tech-desc" data-lang="en">A special type of database that understands the "meaning" of sentences, not just exact words. Allows finding relevant memories and knowledge even when you use different words from the original.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🕸️</div>
+            <div>
+              <div class="tech-name" data-lang="it">Grafo di conoscenza</div>
+              <div class="tech-name" data-lang="en">Knowledge graph</div>
+              <div class="tech-desc" data-lang="it">Una rete di nodi e connessioni che rappresenta concetti e le loro relazioni. Non solo "cosa sai", ma "come le cose sono collegate tra loro" — come una mappa mentale digitale.</div>
+              <div class="tech-desc" data-lang="en">A network of nodes and connections representing concepts and their relationships. Not just "what you know" but "how things connect to each other" — like a digital mind map.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🐍</div>
+            <div>
+              <div class="tech-name">Python &amp; LangChain</div>
+              <div class="tech-desc" data-lang="it">LangChain è il "colla" che unisce tutti i componenti AI. Permette di orchestrare LLM locali, memoria vettoriale e knowledge base in un sistema coerente.</div>
+              <div class="tech-desc" data-lang="en">LangChain is the "glue" that connects all AI components. It orchestrates local LLMs, vector memory, and the knowledge base into a coherent system.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">💾</div>
+            <div>
+              <div class="tech-name" data-lang="it">Storage locale persistente</div>
+              <div class="tech-name" data-lang="en">Local persistent storage</div>
+              <div class="tech-desc" data-lang="it">Tutto viene salvato localmente in formati efficienti. La memoria sopravvive ai riavvii e cresce nel tempo, costruendo un profilo sempre più ricco dell'utente.</div>
+              <div class="tech-desc" data-lang="en">Everything is saved locally in efficient formats. Memory survives restarts and grows over time, building an increasingly rich user profile.</div>
+            </div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-icon">🔒</div>
+            <div>
+              <div class="tech-name" data-lang="it">Architettura air-gap</div>
+              <div class="tech-name" data-lang="en">Air-gap architecture</div>
+              <div class="tech-desc" data-lang="it">Il sistema è progettato per funzionare senza rete. Nessun dato viene mai trasmesso: né le domande, né le risposte, né la knowledge base.</div>
+              <div class="tech-desc" data-lang="en">The system is designed to work without a network. No data is ever transmitted: not the questions, not the answers, not the knowledge base.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMELINE -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Timeline di sviluppo</div>
+        <div class="sec-label" data-lang="en">Development timeline</div>
+        <div data-lang="it"><h2 class="sec-title">Come si sta evolvendo il progetto</h2></div>
+        <div data-lang="en"><h2 class="sec-title">How the project is evolving</h2></div>
+
+        <div class="callout" style="border-left-color:#f59e0b;background:color-mix(in srgb,#f59e0b 6%,var(--bg-card));border-color:color-mix(in srgb,#f59e0b 20%,var(--border));">
+          <div data-lang="it">⚡ <strong>Il progetto più rapido di GiGa Labor:</strong> EvoBrain è nato in piena maturità del vibe coding. Ciò che per i progetti precedenti richiedeva mesi, qui si conta in settimane. L'esperienza accumulata e la padronanza degli strumenti AI hanno compresso radicalmente i tempi di sviluppo.</div>
+          <div data-lang="en">⚡ <strong>GiGa Labor's fastest project:</strong> EvoBrain was born at the peak of vibe coding maturity. What took months for earlier projects here takes weeks. Accumulated experience and mastery of AI tools have radically compressed development timelines.</div>
+        </div>
+
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag" data-lang="it">Inizio primavera 2026</div>
+            <div class="tl-tag" data-lang="en">Early spring 2026</div>
+            <div class="tl-title" data-lang="it">🌱 L'idea e la domanda che l'ha generata</div>
+            <div class="tl-title" data-lang="en">🌱 The idea and the question that generated it</div>
+            <div class="tl-desc" data-lang="it">"Posso avere un'AI locale che mi conosce davvero, senza mandare nulla fuori dal mio computer?" Studio rapido dell'ecosistema — Ollama, LangChain, vector store — e definizione dei tre pilastri: memoria, conoscenza, ragionamento. Architettura concettuale in pochi giorni.</div>
+            <div class="tl-desc" data-lang="en">"Can I have a local AI that truly knows me, without sending anything outside my computer?" Rapid study of the ecosystem — Ollama, LangChain, vector store — and definition of the three pillars: memory, knowledge, reasoning. Conceptual architecture in a matter of days.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag" data-lang="it">Primavera 2026</div>
+            <div class="tl-tag" data-lang="en">Spring 2026</div>
+            <div class="tl-title" data-lang="it">🔧 Memory Manager + Knowledge Base</div>
+            <div class="tl-title" data-lang="en">🔧 Memory Manager + Knowledge Base</div>
+            <div class="tl-desc" data-lang="it">I primi due moduli prendono vita in parallelo, con il vibe coding che accelera ogni iterazione. Il Memory Manager ricorda le conversazioni; la Knowledge Base costruisce il grafo di concetti. Entrambi integrati con Ollama per le risposte in locale.</div>
+            <div class="tl-desc" data-lang="en">The first two modules come to life in parallel, with vibe coding accelerating every iteration. The Memory Manager remembers conversations; the Knowledge Base builds the concept graph. Both integrated with Ollama for local responses.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag" data-lang="it">Primavera–Estate 2026</div>
+            <div class="tl-tag" data-lang="en">Spring–Summer 2026</div>
+            <div class="tl-title" data-lang="it">⚡ Reasoning Engine e integrazione</div>
+            <div class="tl-title" data-lang="en">⚡ Reasoning Engine and integration</div>
+            <div class="tl-desc" data-lang="it">Il Reasoning Engine orchestra i due moduli precedenti. I tre pilastri iniziano a lavorare insieme. Prime sessioni di test con conversazioni multi-turno in cui il sistema usa il suo "passato" per rispondere meglio.</div>
+            <div class="tl-desc" data-lang="en">The Reasoning Engine orchestrates the two previous modules. The three pillars begin working together. First test sessions with multi-turn conversations where the system uses its "past" to respond better.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-tag">2026 · In corso</div>
+            <div class="tl-title" data-lang="it">🔬 Affinamento e interfaccia</div>
+            <div class="tl-title" data-lang="en">🔬 Refinement and interface</div>
+            <div class="tl-desc" data-lang="it">Ottimizzazione delle performance su hardware consumer, miglioramento della precisione del retrieval, sviluppo dell'interfaccia utente desktop. Il sistema diventa sempre più reattivo e "intelligente".</div>
+            <div class="tl-desc" data-lang="en">Performance optimisation on consumer hardware, improvement of retrieval precision, development of the desktop user interface. The system becomes increasingly responsive and "intelligent".</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot future"></div>
+            <div class="tl-tag" data-lang="it">Prossimamente</div>
+            <div class="tl-tag" data-lang="en">Coming next</div>
+            <div class="tl-title" data-lang="it">🚀 Alpha release pubblica</div>
+            <div class="tl-title" data-lang="en">🚀 Public alpha release</div>
+            <div class="tl-desc" data-lang="it">Prima versione utilizzabile esternamente, interfaccia desktop completa, documentazione di installazione, supporto ai principali modelli open source.</div>
+            <div class="tl-desc" data-lang="en">First externally usable version, complete desktop interface, installation documentation, support for major open-source models.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATO ATTUALE -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Stato attuale del progetto</div>
+        <div class="sec-label" data-lang="en">Current project state</div>
+        <div data-lang="it"><h2 class="sec-title">Dove siamo ora</h2></div>
+        <div data-lang="en"><h2 class="sec-title">Where we are now</h2></div>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-val">3</div>
+            <div class="stat-lbl" data-lang="it">Moduli core attivi</div>
+            <div class="stat-lbl" data-lang="en">Core modules</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">0%</div>
+            <div class="stat-lbl">Cloud</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">Alpha</div>
+            <div class="stat-lbl" data-lang="it">Fase attuale</div>
+            <div class="stat-lbl" data-lang="en">Current phase</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.75rem;">
+          <div class="prog-list">
+            <div>
+              <div class="prog-header">
+                <span class="prog-label">Memory Manager</span>
+                <span class="prog-val">85%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:85%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label">Knowledge Base</span>
+                <span class="prog-val">75%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label">Reasoning Engine</span>
+                <span class="prog-val">60%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:60%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label" data-lang="it">Integrazione moduli</span>
+                <span class="prog-label" data-lang="en">Module integration</span>
+                <span class="prog-val">70%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:70%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label" data-lang="it">Interfaccia utente</span>
+                <span class="prog-label" data-lang="en">User interface</span>
+                <span class="prog-val">30%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:30%"></div></div>
+            </div>
+            <div>
+              <div class="prog-header">
+                <span class="prog-label" data-lang="it">Documentazione pubblica</span>
+                <span class="prog-label" data-lang="en">Public documentation</span>
+                <span class="prog-val">10%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-fill" style="width:10%"></div></div>
+            </div>
+          </div>
+
+          <ul class="feat" style="margin-top:1.5rem;">
+            <li class="done"><span class="dot"></span><span data-lang="it">Memoria persistente tra sessioni diverse</span><span data-lang="en">Persistent memory across sessions</span></li>
+            <li class="done"><span class="dot"></span><span data-lang="it">Knowledge base con grafo di concetti</span><span data-lang="en">Knowledge base with concept graph</span></li>
+            <li class="done"><span class="dot"></span><span data-lang="it">Integrazione con LLM locali (Ollama)</span><span data-lang="en">Integration with local LLMs (Ollama)</span></li>
+            <li class="done"><span class="dot"></span><span data-lang="it">Architettura completamente offline</span><span data-lang="en">Fully offline architecture</span></li>
+            <li class="wip"><span class="dot"></span><span data-lang="it">Reasoning Engine adattivo (in sviluppo)</span><span data-lang="en">Adaptive Reasoning Engine (in development)</span></li>
+            <li class="wip"><span class="dot"></span><span data-lang="it">Interfaccia desktop (in sviluppo)</span><span data-lang="en">Desktop interface (in development)</span></li>
+            <li class="plan"><span class="dot"></span><span data-lang="it">Alpha release pubblica (pianificato)</span><span data-lang="en">Public alpha release (planned)</span></li>
+            <li class="plan"><span class="dot"></span><span data-lang="it">Plugin per editor di testo (pianificato)</span><span data-lang="en">Text editor plugin (planned)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- VISION -->
+      <div class="sec animate">
+        <div class="sec-label" data-lang="it">Perché esiste</div>
+        <div class="sec-label" data-lang="en">Why it exists</div>
+        <div data-lang="it">
+          <h2 class="sec-title">L'AI deve lavorare per te, non su di te</h2>
+          <div class="sec-body">
+            <p>La maggior parte degli assistenti AI moderni richiedono che i tuoi dati viaggino su server di terzi. Le tue conversazioni diventano dati di training, le tue domande vengono memorizzate, il tuo profilo viene costruito da qualcun altro.</p>
+            <p>EvoBrain parte da una premessa diversa: un'AI che cresce con te, sul tuo hardware, secondo le tue regole. L'obiettivo a lungo termine è un assistente personale che conosce il tuo contesto lavorativo, le tue preferenze, i tuoi progetti — senza che questa conoscenza esca mai dal tuo dispositivo.</p>
+          </div>
+        </div>
+        <div data-lang="en">
+          <h2 class="sec-title">AI should work for you, not on you</h2>
+          <div class="sec-body">
+            <p>Most modern AI assistants require your data to travel to third-party servers. Your conversations become training data, your questions get stored, your profile gets built by someone else.</p>
+            <p>EvoBrain starts from a different premise: an AI that grows with you, on your hardware, by your rules. The long-term goal is a personal assistant that knows your work context, your preferences, your projects — without this knowledge ever leaving your device.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left column -->
+
+    <!-- ════ RIGHT COLUMN – SIDEBAR ════ -->
+    <div>
+      <div class="side-card animate">
+        <div class="side-row">
+          <span class="side-label" data-i18n="project_detail.status_label"></span>
+          <span class="dev-badge"><span class="dev-dot"></span><span data-lang="it">In sviluppo</span><span data-lang="en">In development</span></span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Categoria</span>
+          <span class="side-label" data-lang="en">Category</span>
+          <span class="side-val" data-lang="it">AI Locale &amp; Privacy</span>
+          <span class="side-val" data-lang="en">Local AI &amp; Privacy</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Avviato</span>
+          <span class="side-label" data-lang="en">Started</span>
+          <span class="side-val" data-lang="it">Primavera 2026</span>
+          <span class="side-val" data-lang="en">Spring 2026</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Fase attuale</span>
+          <span class="side-label" data-lang="en">Current phase</span>
+          <span class="side-val">Alpha</span>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-lang="it">Stack principale</span>
+          <span class="side-label" data-lang="en">Main stack</span>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem;">
+            <span class="tag">Python</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">Ollama</span>
+            <span class="tag">Vector DB</span>
+            <span class="tag">Knowledge Graph</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="side-row">
+          <span class="side-label" data-i18n="project_detail.part_of_label"></span>
+          <a href="../../index.html" class="text-accent font-medium" style="font-size:.9rem;">GiGa Labor</a>
+        </div>
+      </div>
+    </div><!-- /right column -->
+
+  </div><!-- /two-col -->
+</div><!-- /container -->
+
+<div id="footer-root"></div>
+<script src="../../js/data/gl-data.js"></script>
+<script src="../../js/data/i18n/it.js"></script>
+<script src="../../js/data/i18n/en.js"></script>
+<script src="../../js/app.js"></script>
+<script>
+(function () {
+  function applyLang(lang) {
+    document.querySelectorAll('[data-lang]').forEach(function (el) {
+      if (el.closest('#navbar-root') || el.closest('#footer-root')) return;
+      el.style.display = el.getAttribute('data-lang') === lang ? '' : 'none';
+    });
+  }
+  var saved = (function () {
+    try { return localStorage.getItem('gl_lang') || 'it'; } catch (e) { return 'it'; }
+  })();
+  applyLang(saved);
+  document.addEventListener('langChange', function (e) { applyLang(e.detail.lang); });
+})();
+</script>
+</body>
+</html>
