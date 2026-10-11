@@ -54,8 +54,10 @@
     <!-- Topbar + Sidenav injected by Layout.inject() -->
     <div id="navbar-root"></div>
 
-    <!-- Hero overlay -->
-    <main id="hero">
+    <main>
+
+    <!-- Hero: prima schermata, sopra lo sfondo dinamico -->
+    <section id="hero">
       <div class="h-eyebrow" data-i18n="hero.eyebrow">Laboratorio digitale personale · Est. 2026</div>
       <h1 class="h-title">
         <span class="gi">Gi</span><span class="ga">Ga</span><br>
@@ -105,10 +107,61 @@
         </div>
 
       </div><!-- /.h-bottom -->
-    </main>
 
-    <!-- Detail panel (injected by Shell) -->
-    <div id="panel-root"></div>
+      <a class="btn btn--primary h-cta" href="#progetti" data-i18n="hero.cta_primary">Esplora i progetti</a>
+    </section>
+
+    <!-- Progetti: le tre schede più recenti (render da GL.projects) -->
+    <section class="section home-section" id="progetti" aria-labelledby="home-projects-title">
+      <div class="container">
+        <div class="home-section__head">
+          <div>
+            <span class="section-label" data-i18n="sections.ecosystem_label">Progetti personali</span>
+            <h2 class="section-title" id="home-projects-title" data-i18n="sections.projects_title">Progetti</h2>
+            <p class="section-subtitle" data-i18n="sections.projects_subtitle">Ogni progetto è autonomo. Insieme costruiscono la raccolta personale di GiGa Labor.</p>
+          </div>
+          <a class="home-more" href="pages/projects.html">→ <span data-i18n="home.all_projects">Tutti i progetti</span></a>
+        </div>
+        <div class="grid grid--3" id="projects-grid"></div>
+      </div>
+    </section>
+
+    <!-- Notizie: le tre più recenti (render da GL.NEWS) -->
+    <section class="section home-section" id="notizie" aria-labelledby="home-news-title">
+      <div class="container">
+        <div class="home-section__head">
+          <div>
+            <span class="section-label" data-i18n="sections.updates_label">Aggiornamenti</span>
+            <h2 class="section-title" id="home-news-title" data-i18n="home.news_title">Ultime notizie</h2>
+          </div>
+          <a class="home-more" href="pages/news.html">→ <span data-i18n="home.all_news">Tutte le notizie</span></a>
+        </div>
+        <div class="grid grid--3" id="home-news"></div>
+      </div>
+    </section>
+
+    <!-- Chi siamo + contatti -->
+    <section class="section home-section" id="chi-siamo" aria-labelledby="home-about-title">
+      <div class="container">
+        <div class="home-split">
+          <div>
+            <span class="section-label" data-i18n="sections.about_title">Chi siamo</span>
+            <h2 class="section-title" id="home-about-title" data-i18n="about.headline">Chi è GiGa Labor</h2>
+            <p data-i18n="about.body">GiGa Labor è un laboratorio digitale personale dove progetti, strumenti e idee evolvono nel tempo con una direzione autoriale.</p>
+            <p data-i18n="about.mission">Costruire strumenti intelligenti, autonomi e modulari che amplino le capacità umane nel dominio digitale.</p>
+            <a class="btn btn--secondary" href="pages/about.html" data-i18n="home.about_cta">Scopri di più</a>
+          </div>
+          <div class="home-contact">
+            <span class="section-label" data-i18n="sections.contact_title">Contatti</span>
+            <h2 class="section-title" data-i18n="contact.headline">Contatti</h2>
+            <p data-i18n="contact.subheadline">Per collaborazioni, domande tecniche o segnalazioni.</p>
+            <a class="btn btn--primary" href="pages/contact.html" data-i18n="home.contact_cta">Scrivimi</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </main>
 
     <!-- Bottombar injected by Layout.inject() -->
     <div id="footer-root"></div>

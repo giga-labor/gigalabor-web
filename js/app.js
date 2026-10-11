@@ -227,43 +227,33 @@
     function sidenavHTML() {
       var px = rootPrefix();
       var path = window.location.pathname;
+      /* Stesse voci e stessi link su ogni pagina, home compresa */
       var items = [
+        { id: 'home',    labelKey: 'nav.home',     href: px + 'index.html',          page: 'home'     },
         { id: 'proj',    labelKey: 'nav.projects', href: px + 'pages/projects.html', page: 'projects' },
-        /* in home la seconda voce apre il pannello Lab; altrove riporta alla home */
-        isHome
-          ? { id: 'lab',  labelKey: 'sections.lab_title', href: '',                page: 'lab'  }
-          : { id: 'home', labelKey: 'nav.home',           href: px + 'index.html', page: 'home' },
         { id: 'news',    labelKey: 'nav.news',     href: px + 'pages/news.html',     page: 'news'     },
         { id: 'about',   labelKey: 'nav.about',    href: px + 'pages/about.html',    page: 'about'    },
         { id: 'contact', labelKey: 'nav.contact',  href: px + 'pages/contact.html',  page: 'contact'  }
       ];
 
       function isActive(item) {
-        if (isHome) return false; // home uses panel system
-        return path.indexOf('/' + item.page) !== -1;
+        if (isHome) return item.page === 'home';
+        return item.page !== 'home' && path.indexOf('/' + item.page) !== -1;
       }
 
       var itemsHTML = items.map(function(item) {
-        var activeClass = isActive(item) ? ' on' : '';
-        // .si-lbl: etichetta visibile sul tab bar mobile (nascosta su desktop)
-        var lbl = '<span class="si-lbl" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>';
-        if (isHome) {
-          return '<button type="button" class="si' + activeClass + '" data-p="' + item.id + '" aria-expanded="false" data-i18n-attr="aria-label:' + item.labelKey + '">' +
-            icon(item.id) +
-            lbl +
-            '<span class="si-tt" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>' +
-            '<span class="si-arrow" aria-hidden="true">\u203a</span>' +
-          '</button>';
-        } else {
-          return '<a class="si' + activeClass + '" href="' + item.href + '"' + (activeClass ? ' aria-current="page"' : '') + ' data-i18n-attr="aria-label:' + item.labelKey + '">' +
-            icon(item.id) +
-            lbl +
-            '<span class="si-tt" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>' +
-          '</a>';
-        }
+        var active = isActive(item);
+        return '<a class="si' + (active ? ' on' : '') + '" href="' + item.href + '"' +
+            (active ? ' aria-current="page"' : '') + ' data-i18n-attr="aria-label:' + item.labelKey + '">' +
+          icon(item.id) +
+          /* .si-lbl: etichetta sotto l'icona (desktop e tab bar mobile) */
+          '<span class="si-lbl" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>' +
+          /* .si-tt: tooltip, usato dove l'etichetta non entra (tablet) */
+          '<span class="si-tt" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>' +
+        '</a>';
       }).join('');
 
-      // La classe si-animate è sempre presente; JS la rimuove e riagginge per re-trigger
+      // La classe si-animate avvia l'animazione d'ingresso delle icone
       return '<nav id="side" class="si-animate" aria-label="Navigazione principale">' + itemsHTML + '</nav>';
     }
 
@@ -680,67 +670,38 @@
   })();
 
   /* =
-     NEWS - filtri categoria
+     HOME NEWS - ultime notizie dalla stessa fonte dati della pagina Notizie
   = */
-  var News = (function () {
-    function init() {
-      var btns  = document.querySelectorAll('.filter-btn');
-      var cards = document.querySelectorAll('.news-card');
-      if (!btns.length) return;
-      btns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          btns.forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          var filter = btn.dataset.filter;
-          cards.forEach(function(card) {
-            card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
-          });
-        });
-      });
-    }
-    return { init: init };
-  })();
+  var HomeNews = (function () {
+    var COUNT = 3;
 
-  /* =
-     HOME NEWS PREVIEW - ultime 3 notizie da news.cards
-  = */
-  var HomeNewsPreview = (function () {
-    function toList(cardsObj) {
-      if (!cardsObj || typeof cardsObj !== 'object') return [];
-      return Object.keys(cardsObj).map(function(k) { return cardsObj[k]; });
+    function latest() {
+      var today = new Date().toISOString().slice(0, 10);
+      return (GL.NEWS || [])
+        .filter(function(n) { return n.sort_date && n.sort_date <= today; })
+        .sort(function(a, b) { return b.sort_date.localeCompare(a.sort_date); })
+        .slice(0, COUNT);
     }
 
     function render() {
-      var root = document.getElementById('home-news-preview');
+      var root = document.getElementById('home-news');
       if (!root) return;
-      var slots = root.querySelectorAll('[data-home-news-item]');
-      if (!slots.length) return;
-
-      var cards = toList(I18n.t('news.cards')).filter(function(c) {
-        return c && c.sort_date && c.date && c.title && c.excerpt;
-      });
-
-      cards.sort(function(a, b) {
-        var ta = Date.parse(a.sort_date) || 0;
-        var tb = Date.parse(b.sort_date) || 0;
-        return tb - ta;
-      });
-
-      var top3 = cards.slice(0, 3);
-      slots.forEach(function(slot, i) {
-        var n = top3[i];
-        var dateEl = slot.querySelector('[data-role="date"]');
-        var titleEl = slot.querySelector('[data-role="title"]');
-        var excerptEl = slot.querySelector('[data-role="excerpt"]');
-        if (!n) {
-          slot.style.display = 'none';
-          return;
-        }
-        slot.style.display = '';
-        if (dateEl) dateEl.textContent = n.date;
-        if (titleEl) titleEl.textContent = n.title;
-        if (excerptEl) excerptEl.textContent = n.excerpt;
-      });
+      var all = GL.newsStrings || {};
+      var strings = all[I18n.current] || all[CFG.defaultLang] || {};
+      var href = rootPrefix() + 'pages/news.html#';
+      root.innerHTML = latest().map(function(n) {
+        var t = strings[n.id];
+        if (!t) return '';
+        return '<a class="news-card animate animated" href="' + href + encodeURIComponent(n.id) + '">' +
+          '<div class="news-card__date">' + t.date + '</div>' +
+          '<h3 class="news-card__title">' + t.title + '</h3>' +
+          '<p class="news-card__excerpt">' + t.excerpt + '</p>' +
+          '<div class="news-card__footer">' +
+            '<span class="badge ' + n.badge_class + '">' + t.badge + '</span>' +
+            '<span class="news-card__read">→ ' + I18n.t('news.read_more') + '</span>' +
+          '</div>' +
+        '</a>';
+      }).join('');
     }
 
     function init() {
@@ -748,7 +709,7 @@
       document.addEventListener('langChange', render);
     }
 
-    return { init: init, render: render };
+    return { init: init };
   })();
 
   /* =
@@ -833,7 +794,7 @@
 
 
   /* =
-     SHELL - Cursor, Intro, Panel system (home page)
+     SHELL - Cursor, Intro, tooltip (home page)
   = */
   var Shell = (function () {
 
@@ -864,7 +825,7 @@
         el.addEventListener('mouseleave', function() { curR.classList.remove('xl'); });
       }
       setTimeout(function() {
-        document.querySelectorAll('.si, .p-close, .tb-logo, .theme-btn, #lang-toggle').forEach(addXL);
+        document.querySelectorAll('a, button').forEach(addXL);
       }, 600);
     }
 
@@ -889,321 +850,6 @@
       intro.addEventListener('click', enter);
       window.addEventListener('keydown', enter);
       window.addEventListener('wheel', enter, { passive: true });
-    }
-
-    /* - Panel content renderers - */
-    var PANEL_DEF = {
-      proj: {
-        kickerKey: 'sections.ecosystem_label',
-        titleKey:  'sections.projects_title',
-        subKey:    'sections.projects_subtitle',
-        msgKey:    'nav.projects',
-        pageUrl:   'pages/projects.html',
-        actionKey: 'nav.projects',
-        render: function(body) {
-          var i18nProj   = get(I18N_ALL[I18n.current], 'projects') || {};
-          var i18nStatus = get(I18N_ALL[I18n.current], 'status')   || {};
-          var html = '<div class="p-sec">' + (I18n.t('sections.ecosystem_label') || 'Progetti') + '</div>';
-          PROJECTS.forEach(function(meta) {
-            var data = i18nProj[meta.id];
-            if (!data) return;
-            var statusLabel = i18nStatus[data.status] || data.status;
-            var sc = data.status === 'active' ? 'badge badge--active' :
-                     data.status === 'development' ? 'badge badge--development' :
-                     data.status === 'concept' ? 'badge badge--concept' :
-                     data.status === 'archived' ? 'badge badge--archived' : 'badge badge--ongoing';
-            html += '<a class="pc" href="' + rootPrefix() + meta.page + '" style="--pc-color:' + meta.color + '">' +
-              '<div class="pc-top"><span class="pc-name">' + data.name + '</span><span class="pc-icon">' + meta.icon + '</span></div>' +
-              '<div class="pc-cat">' + data.category + '</div>' +
-              '<div class="pc-desc">' + data.short + '</div>' +
-              '<div class="pc-tags"><span class="' + sc + '">' + statusLabel + '</span>' +
-              data.tags.slice(0,2).map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('') +
-              '</div></a>';
-          });
-          body.innerHTML = html;
-        }
-      },
-      lab: {
-        kickerKey: 'sections.lab_title',
-        titleKey:  'sections.lab_title',
-        subKey:    'sections.lab_subtitle',
-        msgKey:    'sections.lab_title',
-        render: function(body) {
-          var vals = I18n.t('about.values');
-          var valHtml = Array.isArray(vals) ? vals.map(function(v){ return '<div class="ab-val">' + v + '</div>'; }).join('') : '';
-          body.innerHTML =
-            '<div class="p-sec">' + (I18n.t('sections.mission_label') || 'Approccio') + '</div>' +
-            '<div class="ab-body">' + (I18n.t('about.mission') || '') + '</div>' +
-            '<div class="p-sec" style="margin-top:1rem">' + (I18n.t('about.values_title') || 'Valori') + '</div>' +
-            valHtml +
-            '<div class="p-sec" style="margin-top:1rem">Stack</div>' +
-            [['Backend','Python, Node.js','a'],['Infra','Linux, Docker','b'],['AI','LLM, agenti locali',''],['Frontend','Vanilla JS, CSS','a']]
-            .map(function(r){ return '<div class="sr"><span class="sr-k">'+r[0]+'</span><span class="sr-v '+r[2]+'">'+r[1]+'</span></div>'; }).join('');
-        }
-      },
-      news: {
-        kickerKey: 'sections.updates_label',
-        titleKey:  'nav.news',
-        subKey:    'sections.updates_label',
-        msgKey:    'nav.news',
-        pageUrl:   'pages/news.html',
-        actionKey: 'nav.news',
-        render: function(body) {
-          var lang = (I18n && I18n.current) ? I18n.current : 'it';
-          var meta = (window.GL && Array.isArray(window.GL.NEWS)) ? window.GL.NEWS : [];
-          var strings = (window.GL && window.GL.newsStrings && window.GL.newsStrings[lang]) ? window.GL.newsStrings[lang] :
-                        ((window.GL && window.GL.newsStrings && window.GL.newsStrings.it) ? window.GL.newsStrings.it : {});
-          var list = meta
-            .map(function(n){
-              var t = strings[n.id];
-              if (!t) return null;
-              return {
-                id: n.id || '',
-                title: t.title || '',
-                date: t.date || '',
-                category: n.category || '',
-                sort_date: n.sort_date || ''
-              };
-            })
-            .filter(function(c){ return c && c.title; })
-            .sort(function(a,b){ return String(b.sort_date).localeCompare(String(a.sort_date)); })
-            .slice(0,8);
-          var html = '<div class="p-sec">' + (I18n.t('sections.updates_label') || 'Recenti') + '</div>';
-          if (!list.length) {
-            html += '<div class="p-empty">' + I18n.t('news.empty') + '</div>';
-          } else {
-            list.forEach(function(n) {
-              html += '<div class="p-news-item" data-news-id="' + (n.id || '') + '" tabindex="0" role="button">' +
-                '<div class="p-news-meta">' +
-                  '<span class="p-news-cat">' + (n.category || '') + '</span>' +
-                  '<span class="p-news-date">' + (n.date || '') + '</span>' +
-                '</div>' +
-                '<div class="p-news-title">' + (n.title || '') + '</div>' +
-              '</div>';
-            });
-          }
-          body.innerHTML = html;
-          bindPanelNewsTips(body);
-        }
-      },
-      about: {
-        kickerKey: 'sections.about_title',
-        titleKey:  'about.headline',
-        subKey:    'meta.tagline',
-        msgKey:    'nav.about',
-        pageUrl:   'pages/about.html',
-        actionKey: 'nav.about',
-        render: function(body) {
-          var vals = I18n.t('about.values');
-          var features = I18n.t('about.features') || {};
-          var valHtml = Array.isArray(vals) ? vals.map(function(v){ return '<div class="ab-val">' + v + '</div>'; }).join('') : '';
-          var fHtml = '';
-          ['item1','item2','item3','item4'].forEach(function(k){
-            var f = features[k];
-            if (f) fHtml += '<div class="sr"><span class="sr-k">' + f.title + '</span><span class="sr-v sr-v--note">' + f.desc + '</span></div>';
-          });
-          body.innerHTML =
-            '<div class="p-sec">' + (I18n.t('sections.about_title') || 'Chi siamo') + '</div>' +
-            '<div class="ab-body">' + (I18n.t('about.body') || '') + '</div>' +
-            '<div class="p-sec" style="margin-top:1rem">' + (I18n.t('about.values_title') || 'Valori') + '</div>' +
-            valHtml +
-            (fHtml ? '<div class="p-sec" style="margin-top:1rem">' + (I18n.t('about.mission_title') || 'Approccio') + '</div>' + fHtml : '');
-        }
-      },
-      contact: {
-        kickerKey: 'sections.contact_title',
-        titleKey:  'contact.headline',
-        subKey:    'contact.subheadline',
-        msgKey:    'nav.contact',
-        pageUrl:   'pages/contact.html',
-        actionKey: 'nav.contact',
-        render: function(body) {
-          body.innerHTML =
-            '<div class="p-sec">' + (I18n.t('sections.contact_title') || 'Contatti') + '</div>' +
-            '<div class="cr"><span class="cr-icon">@</span><div class="cr-text"><a href="mailto:' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '">' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '</a></div></div>' +
-            '<div class="cr"><span class="cr-icon">⌘</span><div class="cr-text"><a href="' + SITE_URL + '" target="_blank" rel="noopener">' + SITE_NAME + '</a></div></div>' +
-            '<div class="p-sec" style="margin-top:1.2rem">' + (I18n.t('contact.headline') || 'Messaggio') + '</div>' +
-            '<form id="panel-contact-form" novalidate>' +
-              '<input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-              '<div class="p-form-field">' +
-                '<label class="p-form-label" for="pc-email">' + (I18n.t('contact.email_label') || 'Email') + '</label>' +
-                '<input class="p-form-input" id="pc-email" name="email" type="email">' +
-              '</div>' +
-              '<div class="p-form-field">' +
-                '<label class="p-form-label" for="pc-msg">' + (I18n.t('contact.message_label') || 'Messaggio') + '</label>' +
-                '<textarea class="p-form-textarea" id="pc-msg" name="message"></textarea>' +
-              '</div>' +
-              '<div id="panel-form-feedback" class="form-feedback"></div>' +
-              '<button class="p-form-submit" type="submit">' + (I18n.t('contact.send_btn') || 'Invia') + '</button>' +
-            '</form>';
-          Forms.setupForm('panel-contact-form', 'panel-form-feedback');
-        }
-      }
-    };
-
-    /* - Panel system - */
-    var currentPanel = null;
-    var panelEl, kicker, ptitle, psub, pbody, bbMsg, sideEl;
-
-    function buildPanelDOM() {
-      var root = document.getElementById('panel-root');
-      if (!root) return;
-      root.innerHTML =
-        '<aside id="panel" aria-labelledby="p-title">' +
-          '<div class="p-head">' +
-            '<button type="button" class="p-close" id="p-cls" aria-label="' + I18n.t('ui.close') + '">✕</button>' +
-            '<a class="p-action" id="p-action-btn" href="#" hidden></a>' +
-            '<span class="p-kicker" id="p-kicker"></span>' +
-            '<h2 class="p-title" id="p-title"></h2>' +
-            '<span class="p-sub" id="p-sub"></span>' +
-          '</div>' +
-          '<div class="p-body" id="p-body"></div>' +
-        '</aside>';
-      panelEl = document.getElementById('panel');
-      kicker  = document.getElementById('p-kicker');
-      ptitle  = document.getElementById('p-title');
-      psub    = document.getElementById('p-sub');
-      pbody   = document.getElementById('p-body');
-      bbMsg   = document.getElementById('bb-msg');
-      sideEl  = document.getElementById('side');
-
-      document.getElementById('p-cls').addEventListener('click', closePanel);
-    }
-
-    function showPanel(id) {
-      var def = PANEL_DEF[id];
-      if (!def) return;
-      currentPanel = id;
-      if (kicker) kicker.textContent = I18n.t(def.kickerKey) || '';
-      if (ptitle)  ptitle.textContent = I18n.t(def.titleKey)  || '';
-      if (psub)    psub.textContent   = I18n.t(def.subKey)    || '';
-      if (bbMsg)   bbMsg.textContent  = I18n.t(def.msgKey)    || '';
-      if (pbody)   def.render(pbody);
-      var actionBtn = document.getElementById('p-action-btn');
-      if (actionBtn) {
-        if (def.pageUrl && def.actionKey) {
-          actionBtn.textContent = '→ ' + (I18n.t(def.actionKey) || '');
-          actionBtn.href = rootPrefix() + def.pageUrl;
-          actionBtn.hidden = false;
-        } else {
-          actionBtn.hidden = true;
-        }
-      }
-      if (panelEl) panelEl.classList.add('open');
-      if (sideEl)  {
-        sideEl.classList.add('used');
-        sideEl.querySelectorAll('.si').forEach(function(s) {
-          var on = s.dataset.p === id;
-          s.classList.toggle('on', on);
-          s.setAttribute('aria-expanded', on ? 'true' : 'false');
-        });
-      }
-    }
-
-    function closePanel() {
-      if (panelEl) panelEl.classList.remove('open');
-      if (bbMsg)   bbMsg.textContent = Footer.defaultMsg();
-      currentPanel = null;
-      if (sideEl) sideEl.querySelectorAll('.si').forEach(function(s) {
-        s.classList.remove('on');
-        s.setAttribute('aria-expanded', 'false');
-      });
-    }
-
-    function refreshPanel() {
-      if (currentPanel && PANEL_DEF[currentPanel]) showPanel(currentPanel);
-    }
-
-    function initPanels() {
-      buildPanelDOM();
-      document.querySelectorAll('.si[data-p]').forEach(function(si) {
-        si.addEventListener('click', function() {
-          var id = si.dataset.p;
-          if (currentPanel === id && panelEl && panelEl.classList.contains('open')) {
-            closePanel();
-          } else {
-            showPanel(id);
-          }
-        });
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && currentPanel) closePanel();
-      });
-      document.addEventListener('langChange', refreshPanel);
-    }
-
-    function getNewsTextById(newsId) {
-      if (!newsId) return null;
-      var lang = (I18n && I18n.current) ? I18n.current : 'it';
-      var ns = (window.GL && window.GL.newsStrings) ? window.GL.newsStrings : {};
-      return (ns[lang] && ns[lang][newsId]) || (ns.it && ns.it[newsId]) || null;
-    }
-
-    function ensureNewsTipDOM() {
-      var existing = document.getElementById('panel-news-tip');
-      if (existing) return existing;
-      var wrap = document.createElement('div');
-      wrap.id = 'panel-news-tip';
-      wrap.className = 'panel-news-tip';
-      wrap.innerHTML =
-        '<div class="panel-news-tip__backdrop" data-close-tip></div>' +
-        '<div class="panel-news-tip__panel" role="dialog" aria-modal="true" aria-labelledby="panel-news-tip-title">' +
-          '<button class="panel-news-tip__close" data-close-tip aria-label="' + I18n.t('ui.close') + '">×</button>' +
-          '<div class="panel-news-tip__date" id="panel-news-tip-date"></div>' +
-          '<h3 class="panel-news-tip__title" id="panel-news-tip-title"></h3>' +
-          '<div class="panel-news-tip__body" id="panel-news-tip-body"></div>' +
-          '<div class="panel-news-tip__source" id="panel-news-tip-source"></div>' +
-        '</div>';
-      document.body.appendChild(wrap);
-      wrap.querySelectorAll('[data-close-tip]').forEach(function(el) {
-        el.addEventListener('click', function() {
-          wrap.classList.remove('open');
-        });
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          wrap.classList.remove('open');
-        }
-      });
-      return wrap;
-    }
-
-    function openPanelNewsTip(newsId) {
-      var t = getNewsTextById(newsId);
-      if (!t) return;
-      var tip = ensureNewsTipDOM();
-      var dateEl = document.getElementById('panel-news-tip-date');
-      var titleEl = document.getElementById('panel-news-tip-title');
-      var bodyEl = document.getElementById('panel-news-tip-body');
-      var sourceEl = document.getElementById('panel-news-tip-source');
-      if (dateEl) dateEl.textContent = t.date || '';
-      if (titleEl) titleEl.textContent = t.title || '';
-      if (bodyEl) {
-        var parts = String(t.body || t.excerpt || '').split('\n\n');
-        bodyEl.innerHTML = parts.map(function(p) { return '<p>' + p.replace(/\n/g, '<br>') + '</p>'; }).join('');
-      }
-      if (sourceEl) {
-        var srcLabel = (typeof I18n !== 'undefined') ? (I18n.t('news.source') || 'Fonte') : 'Fonte';
-        var srcName = t.source_name || '';
-        var srcUrl = t.source_url || '#';
-        sourceEl.innerHTML = '<span>' + srcLabel + ':</span> <a href="' + srcUrl + '" target="_blank" rel="noopener">' + srcName + '</a>';
-      }
-      tip.classList.add('open');
-    }
-
-    function bindPanelNewsTips(root) {
-      if (!root) return;
-      root.querySelectorAll('.p-news-item[data-news-id]').forEach(function(el) {
-        el.addEventListener('click', function() {
-          openPanelNewsTip(el.getAttribute('data-news-id'));
-        });
-        el.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openPanelNewsTip(el.getAttribute('data-news-id'));
-          }
-        });
-      });
     }
 
     function initRatioTooltip() {
@@ -1234,62 +880,13 @@
     }
 
     function initHome() {
-      /* Home: cursor + intro di prima visita + panels + tooltip ratio */
+      /* Home: cursore custom, intro di prima visita, tooltip del rapporto umano/AI */
       initCursor();
       initIntro();
-      initPanels();
       initRatioTooltip();
-      initScrollToPanel();
     }
 
-    function triggerNavAnim() {
-      var side = document.getElementById('side');
-      if (!side) return;
-      side.classList.remove('si-animate');
-      void side.offsetWidth;   /* force reflow */
-      side.classList.add('si-animate');
-    }
-
-    function initScrollToPanel() {
-      /* Scroll/swipe sulla home: riattiva animazione icone SOLO se nessun panel è aperto */
-      var triggered = false;
-
-      function onScroll() {
-        /* Ignora se un panel è già aperto */
-        if (currentPanel && panelEl && panelEl.classList.contains('open')) return;
-        if (triggered) return;
-        triggered = true;
-        triggerNavAnim();
-        setTimeout(function() { triggered = false; }, 1000);
-      }
-
-      /* Mouse wheel / trackpad */
-      window.addEventListener('wheel', function(e) {
-        if (e.deltaY > 30) onScroll();
-      }, { passive: true });
-
-      /* Touch swipe verso l'alto (= intento di scroll down) */
-      var _tStartY = 0;
-      window.addEventListener('touchstart', function(e) {
-        _tStartY = e.touches[0].clientY;
-      }, { passive: true });
-      window.addEventListener('touchend', function(e) {
-        var dy = _tStartY - e.changedTouches[0].clientY;
-        if (dy > 40) onScroll();
-      }, { passive: true });
-
-      /* Tastiera: freccia giù, Page Down, spazio */
-      window.addEventListener('keydown', function(e) {
-        var t = e.target;
-        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(t.tagName))) return;
-        if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
-          e.preventDefault();
-          onScroll();
-        }
-      });
-    }
-
-    return { initHome: initHome, showPanel: showPanel, triggerNavAnim: triggerNavAnim };
+    return { initHome: initHome };
   })();
 
   /* =
@@ -1675,7 +1272,6 @@
         clearTimeout(_resizeTimer);
         _resizeTimer = setTimeout(function() {
           refresh();
-          Shell.triggerNavAnim();  // riattiva animazione icone dopo resize
         }, 150);
       });
       document.addEventListener('langChange', refresh);
@@ -1855,8 +1451,12 @@
     }
 
     if (page === 'home') {
-      /* Shell V3: cursor + intro di prima visita + panel system */
+      /* Shell V3: cursore + intro di prima visita */
       Shell.initHome();
+
+      /* Sezioni della home: progetti e notizie dagli stessi dati delle pagine interne */
+      ProjectCards.init();
+      HomeNews.init();
 
       /* Aggiorna contatore progetti dall'array reale */
       var countEl = document.querySelector('.h-m-val[data-count]');

@@ -100,23 +100,11 @@ window.GL.i18n.it = {
   "home": {
     "values_summary": "Autonomia, modularità, ricerca applicata e qualità tecnica in evoluzione continua.",
     "community_blurb": "Spazio aperto per contributi, idee e messaggi della community.",
-    "news_preview": {
-      "item1": {
-        "date": "2 agosto 2026 (in arrivo)",
-        "title": "AI Act UE: piena applicazione prevista",
-        "excerpt": "La piena applicazione dell'AI Act UE è prevista per il 2 agosto 2026."
-      },
-      "item2": {
-        "date": "19 maggio 2026",
-        "title": "Gemini diventa più agentico",
-        "excerpt": "Google aggiorna Gemini con funzioni più proattive e assistenza continua."
-      },
-      "item3": {
-        "date": "7 maggio 2026",
-        "title": "Nuovi modelli vocali realtime nelle API OpenAI",
-        "excerpt": "Nuova generazione di modelli voce per ragionamento, traduzione e trascrizione live."
-      }
-    }
+    "all_projects": "Tutti i progetti",
+    "news_title": "Ultime notizie",
+    "all_news": "Tutte le notizie",
+    "about_cta": "Scopri di più",
+    "contact_cta": "Scrivimi"
   },
   "sections": {
     "ecosystem_label": "Progetti personali",

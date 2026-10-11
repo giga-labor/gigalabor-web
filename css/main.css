@@ -63,7 +63,6 @@ a:focus-visible,
   #page-loader       { transition-duration: 0.3s !important; }
   .news-modal        { transition-duration: 0.2s !important; }
   .news-modal__panel { transition-duration: 0.2s !important; }
-  #panel             { transition-duration: 0.2s !important; }
   #ui                { transition-duration: 0.2s !important; }
   /* Fade-only per animate: rimuovi il translateY */
   .animate           { transform: none !important; }

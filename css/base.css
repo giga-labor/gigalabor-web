@@ -268,3 +268,7 @@ code, pre, .mono {
 .loader-logo .gi     { color: var(--accent);   text-shadow: 0 0 20px var(--accent); }
 .loader-logo .ga     { color: var(--accent-2); text-shadow: 0 0 20px var(--accent-2); }
 .loader-logo .labor  { color: var(--text-muted); font-size: 0.85rem; }
+
+/* -- COMPARSA ALLO SCROLL (classe .animated messa da app.js) -- */
+.animate { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.animate.animated { opacity: 1; transform: translateY(0); }

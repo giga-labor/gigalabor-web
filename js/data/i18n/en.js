@@ -100,23 +100,11 @@ window.GL.i18n.en = {
   "home": {
     "values_summary": "Autonomy, modularity, applied research, and technical quality in continuous evolution.",
     "community_blurb": "Open space for community contributions, ideas, and messages.",
-    "news_preview": {
-      "item1": {
-        "date": "August 2, 2026 (upcoming)",
-        "title": "EU AI Act: full applicability scheduled",
-        "excerpt": "Full applicability of the EU AI Act is scheduled for August 2, 2026."
-      },
-      "item2": {
-        "date": "May 19, 2026",
-        "title": "Gemini becomes more agentic",
-        "excerpt": "Google updates Gemini with more proactive features and continuous assistance."
-      },
-      "item3": {
-        "date": "May 7, 2026",
-        "title": "New realtime voice models in the OpenAI API",
-        "excerpt": "A new generation of voice models for reasoning, translation, and live transcription."
-      }
-    }
+    "all_projects": "All projects",
+    "news_title": "Latest news",
+    "all_news": "All news",
+    "about_cta": "Read more",
+    "contact_cta": "Get in touch"
   },
   "sections": {
     "ecosystem_label": "Personal Projects",
