@@ -119,6 +119,44 @@ window.GL.i18n.it = {
     "contact_title": "Contatti"
   },
   "projects": {
+    "bloom": {
+      "name": "Bloom",
+      "domain": "bloom-drab-gamma.vercel.app",
+      "category": "App Android & Web",
+      "short": "Legge una chat di WhatsApp e mostra com'è il rapporto: tono, equilibrio, temi, andamento. Tutto sul telefono.",
+      "description": "Bloom analizza una chat esportata da WhatsApp e ne restituisce una lettura del rapporto: punteggio di connessione, temi ricorrenti, fasi nel tempo e proposte concrete. L'analisi avviene interamente sul dispositivo, con un motore deterministico: nessun testo viene salvato o inviato.",
+      "status": "review",
+      "tags": [
+        "Android",
+        "Privacy",
+        "Analisi del testo",
+        "PWA"
+      ],
+      "links": {
+        "site": "https://bloom-drab-gamma.vercel.app/",
+        "github": "#",
+        "docs": "#"
+      }
+    },
+    "betareader": {
+      "name": "Beta Reader",
+      "domain": "",
+      "category": "Editoria & Lettura",
+      "short": "App privata per far leggere un libro in anteprima ai beta reader e raccogliere commenti e proposte sul testo.",
+      "description": "Beta Reader è un'app installabile senza store con cui un autore distribuisce un manoscritto ai lettori di prova: capitoli sbloccati uno alla volta, lettura offline, commenti e proposte di modifica agganciati al passaggio. Tutto cifrato: il server conserva solo file che non può leggere.",
+      "status": "active",
+      "tags": [
+        "Editoria",
+        "Cifratura",
+        "PWA",
+        "Next.js"
+      ],
+      "links": {
+        "site": "#",
+        "github": "#",
+        "docs": "#"
+      }
+    },
     "controlchaos": {
       "name": "ControlChaos",
       "domain": "superenalottocc.it",
@@ -215,7 +253,12 @@ window.GL.i18n.it = {
       }
     }
   },
+  "project_detail": {
+    "status_label": "Stato",
+    "part_of_label": "Parte di"
+  },
   "status": {
+    "review": "In revisione su Google Play",
     "active": "Attivo",
     "development": "In sviluppo",
     "ongoing": "In corso",
@@ -384,6 +427,7 @@ window.GL.i18n.it = {
     }
   },
   "ui": {
+    "back_projects": "← Tutti i progetti",
     "close": "Chiudi",
     "read_more": "Scopri di più",
     "open_project": "Apri progetto",

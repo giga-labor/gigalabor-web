@@ -1,0 +1,157 @@
+/* ============================================================
+   GIGALABOR - PAGINE PROGETTO (stile condiviso)
+   Usato dalle pagine progetto nuove (bloom, betareader): ogni pagina
+   imposta solo --project-color. Le pagine precedenti hanno ancora lo
+   stesso stile scritto in pagina.
+   ============================================================ */
+
+:root { --project-color: var(--accent); }
+
+/* Testi lunghi bilingui: ogni blocco ha data-lang="it" o "en" e si mostra
+   solo quello della lingua della pagina (app.js aggiorna <html lang>).
+   Nessuno script: basta il selettore. */
+html[lang="it"] [data-lang="en"],
+html[lang="en"] [data-lang="it"] { display: none !important; }
+
+.project-accent { color: var(--project-color); }
+.project-hero { border-top: 3px solid var(--project-color); }
+
+.sec { padding: 3rem 0; border-top: 1px solid var(--border); }
+.sec:first-child { border-top: none; }
+.sec-label { font-family: 'JetBrains Mono',monospace; font-size:.7rem; font-weight:600;
+             letter-spacing:.12em; text-transform:uppercase; color:var(--project-color);
+             opacity:.75; margin-bottom:.6rem; }
+.sec-title { font-size:1.35rem; font-weight:700; color:var(--text-primary); margin-bottom:1.2rem; line-height:1.3; }
+.sec-body  { font-size:.95rem; color:var(--text-secondary); line-height:1.85; max-width:720px; }
+.sec-body p { margin:0 0 1rem; }
+.sec-body p:last-child { margin-bottom:0; }
+
+.callout { background: color-mix(in srgb,var(--project-color) 7%,var(--bg-card));
+           border:1px solid color-mix(in srgb,var(--project-color) 25%,var(--border));
+           border-left:3px solid var(--project-color); border-radius:8px;
+           padding:1rem 1.25rem; font-size:.88rem; line-height:1.75;
+           color:var(--text-secondary); margin:1.25rem 0; }
+.callout strong { color:var(--text-primary); }
+
+/* Phase cards */
+.phase-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-top:1.5rem; }
+.phase-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+              padding:1.25rem; text-align:center; transition:border-color .2s; position:relative; }
+.phase-card:hover { border-color:var(--project-color); }
+.phase-icon { font-size:1.8rem; margin-bottom:.65rem; }
+.phase-name { font-weight:700; font-size:.9rem; color:var(--project-color); margin-bottom:.4rem; }
+.phase-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+.phase-arrow { position:absolute; right:-0.9rem; top:50%; transform:translateY(-50%);
+               color:var(--project-color); opacity:.4; font-size:.9rem; z-index:1; }
+@media(max-width:600px){ .phase-arrow { display:none; } }
+
+/* Experiment cards */
+.exp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-top:1.5rem; }
+.exp-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+            padding:1.25rem; transition:border-color .2s; }
+.exp-card:hover { border-color:var(--project-color); }
+.exp-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.75rem; }
+.exp-icon { font-size:1.3rem; }
+.exp-status { font-family:'JetBrains Mono',monospace; font-size:.65rem; padding:.2rem .55rem;
+              border-radius:10px; font-weight:600; }
+.exp-status.graduated { background:color-mix(in srgb,#22c55e 12%,var(--bg-card));
+                         color:#22c55e; border:1px solid color-mix(in srgb,#22c55e 30%,var(--border)); }
+.exp-status.active    { background:color-mix(in srgb,var(--project-color) 12%,var(--bg-card));
+                         color:var(--project-color); border:1px solid color-mix(in srgb,var(--project-color) 30%,var(--border)); }
+.exp-status.archived  { background:var(--bg-card); color:var(--text-muted);
+                         border:1px solid var(--border); }
+.exp-title { font-weight:700; font-size:.9rem; color:var(--text-primary); margin-bottom:.4rem; }
+.exp-desc { font-size:.8rem; color:var(--text-secondary); line-height:1.65; }
+.exp-tech { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.75rem; }
+
+/* Tech cards */
+.tech-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1.5rem; }
+.tech-card { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+             padding:1.1rem 1.2rem; display:flex; gap:.9rem; align-items:flex-start; }
+.tech-icon { font-size:1.6rem; line-height:1; flex-shrink:0; margin-top:.1rem; }
+.tech-name { font-weight:600; font-size:.88rem; color:var(--text-primary); margin-bottom:.3rem; }
+.tech-desc { font-size:.78rem; color:var(--text-secondary); line-height:1.6; }
+
+/* Two col */
+.two-col { display:grid; grid-template-columns:1fr 340px; gap:3rem; align-items:start; }
+@media(max-width:860px){ .two-col { grid-template-columns:1fr; gap:1.75rem; } }
+
+/* Sidebar */
+.side-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+             padding:1.5rem; display:flex; flex-direction:column; gap:1.1rem; position:sticky; top:80px; }
+.side-row { display:flex; flex-direction:column; gap:.3rem; }
+.side-label { font-size:.72rem; color:var(--text-muted); font-family:'JetBrains Mono',monospace;
+              letter-spacing:.06em; text-transform:uppercase; }
+.side-val { font-size:.9rem; color:var(--text-secondary); }
+
+/* Ongoing badge */
+.ongoing-badge { display:inline-flex; align-items:center; gap:.45rem; font-family:'JetBrains Mono',monospace;
+                 font-size:.72rem; padding:.3rem .7rem; border-radius:20px;
+                 background:color-mix(in srgb,var(--project-color) 12%,var(--bg-card));
+                 border:1px solid color-mix(in srgb,var(--project-color) 30%,var(--border));
+                 color:var(--project-color); width:fit-content; }
+.ongoing-dot { width:6px; height:6px; border-radius:50%; background:var(--project-color); animation:blink 2.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.divider { height:1px; background:var(--border); margin:0; }
+.link-grid { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2rem; }
+
+/* Stat row */
+.stat-row { display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1.25rem; }
+.stat-box { background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+            padding:1rem 1.4rem; text-align:center; min-width:90px; }
+.stat-val { font-family:'JetBrains Mono',monospace; font-size:1.6rem; font-weight:700;
+            color:var(--project-color); line-height:1; margin-bottom:.3rem; }
+.stat-lbl { font-size:.72rem; color:var(--text-muted); letter-spacing:.06em; text-transform:uppercase; }
+
+/* Principle list */
+.principles { list-style:none; padding:0; margin:1rem 0 0; display:flex; flex-direction:column; gap:.8rem; }
+.principles li { display:flex; gap:.9rem; align-items:flex-start; font-size:.9rem; color:var(--text-secondary); line-height:1.6; }
+.principles li .num { font-family:'JetBrains Mono',monospace; font-size:.75rem; color:var(--project-color);
+                      font-weight:700; background:color-mix(in srgb,var(--project-color) 10%,var(--bg-card));
+                      border:1px solid color-mix(in srgb,var(--project-color) 25%,var(--border));
+                      border-radius:6px; padding:.2rem .5rem; flex-shrink:0; margin-top:.15rem; }
+
+/* Senza min-width:0 una colonna 1fr si allarga quanto il suo contenuto:
+   la striscia di schermate deve scorrere dentro la colonna, non allargare la pagina. */
+.two-col > * { min-width: 0; }
+
+/* -- Galleria di schermate: striscia orizzontale a scatti ---- */
+.shots {
+  display: flex; gap: 1rem;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: .5rem .25rem 1rem; margin-top: 1.25rem;
+  scrollbar-width: thin;
+}
+.shot { flex: 0 0 auto; width: 210px; margin: 0; scroll-snap-align: start; }
+.shot img {
+  display: block; width: 100%; height: auto;
+  border-radius: 18px; border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+.shot figcaption { margin-top: .6rem; font-size: .82rem; line-height: 1.45; color: var(--text-secondary); }
+.shot figcaption strong { display: block; color: var(--text-primary); font-weight: 600; }
+/* schermate da computer: piu' larghe, angoli meno arrotondati */
+.shot--wide { width: min(520px, 82vw); }
+.shot--wide img { border-radius: 10px; }
+.shots-note { font-size: .8rem; color: var(--text-muted); margin-top: .25rem; }
+
+/* -- Passi numerati ------------------------------------------ */
+.steps { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: .9rem; counter-reset: step; }
+.steps li {
+  counter-increment: step; position: relative;
+  padding: 1rem 1.2rem 1rem 3.4rem;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  font-size: .92rem; line-height: 1.65; color: var(--text-secondary);
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: 1.1rem; top: 1rem;
+  width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: .8rem; font-weight: 700;
+  color: var(--project-color);
+  border: 1px solid color-mix(in srgb, var(--project-color) 45%, var(--border));
+}
+.steps li strong { color: var(--text-primary); }
+
+.project-emoji { font-size: 2rem; line-height: 1; }

@@ -176,6 +176,11 @@ code, pre, .mono {
   color: var(--warning);
   border: 1px solid rgba(255, 176, 0, 0.2);
 }
+.badge--review {
+  background: rgba(226, 96, 127, 0.10);
+  color: #ec7f9a;
+  border: 1px solid rgba(226, 96, 127, 0.30);
+}
 .badge--concept {
   background: rgba(122, 174, 138, 0.08);
   color: #7aae8a;

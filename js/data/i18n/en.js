@@ -119,6 +119,44 @@ window.GL.i18n.en = {
     "contact_title": "Contact"
   },
   "projects": {
+    "bloom": {
+      "name": "Bloom",
+      "domain": "bloom-drab-gamma.vercel.app",
+      "category": "Android & Web App",
+      "short": "Reads a WhatsApp chat and shows what the relationship looks like: tone, balance, themes, trend. All on the phone.",
+      "description": "Bloom analyses a chat exported from WhatsApp and returns a reading of the relationship: connection score, recurring themes, phases over time and concrete suggestions. The analysis runs entirely on the device with a deterministic engine: no text is stored or sent.",
+      "status": "review",
+      "tags": [
+        "Android",
+        "Privacy",
+        "Text analysis",
+        "PWA"
+      ],
+      "links": {
+        "site": "https://bloom-drab-gamma.vercel.app/",
+        "github": "#",
+        "docs": "#"
+      }
+    },
+    "betareader": {
+      "name": "Beta Reader",
+      "domain": "",
+      "category": "Publishing & Reading",
+      "short": "A private app to let beta readers preview a book and collect comments and edit proposals on the text.",
+      "description": "Beta Reader is an app installable without app stores that lets an author share a manuscript with trial readers: chapters unlocked one at a time, offline reading, comments and edit proposals anchored to the passage. Everything is encrypted: the server only holds files it cannot read.",
+      "status": "active",
+      "tags": [
+        "Publishing",
+        "Encryption",
+        "PWA",
+        "Next.js"
+      ],
+      "links": {
+        "site": "#",
+        "github": "#",
+        "docs": "#"
+      }
+    },
     "controlchaos": {
       "name": "ControlChaos",
       "domain": "superenalottocc.it",
@@ -215,7 +253,12 @@ window.GL.i18n.en = {
       }
     }
   },
+  "project_detail": {
+    "status_label": "Status",
+    "part_of_label": "Part of"
+  },
   "status": {
+    "review": "In review on Google Play",
     "active": "Active",
     "development": "In development",
     "ongoing": "Ongoing",
@@ -384,6 +427,7 @@ window.GL.i18n.en = {
     }
   },
   "ui": {
+    "back_projects": "← All projects",
     "close": "Close",
     "read_more": "Learn more",
     "open_project": "Open project",
