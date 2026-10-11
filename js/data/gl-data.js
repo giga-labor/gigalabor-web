@@ -11,6 +11,7 @@ window.GL = {
     storageKeys: { theme: 'gl_theme', lang: 'gl_lang' },
     themes: ['dark-tech', 'light', 'contrast'],
     defaultTheme: 'dark-tech',
+    siteUrl: 'https://giga-labor.github.io/gigalabor-web/',   /* indirizzo pubblico: usato per link e oggetto delle email */
     formsubmit: { adminEmail: 'giga.labor2026@gmail.com' }
   },
 

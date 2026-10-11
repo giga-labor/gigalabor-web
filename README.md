@@ -130,7 +130,9 @@ Quando sei pronto a pubblicare:
 3. Fai un push su `main` — il workflow si avvia automaticamente
 4. Il sito sarà live su `https://<username>.github.io/<repo>/`
 
-**Custom domain** (opzionale): crea un file `gigalabor-site/CNAME` con il tuo dominio:
+Indirizzo attuale: <https://giga-labor.github.io/gigalabor-web/>
+
+**Custom domain** (opzionale): crea un file `CNAME` nella root del repository con il tuo dominio, poi aggiorna `siteUrl` in `js/data/gl-data.js` e sostituisci l'indirizzo in canonical, `og:url`, `sitemap.xml` e `robots.txt`:
 ```
 gigalabor.it
 ```

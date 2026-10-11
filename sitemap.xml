@@ -3,93 +3,93 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://gigalabor.it/</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gigalabor.it/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gigalabor.it/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://giga-labor.github.io/gigalabor-web/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://giga-labor.github.io/gigalabor-web/"/>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/projects.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/projects.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/projects/controlchaos.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/projects/controlchaos.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/projects/evobrain.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/projects/evobrain.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/projects/iargos.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/projects/iargos.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/projects/lab.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/projects/lab.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/projects/kairos.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/projects/kairos.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/about.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/about.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/news.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/news.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/contact.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/contact.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/scritti.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/scritti.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/privacy.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/privacy.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
 
   <url>
-    <loc>https://gigalabor.it/pages/terms.html</loc>
+    <loc>https://giga-labor.github.io/gigalabor-web/pages/terms.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>

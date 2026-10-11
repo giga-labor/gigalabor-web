@@ -14,6 +14,8 @@
   var CFG      = GL.config  || { defaultLang: 'it', defaultTheme: 'dark-tech', themes: ['dark-tech','light','contrast'], storageKeys: { theme:'gl_theme', lang:'gl_lang' }, supportedLangs: ['it','en'] };
   var I18N_ALL = (GL.i18n)  || {};
   var PROJECTS = (GL.projects) || [];
+  var SITE_URL  = CFG.siteUrl || (window.location.origin + '/');
+  var SITE_NAME = SITE_URL.replace(/^https?:\/\//, '').replace(/\/$/, '');
   var FORM_SUBMIT = {
     adminEmail: (CFG.formsubmit && CFG.formsubmit.adminEmail) || 'giga.labor2026@gmail.com',
     ajaxBase: 'https://formsubmit.co/ajax/',
@@ -513,7 +515,7 @@
       var subjectRaw = ((form.querySelector('[name="subject"]') || {}).value || '').trim();
       var publish = !!((form.querySelector('[name="publish"]') || {}).checked);
       var ts = new Date().toISOString();
-      var subject = subjectRaw ? ('Nuovo invio [' + subjectRaw + '] da gigalabor.it') : 'Nuovo contatto da gigalabor.it';
+      var subject = subjectRaw ? ('Nuovo invio [' + subjectRaw + '] da GiGa Labor') : 'Nuovo contatto da GiGa Labor';
       var bodyText = [
         'Nuovo invio dal form contatti GiGa Labor',
         '',
@@ -550,7 +552,7 @@
         message: payload.message,
         submitted_at_utc: payload.ts,
         _honey: '',
-        source: 'gigalabor.it' + (window.location.pathname || ''),
+        source: window.location.host + (window.location.pathname || ''),
         note: payload.bodyText
       };
     }
@@ -1019,7 +1021,7 @@
           body.innerHTML =
             '<div class="p-sec">' + (I18n.t('sections.contact_title') || 'Contatti') + '</div>' +
             '<div class="cr"><span class="cr-icon">@</span><div class="cr-text"><a href="mailto:' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '">' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '</a></div></div>' +
-            '<div class="cr"><span class="cr-icon">⌘</span><div class="cr-text"><a href="https://gigalabor.it" target="_blank" rel="noopener">gigalabor.it</a></div></div>' +
+            '<div class="cr"><span class="cr-icon">⌘</span><div class="cr-text"><a href="' + SITE_URL + '" target="_blank" rel="noopener">' + SITE_NAME + '</a></div></div>' +
             '<div class="p-sec" style="margin-top:1.2rem">' + (I18n.t('contact.headline') || 'Messaggio') + '</div>' +
             '<form id="panel-contact-form" novalidate>' +
               '<input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">' +
