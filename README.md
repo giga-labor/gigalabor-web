@@ -21,23 +21,28 @@
 
 ```
 gigalabor-site/
-├── index.html              # Splash page (entry point)
-├── home.html               # Home page principale
+├── index.html              # Home (con intro a tutto schermo solo alla prima visita)
+├── home.html               # Redirect a index.html (vecchi link)
 ├── assets/
 │   ├── logo/               # Logo e favicon
-│   └── flags/              # Bandiere lingua (it.webp, en.webp)
+│   ├── flags/              # Bandiere lingua (it.webp, en.webp)
+│   └── fonts/              # Font woff2 serviti dal sito (licenza OFL, nessuna chiamata a Google)
 ├── css/
-│   ├── main.css            # Entry CSS + reset + layout
+│   ├── main.css            # Entry CSS: solo @import + regole che devono vincere su tutto
+│   ├── base.css            # Reset, tipografia, layout, utility (prima di responsive.css)
 │   ├── themes.css          # Variabili dei tre temi
 │   ├── shell.css           # Chrome V3 (topbar, sidenav, panel, hero)
 │   └── components/         # Navbar, hero, cards, buttons, footer, responsive
 ├── js/
 │   ├── app.js              # Logica completa (tutti i moduli in IIFE)
 │   └── data/
-│       ├── gl-data.js      # Dati inline: config, progetti, i18n config
+│       ├── gl-data.js      # Config e progetti
+│       ├── gl-news.js      # Metadati delle notizie
 │       └── i18n/
-│           ├── it.js       # Stringhe italiane
-│           └── en.js       # Stringhe inglesi
+│           ├── it.js / en.js           # Stringhe dell'interfaccia
+│           └── news-it.js / news-en.js # Testi delle notizie
+├── tools/
+│   └── prerender-i18n.js   # Scrive nell'HTML i testi italiani di default (SEO)
 └── pages/
     ├── projects.html
     ├── about.html
@@ -69,15 +74,16 @@ Poi vai su `http://localhost:8080`
 
 1. Aggiungi l'oggetto progetto nell'array `GL.projects` in `js/data/gl-data.js`
 2. Aggiungi le traduzioni in `js/data/i18n/it.js` e `en.js` sotto la chiave `projects`
-3. Crea la cartella `pages/projects/nome-progetto/` con il relativo `index.html`
+3. Crea la pagina `pages/projects/nome-progetto.html` (parti da una esistente)
+4. Esegui `node tools/prerender-i18n.js` per aggiornare i testi statici nell'HTML
 
-Il contatore nella home si aggiorna automaticamente da `GL.projects.length`.
+Il contatore nella home e la data "Aggiornato il" nel footer si calcolano da soli dai dati.
 
 ---
 
 ## 🇬🇧 English
 
-**GiGa Lab** is a personal website documenting projects, research and thoughts on software, intelligent systems and applied engineering. Built as an open lab: 95% human ideation, 95% AI code.
+**GiGa Labor** is a personal website documenting projects, research and thoughts on software, intelligent systems and applied engineering. Built as an open lab: 95% human ideation, 95% AI code.
 
 ### Tech stack
 
@@ -107,9 +113,10 @@ Then visit `http://localhost:8080`
 
 1. Add a project object to the `GL.projects` array in `js/data/gl-data.js`
 2. Add translations in `js/data/i18n/it.js` and `en.js` under the `projects` key
-3. Create the folder `pages/projects/project-name/` with its `index.html`
+3. Create the page `pages/projects/project-name.html` (start from an existing one)
+4. Run `node tools/prerender-i18n.js` to refresh the static text in the HTML
 
-The home counter updates automatically from `GL.projects.length`.
+The home counter and the footer "Updated" date are computed from the data.
 
 ---
 
@@ -153,3 +160,5 @@ To add a news item:
 1. add one metadata entry in `gl-news.js`
 2. add the same `id` entry in `news-it.js`
 3. add the same `id` entry in `news-en.js`
+
+The footer "Updated" date follows the most recent `sort_date` automatically.

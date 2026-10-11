@@ -43,7 +43,7 @@
   .footer__brand { grid-column: 1 / -1; }
 
   /* Page hero */
-  .page-hero { padding: 6.5rem 0 3rem; }
+  .page-hero { padding: 4rem 0 2.5rem; }
 }
 
 /* -- TABLET PORTRAIT ONLY - 768-1023px, orientation portrait */
@@ -81,7 +81,7 @@
   .section-subtitle { font-size: 0.9rem; }
 
   /* Page hero (pagine interne) */
-  .page-hero { padding: 4.5rem 0 2rem; }
+  .page-hero { padding: 2.5rem 0 1.75rem; }
 
   /* Footer */
   .footer__inner {
@@ -98,7 +98,7 @@
 
   /* Back to top: sopra la tab bar + sidenav mobile */
   #back-to-top {
-    bottom: calc(52px + 48px + env(safe-area-inset-bottom, 0px) + 0.75rem);
+    bottom: calc(52px + 60px + env(safe-area-inset-bottom, 0px) + 0.75rem);
     right: 1rem;
   }
 
@@ -133,9 +133,6 @@
     transform: translateY(0);
   }
 
-  /* Badges e tag: leggermente ridotti */
-  .badge, .tag { font-size: 0.6rem; }
-
   /* Theme buttons: touch target aumentato */
   .theme-btn {
     width: 26px;
@@ -145,7 +142,6 @@
 
 /* -- MOBILE COMPATTO - <=479px ----------------------------- */
 @media (max-width: 479px) {
-  html { font-size: 15px; }
   .container { padding: 0 0.9rem; }
 
   /* Titoli e testi */
@@ -176,11 +172,11 @@
   .section--lg{ padding: 2rem 0; }
 
   /* Page hero: molto compresso */
-  .page-hero { padding: 3.5rem 0 1.5rem; }
+  .page-hero { padding: 2rem 0 1.25rem; }
 
-  /* Griglia: sfrutta larghezza */
-  .grid--3 { grid-template-columns: repeat(3, 1fr); }
-  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+  /* Griglia: due colonne (tre su un telefono in orizzontale sono illeggibili) */
+  .grid--3,
+  .grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   /* Back to top: sopra la bottombar */
   #back-to-top { bottom: calc(36px + 0.5rem); }

@@ -42,11 +42,19 @@
   = */
   var Theme = (function () {
     var _current = CFG.defaultTheme;
+    var _switchTimer;
 
     function apply(theme) {
       if (CFG.themes.indexOf(theme) === -1) theme = CFG.defaultTheme;
+      var root = document.documentElement;
+      /* transizione colori solo durante un cambio reale (non al primo paint) */
+      if (root.getAttribute('data-theme') !== theme) {
+        root.classList.add('theme-switching');
+        clearTimeout(_switchTimer);
+        _switchTimer = setTimeout(function() { root.classList.remove('theme-switching'); }, 350);
+      }
       _current = theme;
-      document.documentElement.setAttribute('data-theme', theme);
+      root.setAttribute('data-theme', theme);
       document.querySelectorAll('.theme-btn').forEach(function(btn) {
         btn.classList.toggle('active', btn.dataset.theme === theme);
       });
@@ -77,6 +85,7 @@
     if (!_available.length) _available = (CFG.supportedLangs || ['it', 'en']).slice();
     var _lang    = CFG.defaultLang;
     var _strings = {};
+    var _staticDesc = null;
 
     function applyStrings() {
       document.querySelectorAll('[data-i18n]').forEach(function(el) {
@@ -108,10 +117,21 @@
       } else if (/\/pages\/terms/.test(path)) {
         customDesc  = get(_strings, 'terms_page.meta_description');
       }
-      if (siteName && tagline) document.title = siteName + ' - ' + tagline;
-      if (desc) {
-        var metaDesc = document.querySelector('meta[name=\"description\"]');
-        if (metaDesc) metaDesc.setAttribute('content', customDesc || desc);
+      /* Titolo: "<h1 della pagina> — GiGa Labor" sulle pagine interne, sito + tagline sulla home */
+      var onHome = document.body && document.body.getAttribute('data-page') === 'home';
+      var h1 = onHome ? null : document.querySelector('h1');
+      var pageTitle = h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : '';
+      if (siteName) {
+        document.title = pageTitle ? (pageTitle + ' — ' + siteName)
+                                   : (tagline ? siteName + ' — ' + tagline : siteName);
+      }
+      /* Descrizione: quella statica della pagina vale per la lingua di default */
+      var metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        if (_staticDesc === null) _staticDesc = metaDesc.getAttribute('content') || '';
+        var useStatic = (_lang === CFG.defaultLang && _staticDesc);
+        var content = customDesc || (useStatic ? _staticDesc : desc);
+        if (content) metaDesc.setAttribute('content', content);
       }
       document.documentElement.setAttribute('lang', _lang);
     }
@@ -153,6 +173,9 @@
     };
   })();
 
+  /* Gli script di pagina (es. il gestore in news.html) leggono lingua e stringhe da qui */
+  window.I18n = I18n;
+
   /* =
      LAYOUT - Topbar + Sidenav + Bottombar (Shell V3)
   = */
@@ -172,6 +195,7 @@
         proj:    '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1.5" y="1.5" width="6.5" height="6.5" rx=".5"/><rect x="10" y="1.5" width="6.5" height="6.5" rx=".5"/><rect x="1.5" y="10" width="6.5" height="6.5" rx=".5"/><rect x="10" y="10" width="6.5" height="6.5" rx=".5"/></svg>',
         lab:     '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M7 2v7l-4 6h12l-4-6V2" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="2" x2="12" y2="2" stroke-linecap="round"/><circle cx="11" cy="13" r="1.2" fill="currentColor" stroke="none" opacity=".5"/></svg>',
         news:    '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="14" height="12" rx="1"/><line x1="5" y1="7" x2="13" y2="7" stroke-linecap="round"/><line x1="5" y1="10" x2="10" y2="10" stroke-linecap="round"/></svg>',
+        home:    '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2.5 8.5 9 2.5l6.5 6v7h-4.2v-4.5H6.7v4.5H2.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         about:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="9" cy="6" r="3"/><path d="M2 16c0-3.31 3.13-6 7-6s7 2.69 7 6" stroke-linecap="round"/></svg>',
         contact: '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="4" width="14" height="10" rx="1"/><polyline points="2,4 9,10 16,4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       };
@@ -180,8 +204,8 @@
 
     function topbarHTML() {
       var px = rootPrefix();
-      return '<div id="tb">' +
-        '<a class="tb-logo" href="' + px + 'home.html">' +
+      return '<header id="tb">' +
+        '<a class="tb-logo" href="' + px + 'index.html" aria-label="GiGa Labor — Home">' +
           '<div class="tb-logo-mark">' + logoSVG() + '</div>' +
           '<div class="tb-logo-text"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div>' +
         '</a>' +
@@ -193,9 +217,9 @@
           '</div>' +
           '<button class="navbar__lang-btn" id="lang-toggle" aria-label="Cambia lingua">EN</button>' +
           '<div class="tb-sep"></div>' +
-          '<span class="tb-time" id="tb-time">--:--:--</span>' +
+          '<span class="tb-time" id="tb-time" aria-hidden="true">--:--:--</span>' +
         '</div>' +
-      '</div>';
+      '</header>';
     }
 
     function sidenavHTML() {
@@ -203,7 +227,10 @@
       var path = window.location.pathname;
       var items = [
         { id: 'proj',    labelKey: 'nav.projects', href: px + 'pages/projects.html', page: 'projects' },
-        { id: 'lab',     labelKey: 'nav.home',     href: px + 'home.html',           page: 'home'     },
+        /* in home la seconda voce apre il pannello Lab; altrove riporta alla home */
+        isHome
+          ? { id: 'lab',  labelKey: 'sections.lab_title', href: '',                page: 'lab'  }
+          : { id: 'home', labelKey: 'nav.home',           href: px + 'index.html', page: 'home' },
         { id: 'news',    labelKey: 'nav.news',     href: px + 'pages/news.html',     page: 'news'     },
         { id: 'about',   labelKey: 'nav.about',    href: px + 'pages/about.html',    page: 'about'    },
         { id: 'contact', labelKey: 'nav.contact',  href: px + 'pages/contact.html',  page: 'contact'  }
@@ -211,25 +238,25 @@
 
       function isActive(item) {
         if (isHome) return false; // home uses panel system
-        return path.indexOf(item.page) !== -1;
+        return path.indexOf('/' + item.page) !== -1;
       }
 
       var itemsHTML = items.map(function(item) {
         var activeClass = isActive(item) ? ' on' : '';
         // .si-lbl: etichetta visibile sul tab bar mobile (nascosta su desktop)
-        var lbl = '<span class="si-lbl" data-i18n="' + item.labelKey + '"></span>';
+        var lbl = '<span class="si-lbl" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>';
         if (isHome) {
-          return '<div class="si' + activeClass + '" data-p="' + item.id + '" role="button" tabindex="0" aria-label="">' +
+          return '<button type="button" class="si' + activeClass + '" data-p="' + item.id + '" aria-expanded="false" data-i18n-attr="aria-label:' + item.labelKey + '">' +
             icon(item.id) +
             lbl +
-            '<span class="si-tt" data-i18n="' + item.labelKey + '"></span>' +
-            '<span class="si-arrow">\u203a</span>' +
-          '</div>';
+            '<span class="si-tt" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>' +
+            '<span class="si-arrow" aria-hidden="true">\u203a</span>' +
+          '</button>';
         } else {
-          return '<a class="si' + activeClass + '" href="' + item.href + '" aria-label="">' +
+          return '<a class="si' + activeClass + '" href="' + item.href + '"' + (activeClass ? ' aria-current="page"' : '') + ' data-i18n-attr="aria-label:' + item.labelKey + '">' +
             icon(item.id) +
             lbl +
-            '<span class="si-tt" data-i18n="' + item.labelKey + '"></span>' +
+            '<span class="si-tt" aria-hidden="true" data-i18n="' + item.labelKey + '"></span>' +
           '</a>';
         }
       }).join('');
@@ -240,17 +267,17 @@
 
     function bottombarHTML() {
       var px = rootPrefix();
-      return '<div id="bb">' +
+      return '<footer id="bb">' +
         '<span data-i18n="footer.tagline"></span>' +
         '<span class="bb-sep">\u00b7</span>' +
         '<span id="bb-msg"></span>' +
         '<div class="bb-r">' +
-          '<a href="' + px + 'pages/privacy.html" data-i18n="footer.links.privacy" style="color:inherit;text-decoration:none;margin-right:.8rem"></a>' +
-          '<a href="' + px + 'pages/terms.html"   data-i18n="footer.links.terms"   style="color:inherit;text-decoration:none;margin-right:.8rem"></a>' +
-          '<span data-i18n="footer.copy"></span>' +
+          '<a href="' + px + 'pages/privacy.html" data-i18n="footer.links.privacy" class="bb-link"></a>' +
+          '<a href="' + px + 'pages/terms.html"   data-i18n="footer.links.terms" class="bb-link"></a>' +
+          '<span class="bb-copy" data-i18n="footer.copy"></span>' +
         '</div>' +
-      '</div>' +
-      '<button id="back-to-top" aria-label="" data-i18n-attr="aria-label:ui.back_to_top">\u2191</button>';
+      '</footer>' +
+      '<button id="back-to-top" type="button" data-i18n-attr="aria-label:ui.back_to_top">\u2191</button>';
     }
 
     function inject() {
@@ -514,7 +541,6 @@
     function buildFormSubmitBody(payload) {
       return {
         _subject: payload.subject,
-        _captcha: 'false',
         _template: 'table',
         _replyto: payload.email || '',
         name: payload.name,
@@ -523,7 +549,8 @@
         publish_consent: payload.publish ? 'yes' : 'no',
         message: payload.message,
         submitted_at_utc: payload.ts,
-        source: 'gigalabor.it/contact',
+        _honey: '',
+        source: 'gigalabor.it' + (window.location.pathname || ''),
         note: payload.bodyText
       };
     }
@@ -582,53 +609,72 @@
           showFeedback(feedback, 'error', I18n.t('forms.errors.invalid_email'));
           return;
         }
-        btn.classList.add('loading');
-        btn.disabled = true;
-        if (formId === 'contact-form' || formId === 'scritti-form') {
-          var payload = buildPayload(form);
-          postFormSubmitAjax(payload).then(function() {
-            btn.classList.remove('loading');
-            btn.disabled = false;
-            showFeedback(feedback, 'success', I18n.t('forms.success.sent'));
-            form.reset();
-            closeScrittiFormIfNeeded(formId);
-          }).catch(function() {
-            postFormSubmitNoCors(payload).then(function() {
-              btn.classList.remove('loading');
-              btn.disabled = false;
-              showFeedback(feedback, 'success', I18n.t('forms.success.sent'));
-              form.reset();
-              closeScrittiFormIfNeeded(formId);
-            }).catch(function() {
-              btn.classList.remove('loading');
-              btn.disabled = false;
-              openMailtoFallback(form);
-              showFeedback(feedback, 'success', I18n.t('forms.success.sent'));
-              form.reset();
-              closeScrittiFormIfNeeded(formId);
-            });
-          });
-          return;
-        }
-        setTimeout(function() {
+        function done() {
           btn.classList.remove('loading');
           btn.disabled = false;
           showFeedback(feedback, 'success', I18n.t('forms.success.sent'));
           form.reset();
           closeScrittiFormIfNeeded(formId);
-        }, 1000);
+        }
+
+        /* Honeypot: un bot che compila il campo nascosto riceve un finto successo, nulla viene inviato */
+        var honey = form.querySelector('[name="_honey"]');
+        if (honey && honey.value) { done(); return; }
+
+        btn.classList.add('loading');
+        btn.disabled = true;
+        var payload = buildPayload(form);
+        postFormSubmitAjax(payload)
+          .catch(function() { return postFormSubmitNoCors(payload); })
+          .catch(function() { openMailtoFallback(form); })
+          .then(done);
       });
     }
 
     function showFeedback(el, type, msg) {
       if (!el) return;
       el.textContent   = msg;
+      el.setAttribute('role', type === 'error' ? 'alert' : 'status');
       el.className     = 'form-feedback form-feedback--' + type;
       el.style.display = 'block';
       setTimeout(function() { if (el) el.style.display = 'none'; }, 5000);
     }
 
     return { setupForm: setupForm };
+  })();
+
+  /* =
+     FOOTER - "ultimo aggiornamento" calcolato dai dati (progetti + notizie)
+  = */
+  var Footer = (function () {
+    function latestDate() {
+      var today = new Date().toISOString().slice(0, 10);
+      var dates = PROJECTS.map(function(p) { return p.updated_at || ''; })
+        .concat((GL.NEWS || []).map(function(n) { return n.sort_date || ''; }))
+        .filter(function(d) { return d && d <= today; })
+        .sort();
+      return dates.length ? dates[dates.length - 1] : '';
+    }
+
+    function defaultMsg() {
+      var iso = latestDate();
+      if (!iso) return '';
+      var locale = I18n.current === 'it' ? 'it-IT' : 'en-GB';
+      var date = new Date(iso + 'T00:00:00').toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
+      return I18n.t('footer.updated') + ' ' + date;
+    }
+
+    function render() {
+      var el = document.getElementById('bb-msg');
+      if (el) el.textContent = defaultMsg();
+    }
+
+    function init() {
+      render();
+      document.addEventListener('langChange', render);
+    }
+
+    return { init: init, defaultMsg: defaultMsg };
   })();
 
   /* =
@@ -793,7 +839,15 @@
     function initCursor() {
       var cur  = document.getElementById('cur');
       var curR = document.getElementById('cur-r');
-      if (!cur || !curR) return;
+      /* Cursore custom solo con mouse vero e senza richiesta di ridurre le animazioni */
+      var mq = window.matchMedia || function() { return { matches: false }; };
+      var usable = cur && curR &&
+        mq('(hover: hover) and (pointer: fine)').matches &&
+        !mq('(prefers-reduced-motion: reduce)').matches;
+      if (!usable) {
+        document.documentElement.classList.add('no-custom-cursor');
+        return;
+      }
       var tx = 0, ty = 0, rx = 0, ry = 0;
       window.addEventListener('mousemove', function(e) { tx = e.clientX; ty = e.clientY; });
       (function loop() {
@@ -812,26 +866,27 @@
       }, 600);
     }
 
-    /* - Intro - */
-    function initIntroSplash() {
-      /* Usato da initSplash() - dismissal redirecta a home.html */
+    /* - Intro: overlay sopra la home, mostrato solo alla prima visita - */
+    var INTRO_KEY = 'gl_intro_seen';
+
+    function initIntro() {
       var intro = document.getElementById('intro');
       if (!intro) return;
+      var seen = false;
+      try { seen = !!localStorage.getItem(INTRO_KEY); } catch(e) {}
+      if (seen) { intro.remove(); return; }
+
       function enter() {
         if (intro.classList.contains('out')) return;
         intro.classList.add('out');
-        setTimeout(function() { window.location.href = './home.html'; }, 800);
+        try { localStorage.setItem(INTRO_KEY, '1'); } catch(e) {}
+        window.removeEventListener('keydown', enter);
+        window.removeEventListener('wheel', enter);
+        setTimeout(function() { intro.remove(); }, 900);
       }
       intro.addEventListener('click', enter);
-      window.addEventListener('keydown', function handler(e) {
-        if (!intro.classList.contains('out')) enter();
-        window.removeEventListener('keydown', handler);
-      });
-    }
-
-    function initSplash() {
-      initCursor();
-      initIntroSplash();
+      window.addEventListener('keydown', enter);
+      window.addEventListener('wheel', enter, { passive: true });
     }
 
     /* - Panel content renderers - */
@@ -913,7 +968,7 @@
             .slice(0,8);
           var html = '<div class="p-sec">' + (I18n.t('sections.updates_label') || 'Recenti') + '</div>';
           if (!list.length) {
-            html += '<div style="font-size:.65rem;color:var(--text-muted);padding:.5rem 0">Nessuna notizia disponibile</div>';
+            html += '<div class="p-empty">' + I18n.t('news.empty') + '</div>';
           } else {
             list.forEach(function(n) {
               html += '<div class="p-news-item" data-news-id="' + (n.id || '') + '" tabindex="0" role="button">' +
@@ -943,7 +998,7 @@
           var fHtml = '';
           ['item1','item2','item3','item4'].forEach(function(k){
             var f = features[k];
-            if (f) fHtml += '<div class="sr"><span class="sr-k">' + f.title + '</span><span class="sr-v" style="font-size:.58rem;color:var(--text-muted);max-width:160px;text-align:right">' + f.desc + '</span></div>';
+            if (f) fHtml += '<div class="sr"><span class="sr-k">' + f.title + '</span><span class="sr-v sr-v--note">' + f.desc + '</span></div>';
           });
           body.innerHTML =
             '<div class="p-sec">' + (I18n.t('sections.about_title') || 'Chi siamo') + '</div>' +
@@ -964,9 +1019,10 @@
           body.innerHTML =
             '<div class="p-sec">' + (I18n.t('sections.contact_title') || 'Contatti') + '</div>' +
             '<div class="cr"><span class="cr-icon">@</span><div class="cr-text"><a href="mailto:' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '">' + (I18n.t('contact.email_address') || 'giga.labor2026@gmail.com') + '</a></div></div>' +
-            '<div class="cr"><span class="cr-icon">⌘</span><div class="cr-text"><a href="https://gigalabor.it" target="_blank">gigalabor.it</a></div></div>' +
+            '<div class="cr"><span class="cr-icon">⌘</span><div class="cr-text"><a href="https://gigalabor.it" target="_blank" rel="noopener">gigalabor.it</a></div></div>' +
             '<div class="p-sec" style="margin-top:1.2rem">' + (I18n.t('contact.headline') || 'Messaggio') + '</div>' +
-            '<form id="panel-contact-form">' +
+            '<form id="panel-contact-form" novalidate>' +
+              '<input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">' +
               '<div class="p-form-field">' +
                 '<label class="p-form-label" for="pc-email">' + (I18n.t('contact.email_label') || 'Email') + '</label>' +
                 '<input class="p-form-input" id="pc-email" name="email" type="email">' +
@@ -975,7 +1031,7 @@
                 '<label class="p-form-label" for="pc-msg">' + (I18n.t('contact.message_label') || 'Messaggio') + '</label>' +
                 '<textarea class="p-form-textarea" id="pc-msg" name="message"></textarea>' +
               '</div>' +
-              '<div id="panel-form-feedback"></div>' +
+              '<div id="panel-form-feedback" class="form-feedback"></div>' +
               '<button class="p-form-submit" type="submit">' + (I18n.t('contact.send_btn') || 'Invia') + '</button>' +
             '</form>';
           Forms.setupForm('panel-contact-form', 'panel-form-feedback');
@@ -991,17 +1047,16 @@
       var root = document.getElementById('panel-root');
       if (!root) return;
       root.innerHTML =
-        '<div id="panel">' +
+        '<aside id="panel" aria-labelledby="p-title">' +
           '<div class="p-head">' +
-            '<div class="p-close" id="p-cls">✕</div>' +
-            '<a id="p-action-btn" href="#" style="display:none;position:absolute;top:1.2rem;right:calc(1.2rem + 36px + .55rem);height:36px;padding:0 .8rem;border:1px solid var(--accent);border-radius:2px;font-family:JetBrains Mono,monospace;font-size:.6rem;font-weight:600;color:var(--accent);text-decoration:none;letter-spacing:.04em;white-space:nowrap;align-items:center;transition:background .18s,color .18s,box-shadow .18s;" onmouseover=\"this.style.background=\'var(--accent)\';this.style.color=\'var(--text-on-accent)\';this.style.boxShadow=\'0 0 10px var(--accent-glow)\'\" onmouseout=\"this.style.background=\'\';this.style.color=\'var(--accent)\';this.style.boxShadow=\'\'\"></a>' +
+            '<button type="button" class="p-close" id="p-cls" aria-label="' + I18n.t('ui.close') + '">✕</button>' +
+            '<a class="p-action" id="p-action-btn" href="#" hidden></a>' +
             '<span class="p-kicker" id="p-kicker"></span>' +
-            '<div class="p-title" id="p-title"></div>' +
+            '<h2 class="p-title" id="p-title"></h2>' +
             '<span class="p-sub" id="p-sub"></span>' +
-            '<a id="p-action-btn" href="#" style="display:none;margin-top:.7rem;padding:.28rem .75rem;border:1px solid var(--accent);border-radius:20px;font-family:JetBrains Mono,monospace;font-size:.6rem;color:var(--accent);text-decoration:none;letter-spacing:.05em;transition:background .18s,color .18s;" onmouseover="this.style.background=\'var(--accent)\';this.style.color=\'var(--text-on-accent)\'" onmouseout="this.style.background=\'\';this.style.color=\'var(--accent)\'"></a>' +
           '</div>' +
           '<div class="p-body" id="p-body"></div>' +
-        '</div>';
+        '</aside>';
       panelEl = document.getElementById('panel');
       kicker  = document.getElementById('p-kicker');
       ptitle  = document.getElementById('p-title');
@@ -1027,25 +1082,30 @@
         if (def.pageUrl && def.actionKey) {
           actionBtn.textContent = '→ ' + (I18n.t(def.actionKey) || '');
           actionBtn.href = rootPrefix() + def.pageUrl;
-          actionBtn.style.display = 'flex';
+          actionBtn.hidden = false;
         } else {
-          actionBtn.style.display = 'none';
+          actionBtn.hidden = true;
         }
       }
       if (panelEl) panelEl.classList.add('open');
       if (sideEl)  {
         sideEl.classList.add('used');
         sideEl.querySelectorAll('.si').forEach(function(s) {
-          s.classList.toggle('on', s.dataset.p === id);
+          var on = s.dataset.p === id;
+          s.classList.toggle('on', on);
+          s.setAttribute('aria-expanded', on ? 'true' : 'false');
         });
       }
     }
 
     function closePanel() {
       if (panelEl) panelEl.classList.remove('open');
-      if (bbMsg)   bbMsg.textContent = '';
+      if (bbMsg)   bbMsg.textContent = Footer.defaultMsg();
       currentPanel = null;
-      if (sideEl) sideEl.querySelectorAll('.si').forEach(function(s) { s.classList.remove('on'); });
+      if (sideEl) sideEl.querySelectorAll('.si').forEach(function(s) {
+        s.classList.remove('on');
+        s.setAttribute('aria-expanded', 'false');
+      });
     }
 
     function refreshPanel() {
@@ -1063,9 +1123,9 @@
             showPanel(id);
           }
         });
-        si.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); si.click(); }
-        });
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && currentPanel) closePanel();
       });
       document.addEventListener('langChange', refreshPanel);
     }
@@ -1083,29 +1143,24 @@
       var wrap = document.createElement('div');
       wrap.id = 'panel-news-tip';
       wrap.className = 'panel-news-tip';
-      wrap.style.cssText = 'position:fixed;inset:0;z-index:2200;opacity:0;pointer-events:none;transition:opacity .22s ease;';
       wrap.innerHTML =
-        '<div class="panel-news-tip__backdrop" data-close-tip style="position:absolute;inset:0;background:rgba(0,0,0,.66)"></div>' +
-        '<div class="panel-news-tip__panel" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 2rem));max-height:82vh;overflow:auto;background:var(--bg-surface);border:1px solid var(--border-light);border-radius:12px;padding:1rem 1.2rem 1.3rem;">' +
-          '<button class="panel-news-tip__close" data-close-tip aria-label="close" style="position:absolute;right:.8rem;top:.7rem;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;">×</button>' +
-          '<div class="panel-news-tip__date" id="panel-news-tip-date" style="font-family:JetBrains Mono,monospace;font-size:.62rem;color:var(--text-muted);margin-bottom:.55rem;"></div>' +
-          '<h3 class="panel-news-tip__title" id="panel-news-tip-title" style="font-size:.95rem;line-height:1.4;color:var(--text-primary);margin-bottom:.8rem;padding-right:1.6rem;"></h3>' +
-          '<div class="panel-news-tip__body" id="panel-news-tip-body" style="font-size:.72rem;color:var(--text-secondary);line-height:1.75;"></div>' +
-          '<div class="panel-news-tip__source" id="panel-news-tip-source" style="margin-top:.95rem;padding-top:.75rem;border-top:1px solid var(--border);font-size:.62rem;color:var(--text-muted);"></div>' +
+        '<div class="panel-news-tip__backdrop" data-close-tip></div>' +
+        '<div class="panel-news-tip__panel" role="dialog" aria-modal="true" aria-labelledby="panel-news-tip-title">' +
+          '<button class="panel-news-tip__close" data-close-tip aria-label="' + I18n.t('ui.close') + '">×</button>' +
+          '<div class="panel-news-tip__date" id="panel-news-tip-date"></div>' +
+          '<h3 class="panel-news-tip__title" id="panel-news-tip-title"></h3>' +
+          '<div class="panel-news-tip__body" id="panel-news-tip-body"></div>' +
+          '<div class="panel-news-tip__source" id="panel-news-tip-source"></div>' +
         '</div>';
       document.body.appendChild(wrap);
       wrap.querySelectorAll('[data-close-tip]').forEach(function(el) {
         el.addEventListener('click', function() {
           wrap.classList.remove('open');
-          wrap.style.opacity = '0';
-          wrap.style.pointerEvents = 'none';
         });
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           wrap.classList.remove('open');
-          wrap.style.opacity = '0';
-          wrap.style.pointerEvents = 'none';
         }
       });
       return wrap;
@@ -1132,8 +1187,6 @@
         sourceEl.innerHTML = '<span>' + srcLabel + ':</span> <a href="' + srcUrl + '" target="_blank" rel="noopener">' + srcName + '</a>';
       }
       tip.classList.add('open');
-      tip.style.opacity = '1';
-      tip.style.pointerEvents = 'all';
     }
 
     function bindPanelNewsTips(root) {
@@ -1179,8 +1232,9 @@
     }
 
     function initHome() {
-      /* Home: nessun intro (gia rimosso dall'HTML), cursor + panels + tooltip ratio */
+      /* Home: cursor + intro di prima visita + panels + tooltip ratio */
       initCursor();
+      initIntro();
       initPanels();
       initRatioTooltip();
       initScrollToPanel();
@@ -1224,6 +1278,8 @@
 
       /* Tastiera: freccia giù, Page Down, spazio */
       window.addEventListener('keydown', function(e) {
+        var t = e.target;
+        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(t.tagName))) return;
         if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
           e.preventDefault();
           onScroll();
@@ -1231,7 +1287,7 @@
       });
     }
 
-    return { initHome: initHome, initSplash: initSplash, showPanel: showPanel };
+    return { initHome: initHome, showPanel: showPanel, triggerNavAnim: triggerNavAnim };
   })();
 
   /* =
@@ -1239,6 +1295,7 @@
   = */
   var HeroCanvas = (function () {
     var canvas, ctx, W, H, raf;
+    var reducedMotion = false;   /* prefers-reduced-motion: un solo fotogramma statico */
     var canvasRect = null;
     var NODE_COLORS = ['#00b4ff', '#d4883a', '#b060ff', '#ffb000', '#3a6880'];
     var mouse = { x: -9999, y: -9999, vx: 0, vy: 0, px: -9999, py: -9999 };
@@ -1586,22 +1643,44 @@
       raf = requestAnimationFrame(frame);
     }
 
+    function start() { if (!raf && !reducedMotion) raf = requestAnimationFrame(frame); }
+    function stop()  { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+    /* Fotogramma unico senza animazione (reduced motion) */
+    function renderStatic() {
+      ctx.clearRect(0, 0, W, H);
+      globalFade = 1;
+      words.forEach(function(w) { w.a = w.ba; });
+      drawLinks();
+      words.forEach(drawWord);
+    }
+
+    function refresh() {
+      populate();
+      if (reducedMotion) renderStatic();
+    }
+
     function init() {
       canvas = document.getElementById('hero-canvas');
       if (!canvas || !canvas.getContext) return;
       ctx = canvas.getContext('2d');
+      reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
       resize();
-      populate();
+      refresh();
       var _resizeTimer;
       window.addEventListener('resize', function() {
         resize();
         clearTimeout(_resizeTimer);
         _resizeTimer = setTimeout(function() {
-          populate();
-          triggerNavAnim();  // riattiva animazione icone dopo resize
+          refresh();
+          Shell.triggerNavAnim();  // riattiva animazione icone dopo resize
         }, 150);
       });
-      document.addEventListener('langChange', function() { populate(); });
+      document.addEventListener('langChange', refresh);
+      /* scheda in background: niente fotogrammi sprecati */
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) stop(); else start();
+      });
       window.addEventListener('mousemove', function(e) {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
@@ -1616,10 +1695,10 @@
       window.addEventListener('touchstart', function() {
         lastInteraction = Date.now();
       }, { passive: true });
-      frame();
+      start();
     }
 
-    function destroy() { if (raf) cancelAnimationFrame(raf); }
+    function destroy() { stop(); }
 
     return { init: init, destroy: destroy };
   })();
@@ -1733,9 +1812,8 @@
   = */
   function detectPage() {
     var path = window.location.pathname;
-    if (/\/$/.test(path) && !/\/pages\//.test(path)) return 'splash';
-    if (path === '/' || path === '' || /index\.html$/.test(path)) return 'splash';
-    if (/home\.html$/.test(path)) return 'home';
+    var declared = document.body && document.body.getAttribute('data-page');
+    if (declared === 'home') return 'home';
     if (/\/about/.test(path))              return 'about';
     if (/\/contact/.test(path))            return 'contact';
     if (/\/news/.test(path))               return 'news';
@@ -1752,18 +1830,6 @@
 
     var page = detectPage();
 
-    /* -- SPLASH -- entra sul sito, poi redirect a home.html */
-    if (page === 'splash') {
-      I18n.init();
-      var splashLoader = document.getElementById('page-loader');
-      if (splashLoader) setTimeout(function() { splashLoader.classList.add('hidden'); }, 350);
-      Shell.initSplash();
-      HeroCanvas.init();
-      return;
-    }
-
-    /* -- TUTTE LE ALTRE PAGINE (home + sub-pages) -- */
-
     /* layout shell V3 (topbar + sidenav + bottombar) - PRIMA di I18n
        cosi applyStrings() trova gia i nodi data-i18n nel DOM */
     Layout.inject();
@@ -1774,6 +1840,9 @@
     /* topbar: tema, lingua, orologio */
     Navbar.init();
 
+    /* bottombar: data dell'ultimo aggiornamento */
+    Footer.init();
+
     /* animazioni scroll (sub-pagine) */
     Animations.init();
 
@@ -1783,19 +1852,8 @@
       setTimeout(function() { loader.classList.add('hidden'); }, 350);
     }
 
-    /* back to top */
-    var btt = document.getElementById('back-to-top');
-    if (btt) {
-      window.addEventListener('scroll', function() {
-        btt.classList.toggle('visible', window.scrollY > 300);
-      }, { passive: true });
-      btt.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-
     if (page === 'home') {
-      /* Shell V3: cursor + panel system (niente intro) */
+      /* Shell V3: cursor + intro di prima visita + panel system */
       Shell.initHome();
 
       /* Aggiorna contatore progetti dall'array reale */

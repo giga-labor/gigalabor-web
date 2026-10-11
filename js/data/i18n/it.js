@@ -16,7 +16,11 @@ window.GL.i18n.it = {
     "toggleTheme": "Tema",
     "toggleLang": "EN"
   },
+  "intro": {
+    "hint": "Clicca o premi un tasto per entrare"
+  },
   "hero": {
+    "eyebrow": "Laboratorio digitale personale · Est. 2026",
     "headline": "Ingegneria digitale.<br>Ricerca. Innovazione.",
     "headline_line2": "Ingegneria digitale.",
     "system_status": "SYSTEM ONLINE - GiGa Labor v1.0",
@@ -120,7 +124,7 @@ window.GL.i18n.it = {
     "updates_label": "Aggiornamenti",
     "community_label": "Community",
     "projects_title": "Progetti",
-    "projects_subtitle": "Ogni progetto e autonomo. Insieme costruiscono la raccolta personale di GiGa Labor.",
+    "projects_subtitle": "Ogni progetto è autonomo. Insieme costruiscono la raccolta personale di GiGa Labor.",
     "lab_title": "Lab",
     "lab_subtitle": "Esperimenti, prototipi e ricerca in corso.",
     "about_title": "Chi siamo",
@@ -330,6 +334,7 @@ window.GL.i18n.it = {
     "read_more": "Leggi tutto",
     "close": "Chiudi",
     "source": "Fonte",
+    "empty": "Nessuna notizia disponibile.",
     "group_future": "In futuro",
     "group_week": "Settimana"
   },
@@ -381,6 +386,7 @@ window.GL.i18n.it = {
     "s8_text": "Per comunicazioni:"
   },
   "footer": {
+    "updated": "Aggiornato il",
     "copy": "© 2026 GiGa Labor. Tutti i diritti riservati.",
     "tagline": "Laboratorio digitale personale.",
     "site_title": "Sito",
@@ -390,6 +396,7 @@ window.GL.i18n.it = {
     }
   },
   "ui": {
+    "close": "Chiudi",
     "read_more": "Scopri di più",
     "open_project": "Apri progetto",
     "view_docs": "Documentazione",

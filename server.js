@@ -30,10 +30,23 @@ const MIME = {
 };
 
 const server = http.createServer(function(req, res) {
-  var urlPath = req.url.split('?')[0];
-  if (urlPath === '/' || urlPath === '') urlPath = '/index.html';
+  var urlPath;
+  try {
+    urlPath = decodeURIComponent(req.url.split('?')[0]);
+  } catch (e) {
+    res.writeHead(400, { 'Content-Type': 'text/plain' });
+    res.end('400 - Richiesta non valida');
+    return;
+  }
+  if (urlPath === '' || urlPath.slice(-1) === '/') urlPath += 'index.html';
 
-  var filePath = path.join(ROOT, urlPath);
+  /* Mai servire file fuori dalla cartella del sito (es. /../../file) */
+  var filePath = path.normalize(path.join(ROOT, urlPath));
+  if (filePath !== ROOT && filePath.indexOf(ROOT + path.sep) !== 0) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('403 - Accesso negato');
+    return;
+  }
   var ext      = path.extname(filePath).toLowerCase();
   var mime     = MIME[ext] || 'application/octet-stream';
 

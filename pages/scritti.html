@@ -1,13 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="it" data-theme="contrast">
+<html lang="it" data-theme="dark-tech">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  <meta name="description" content="">
+  <title>Scritti da voi — GiGa Labor</title>
+  <meta name="description" content="Messaggi, suggerimenti e feedback dalla community di GiGa Labor.">
   <link rel="stylesheet" href="../css/main.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
   <style>
     .animate { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
@@ -50,51 +48,53 @@
 
   <div class="page-hero">
     <div class="container">
-      <a href="../index.html" class="back-link" data-i18n="ui.back"></a>
-      <span class="section-label" data-i18n="sections.community_label"></span>
-      <h1 class="section-title" data-i18n="nav.scritti"></h1>
-      <p class="text-secondary mt-2" data-i18n="scritti.intro"></p>
+      <a href="../index.html" class="back-link" data-i18n="ui.back">← Torna indietro</a>
+      <span class="section-label" data-i18n="sections.community_label">Community</span>
+      <h1 class="section-title" data-i18n="nav.scritti">Scritti da voi</h1>
+      <p class="text-secondary mt-2" data-i18n="scritti.intro">Contributi, suggerimenti e feedback della community GiGa Labor.</p>
     </div>
   </div>
 
   <section class="section"><div class="container"><div class="section-split">
     <div class="animate scritti-toolbar">
-      <button type="button" class="btn btn--primary" id="toggle-scritti-form" data-i18n="scritti.open_form_btn"></button>
+      <button type="button" class="btn btn--primary" id="toggle-scritti-form" data-i18n="scritti.open_form_btn">INVIA UN COMMENTO</button>
     </div>
     <div class="animate scritti-form-wrap" id="scritti-form-wrap">
-      <h2 class="section-title mb-2" style="font-size: 1.4rem;" data-i18n="scritti.form_title"></h2>
-      <p class="text-secondary mb-4" style="font-size: 0.9rem;" data-i18n="scritti.form_intro"></p>
+      <h2 class="section-title mb-2" style="font-size: 1.4rem;" data-i18n="scritti.form_title">Invia il tuo contributo</h2>
+      <p class="text-secondary mb-4" style="font-size: 0.9rem;" data-i18n="scritti.form_intro">Compila il modulo: puoi inviare idee, feedback tecnici, segnalazioni o proposte di collaborazione.</p>
       <form class="contact-form" id="scritti-form" novalidate>
-        <div class="form-group"><label class="form-label" for="s-name" data-i18n="scritti.name_label"></label><input class="form-input" type="text" id="s-name" name="name" data-i18n-attr="placeholder:scritti.name_placeholder"></div>
-        <div class="form-group"><label class="form-label" for="s-email" data-i18n="scritti.email_label"></label><input class="form-input" type="email" id="s-email" name="email" data-i18n-attr="placeholder:scritti.email_placeholder" required></div>
-        <div class="form-group"><label class="form-label" for="s-subject" data-i18n="scritti.subject_label"></label>
+            <input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form-group"><label class="form-label" for="s-name" data-i18n="scritti.name_label">Nome o alias</label><input class="form-input" type="text" id="s-name" name="name" data-i18n-attr="placeholder:scritti.name_placeholder"></div>
+        <div class="form-group"><label class="form-label" for="s-email" data-i18n="scritti.email_label">Email</label><input class="form-input" type="email" id="s-email" name="email" data-i18n-attr="placeholder:scritti.email_placeholder" required></div>
+        <div class="form-group"><label class="form-label" for="s-subject" data-i18n="scritti.subject_label">Categoria</label>
           <select class="form-input" id="s-subject" name="subject">
-            <option value="feedback" data-i18n="scritti.subjects.feedback"></option>
-            <option value="idea" data-i18n="scritti.subjects.idea"></option>
-            <option value="bug" data-i18n="scritti.subjects.bug"></option>
-            <option value="collaborazione" data-i18n="scritti.subjects.collab"></option>
-            <option value="altro" data-i18n="scritti.subjects.other"></option>
+            <option value="feedback" data-i18n="scritti.subjects.feedback">Feedback</option>
+            <option value="idea" data-i18n="scritti.subjects.idea">Idea</option>
+            <option value="bug" data-i18n="scritti.subjects.bug">Segnalazione bug</option>
+            <option value="collaborazione" data-i18n="scritti.subjects.collab">Collaborazione</option>
+            <option value="altro" data-i18n="scritti.subjects.other">Altro</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label" for="s-message" data-i18n="scritti.message_label"></label><textarea class="form-textarea" id="s-message" name="message" data-i18n-attr="placeholder:scritti.message_placeholder" required></textarea></div>
-        <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.5rem;"><input type="checkbox" id="s-publish" name="publish" checked style="accent-color: var(--accent);"><label for="s-publish" class="form-label" style="margin: 0; cursor: pointer;" data-i18n="scritti.publish_consent"></label></div>
-        <button type="submit" class="btn btn--primary" data-i18n="contact.send_btn"></button>
+        <div class="form-group"><label class="form-label" for="s-message" data-i18n="scritti.message_label">Messaggio</label><textarea class="form-textarea" id="s-message" name="message" data-i18n-attr="placeholder:scritti.message_placeholder" required></textarea></div>
+        <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.5rem;"><input type="checkbox" id="s-publish" name="publish" checked style="accent-color: var(--accent);"><label for="s-publish" class="form-label" style="margin: 0; cursor: pointer;" data-i18n="scritti.publish_consent">Autorizzo la pubblicazione pubblica del messaggio (senza dati sensibili).</label></div>
+        <button type="submit" class="btn btn--primary" data-i18n="contact.send_btn">Invia messaggio</button>
         <div id="scritti-feedback" class="form-feedback"></div>
       </form>
     </div>
 
     <div class="animate">
-      <h2 class="section-title mb-4" style="font-size: 1.4rem;" data-i18n="scritti.community_title"></h2>
+      <h2 class="section-title mb-4" style="font-size: 1.4rem;" data-i18n="scritti.community_title">Ultimi messaggi della community</h2>
       <div style="display: flex; flex-direction: column; gap: 1.25rem;" id="messages-list">
-        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item1.text"></p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item1.author"></span><span class="message-card__date" data-i18n="scritti.samples.item1.date"></span></div></div>
-        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item2.text"></p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item2.author"></span><span class="message-card__date" data-i18n="scritti.samples.item2.date"></span></div></div>
-        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item3.text"></p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item3.author"></span><span class="message-card__date" data-i18n="scritti.samples.item3.date"></span></div></div>
+        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item1.text">Ottima direzione sul progetto ControlChaos. Sarebbe utile una sezione con benchmark aggiornati.</p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item1.author">Utente Community</span><span class="message-card__date" data-i18n="scritti.samples.item1.date">22/05/2026</span></div></div>
+        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item2.text">Mi piace l'approccio modulare di EvoBrain. Se pubblicate una roadmap tecnica la seguo volentieri.</p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item2.author">Lettrice</span><span class="message-card__date" data-i18n="scritti.samples.item2.date">18/05/2026</span></div></div>
+        <div class="message-card"><p class="message-card__text" data-i18n="scritti.samples.item3.text">Interfaccia pulita e leggibile. Suggerisco un feed changelog unico per tutti i progetti.</p><div class="message-card__meta"><span class="message-card__author" data-i18n="scritti.samples.item3.author">Sviluppatore indipendente</span><span class="message-card__date" data-i18n="scritti.samples.item3.date">12/05/2026</span></div></div>
       </div>
     </div>
   </div></div></section>
 
   <div id="footer-root"></div>
   <script src="../js/data/gl-data.js"></script>
+  <script src="../js/data/gl-news.js"></script>
   <script src="../js/data/i18n/it.js"></script>
   <script src="../js/data/i18n/en.js"></script>
   <script src="../js/app.js"></script>

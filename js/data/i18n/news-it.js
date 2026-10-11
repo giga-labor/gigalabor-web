@@ -9,6 +9,50 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['it'] = {
 
+  'claude-haiku-5-5': {
+    date:         '7 ottobre 2026',
+    title:        'Claude Haiku 5.5: il modello piccolo di Anthropic costa il 75% in meno',
+    excerpt:      "Anthropic rilascia Haiku 5.5: contesto da 1 milione di token, sforzo di ragionamento regolabile e prezzi da 0,10 $ per milione di token in ingresso.",
+    body:         "Il 7 ottobre 2026 Anthropic ha rilasciato Claude Haiku 5.5, presentato come il suo modello piccolo più economico, veloce e capace. È pensato per i carichi ad alto volume: riassunti, compattazione del contesto, interrogazioni su database, classificazione, assistenza in tempo reale e lavoro da sub-agente.\n\nIn media costa circa il 75% in meno di Haiku 4.5: il listino per sviluppatori parte da 0,10 $ per milione di token in ingresso e 0,50 $ per milione in uscita. Il modello ha una finestra di contesto da 1 milione di token, fino a 128.000 token in uscita ed è il primo della classe Haiku con un livello di sforzo regolabile, che permette di scambiare costo e qualità della risposta. Con lo stesso annuncio Anthropic ha dimezzato il prezzo delle letture da cache di Sonnet 5.5.\n\nHaiku 5.5 è selezionabile su Claude.ai da tutti i piani, compreso quello gratuito, ed è disponibile via API, in Claude Code e sulle principali piattaforme cloud. Per la programmazione agentica complessa Anthropic continua a indicare Sonnet 5.5 e Opus 5.5, e avverte che il codice scritto per Haiku 4.5 può richiedere adattamenti.",
+    badge:        'Rilasciato',
+    source_label: 'Fonte:',
+    source_name:  'Anthropic',
+    source_url:   'https://www.anthropic.com/claude-haiku-5-5'
+  },
+
+  'gpt-6-intelligent-ui': {
+    date:         '7 ottobre 2026',
+    title:        'OpenAI porta GPT-6 e le risposte interattive a tutti gli utenti di ChatGPT',
+    excerpt:      "Dal 7 ottobre GPT-6 arriva nella chat di tutti i piani insieme a Intelligent UI: le risposte possono contenere grafici, calcolatori, mappe e controlli interattivi.",
+    body:         "Il 7 ottobre 2026 OpenAI ha avviato la distribuzione globale di GPT-6 nella chat di ChatGPT insieme a Intelligent UI. I piani Plus, Pro, Business ed Enterprise sono partiti per primi; Free e Go dal giorno successivo. Per le aziende la disponibilità dipende dalle impostazioni degli amministratori.\n\nCon Intelligent UI una risposta non è più soltanto testo: può includere pulsanti, calcolatori costruiti per il compito, grafici modificabili, diagrammi e mappe da manipolare dentro la conversazione. Quando il testo resta il formato più chiaro la risposta rimane testuale, e l'utente può ridurre la quantità di elementi visivi.\n\nSecondo quanto riportato, i piani a pagamento usano GPT-6 Sol e quelli gratuiti GPT-6 Luna; i modelli dietro le modalità Work e Codex non cambiano. OpenAI inquadra il rilascio sulla base di oltre 1,2 miliardi di persone che usano ChatGPT ogni settimana. I primi modelli GPT-6 erano arrivati ai clienti paganti a settembre.",
+    badge:        'Rilasciato',
+    source_label: 'Fonte:',
+    source_name:  'OpenAI',
+    source_url:   'https://openai.com/index/gpt-6-for-everyone/'
+  },
+
+  'gtig-ai-vulnerabilities': {
+    date:         '1 ottobre 2026',
+    title:        "Google: metà delle vulnerabilità scoperte dall'AI porta a esecuzione di codice remoto",
+    excerpt:      "Il gruppo di threat intelligence di Google misura l'effetto dell'AI sulla ricerca di falle: divulgazioni mensili raddoppiate nel 2026 e sfruttamento in pochi giorni.",
+    body:         "Il Google Threat Intelligence Group (GTIG) ha pubblicato un'analisi su come l'AI sta cambiando la scoperta e lo sfruttamento delle vulnerabilità, basata su dati da gennaio 2025 ad agosto 2026. Le divulgazioni mensili di CVE sono raddoppiate in otto mesi, da 5.045 a gennaio 2026 a 10.740 ad agosto. Solo lo 0,23% risulta sfruttato in attacchi reali, ma in numeri assoluti i casi crescono: 141 nei primi otto mesi del 2026 contro 127 in tutto il 2025.\n\nLe falle trovate da sistemi AI hanno un profilo diverso: il 50% porta a esecuzione di codice remoto, contro il 26% delle altre. Anche i tempi si accorciano: CVE-2026-1731, individuata in autonomia dall'agente di ricerca Hacktron nei prodotti di accesso remoto BeyondTrust, è stata sfruttata da un primo gruppo entro quattro giorni dalla divulgazione e da altri cinque entro una settimana.\n\nIl software per l'AI è a sua volta un bersaglio: 2.076 vulnerabilità tracciate nel periodo, oltre 1.500 delle quali nel 2026, metà nei framework di orchestrazione di agenti come Flowise e Langflow; altre 212 riguardano il software di inferenza come vLLM, Ollama e LiteLLM. GTIG raccomanda di abbandonare il patching di massa senza priorità a favore di un triage guidato dall'intelligence, con difesa mirata dei sistemi esposti e correzioni automatizzate.",
+    badge:        'Rapporto',
+    source_label: 'Fonte:',
+    source_name:  'Google Threat Intelligence Group',
+    source_url:   'https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era'
+  },
+
+  'gemini-4-argon': {
+    date:         '30 settembre 2026',
+    title:        'Google presenta Gemini 4 Argon, per ora riservato a chi fa difesa informatica',
+    excerpt:      "Il nuovo modello di frontiera di Google punta su ingegneria del software, lavoro d'ufficio specialistico e cybersicurezza. Accesso iniziale limitato al programma Fairwind.",
+    body:         "Il 30 settembre 2026 Google DeepMind ha annunciato Gemini 4 Argon, il suo nuovo modello di frontiera, orientato a ingegneria del software reale, lavoro specialistico in ambito legale e finanziario e difesa informatica. Il limite di output sale da 64.000 a 1 milione di token.\n\nGoogle dichiara risultati allo stato dell'arte su diversi benchmark: 77,9% su DeepSWE v1.1 (ingegneria del software a lungo orizzonte), 91,7% su LVBench (comprensione di video lunghi) e 68% su CWE-bench v1 (correzione di vulnerabilità), a pari merito con il primo.\n\nIl modello non è ancora disponibile al pubblico: viene distribuito prima ai difensori informatici verificati del programma Fairwind, mentre Google partecipa al processo volontario di accesso pre-rilascio del governo statunitense. Il rilascio più ampio è annunciato a breve, a partire dai clienti API paganti e dagli abbonati Google AI Ultra. Prezzo introduttivo: 2 $ per milione di token in ingresso e 10 $ in uscita, destinati a raddoppiare al termine del periodo di lancio.",
+    badge:        'Accesso limitato',
+    source_label: 'Fonte:',
+    source_name:  'Google',
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/'
+  },
+
   'anthropic-recursive-self-improvement': {
     date:         '4 giugno 2026',
     title:        'Anthropic: "L\'AI sta imparando a costruire se stessa"',
@@ -87,14 +131,14 @@ window.GL.newsStrings['it'] = {
   },
 
   'ai-act-2026': {
-    date:         '2 agosto 2026 (in arrivo) — aggiornato maggio 2026',
-    title:        'AI Act UE: trasparenza confermata ad agosto, alto rischio posticipato al 2027',
-    excerpt:      "L'Omnibus Digitale UE (maggio 2026) ha posticipato gli obblighi per i sistemi ad alto rischio al dicembre 2027, ma conferma gli obblighi di trasparenza dal 2 agosto 2026.",
-    body:         "L'AI Act dell'Unione Europea è il primo quadro normativo globale dedicato all'intelligenza artificiale, in vigore dal 2024 con attuazione progressiva. Il 7 maggio 2026, il Consiglio UE, il Parlamento Europeo e la Commissione hanno raggiunto un accordo provvisorio sull'Omnibus Digitale sull'AI, introducendo modifiche significative al calendario originario.\n\nAggiornamento chiave: gli obblighi per i sistemi AI ad alto rischio (Allegato III, uso-based) sono stati posticipati dal 2 agosto 2026 al 2 dicembre 2027 — uno slittamento di 16 mesi. Gli obblighi per i sistemi regolamentati come prodotti (Allegato I, tra cui dispositivi medici e ascensori) slittano invece dall'agosto 2027 all'agosto 2028. Il framework semplificato per le PMI è stato esteso alle aziende fino a 750 dipendenti e €150 milioni di fatturato annuo.\n\nCiò che rimane confermato dal 2 agosto 2026: gli obblighi di trasparenza dell'articolo 50, incluso l'obbligo di informare gli utenti quando interagiscono con un sistema AI (chatbot, assistenti vocali). Nuovi divieti su contenuti intimi non consensuali e CSAM generati da AI entreranno in vigore il 2 dicembre 2026. L'adozione formale dell'Omnibus è attesa per giugno 2026, con pubblicazione in luglio. Le sanzioni per inosservanza degli obblighi applicabili rimangono invariate: fino al 3% del fatturato globale annuo (6% per i sistemi vietati).",
-    badge:        'In arrivo',
+    date:         '2 agosto 2026',
+    title:        'AI Act UE: gli obblighi di trasparenza sono in vigore',
+    excerpt:      "Dal 2 agosto 2026 chatbot, deepfake e contenuti sintetici devono essere dichiarati. Gli obblighi per i sistemi ad alto rischio slittano invece a dicembre 2027.",
+    body:         "Dal 2 agosto 2026 si applicano gli obblighi di trasparenza dell'articolo 50 dell'AI Act, a prescindere dalla classificazione di rischio del sistema. Chi fornisce un chatbot deve informare le persone che stanno interagendo con un'AI, salvo che sia evidente dal contesto. Audio, immagini, video e testi sintetici vanno marcati in un formato leggibile dalle macchine, e chi diffonde deepfake di persone, luoghi o eventi reali deve dichiararlo. Chi usa sistemi di riconoscimento delle emozioni o di categorizzazione biometrica deve informare le persone esposte.\n\nPer i sistemi generativi già sul mercato prima del 2 agosto c'è tempo fino al 2 dicembre 2026 per adeguarsi all'obbligo di marcatura. Le sanzioni per chi viola l'articolo 50 arrivano a 15 milioni di euro o al 3% del fatturato mondiale annuo.\n\nIl calendario del resto del regolamento è invece cambiato con l'Omnibus digitale sull'AI, il Regolamento (UE) 2026/1744 in vigore dal 27 luglio 2026: gli obblighi per i sistemi ad alto rischio dell'Allegato III slittano al 2 dicembre 2027, quelli per i sistemi integrati in prodotti regolamentati (Allegato I) al 2 agosto 2028. Dal 2 dicembre 2026 si applicano inoltre nuovi divieti, tra cui quello sulle app di nudificazione.",
+    badge:        'In vigore',
     source_label: 'Fonte:',
-    source_name:  'Inside Privacy / EU Commission',
-    source_url:   'https://www.insideprivacy.com/artificial-intelligence/eu-ai-act-update-timeline-relief-targeted-simplification-and-new-prohibitions/'
+    source_name:  'Goodwin',
+    source_url:   'https://www.goodwinlaw.com/en/insights/publications/2026/08/alerts-technology-dpc-eu-ai-act-transparency-obligations-now-in-force'
   },
 
   'gpt-5-5': {

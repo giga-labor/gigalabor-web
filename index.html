@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="it" data-theme="contrast">
+<html lang="it" data-theme="dark-tech">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GiGa Labor</title>
-  <meta name="description" content="GiGa Labor — Ingegneria digitale. Ricerca. Innovazione.">
+  <title>GiGa Labor — Ingegneria digitale. Ricerca. Innovazione.</title>
+  <meta name="description" content="GiGa Labor è un laboratorio digitale personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.">
+  <!-- Intro solo alla prima visita: la classe va messa prima del primo paint -->
+  <script>try { if (localStorage.getItem('gl_intro_seen')) document.documentElement.classList.add('intro-seen'); } catch (e) {}</script>
   <link rel="stylesheet" href="css/main.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://gigalabor.it/">
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="GiGa Labor">
+  <meta property="og:title"       content="GiGa Labor — Ingegneria digitale. Ricerca. Innovazione.">
+  <meta property="og:description" content="GiGa Labor è un laboratorio digitale personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.">
+  <meta property="og:url"         content="https://gigalabor.it/">
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="GiGa Labor — Ingegneria digitale. Ricerca. Innovazione.">
+  <meta name="twitter:description" content="GiGa Labor è un laboratorio digitale personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.">
+  <meta name="robots"              content="index, follow">
+  <link rel="canonical"            href="https://gigalabor.it/">
 </head>
-<body data-page="splash">
+<body data-page="home">
 
   <!-- Page loader -->
   <div id="page-loader">
@@ -21,28 +29,98 @@
     </div>
   </div>
 
-  <!-- Intro screen — click o tasto per entrare in home.html -->
-  <div id="intro">
-    <div class="i-eyebrow">Laboratorio digitale personale · Est. 2026</div>
+  <!-- Intro: overlay sopra la home, solo alla prima visita (clic, tasto o scroll per chiudere) -->
+  <div id="intro" aria-hidden="true">
+    <div class="i-eyebrow" data-i18n="hero.eyebrow">Laboratorio digitale personale · Est. 2026</div>
     <div class="i-title">
       <span class="gi">Gi</span><span class="ga">Ga</span><br>
       <span class="labor">LABOR</span>
     </div>
     <div class="i-divider"></div>
     <div class="i-tagline" data-i18n="meta.tagline">Ingegneria digitale. Ricerca. Innovazione.</div>
-    <div class="i-hint">Clicca o premi un tasto per entrare</div>
+    <div class="i-hint" data-i18n="intro.hint">Clicca o premi un tasto per entrare</div>
   </div>
 
-  <!-- Word cloud canvas (fullscreen background) -->
-  <canvas id="hero-canvas"></canvas>
+  <!-- Word cloud canvas (full screen background) -->
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
 
   <!-- Custom cursor -->
-  <div id="cur"></div>
-  <div id="cur-r"></div>
+  <div id="cur" aria-hidden="true"></div>
+  <div id="cur-r" aria-hidden="true"></div>
+
+  <!-- ═══ UI SHELL ═══ -->
+  <div id="ui">
+
+    <!-- Topbar + Sidenav injected by Layout.inject() -->
+    <div id="navbar-root"></div>
+
+    <!-- Hero overlay -->
+    <main id="hero">
+      <div class="h-eyebrow" data-i18n="hero.eyebrow">Laboratorio digitale personale · Est. 2026</div>
+      <h1 class="h-title">
+        <span class="gi">Gi</span><span class="ga">Ga</span><br>
+        <span class="labor">LABOR</span>
+      </h1>
+      <div class="h-tw-wrap" aria-hidden="true">
+        <span id="hero-typewriter"></span><span class="h-cursor"></span>
+      </div>
+      <p class="h-sub" data-i18n="hero.subheadline">Laboratorio personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.</p>
+      <div class="h-bottom">
+
+        <div class="h-metrics">
+          <div class="h-m">
+            <div class="h-m-val" data-count="5">5</div>
+            <div class="h-m-lbl" data-i18n="hero.metric_projects">Progetti attivi</div>
+          </div>
+          <div class="h-m">
+            <div class="h-m-val">2026</div>
+            <div class="h-m-lbl" data-i18n="hero.metric_founded">Fondazione</div>
+          </div>
+          <div class="h-m">
+            <div class="h-m-val h-m-val--alt">IT</div>
+            <div class="h-m-lbl" data-i18n="hero.metric_origin">Origine</div>
+          </div>
+        </div>
+
+        <!-- Ratio indicator: CONCEPT 95%H/5%AI · CODE 5%H/95%AI -->
+        <div class="h-ratio">
+          <div class="h-ratio-hd" data-i18n="hero.ratio_hd">// fatto con</div>
+          <div class="h-ratio-row">
+            <span class="h-ratio-tag" data-i18n="hero.ratio_concept">CONCEPT</span>
+            <div class="h-ratio-nums">
+              <span class="rn-human"><span class="rn-pct">95%</span> <span class="rn-lbl" data-i18n="hero.ratio_human">umano</span></span>
+              <span class="rn-sep">·</span>
+              <span class="rn-ai"><span class="rn-pct">5%</span> <span class="rn-lbl" data-i18n="hero.ratio_ai">AI</span></span>
+            </div>
+          </div>
+          <div class="h-ratio-row">
+            <span class="h-ratio-tag" data-i18n="hero.ratio_code">CODICE</span>
+            <div class="h-ratio-nums">
+              <span class="rn-human"><span class="rn-pct">5%</span> <span class="rn-lbl" data-i18n="hero.ratio_human">umano</span></span>
+              <span class="rn-sep">·</span>
+              <span class="rn-ai"><span class="rn-pct">95%</span> <span class="rn-lbl" data-i18n="hero.ratio_ai">AI</span></span>
+            </div>
+          </div>
+          <!-- Tooltip gestito via JS (position:fixed su body per sfuggire alla mask) -->
+        </div>
+
+      </div><!-- /.h-bottom -->
+    </main>
+
+    <!-- Detail panel (injected by Shell) -->
+    <div id="panel-root"></div>
+
+    <!-- Bottombar injected by Layout.inject() -->
+    <div id="footer-root"></div>
+
+  </div><!-- /#ui -->
 
   <script src="js/data/gl-data.js"></script>
+  <script src="js/data/gl-news.js"></script>
   <script src="js/data/i18n/it.js"></script>
   <script src="js/data/i18n/en.js"></script>
+  <script src="js/data/i18n/news-it.js"></script>
+  <script src="js/data/i18n/news-en.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

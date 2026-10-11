@@ -16,7 +16,11 @@ window.GL.i18n.en = {
     "toggleTheme": "Theme",
     "toggleLang": "IT"
   },
+  "intro": {
+    "hint": "Click or press any key to enter"
+  },
   "hero": {
+    "eyebrow": "Personal digital lab · Est. 2026",
     "headline": "Digital engineering.<br>Research. Innovation.",
     "headline_line2": "Digital engineering.",
     "system_status": "SYSTEM ONLINE - GiGa Labor v1.0",
@@ -330,6 +334,7 @@ window.GL.i18n.en = {
     "read_more": "Read more",
     "close": "Close",
     "source": "Source",
+    "empty": "No news available.",
     "group_future": "Upcoming",
     "group_week": "Week"
   },
@@ -381,7 +386,8 @@ window.GL.i18n.en = {
     "s8_text": "For communications:"
   },
   "footer": {
-    "copy": "? 2026 GiGa Labor. All rights reserved.",
+    "updated": "Updated",
+    "copy": "© 2026 GiGa Labor. All rights reserved.",
     "tagline": "Personal digital laboratory.",
     "site_title": "Site",
     "links": {
@@ -390,11 +396,12 @@ window.GL.i18n.en = {
     }
   },
   "ui": {
+    "close": "Close",
     "read_more": "Learn more",
     "open_project": "Open project",
     "view_docs": "Documentation",
     "view_github": "GitHub",
-    "back": "<- Go back",
+    "back": "← Go back",
     "loading": "Loading...",
     "theme_dark": "Dark Tech",
     "theme_light": "Light",

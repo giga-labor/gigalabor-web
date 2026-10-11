@@ -21,7 +21,7 @@
   /* Text */
   --text-primary:   #f0ebe4;
   --text-secondary: #b8a898;
-  --text-muted:     #7a6a58;
+  --text-muted:     #8f7f6b;
   --text-on-accent: #020408;
 
   /* Accents - doppia identita G+G */
@@ -81,7 +81,7 @@
 
   --text-primary:   #2c2318;
   --text-secondary: #6c5841;
-  --text-muted:     #ab9578;
+  --text-muted:     #77644b;
   --text-on-accent: #ffffff;
 
   --accent:         #b66a1f;
@@ -133,7 +133,7 @@
 
   --text-primary:   #ffffff;
   --text-secondary: #c0aa80;
-  --text-muted:     #504030;
+  --text-muted:     #a8926c;
   --text-on-accent: #000000;
 
   --accent:         #ffb000;
@@ -144,7 +144,7 @@
   --accent-3:       #ff3366;
   --accent-amber:   #ffb000;
 
-  --success:        #ffb000;
+  --success:        #8fe06a;
   --warning:        #ff6600;
   --danger:         #ff3366;
 
@@ -172,7 +172,12 @@
 }
 
 /* -- TRANSIZIONI TEMA ------------------------------------- */
-*, *::before, *::after {
+/* Attive solo mentre app.js applica un nuovo tema (classe .theme-switching, ~350ms):
+   una transizione universale permanente rallenta ogni hover e ogni repaint. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
   transition:
     background-color 0.3s ease,
     border-color 0.3s ease,
