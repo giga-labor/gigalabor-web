@@ -53,8 +53,8 @@
   letter-spacing: 0.04em;
   color: var(--text-primary);
 }
-.navbar__logo-text .gi { color: var(--accent); }
-.navbar__logo-text .ga { color: var(--accent-2); }
+.navbar__logo-text .gi { color: var(--brand-blue); }
+.navbar__logo-text .ga { color: var(--brand-amber); }
 .navbar__logo-text .labor {
   color: var(--text-muted);
   font-weight: 400;

@@ -64,28 +64,25 @@ body[data-page="home"] #hero-canvas {
   color: var(--text-muted); margin-bottom: 2rem;
   animation: shellFU .7s .2s both;
 }
+/* Logo: segno SVG + scritta. Le misure sono in em, così le media query che
+   cambiano il font-size di .i-title e .h-title scalano tutto il blocco. */
 .i-title {
-  font-family: 'BioRhyme', serif; font-weight: 800;
   font-size: clamp(5rem, 14vw, 13rem);
-  line-height: .82; letter-spacing: -.05em; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: .1em;
+  line-height: 1; text-align: center;
+}
+.i-mark {
+  width: 2.5em; height: auto; display: block;
+  filter: drop-shadow(0 0 .35em rgba(0, 166, 255, .16));
   animation: shellFU .8s .35s both;
 }
-.i-title .gi { color: var(--accent); text-shadow: 0 0 60px var(--accent-glow); }
-.i-title .ga { color: var(--accent-2); text-shadow: 0 0 60px var(--accent-2-glow); }
-.i-title .labor {
-  display: block;
-  color: transparent;
-  -webkit-text-stroke: 1.2px var(--border-light);
-  position: relative;
+.i-word, .h-word {
+  font-family: 'Quicksand', 'Inter', system-ui, sans-serif; font-weight: 500;
+  letter-spacing: .04em; line-height: 1; white-space: nowrap;
 }
-.i-title .labor::after {
-  content: 'LABOR'; position: absolute; left: 0; top: 0;
-  background: linear-gradient(120deg, var(--accent) 0%, var(--accent-3) 50%, var(--accent-2) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  clip-path: inset(0 100% 0 0);
-  animation: shellWipe 1.5s 1s cubic-bezier(.23,1,.32,1) forwards;
-}
-@keyframes shellWipe { to { clip-path: inset(0 0 0 0); } }
+.i-word { font-size: .36em; animation: shellFU .8s .75s both; }
+.i-word .gi, .i-word .labor, .h-word .gi, .h-word .labor { color: var(--brand-blue); }
+.i-word .ga, .h-word .ga { color: var(--brand-amber); }
 
 .i-divider {
   width: 1px; height: 44px; margin: 2rem auto;
@@ -135,15 +132,14 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
   display: flex; align-items: center; gap: .6rem;
   text-decoration: none; color: inherit; flex-shrink: 0;
 }
-.tb-logo-mark { width: 30px; height: 30px; flex-shrink: 0; }
-.tb-logo-mark svg { width: 100%; height: 100%; }
+.tb-logo-mark { height: 28px; flex-shrink: 0; display: flex; }
+.tb-logo-mark img { height: 100%; width: auto; display: block; }
 .tb-logo-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700; font-size: 1.1rem; letter-spacing: .02em;
+  font-family: 'Quicksand', 'Inter', system-ui, sans-serif;
+  font-weight: 600; font-size: 1.15rem; letter-spacing: .03em; white-space: nowrap;
 }
-.tb-logo-text .gi { color: var(--accent); }
-.tb-logo-text .ga { color: var(--accent-2); }
-.tb-logo-text .labor { color: var(--text-secondary); font-weight: 400; font-size: .85rem; }
+.tb-logo-text .gi, .tb-logo-text .labor { color: var(--brand-blue); }
+.tb-logo-text .ga { color: var(--brand-amber); }
 
 .tb-sep { width: 1px; height: 18px; background: var(--border); flex-shrink: 0; }
 
@@ -244,25 +240,18 @@ body:not([data-page="home"]):not([data-page="splash"]) #intro { display: none; }
   isolation: isolate;
 }
 .h-title {
-  font-family: 'BioRhyme', serif; font-weight: 800;
   font-size: clamp(3.5rem, 8vw, 8rem);
-  line-height: .86; letter-spacing: -.04em; margin-bottom: 1.4rem;
+  display: flex; flex-direction: column; align-items: center; gap: .12em;
+  line-height: 1; margin-bottom: 1.4rem; font-weight: 500;
   animation: shellFU .9s .45s both;
   position: relative;
   isolation: isolate;
 }
-.h-title .gi { color: var(--accent); text-shadow: 0 0 80px var(--accent-glow); }
-.h-title .ga { color: var(--accent-2); text-shadow: 0 0 80px var(--accent-2-glow); }
-.h-title .labor {
-  display: block; color: transparent;
-  -webkit-text-stroke: 1px var(--border-light);
-  position: relative;
+.h-mark {
+  width: 2.8em; height: auto; display: block;
+  filter: drop-shadow(0 0 .4em rgba(0, 166, 255, .18));
 }
-.h-title .labor::after {
-  content: 'LABOR'; position: absolute; left: 0; top: 0;
-  background: linear-gradient(120deg, var(--accent) 0%, var(--accent-3) 50%, var(--accent-2) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
+.h-word { font-size: .42em; }
 .h-tw-wrap {
   display: flex; align-items: center; gap: .5rem; margin-bottom: 1.6rem;
   animation: shellFU .7s .75s both; min-height: 1.4rem;
@@ -628,6 +617,9 @@ body:not([data-page="home"]):not([data-page="splash"])::-webkit-scrollbar-thumb:
 /* ── MOBILE COMPACT ≤479px ───────────────────────────────── */
 @media (max-width: 479px) {
   #tb { height: 52px; }
+  .tb-logo { gap: .45rem; }
+  .tb-logo-mark { height: 22px; }
+  .tb-logo-text { font-size: .95rem; }
   #hero { top: 52px; padding: 0 1rem; }
   .h-title { font-size: clamp(2.4rem, 12vw, 4rem); }
   .h-eyebrow { font-size: .62rem; letter-spacing: .16em; }

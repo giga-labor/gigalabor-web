@@ -12,8 +12,8 @@ window.GL.newsStrings['it'] = {
   'claude-haiku-5-5': {
     date:         '7 ottobre 2026',
     title:        'Claude Haiku 5.5: il modello piccolo di Anthropic costa il 75% in meno',
-    excerpt:      "Anthropic rilascia Haiku 5.5: contesto da 1 milione di token, sforzo di ragionamento regolabile e prezzi da 0,10 $ per milione di token in ingresso.",
-    body:         "Il 7 ottobre 2026 Anthropic ha rilasciato Claude Haiku 5.5, presentato come il suo modello piccolo più economico, veloce e capace. È pensato per i carichi ad alto volume: riassunti, compattazione del contesto, interrogazioni su database, classificazione, assistenza in tempo reale e lavoro da sub-agente.\n\nIn media costa circa il 75% in meno di Haiku 4.5: il listino per sviluppatori parte da 0,10 $ per milione di token in ingresso e 0,50 $ per milione in uscita. Il modello ha una finestra di contesto da 1 milione di token, fino a 128.000 token in uscita ed è il primo della classe Haiku con un livello di sforzo regolabile, che permette di scambiare costo e qualità della risposta. Con lo stesso annuncio Anthropic ha dimezzato il prezzo delle letture da cache di Sonnet 5.5.\n\nHaiku 5.5 è selezionabile su Claude.ai da tutti i piani, compreso quello gratuito, ed è disponibile via API, in Claude Code e sulle principali piattaforme cloud. Per la programmazione agentica complessa Anthropic continua a indicare Sonnet 5.5 e Opus 5.5, e avverte che il codice scritto per Haiku 4.5 può richiedere adattamenti.",
+    excerpt:      "Anthropic rilascia Haiku 5.5: sforzo di ragionamento regolabile, prezzi da 0,10 $ per milione di token in ingresso e un costo medio inferiore del 75% rispetto a Haiku 4.5.",
+    body:         "Il 7 ottobre 2026 Anthropic ha rilasciato Claude Haiku 5.5, il modello piccolo della famiglia 5.5. È pensato per i carichi ad alto volume e sensibili al costo: riassunti, compattazione del contesto, interrogazioni su database, classificazione, assistenza clienti in tempo reale, uso del browser e lavoro da sub-agente accanto a Opus 5.5 e Sonnet 5.5.\n\nPer le richieste fino a 100.000 token il listino è di 0,10 $ per milione di token in ingresso e 0,50 $ in uscita, il 90% in meno di Haiku 4.5; oltre quella soglia i prezzi salgono a 0,50 $ e 2,50 $, la metà del predecessore. Anthropic stima un risparmio medio intorno al 75%. Haiku 5.5 è il primo modello della classe Haiku con un livello di sforzo regolabile, da basso a massimo, che permette di scambiare costo e qualità della risposta. Con lo stesso annuncio il prezzo delle letture da cache di Sonnet 5.5 è stato dimezzato, da 0,20 $ a 0,10 $ per milione di token.\n\nIl modello è disponibile da subito sulla Claude Platform e su Amazon Web Services, Google Cloud e Microsoft Azure. Per la programmazione agentica complessa Anthropic continua a indicare Sonnet 5.5 e Opus 5.5. Chi migra da Haiku 4.5 deve tenere conto del nuovo tokenizer, che usa qualche token in più per lo stesso compito.",
     badge:        'Rilasciato',
     source_label: 'Fonte:',
     source_name:  'Anthropic',
@@ -24,62 +24,128 @@ window.GL.newsStrings['it'] = {
     date:         '7 ottobre 2026',
     title:        'OpenAI porta GPT-6 e le risposte interattive a tutti gli utenti di ChatGPT',
     excerpt:      "Dal 7 ottobre GPT-6 arriva nella chat di tutti i piani insieme a Intelligent UI: le risposte possono contenere grafici, calcolatori, mappe e controlli interattivi.",
-    body:         "Il 7 ottobre 2026 OpenAI ha avviato la distribuzione globale di GPT-6 nella chat di ChatGPT insieme a Intelligent UI. I piani Plus, Pro, Business ed Enterprise sono partiti per primi; Free e Go dal giorno successivo. Per le aziende la disponibilità dipende dalle impostazioni degli amministratori.\n\nCon Intelligent UI una risposta non è più soltanto testo: può includere pulsanti, calcolatori costruiti per il compito, grafici modificabili, diagrammi e mappe da manipolare dentro la conversazione. Quando il testo resta il formato più chiaro la risposta rimane testuale, e l'utente può ridurre la quantità di elementi visivi.\n\nSecondo quanto riportato, i piani a pagamento usano GPT-6 Sol e quelli gratuiti GPT-6 Luna; i modelli dietro le modalità Work e Codex non cambiano. OpenAI inquadra il rilascio sulla base di oltre 1,2 miliardi di persone che usano ChatGPT ogni settimana. I primi modelli GPT-6 erano arrivati ai clienti paganti a settembre.",
+    body:         "Il 7 ottobre 2026 OpenAI ha avviato la distribuzione di GPT-6 nella chat di ChatGPT insieme a Intelligent UI. I piani Plus, Pro, Business ed Enterprise sono partiti per primi; Free e Go dal giorno successivo. Il rilascio è graduale e per le aziende la disponibilità dipende dalle impostazioni degli amministratori.\n\nCon Intelligent UI una risposta non è più soltanto testo: può includere confronti affiancati, diagrammi interattivi con parametri regolabili, mappe di viaggio, calcolatori costruiti per il compito e piccoli giochi dentro la conversazione. Quando il testo resta il formato più chiaro la risposta rimane testuale.\n\nSecondo quanto riportato, i piani a pagamento usano GPT-6 Sol e quelli gratuiti GPT-6 Luna; i modelli dietro le modalità Work e Codex non cambiano. OpenAI inquadra il rilascio su una base di oltre 1,2 miliardi di persone che usano ChatGPT ogni settimana: è il pubblico potenziale, non il numero di chi ha già la funzione.",
     badge:        'Rilasciato',
     source_label: 'Fonte:',
     source_name:  'OpenAI',
     source_url:   'https://openai.com/index/gpt-6-for-everyone/'
   },
 
-  'gtig-ai-vulnerabilities': {
-    date:         '1 ottobre 2026',
-    title:        "Google: metà delle vulnerabilità scoperte dall'AI porta a esecuzione di codice remoto",
-    excerpt:      "Il gruppo di threat intelligence di Google misura l'effetto dell'AI sulla ricerca di falle: divulgazioni mensili raddoppiate nel 2026 e sfruttamento in pochi giorni.",
-    body:         "Il Google Threat Intelligence Group (GTIG) ha pubblicato un'analisi su come l'AI sta cambiando la scoperta e lo sfruttamento delle vulnerabilità, basata su dati da gennaio 2025 ad agosto 2026. Le divulgazioni mensili di CVE sono raddoppiate in otto mesi, da 5.045 a gennaio 2026 a 10.740 ad agosto. Solo lo 0,23% risulta sfruttato in attacchi reali, ma in numeri assoluti i casi crescono: 141 nei primi otto mesi del 2026 contro 127 in tutto il 2025.\n\nLe falle trovate da sistemi AI hanno un profilo diverso: il 50% porta a esecuzione di codice remoto, contro il 26% delle altre. Anche i tempi si accorciano: CVE-2026-1731, individuata in autonomia dall'agente di ricerca Hacktron nei prodotti di accesso remoto BeyondTrust, è stata sfruttata da un primo gruppo entro quattro giorni dalla divulgazione e da altri cinque entro una settimana.\n\nIl software per l'AI è a sua volta un bersaglio: 2.076 vulnerabilità tracciate nel periodo, oltre 1.500 delle quali nel 2026, metà nei framework di orchestrazione di agenti come Flowise e Langflow; altre 212 riguardano il software di inferenza come vLLM, Ollama e LiteLLM. GTIG raccomanda di abbandonare il patching di massa senza priorità a favore di un triage guidato dall'intelligence, con difesa mirata dei sistemi esposti e correzioni automatizzate.",
-    badge:        'Rapporto',
+  'mistral-large-4': {
+    date:         '6 ottobre 2026',
+    title:        'Mistral Large 4 in anteprima pubblica: un trilione di parametri e pesi aperti entro il mese',
+    excerpt:      "Mistral presenta il suo modello più grande: circa mille miliardi di parametri, multimodale, addestrato in datacenter europei. Per ora via API, con i pesi aperti promessi entro fine ottobre.",
+    body:         "Il 6 ottobre 2026 Mistral ha aperto l'anteprima pubblica di Mistral Large 4, accessibile via API su Mistral Studio. È un modello mixture-of-experts da circa mille miliardi di parametri totali, di cui 52 miliardi attivi, nativamente multimodale e descritto come ibrido tra modello istruito e modello di ragionamento. I pesi aperti sono promessi entro la fine del mese; la licenza non è ancora indicata.\n\nIl modello è stato addestrato da zero su 3.800 GPU NVIDIA Grace Blackwell nei datacenter europei di Mistral, con dati in oltre 160 lingue, comprese tutte le lingue ufficiali dell'UE. Il listino indicato è di 1,36 $ per milione di token in ingresso e 4,18 $ in uscita. Mistral lo presenta come il primo traguardo finanziato dal round Series D da 3 miliardi di euro.\n\nI risultati dichiarati, in parte misurati da terzi, includono il 61,7% su DeepSWE v1.1 e il 59,9% su AutomationBench. In una valutazione umana alla cieca condotta da Surge AI sul codice è arrivato secondo su cinque, dietro Claude Opus 5. Sono numeri forniti dall'azienda, in attesa di verifiche indipendenti sui pesi.",
+    badge:        'Anteprima',
     source_label: 'Fonte:',
-    source_name:  'Google Threat Intelligence Group',
-    source_url:   'https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era'
+    source_name:  'Mistral AI',
+    source_url:   'https://mistral.ai/news/mistral-large-4'
+  },
+
+  'nano-banana-2-1': {
+    date:         '6 ottobre 2026',
+    title:        'Google rilascia Nano Banana 2.1: immagini migliori a metà prezzo',
+    excerpt:      "Il nuovo modello di generazione e modifica di immagini di Google migliora ritocco localizzato e coerenza dei soggetti, e per gli sviluppatori costa circa la metà del predecessore.",
+    body:         "Il 6 ottobre 2026 Google ha rilasciato Nano Banana 2.1, successore di Nano Banana 2. Il modello è in distribuzione nell'app Gemini, nella AI Mode della Ricerca Google, in Google Ads e negli strumenti per sviluppatori, tra cui Google AI Studio, Flow e Stitch.\n\nGoogle indica tre miglioramenti principali: resa visiva, ritocco con maschera più preciso (si segna una zona e cambia solo quella) e maggiore coerenza dei soggetti. Il modello accetta fino a 14 immagini di riferimento, mantiene fino a quattro personaggi e dieci oggetti, produce immagini fino al 4K e può appoggiarsi alla Ricerca Google per i contenuti fattuali.\n\nPer gli sviluppatori un'immagine standard a 1K costa 0,0336 $, contro 0,067 $ di Nano Banana 2; a 4K il prezzo è di 0,0756 $. I lavori in batch hanno un ulteriore sconto del 50%. I confronti di qualità pubblicati al lancio sono test interni di Google.",
+    badge:        'Rilasciato',
+    source_label: 'Fonte:',
+    source_name:  'Decrypt',
+    source_url:   'https://decrypt.co/380257/google-launches-nano-banana-2-1'
+  },
+
+  'reflection-beam': {
+    date:         '5 ottobre 2026',
+    title:        'Reflection AI presenta Beam, modello a pesi aperti che sfida quelli cinesi',
+    excerpt:      "La startup fondata da due ex ricercatori di Google DeepMind annuncia il suo primo modello di frontiera aperto: 501 miliardi di parametri e, secondo l'azienda, un terzo del calcolo dei rivali.",
+    body:         "Il 5 ottobre 2026 Reflection AI ha presentato Beam, il suo primo modello di frontiera a pesi aperti. È un modello mixture-of-experts solo testuale, con 501 miliardi di parametri totali e 23 miliardi attivi, una finestra di contesto da 1 milione di token e un addestramento basato su apprendimento per rinforzo ad alto consumo di calcolo. È pensato per ragionamento, programmazione e compiti agentici.\n\nReflection dichiara risultati alla pari con GLM-5.2 di Z.ai sui benchmark di ragionamento avanzato, pur con un modello più piccolo, e un consumo di calcolo in inferenza da tre a quattro volte inferiore a quello dei modelli comparabili. Al momento dell'annuncio non erano disponibili punteggi dettagliati né verifiche indipendenti. Pesi e documentazione tecnica sono attesi entro ottobre; la licenza non è stata indicata.\n\nLa società, fondata nel 2024 a Brooklyn, ha raccolto circa 4,7 miliardi di dollari da investitori come Nvidia, Sequoia e Lightspeed e ha firmato accordi di calcolo per oltre 7 miliardi. Punta su aziende e governi che vogliono addestrare i modelli sui propri dati.",
+    badge:        'Annunciato',
+    source_label: 'Fonte:',
+    source_name:  'TechCrunch',
+    source_url:   'https://techcrunch.com/2026/10/05/reflection-debuts-beam-a-open-weight-ai-model-to-rival-chinese-models-at-lower-compute-cost/'
   },
 
   'gemini-4-argon': {
     date:         '30 settembre 2026',
     title:        'Google presenta Gemini 4 Argon, per ora riservato a chi fa difesa informatica',
     excerpt:      "Il nuovo modello di frontiera di Google punta su ingegneria del software, lavoro d'ufficio specialistico e cybersicurezza. Accesso iniziale limitato al programma Fairwind.",
-    body:         "Il 30 settembre 2026 Google DeepMind ha annunciato Gemini 4 Argon, il suo nuovo modello di frontiera, orientato a ingegneria del software reale, lavoro specialistico in ambito legale e finanziario e difesa informatica. Il limite di output sale da 64.000 a 1 milione di token.\n\nGoogle dichiara risultati allo stato dell'arte su diversi benchmark: 77,9% su DeepSWE v1.1 (ingegneria del software a lungo orizzonte), 91,7% su LVBench (comprensione di video lunghi) e 68% su CWE-bench v1 (correzione di vulnerabilità), a pari merito con il primo.\n\nIl modello non è ancora disponibile al pubblico: viene distribuito prima ai difensori informatici verificati del programma Fairwind, mentre Google partecipa al processo volontario di accesso pre-rilascio del governo statunitense. Il rilascio più ampio è annunciato a breve, a partire dai clienti API paganti e dagli abbonati Google AI Ultra. Prezzo introduttivo: 2 $ per milione di token in ingresso e 10 $ in uscita, destinati a raddoppiare al termine del periodo di lancio.",
+    body:         "Il 30 settembre 2026 Google DeepMind ha annunciato Gemini 4 Argon, il suo nuovo modello di frontiera, orientato a ingegneria del software reale, lavoro specialistico in ambito legale e finanziario e difesa informatica. Il limite di output sale da 64.000 a 1 milione di token.\n\nGoogle dichiara risultati allo stato dell'arte su diversi benchmark: 77,9% su DeepSWE v1.1 (ingegneria del software a lungo orizzonte), 91,7% su LVBench (comprensione di video lunghi) e 68% su CWE-bench v1 (correzione di vulnerabilità), a pari merito con il primo.\n\nIl modello non è ancora disponibile al pubblico: viene distribuito prima ai difensori informatici verificati del programma Fairwind, mentre Google partecipa al processo volontario di accesso pre-rilascio del governo statunitense. Il rilascio più ampio è annunciato a breve, senza una data, a partire dai clienti API paganti e dagli abbonati Google AI Ultra. Prezzo introduttivo: 2 $ per milione di token in ingresso e 10 $ in uscita, che diventeranno 4 $ e 20 $ al termine del periodo di lancio.",
     badge:        'Accesso limitato',
     source_label: 'Fonte:',
     source_name:  'Google',
     source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/'
   },
 
+  'gtig-ai-vulnerabilities': {
+    date:         '30 settembre 2026',
+    title:        "Google: metà delle vulnerabilità scoperte dall'AI porta a esecuzione di codice remoto",
+    excerpt:      "Il gruppo di threat intelligence di Google misura l'effetto dell'AI sulla ricerca di falle: divulgazioni mensili raddoppiate nel 2026 e sfruttamento in pochi giorni.",
+    body:         "Il Google Threat Intelligence Group (GTIG) ha pubblicato un'analisi su come l'AI sta cambiando la scoperta e lo sfruttamento delle vulnerabilità, basata su dati da gennaio 2025 ad agosto 2026. Le divulgazioni mensili di CVE sono raddoppiate in otto mesi, da 5.045 a gennaio 2026 a 10.740 ad agosto. Solo lo 0,23% risulta sfruttato in attacchi reali, ma in numeri assoluti i casi crescono: 141 nei primi otto mesi del 2026 contro 127 in tutto il 2025.\n\nLe falle trovate da sistemi AI hanno un profilo diverso: il 50% porta a esecuzione di codice remoto, contro il 26% dell'insieme delle CVE. Anche i tempi si accorciano: CVE-2026-1731, individuata in autonomia dall'agente di ricerca Hacktron AI nei prodotti di accesso remoto BeyondTrust, è stata sfruttata da un primo gruppo entro quattro giorni dalla divulgazione e da altri cinque entro una settimana.\n\nIl software per l'AI è a sua volta un bersaglio: 2.076 vulnerabilità tracciate nel periodo, oltre 1.500 delle quali nel 2026, circa metà nei framework di orchestrazione di agenti; altre 212 nel 2026 riguardano il software di inferenza come vLLM, Ollama e LiteLLM. GTIG raccomanda di abbandonare il patching di massa senza priorità a favore di un triage guidato dall'intelligence, con difesa mirata dei sistemi esposti e correzioni automatizzate.",
+    badge:        'Rapporto',
+    source_label: 'Fonte:',
+    source_name:  'Google Threat Intelligence Group',
+    source_url:   'https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era'
+  },
+
+  'claude-sonnet-5-5': {
+    date:         '28 settembre 2026',
+    title:        'Claude Sonnet 5.5: più veloce del 30% allo stesso prezzo',
+    excerpt:      "Il secondo modello della famiglia Claude 5.5 mantiene il listino di Sonnet 5 ma genera più in fretta e usa meno token per compito.",
+    body:         "A fine settembre 2026, circa una settimana dopo Opus 5.5, Anthropic ha rilasciato Claude Sonnet 5.5, secondo modello della famiglia 5.5 e pensato per il lavoro di tutti i giorni. Il listino resta quello di Sonnet 5: 2 $ per milione di token in ingresso e 10 $ in uscita.\n\nLa novità è l'efficienza: l'output è generato oltre il 30% più in fretta rispetto a Sonnet 5 e, secondo Anthropic, il costo effettivo per compito scende fino al 30% perché servono meno token. Sul benchmark di lavoro professionale GDPval-AA il punteggio è quasi pari a quello di Opus 5.5, che resta il modello indicato per i compiti più complessi e aperti.\n\nSonnet 5.5 è disponibile nell'app Claude e sulle principali piattaforme cloud. Il livello di sforzo predefinito è medio in Claude Code e nelle app, alto sulla Claude Platform.",
+    badge:        'Rilasciato',
+    source_label: 'Fonte:',
+    source_name:  'ITdaily',
+    source_url:   'https://itdaily.com/news/software/claude-sonnet-5-5/'
+  },
+
+  'claude-opus-5-5': {
+    date:         '22 settembre 2026',
+    title:        'Anthropic rilascia Claude Opus 5.5: prestazioni da Fable 5.1 al 40% in meno di Opus 5',
+    excerpt:      "Il primo modello della famiglia Claude 5.5 scende a 4 $ e 20 $ per milione di token, è oltre il 30% più veloce di Opus 5 e ottiene il miglior risultato nei test di comportamento di Anthropic.",
+    body:         "Il 22 settembre 2026 Anthropic ha rilasciato Claude Opus 5.5, primo modello della famiglia 5.5. L'azienda lo descrive come un salto netto rispetto a Opus 5 e all'altezza di Claude Fable 5.1 sulla maggior parte del lavoro, pur precisando che nell'uso reale il distacco è più stretto di quanto dicano i benchmark. Tra i risultati dichiarati: 66,4% su Terminal-Bench 4.0 (contro 55,8% di Fable 5.1 e 52,3% di Opus 5) e 54,4% su FrontierCode v1.1.\n\nIl listino scende a 4 $ per milione di token in ingresso e 20 $ in uscita, con le letture da cache a 0,20 $. Sommando prezzi più bassi e minore consumo, Anthropic stima un costo inferiore di circa il 40% sui carichi tipici; l'output è oltre il 30% più veloce. In un test di riscrittura di HAProxy da C a Rust il modello ha finito in 9,5 ore, contro le 12 di Fable 5.1, con un costo inferiore del 51%.\n\nSul fronte sicurezza, Opus 5.5 ha ottenuto il miglior punteggio tra i modelli sottoposti all'audit comportamentale automatico di Anthropic e ha tentato di aggirare i confini di contenimento circa l'85% in meno di Opus 5. La maggior parte dei compiti di cybersicurezza viene reindirizzata a Opus 4.8, salvo per i professionisti verificati. Anthropic segnala anche un limite dei test: il modello sospetta spesso di essere sotto valutazione. È disponibile su tutte le piattaforme, comprese AWS, Google Cloud e Microsoft Azure.",
+    badge:        'Rilasciato',
+    source_label: 'Fonte:',
+    source_name:  'Anthropic',
+    source_url:   'https://www.anthropic.com/news/claude-opus-5-5'
+  },
+
+  'ai-act-2026': {
+    date:         '2 agosto 2026',
+    title:        'AI Act UE: gli obblighi di trasparenza sono in vigore',
+    excerpt:      "Dal 2 agosto 2026 chatbot, deepfake e contenuti sintetici devono essere dichiarati. Gli obblighi per i sistemi ad alto rischio slittano invece a dicembre 2027.",
+    body:         "Dal 2 agosto 2026 si applicano gli obblighi di trasparenza dell'articolo 50 dell'AI Act, a prescindere dalla classificazione di rischio del sistema. Chi fornisce un chatbot deve informare le persone che stanno interagendo con un'AI, salvo che sia evidente dal contesto. Audio, immagini, video e testi sintetici vanno marcati in un formato leggibile dalle macchine, e chi diffonde deepfake di persone, luoghi o eventi reali deve dichiararlo. Chi usa sistemi di riconoscimento delle emozioni o di categorizzazione biometrica deve informare le persone esposte.\n\nPer i sistemi generativi già sul mercato prima del 2 agosto c'è tempo fino al 2 dicembre 2026 per adeguarsi all'obbligo di marcatura. Le sanzioni per chi viola l'articolo 50 arrivano a 15 milioni di euro o al 3% del fatturato mondiale annuo.\n\nIl calendario del resto del regolamento è invece cambiato con l'Omnibus sull'AI, il Regolamento (UE) 2026/1744 in vigore dal 27 luglio 2026: gli obblighi per i sistemi ad alto rischio dell'Allegato III slittano al 2 dicembre 2027, quelli per i sistemi integrati in prodotti regolamentati (Allegato I) al 2 agosto 2028. Dal 2 dicembre 2026 si applicano inoltre nuovi divieti, su app di nudificazione e sistemi capaci di generare materiale pedopornografico, con sanzioni fino a 35 milioni di euro o al 7% del fatturato.",
+    badge:        'In vigore',
+    source_label: 'Fonte:',
+    source_name:  'Goodwin',
+    source_url:   'https://www.goodwinlaw.com/en/insights/publications/2026/08/alerts-technology-dpc-eu-ai-act-transparency-obligations-now-in-force'
+  },
+
+  'openai-ipo-2026': {
+    date:         '8 giugno 2026',
+    title:        'OpenAI deposita in via confidenziale la bozza per la quotazione',
+    excerpt:      "L'8 giugno 2026 OpenAI ha confermato di aver presentato alla SEC una bozza di S-1 in via confidenziale. I tempi dell'esordio in borsa non sono stati decisi.",
+    body:         "L'8 giugno 2026 OpenAI ha annunciato di aver presentato in via confidenziale alla Securities and Exchange Commission una bozza del modulo S-1, primo passo formale verso la quotazione. La società ha precisato di non aver ancora stabilito quando avverrà l'esordio sui mercati, e non ha reso noti prezzo delle azioni, obiettivo di raccolta né dati finanziari di dettaglio.\n\nLe attese della stampa erano più strette: a maggio le ricostruzioni indicavano un deposito imminente, una quotazione possibile già da settembre e una valutazione fino a 1.000 miliardi di dollari, a partire dagli 852 miliardi dell'ultimo round privato. Goldman Sachs e Morgan Stanley erano indicate tra le banche al lavoro sul prospetto. Sempre secondo la stampa, nel primo trimestre 2026 i ricavi sono stati vicini a 6 miliardi di dollari, con l'azienda ancora in forte perdita.\n\nIl deposito è arrivato una settimana dopo quello di Anthropic. A inizio ottobre 2026 non risulta ancora un prospetto pubblico.",
+    badge:        'In attesa',
+    source_label: 'Fonte:',
+    source_name:  'Fortune',
+    source_url:   'https://fortune.com/2026/05/22/openai-ipo-filing-1-trillion-may-finally-answer-these-big-questions/'
+  },
+
   'anthropic-recursive-self-improvement': {
     date:         '4 giugno 2026',
     title:        'Anthropic: "L\'AI sta imparando a costruire se stessa"',
-    excerpt:      "L'Anthropic Institute documenta come l'AI stia accelerando il proprio sviluppo: oggi oltre l'80% del codice di Anthropic è scritto da Claude, con ingegneri 8× più produttivi rispetto al 2024.",
-    body:         "Il 4 giugno 2026, l'Anthropic Institute ha pubblicato 'When AI builds itself', un'analisi dettagliata su come l'intelligenza artificiale stia accelerando il proprio sviluppo fino a una potenziale ricorsività. I dati interni di Anthropic sono eloquenti: ad oggi oltre l'80% del codice integrato nel codebase di Anthropic è scritto da Claude. Nel secondo trimestre 2026, un ingegnere tipico integra 8× più codice al giorno rispetto al 2024 — non perché lavori di più, ma perché Claude scrive il codice mentre il ricercatore dirige e revisiona. I benchmark di ingegneria del software (SWE-bench) sono passati da punteggi a singola cifra alla saturazione in due anni; Claude Mythos Preview raggiunge uno speedup ~52× nell'ottimizzazione del codice di training (contro ~3× di Opus 4 un anno prima e ~4× di un ricercatore umano in 4–8 ore).\n\nSull'autonomia nella ricerca, a aprile 2026 Claude ha condotto autonomamente un intero esperimento di AI safety — dalla proposta delle ipotesi all'iterazione sui risultati — recuperando il 97% del gap misurato, rispetto al 23% ottenuto da due ricercatori umani in una settimana. Su task open-ended, il tasso di successo di Claude Code è passato dal 26% al 76% in sei mesi. Claude Mythos Preview ha lavorato autonomamente per «almeno 16 ore» secondo METR, «al limite superiore di ciò che riesce a misurare senza nuovi task».\n\nAnthropic identifica tre scenari futuri: la curva si piega prima della soglia critica, si ha un compounding di efficienza con gli umani ancora al timone, oppure si raggiunge il vero auto-miglioramento ricorsivo in cui i modelli progettano e addestrano i propri successori. In quest'ultimo scenario — ritenuto plausibile ma non inevitabile — il ritmo dell'AI sarebbe limitato solo dalla disponibilità di compute. Il documento si chiude con un appello alla costruzione di meccanismi di verifica internazionali che rendano credibile una pausa coordinata nello sviluppo frontier, se mai necessaria.",
+    excerpt:      "L'Anthropic Institute documenta come l'AI stia accelerando il proprio sviluppo: oltre l'80% del codice integrato da Anthropic è scritto da Claude. Il testo è stato aggiornato a settembre.",
+    body:         "Nel saggio 'When AI builds itself' l'Anthropic Institute analizza quanto l'intelligenza artificiale stia già accelerando il proprio sviluppo. A maggio 2026 oltre l'80% del codice integrato nel codebase di Anthropic era scritto da Claude. Nel secondo trimestre 2026 un ingegnere tipico integrava otto volte più codice al giorno rispetto al 2024, anche se gli autori avvertono che le righe di codice sono una misura imperfetta e che il dato è quasi certamente sovrastimato: in un sondaggio interno la stima mediana era di circa quattro volte.\n\nSull'autonomia nella ricerca il testo riporta due casi. In un compito di ottimizzazione del codice di addestramento Claude Mythos Preview ha ottenuto un'accelerazione di circa 52 volte, contro le 3 di Opus 4 un anno prima e le 4 di un ricercatore esperto in 4-8 ore. In un esperimento di sicurezza dell'aprile 2026 gli agenti basati su Claude hanno recuperato il 97% del divario misurato, contro il 23% di due ricercatori umani in una settimana; il risultato però non si è trasferito bene ai modelli di produzione, e problema e criteri di valutazione erano stati scelti da persone. Sui compiti più aperti il tasso di successo di Claude Code è salito di 50 punti in sei mesi, al 76% a maggio; l'aggiornamento del 18 settembre lo porta al 91%.\n\nGli autori delineano tre scenari: la tendenza si arresta, e lo ritengono improbabile; i guadagni di efficienza si sommano mentre le persone continuano a decidere la direzione della ricerca, lo scenario giudicato più probabile; oppure si arriva a un auto-miglioramento ricorsivo completo, quello su cui dichiarano più incertezza. Anthropic scrive che avere la possibilità di rallentare o sospendere lo sviluppo di frontiera sarebbe un bene, e che lo farebbe se gli altri sviluppatori facessero lo stesso in modo verificabile: da qui l'impegno a lavorare su sistemi di verifica.",
     badge:        'Ricerca',
     source_label: 'Fonte:',
     source_name:  'Anthropic Institute',
     source_url:   'https://www.anthropic.com/institute/recursive-self-improvement'
   },
 
-  'anthropic-ipo-2026': {
-    date:         '1 giugno 2026 (in arrivo)',
-    title:        'Anthropic deposita la domanda di IPO in via confidenziale',
-    excerpt:      "Anthropic ha depositato l'S-1 in via confidenziale presso la SEC il 1° giugno 2026, con una valutazione di $965 miliardi dopo aver raccolto $65 miliardi nel più grande round della storia AI.",
-    body:         "Il 1° giugno 2026, Anthropic ha depositato in via confidenziale la documentazione per la sua IPO presso la U.S. Securities and Exchange Commission. L'annuncio arriva pochi giorni dopo la chiusura del round Series H da $65 miliardi — il più grande della storia dell'industria AI — che ha portato la valutazione dell'azienda a $965 miliardi, a un passo dal traguardo dei $1.000 miliardi.\n\nIl revenue run rate di Anthropic ha raggiunto $47 miliardi annui, in forte crescita rispetto ai $10 miliardi del 2025, trainati principalmente da Claude Code — il suo assistente AI per la scrittura di codice — e dai servizi API enterprise. Il deposito confidenziale consente di avviare la revisione regolatoria SEC senza obbligo di disclosure pubblica immediata, gestendo in privato le eventuali osservazioni prima del prospetto definitivo.\n\nL'annuncio sorprende i mercati per i tempi: Anthropic supera il rivale OpenAI anche nella corsa verso Wall Street. OpenAI stava preparando la propria domanda di IPO, ma è Anthropic ad arrivare prima. La quotazione attesa per l'autunno 2026 rappresenterebbe uno dei più grandi debutti borsistici della storia tech.",
-    badge:        'In arrivo',
-    source_label: 'Fonte:',
-    source_name:  'Fortune',
-    source_url:   'https://fortune.com/2026/06/01/anthropic-confidentially-files-ipo-965-billion-valuation/'
-  },
-
   'microsoft-build-2026': {
     date:         '2 giugno 2026',
-    title:        'Microsoft Build 2026: sette modelli MAI e Windows come OS per agenti AI',
-    excerpt:      "Build 2026 ha presentato sette nuovi modelli MAI sviluppati internamente, il riposizionamento di Windows come piattaforma per agenti autonomi e il chip quantistico Majorana 2.",
-    body:         "Il 2 giugno 2026, Microsoft ha tenuto il suo evento annuale Build a Fort Mason Center, San Francisco. Il CEO Satya Nadella ha presentato sette nuovi modelli AI sviluppati internamente dal Microsoft AI Superintelligence Team: MAI-Thinking-1 (ragionamento, 35B parametri attivi, finestra di contesto 256K), MAI-Code-1-Flash (coding), MAI-Image-2.5 (generazione immagini), MAI-Transcribe-1.5 (trascrizione) e MAI-Voice-2 (sintesi vocale). MAI-Code-1 è già disponibile in Copilot e VS Code.\n\nIl segnale strategico più importante è il riposizionamento di Windows: Microsoft lo ridefinisce come un ambiente di esecuzione sicuro e di prima classe per agenti AI autonomi, non più solo un sistema operativo per applicazioni desktop. In parallelo è stato annunciato Project Solara — una nuova piattaforma basata su Android per dispositivi agent-driven, in cui gli agenti AI sostituiscono le app tradizionali.\n\nAltri annunci rilevanti: le Work IQ APIs (disponibili dal 16 giugno) offrono accesso programmabile all'intelligence layer aziendale; Web IQ è un motore di ricerca AI-first e MCP-native per il grounding in tempo reale, 2,5× più veloce dei competitor. Sul fronte hardware, Majorana 2 è il nuovo chip quantistico con affidabilità dei qubit 1.000× superiore alla generazione precedente, con un percorso verso un milione di qubit su un singolo chip.",
+    title:        'Microsoft Build 2026: sette modelli MAI e Windows come runtime per agenti',
+    excerpt:      "A Build 2026 Microsoft ha presentato sette modelli MAI sviluppati internamente, Windows come ambiente nativo per gli agenti e il chip quantistico Majorana 2.",
+    body:         "Alla conferenza Build 2026 Microsoft ha presentato sette modelli sviluppati internamente. MAI-Thinking-1 è il suo primo modello di ragionamento addestrato da zero: 35 miliardi di parametri attivi, finestra di contesto da 256.000 token, in anteprima privata su Foundry. Gli altri sono MAI-Image-2.5 e la variante Flash per le immagini, MAI Transcribe 1.5 per la trascrizione in 43 lingue, MAI-Voice-2 e la variante Flash per la sintesi vocale, e MAI-Code-1, modello per la programmazione già disponibile in Copilot e VS Code.\n\nSul fronte del sistema operativo, Microsoft dichiara di voler fare di Windows un runtime nativo per gli agenti. Lo strumento è Microsoft Execution Containers (MXC), in anteprima: ambienti isolati e imposti dal sistema operativo dentro cui un agente può eseguire flussi in più passaggi.\n\nAltri annunci: le Work IQ API, disponibili dal 16 giugno, e Web IQ, uno stack di ricerca web pensato per l'AI, indipendente dal modello e nativo MCP, che secondo Microsoft restituisce i passaggi rilevanti quasi 2,5 volte più in fretta della migliore alternativa. Per l'hardware quantistico, Majorana 2 promette un'affidabilità mille volte superiore alla generazione precedente e un percorso verso un milione di qubit su un singolo chip, con l'obiettivo di una macchina scalabile entro il 2029.",
     badge:        'Piattaforma',
     source_label: 'Fonte:',
     source_name:  'Microsoft Blog',
@@ -88,123 +154,112 @@ window.GL.newsStrings['it'] = {
 
   'anthropic-mythos': {
     date:         '2 giugno 2026',
-    title:        'Claude Mythos e Project Glasswing: 150 organizzazioni in 15+ paesi',
-    excerpt:      "Anthropic ha esteso Project Glasswing portando Claude Mythos Preview — un modello frontier non pubblico ottimizzato per la cybersecurity — a 150 nuove organizzazioni di infrastrutture critiche.",
-    body:         "Il 2 giugno 2026, Anthropic ha annunciato la seconda fase di Project Glasswing, il programma per rafforzare la sicurezza delle infrastrutture critiche tramite Claude Mythos Preview. Dopo una prima fase con 50 partner — tra cui agenzie governative degli Stati Uniti — l'accesso è stato esteso a 150 nuove organizzazioni in 15+ paesi, con focus su energia, acqua, sanità, comunicazioni e hardware.\n\nClaude Mythos Preview è un modello frontier non ancora rilasciato al pubblico, ottimizzato per la sicurezza informatica con capacità che superano tutti gli esperti umani tranne i più specializzati nell'identificazione e sfruttamento di vulnerabilità software. Nelle settimane precedenti l'annuncio il modello aveva già identificato migliaia di vulnerabilità ad alto rischio, alcune presenti in ogni principale sistema operativo e browser web. Il governo giapponese, le principali istituzioni finanziarie nipponiche e il governo australiano hanno ricevuto l'accesso.\n\nProject Glasswing rappresenta un cambio di paradigma: invece di aspettare che i vendor sistemino le vulnerabilità, Anthropic mette direttamente in mano ai proprietari dei sistemi critici uno strumento per trovare e correggere falle prima che vengano sfruttate. L'accesso al modello rimane controllato e soggetto a vetting, dato il rischio duale della tecnologia.",
+    title:        'Claude Mythos e Project Glasswing: 150 organizzazioni in oltre 15 paesi',
+    excerpt:      "Anthropic estende Project Glasswing: Claude Mythos Preview, modello non pubblico specializzato nella ricerca di vulnerabilità, arriva a circa 150 nuove organizzazioni di infrastrutture critiche.",
+    body:         "Il 2 giugno 2026 Anthropic ha annunciato l'estensione di Project Glasswing, il programma che mette Claude Mythos Preview a disposizione di chi gestisce sistemi critici. Dopo i primi 50 partner, ammessi a inizio aprile e comprendenti il governo degli Stati Uniti, l'accesso viene allargato a circa 150 nuove organizzazioni in più di 15 paesi.\n\nI nuovi ingressi riguardano settori poco rappresentati nel primo gruppo: energia, acqua, sanità, comunicazioni e hardware. Il criterio comune, secondo Anthropic, è che un attacco riuscito al loro codice potrebbe essere catastrofico; per la maggior parte dei partner un incidente grave toccherebbe oltre 100 milioni di persone. Il Financial Times ha indicato tra i paesi coinvolti anche l'Italia, insieme a Francia, Germania, Giappone, India e Australia; l'elenco non è stato confermato dall'azienda.\n\nClaude Mythos Preview è descritto da Anthropic come il suo modello più potente e non è disponibile al pubblico: è in grado di individuare migliaia di vulnerabilità zero-day nell'arco di alcune settimane, una capacità utile a chi difende quanto a chi attacca, e per questo l'accesso resta controllato.",
     badge:        'Sicurezza',
     source_label: 'Fonte:',
     source_name:  'TechCrunch',
     source_url:   'https://techcrunch.com/2026/06/02/anthropic-scales-claude-mythos-to-critical-infrastructure-in-15-countries/'
   },
 
+  'anthropic-ipo-2026': {
+    date:         '1 giugno 2026',
+    title:        'Anthropic deposita la domanda di IPO in via confidenziale',
+    excerpt:      "Il 1° giugno 2026 Anthropic ha presentato alla SEC una bozza di S-1 in via confidenziale, dopo un round da 65 miliardi di dollari a una valutazione di 965 miliardi. A ottobre il prospetto pubblico non c'è ancora.",
+    body:         "Il 1° giugno 2026 Anthropic ha presentato in via confidenziale alla Securities and Exchange Commission la bozza del modulo S-1 per la quotazione. Il deposito è arrivato dopo un round di finanziamento da 65 miliardi di dollari, che ha portato la valutazione a 965 miliardi. Numero di azioni e prezzo non sono stati fissati.\n\nSecondo quanto riportato, l'azienda ha detto agli investitori che il ricavo annualizzato avrebbe superato i 50 miliardi di dollari entro fine luglio, contro i 4 miliardi di un anno prima, e che per il secondo trimestre attendeva ricavi per 10,9 miliardi, con il primo trimestre in utile della sua storia. Il deposito ha preceduto di una settimana quello di OpenAI.\n\nLa quotazione era attesa già dall'autunno, ma i tempi si sono allungati. A inizio ottobre 2026 il prospetto pubblico non risultava ancora depositato e le ricostruzioni di stampa spostano l'avvio del collocamento a novembre. Anthropic non ha annunciato una data.",
+    badge:        'In attesa',
+    source_label: 'Fonte:',
+    source_name:  'Fortune',
+    source_url:   'https://fortune.com/2026/06/01/anthropic-confidentially-files-ipo-965-billion-valuation/'
+  },
+
   'claude-opus-4-8': {
     date:         '28 maggio 2026',
     title:        'Anthropic rilascia Claude Opus 4.8',
-    excerpt:      'Il nuovo modello porta miglioramenti su coding, task agentici e autonomia prolungata, con una modalità fast 2,5× più veloce a parità di costo.',
-    body:         "Il 28 maggio 2026, Anthropic ha rilasciato Claude Opus 4.8, il suo modello più capace disponibile al pubblico. Il miglioramento principale rispetto a Opus 4.7 riguarda tre aree: coding su repository complessi, capacità di operare in modo autonomo per sessioni prolungate senza degrado della qualità, e maggiore onestà nel riportare i propri progressi su task a lungo termine.\n\nTra le novità operative, gli utenti claude.ai possono ora regolare l'effort computazionale del modello tramite un apposito controllo — utile per bilanciare velocità e profondità di risposta in base al tipo di task. Claude Code introduce i 'dynamic workflows', che permettono al modello di scomporre e affrontare problemi di larga scala in modo strutturato. La modalità fast, che opera a 2,5× la velocità standard, è ora tre volte più economica rispetto ai modelli precedenti.\n\nIl pricing rimane invariato rispetto a Opus 4.7: $5 per milione di token in input e $25 per milione in output, con sconti fino al 90% con prompt caching. Il modello è disponibile su claude.ai per i piani Pro, Max, Team ed Enterprise, e via API su Claude Platform, AWS, Google Cloud e Microsoft Foundry.",
-    badge:        'Rilascio',
+    excerpt:      "Opus 4.8 migliora sui benchmark e nell'onestà sul proprio lavoro, porta il controllo dello sforzo su claude.ai e una modalità veloce tre volte più economica.",
+    body:         "Il 28 maggio 2026 Anthropic ha rilasciato Claude Opus 4.8, con miglioramenti diffusi sui benchmark rispetto a Opus 4.7. Il dato più evidenziato riguarda l'affidabilità: il modello ha circa quattro volte meno probabilità di lasciar passare senza segnalarli i difetti del proprio codice, ed è più incline a dichiarare l'incertezza.\n\nSu claude.ai compare un controllo accanto al selettore del modello che regola quanto sforzo Claude dedica alla risposta, disponibile su tutti i piani. Claude Code introduce in anteprima di ricerca i 'dynamic workflows': il modello pianifica il lavoro, lancia centinaia di sub-agenti in parallelo in una sola sessione e verifica i risultati prima di riferirli. La funzione è riservata ai piani Enterprise, Team e Max.\n\nIl prezzo resta quello di Opus 4.7: 5 $ per milione di token in ingresso e 25 $ in uscita. La modalità veloce, fino a 2,5 volte più rapida, costa 10 $ e 50 $ ed è tre volte più economica di prima. A settembre 2026 il modello è stato superato da Opus 5.5.",
+    badge:        'Rilasciato',
     source_label: 'Fonte:',
     source_name:  'Anthropic',
     source_url:   'https://www.anthropic.com/news/claude-opus-4-8'
   },
 
-  'openai-ipo-2026': {
-    date:         '22 maggio 2026 (in arrivo)',
-    title:        'OpenAI deposita in via confidenziale la domanda di IPO',
-    excerpt:      "OpenAI ha depositato l'S-1 in via confidenziale presso la SEC con target di quotazione a settembre 2026 e una valutazione attesa fino a $1.000 miliardi.",
-    body:         "Il 22 maggio 2026, OpenAI ha depositato in via confidenziale la documentazione S-1 per la sua IPO presso la Securities and Exchange Commission statunitense. Goldman Sachs e Morgan Stanley co-guidano l'operazione, con una valutazione target compresa tra $852 miliardi e $1.000 miliardi. La finestra di quotazione è fissata per settembre 2026.\n\nIl deposito confidenziale consente a OpenAI di avviare la revisione regolatoria SEC senza obbligo di disclosure pubblica immediata, gestendo in privato le eventuali osservazioni prima del prospetto definitivo. Il contesto finanziario è sotto scrutinio: nel 2025 OpenAI ha generato $13,1 miliardi di ricavi ma ha bruciato circa $22 miliardi, con una perdita netta di ~$9 miliardi. Le proiezioni interne indicano una perdita operativa di $14 miliardi per il 2026, nonostante i ricavi in forte crescita.\n\nL'IPO rappresenta un passaggio storico per l'azienda e per l'intero settore AI. La quotazione avviene in parallelo con una corsa alla valorizzazione: Anthropic ha annunciato un round da $30 miliardi a una valutazione superiore a $900 miliardi, superando per la prima volta quella di OpenAI sul mercato privato. La competizione tra i due principali lab AI si estende ora anche ai mercati finanziari.",
-    badge:        'In arrivo',
-    source_label: 'Fonte:',
-    source_name:  'Fortune',
-    source_url:   'https://fortune.com/2026/05/22/openai-ipo-filing-1-trillion-may-finally-answer-these-big-questions/'
-  },
-
   'google-io-2026': {
     date:         '20 maggio 2026',
     title:        'Google I/O 2026: Gemini 3.5 Flash, Omni e Spark',
-    excerpt:      "Google I/O 2026 ha lanciato una nuova generazione di modelli Gemini con capacità multimodali avanzate e un agente personale 24/7 disponibile agli abbonati Ultra.",
-    body:         "Il 20 maggio 2026, durante Google I/O, il CEO Sundar Pichai ha presentato la nuova generazione di modelli Gemini. Gemini 3.5 Flash è il modello di punta di questa release: supera Gemini 3.1 Pro nei benchmark di coding, task agentici e multimodali, mantenendo la velocità e il costo della serie Flash (4× più veloce dei modelli frontier concorrenti). È disponibile immediatamente nell'app Gemini, in Search, e via Gemini API.\n\nGemini Omni è una nuova serie di modelli che unifica ragionamento e generazione: accetta input di testo, immagini, audio e video, e produce output video fondati su conoscenza reale. Gemini Spark è invece il primo vero agente personale proattivo di Google — opera in background su email, calendario e notifiche, e completa task per conto dell'utente senza supervisione attiva. Sarà disponibile la settimana successiva agli abbonati Google AI Ultra negli USA.\n\nAltri annunci rilevanti: l'abbonamento AI Ultra è stato ridotto da $250 a $100 al mese, Daily Brief introduce una sintesi giornaliera personalizzata da Gmail e Calendar, e Canva, Adobe e CapCut hanno annunciato integrazioni native nell'app Gemini per editing di immagini e video direttamente dall'assistente. Google ha anche confermato che Gemini 3.5 Pro è in fase di test e sarà disponibile il mese successivo.",
-    badge:        'Prodotto',
+    excerpt:      "A Google I/O 2026 arrivano Gemini 3.5 Flash, il modello video Omni, l'agente personale Spark e un nuovo piano AI Ultra da 100 $ al mese.",
+    body:         "A Google I/O 2026 Google ha presentato Gemini 3.5 Flash, primo di una nuova serie di modelli. Supera Gemini 3.1 Pro su Terminal-Bench 2.1 (76,2%), GDPval-AA e MCP Atlas (83,6%), mantenendo la velocità della serie Flash e, secondo Google, spesso a meno della metà del costo di altri modelli di frontiera. È disponibile in Google Antigravity, nell'API Gemini tramite Google AI Studio e in Android Studio. Gemini 3.5 Pro, già usato internamente, è stato annunciato per il mese successivo.\n\nGemini Omni è un nuovo modello che punta a creare contenuti da qualsiasi tipo di input, a partire dal video: accetta riferimenti testuali, immagini, video e audio, e ogni video generato porta la filigrana SynthID. Omni Flash è in distribuzione agli abbonati Google AI Plus, Pro e Ultra.\n\nGemini Spark è un agente personale attivo 24 ore su 24 che agisce per conto dell'utente e chiede conferma prima delle azioni importanti; dopo i tester fidati, la beta arriva agli abbonati AI Ultra negli Stati Uniti. Google ha annunciato anche un piano AI Ultra da 100 $ al mese e Daily Brief, un agente che ogni mattina riordina posta, calendario e attività.",
+    badge:        'Evento',
     source_label: 'Fonte:',
     source_name:  'Google Blog',
     source_url:   'https://blog.google/innovation-and-ai/technology/ai/google-io-2026-all-our-announcements/'
   },
 
-  'ai-act-2026': {
-    date:         '2 agosto 2026',
-    title:        'AI Act UE: gli obblighi di trasparenza sono in vigore',
-    excerpt:      "Dal 2 agosto 2026 chatbot, deepfake e contenuti sintetici devono essere dichiarati. Gli obblighi per i sistemi ad alto rischio slittano invece a dicembre 2027.",
-    body:         "Dal 2 agosto 2026 si applicano gli obblighi di trasparenza dell'articolo 50 dell'AI Act, a prescindere dalla classificazione di rischio del sistema. Chi fornisce un chatbot deve informare le persone che stanno interagendo con un'AI, salvo che sia evidente dal contesto. Audio, immagini, video e testi sintetici vanno marcati in un formato leggibile dalle macchine, e chi diffonde deepfake di persone, luoghi o eventi reali deve dichiararlo. Chi usa sistemi di riconoscimento delle emozioni o di categorizzazione biometrica deve informare le persone esposte.\n\nPer i sistemi generativi già sul mercato prima del 2 agosto c'è tempo fino al 2 dicembre 2026 per adeguarsi all'obbligo di marcatura. Le sanzioni per chi viola l'articolo 50 arrivano a 15 milioni di euro o al 3% del fatturato mondiale annuo.\n\nIl calendario del resto del regolamento è invece cambiato con l'Omnibus digitale sull'AI, il Regolamento (UE) 2026/1744 in vigore dal 27 luglio 2026: gli obblighi per i sistemi ad alto rischio dell'Allegato III slittano al 2 dicembre 2027, quelli per i sistemi integrati in prodotti regolamentati (Allegato I) al 2 agosto 2028. Dal 2 dicembre 2026 si applicano inoltre nuovi divieti, tra cui quello sulle app di nudificazione.",
-    badge:        'In vigore',
-    source_label: 'Fonte:',
-    source_name:  'Goodwin',
-    source_url:   'https://www.goodwinlaw.com/en/insights/publications/2026/08/alerts-technology-dpc-eu-ai-act-transparency-obligations-now-in-force'
-  },
-
-  'gpt-5-5': {
-    date:         '23 aprile 2026',
-    title:        'OpenAI annuncia GPT-5.5',
-    excerpt:      'OpenAI ha presentato GPT-5.5 come modello orientato al lavoro reale su codice, ricerca e task multi-step con uso strumenti.',
-    body:         "Il 23 aprile 2026 OpenAI ha ufficialmente presentato GPT-5.5, posizionato come un modello da lavoro rispetto ai predecessori. A differenza di GPT-5 — ottimizzato per eccellenza generale — GPT-5.5 è progettato per task pratici ad alta intensità: scrittura di codice complessa, ricerca e sintesi di informazioni, gestione di flussi multi-step con chiamate a strumenti esterni.\n\nLe performance nei benchmark di coding mostrano miglioramenti rilevanti rispetto a GPT-5, con particolari progressi su task che richiedono ragionamento su repository esistenti e debugging iterativo. Il modello è disponibile tramite API con maggiori limiti di rate per i developer e nei piani avanzati di ChatGPT.\n\nL'annuncio arriva in un momento di forte pressione competitiva da parte di Anthropic — con Claude Opus 4 — Google e dei modelli open-source come Qwen e Llama, segnalando un mercato dove il ritmo di rilascio si è notevolmente accelerato.",
-    badge:        'Rilascio',
-    source_label: 'Fonte:',
-    source_name:  'OpenAI',
-    source_url:   'https://openai.com/index/introducing-gpt-5-5/'
-  },
-
-  'openai-voice-realtime': {
-    date:         '7 maggio 2026',
-    title:        'Nuovi modelli vocali realtime nelle API OpenAI',
-    excerpt:      'OpenAI ha rilasciato una nuova generazione di modelli voce realtime per ragionamento, traduzione e trascrizione live.',
-    body:         "Il 7 maggio 2026, OpenAI ha rilasciato una nuova suite di modelli vocali realtime per le sue API. I nuovi modelli portano miglioramenti sostanziali in tre aree chiave: ragionamento vocale con la capacità di elaborare una risposta prima di parlare — riducendo errori e deviazioni — traduzione live con latenza inferiore a 500ms, e trascrizione ad alta accuratezza con rilevamento automatico della lingua.\n\nGli sviluppatori possono ora costruire applicazioni voce-a-voce completamente native senza dover comporre pipeline separate ASR (speech-to-text) + LLM + TTS (text-to-speech). L'intera catena è integrata, con gestione nativa di interruzioni, sovrapposizioni e cambio lingua mid-sentence.\n\nIl pricing è rimasto invariato rispetto ai modelli precedenti, rendendo questa tecnologia accessibile anche a startup e progetti indie. OpenAI ha anche pubblicato una guida aggiornata per la migrazione dai modelli audio precedenti.",
-    badge:        'API',
-    source_label: 'Fonte:',
-    source_name:  'OpenAI',
-    source_url:   'https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/'
-  },
-
   'gemini-agentic': {
     date:         '19 maggio 2026',
-    title:        'Gemini diventa più agentico',
-    excerpt:      "Google ha aggiornato l'app Gemini con funzioni più proattive e operative continue, spingendo verso un assistente 24/7.",
-    body:         "Il 19 maggio 2026 Google ha aggiornato l'app Gemini introducendo un set di funzioni orientate alla proattività e all'operatività continua. Il cambiamento più significativo è la modalità 'Always Active': l'assistente può ora monitorare attività in background — email, calendario, notifiche — e intervenire autonomamente su task delegati dall'utente.\n\nGemini può ora completare operazioni multi-app senza supervisione costante: aggiornare documenti in Google Workspace, configurare reminder intelligenti contestuali e sintetizzare informazioni da più fonti in un'unica risposta proattiva. Google ha inoltre annunciato l'integrazione con le API di Workspace Enterprise, aprendo la porta a deployment aziendali di agenti AI personalizzati.\n\nLa mossa acuisce la competizione con gli assistenti agentici di Anthropic (Claude con computer use) e Microsoft (Copilot), segnalando che il futuro degli assistenti AI non è più reattivo ma proattivo.",
+    title:        "L'app Gemini diventa un agente: Spark, Daily Brief e versione per macOS",
+    excerpt:      "Google rinnova l'app Gemini con un agente personale che lavora nel cloud a computer spento, un riepilogo mattutino e una nuova interfaccia.",
+    body:         "Il 19 maggio 2026 Google ha presentato la nuova versione dell'app Gemini, costruita attorno a funzioni che agiscono invece di limitarsi a rispondere. La principale è Gemini Spark, un agente personale che gira nel cloud 24 ore su 24 e continua a lavorare con il portatile chiuso o il telefono bloccato. Usa Gemini 3.5 e l'infrastruttura di Antigravity.\n\nTra gli esempi indicati da Google: cercare abbonamenti nascosti negli estratti conto della carta, riassumere le email della scuola in un riepilogo quotidiano, trasformare gli appunti di una riunione in documenti e bozze di email. Prima di azioni delicate, come spendere denaro o inviare messaggi, Spark chiede conferma. Arriva prima ai tester fidati e poi in beta agli abbonati Google AI Ultra negli Stati Uniti.\n\nDaily Brief è un riepilogo mattutino che, su adesione dell'utente, legge le app collegate come Gmail e Calendar e mette in ordine le priorità; è in distribuzione agli abbonati AI Plus, Pro e Ultra a partire dagli Stati Uniti. Completano l'aggiornamento una nuova interfaccia, chiamata Neural Expressive, e un'app per macOS disponibile per tutti.",
     badge:        'Prodotto',
     source_label: 'Fonte:',
     source_name:  'Google Blog',
     source_url:   'https://blog.google/innovation-and-ai/products/gemini-app/next-evolution-gemini-app/'
   },
 
+  'openai-voice-realtime': {
+    date:         '7 maggio 2026',
+    title:        'Tre nuovi modelli vocali in tempo reale nelle API OpenAI',
+    excerpt:      "OpenAI rilascia GPT-Realtime-2, GPT-Realtime-Translate e GPT-Realtime-Whisper: conversazione con ragionamento, traduzione dal vivo e trascrizione in streaming.",
+    body:         "Il 7 maggio 2026 OpenAI ha annunciato tre nuovi modelli audio per le sue API, pensati per applicazioni vocali che lavorano mentre la persona sta parlando. Tutti e tre sono disponibili tramite la Realtime API.\n\nGPT-Realtime-2 è il modello conversazionale principale: OpenAI lo descrive come il suo primo modello vocale con capacità di ragionamento di classe GPT-5, costruito per agenti che gestiscono le interruzioni e chiamano strumenti nel corso della conversazione. GPT-Realtime-Translate traduce il parlato dal vivo da oltre 70 lingue in ingresso verso 13 lingue in uscita, tenendo il passo di chi parla. GPT-Realtime-Whisper è il modello di trascrizione in streaming.\n\nInsieme ai modelli OpenAI ha aggiornato la documentazione per aiutare gli sviluppatori a scegliere tra agenti vocali, traduzione, trascrizione in tempo reale e API audio tradizionali a richiesta.",
+    badge:        'API',
+    source_label: 'Fonte:',
+    source_name:  'OpenAI',
+    source_url:   'https://openai.com/index/advancing-voice-intelligence-with-new-models-in-the-api/'
+  },
+
+  'gpt-5-5': {
+    date:         '23 aprile 2026',
+    title:        'OpenAI annuncia GPT-5.5',
+    excerpt:      "OpenAI presenta GPT-5.5 come un modello per il lavoro su codice, ricerca e compiti in più passaggi. Il prezzo via API raddoppia rispetto a GPT-5.4.",
+    body:         "Il 23 aprile 2026 OpenAI ha presentato GPT-5.5, descritto al lancio come il suo modello più intelligente e più intuitivo da usare. È orientato al lavoro pratico: programmazione, ricerca e sintesi di informazioni, compiti in più passaggi con uso di strumenti.\n\nAl lancio era disponibile in ChatGPT per i piani Plus, Pro, Business ed Enterprise e in Codex, con una finestra di contesto da 400.000 token. La variante GPT-5.5 Pro era riservata ai piani Pro, Business ed Enterprise. L'accesso via API è stato annunciato come imminente e non era attivo il giorno della presentazione.\n\nSecondo i listini riportati dalla stampa, l'API costa 5 $ per milione di token in ingresso e 30 $ in uscita, il doppio di GPT-5.4; GPT-5.5 Pro costa 30 $ e 180 $. A settembre 2026 la serie è stata superata dai primi modelli GPT-6.",
+    badge:        'Rilasciato',
+    source_label: 'Fonte:',
+    source_name:  'OpenAI',
+    source_url:   'https://openai.com/index/introducing-gpt-5-5/'
+  },
+
   'anthropic-vercept': {
     date:         '25 febbraio 2026',
     title:        'Anthropic acquisisce Vercept',
-    excerpt:      "L'acquisizione punta a migliorare le capacità di computer use di Claude su task complessi in applicazioni reali.",
-    body:         "Il 25 febbraio 2026, Anthropic ha acquisito Vercept, startup specializzata in computer vision applicata all'interazione con UI visive. Il valore dell'operazione non è stato divulgato. L'obiettivo strategico è rafforzare le capacità di 'computer use' di Claude: la possibilità per il modello di navigare interfacce grafiche, interpretare screenshot, cliccare elementi e compilare form in modo autonomo.\n\nVercept aveva sviluppato tecniche proprietarie di segmentazione visiva e action grounding su UI desktop e web, con risultati superiori agli approcci standard OCR + coordinate su layout dinamici e su applicazioni non ottimizzate per agenti AI. Il team di Vercept (circa 12 persone) si integrerà nel gruppo Alignment & Capabilities di Anthropic.\n\nL'integrazione nella piattaforma Claude è prevista in forma sperimentale entro metà 2026, inizialmente per i clienti API Enterprise. L'acquisizione si inserisce nella corsa più ampia verso agenti AI capaci di operare su software reale senza necessità di API dedicate.",
-    badge:        'Ricerca',
+    excerpt:      "L'acquisizione serve a rafforzare il computer use di Claude, cioè la capacità di vedere e usare il software come farebbe una persona.",
+    body:         "Il 25 febbraio 2026 Anthropic ha annunciato l'acquisizione di Vercept, una startup nata attorno a un'idea: perché l'AI sia utile nei compiti complessi bisogna risolvere problemi difficili di percezione e interazione, cioè come un sistema riesce a vedere e ad agire dentro il software che le persone usano ogni giorno. Il valore dell'operazione non è stato reso noto.\n\nI fondatori Kiana Ehsani, Luca Weihs e Ross Girshick entrano in Anthropic con il loro gruppo per lavorare sul computer use di Claude. Vercept chiuderà il proprio prodotto esterno nelle settimane successive all'annuncio.\n\nAnthropic colloca l'acquisizione dentro i progressi già misurati: su OSWorld, una delle valutazioni più usate per l'uso del computer da parte dell'AI, i modelli Sonnet sono passati da meno del 15% di fine 2024 al 72,5%. Secondo l'azienda Claude Sonnet 4.6 si avvicinava al livello umano in compiti come la navigazione di fogli di calcolo complessi e la compilazione di moduli web su più schede.",
+    badge:        'Acquisizione',
     source_label: 'Fonte:',
     source_name:  'Anthropic',
     source_url:   'https://www.anthropic.com/news/acquires-vercept'
   },
 
-  'openssf-model-signing': {
-    date:         '4 aprile 2025',
-    title:        'OpenSSF rilascia Model Signing v1.0',
-    excerpt:      'Il progetto introduce firma e verifica dei modelli ML per rafforzare integrità e provenienza nella supply chain AI.',
-    body:         "Il 4 aprile 2025, la Open Source Security Foundation (OpenSSF) ha rilasciato Model Signing v1.0, uno standard aperto per la firma crittografica e la verifica dei modelli di machine learning. L'iniziativa nasce dalla crescente preoccupazione per la supply chain AI: modelli scaricati da repository pubblici come Hugging Face possono essere stati alterati o sostituiti da versioni malevole senza che gli utenti ne siano consapevoli.\n\nModel Signing v1.0 definisce un formato standard per allegare firme digitali ai file di modello — nei formati .safetensors, .gguf, .bin e altri — e per verificarle automaticamente prima del caricamento. Il framework è compatibile con Sigstore, già ampiamente adottato nella supply chain del software open-source (usato da npm, PyPI, Maven).\n\nL'adozione è sostenuta da Google, Intel e diversi vendor AI. OpenSSF ha anche rilasciato SDK per Python e Go per integrare la verifica direttamente nei framework di training e inferenza.",
-    badge:        'Sicurezza',
-    source_label: 'Fonte:',
-    source_name:  'OpenSSF',
-    source_url:   'https://openssf.org/blog/2025/04/04/launch-of-model-signing-v1-0-openssf-ai-ml-working-group-secures-the-machine-learning-supply-chain/'
-  },
-
   'microsoft-build-agentic': {
     date:         '19 maggio 2025',
-    title:        'Microsoft Build: focus su web agentico aperto',
-    excerpt:      'Microsoft ha annunciato supporto esteso a MCP su più piattaforme e nuove basi per interoperabilità tra agenti.',
-    body:         "Il 19 maggio 2025, durante Microsoft Build, il CEO Satya Nadella ha delineato la visione di Microsoft per il 'web agentico aperto'. L'annuncio centrale è stato il supporto nativo a MCP (Model Context Protocol) su Copilot, Azure AI, Windows e GitHub Copilot — un significativo endorsement del protocollo open sviluppato originariamente da Anthropic, che ha accelerato la sua adozione industriale.\n\nMicrosoft ha inoltre presentato Agent2Agent (A2A), un nuovo set di standard per l'interoperabilità tra agenti AI eterogenei. A2A permette a più agenti — anche di vendor diversi — di coordinarsi su task complessi tramite protocolli condivisi, senza necessità di integrazioni custom. Al lancio, oltre 50 partner dell'ecosistema hanno dichiarato conformità.\n\nLa mossa posiziona Microsoft come piattaforma neutrale per il futuro dell'automazione AI in azienda, con Azure come infrastruttura centrale. L'apertura verso MCP è particolarmente rilevante per il mondo open-source, che ora ha un punto di riferimento industriale per costruire tool compatibili.",
+    title:        'Microsoft Build 2025: MCP ovunque e il web agentico aperto',
+    excerpt:      "Microsoft porta il supporto a MCP in GitHub, Copilot Studio, Azure AI Foundry e Windows 11, entra nel comitato direttivo del protocollo e presenta NLWeb.",
+    body:         "Il 19 maggio 2025, a Build, Microsoft ha presentato la sua idea di web agentico aperto. L'annuncio centrale è il supporto diretto a MCP (Model Context Protocol) in GitHub, Copilot Studio, Dynamics 365, Azure AI Foundry, Semantic Kernel e Windows 11. Microsoft e GitHub sono inoltre entrate nel comitato direttivo di MCP, portando due contributi: una specifica di autorizzazione aggiornata e il progetto di un registro dei server MCP.\n\nLa novità più originale è NLWeb, un progetto aperto che secondo Microsoft può avere per il web agentico un ruolo simile a quello dell'HTML per il web: permette a un sito di offrire un'interfaccia conversazionale con il modello che preferisce e i propri dati, e ogni endpoint NLWeb è anche un server MCP, quindi leggibile dagli agenti.\n\nSul versante sviluppatori, Azure AI Foundry Agent Service è diventato disponibile per tutti con supporto ai protocolli A2A e MCP, e GitHub Copilot ha ricevuto un agente di programmazione asincrono integrato nella piattaforma. Microsoft ha indicato 15 milioni di sviluppatori che usano GitHub Copilot.",
     badge:        'Ecosistema',
     source_label: 'Fonte:',
     source_name:  'Microsoft',
     source_url:   'https://blogs.microsoft.com/blog/2025/05/19/microsoft-build-2025-the-age-of-ai-agents-and-building-the-open-agentic-web/'
+  },
+
+  'openssf-model-signing': {
+    date:         '4 aprile 2025',
+    title:        'OpenSSF rilascia Model Signing v1.0',
+    excerpt:      "Una libreria e uno strumento da riga di comando per firmare e verificare i modelli di machine learning, a tutela di integrità e provenienza nella filiera dell'AI.",
+    body:         "Il 4 aprile 2025 il gruppo di lavoro AI/ML della Open Source Security Foundation (OpenSSF) ha rilasciato Model Signing v1.0, frutto di circa un anno di sviluppo. Il progetto fornisce una libreria e uno strumento da riga di comando per firmare e verificare i modelli di machine learning, così che chi scarica un modello da archivi pubblici come Hugging Face o Kaggle possa controllare che non sia stato alterato.\n\nLo strumento funziona con qualsiasi formato di modello e con modelli di qualunque dimensione. Le firme sono salvate come bundle Sigstore e si possono produrre in tre modi: con Sigstore, con certificati autofirmati o con una coppia di chiavi pubblica e privata. Schema di hashing e formato della firma restano gli stessi in tutti i casi.\n\nIl gruppo di lavoro è guidato da Google, mentre il progetto di firma è co-diretto da persone di NVIDIA e HiddenLayer. Sigstore, su cui si appoggia, è a sua volta un progetto OpenSSF già usato per la firma del software open source.",
+    badge:        'Sicurezza',
+    source_label: 'Fonte:',
+    source_name:  'OpenSSF',
+    source_url:   'https://openssf.org/blog/2025/04/04/launch-of-model-signing-v1-0-openssf-ai-ml-working-group-secures-the-machine-learning-supply-chain/'
   }
 
 };

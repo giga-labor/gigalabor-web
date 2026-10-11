@@ -184,12 +184,8 @@
   var Layout = (function () {
     var isHome = false;
 
-    function logoSVG() {
-      return '<svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-        '<polygon points="15,2 28,27 2,27" fill="none" stroke="rgba(212,136,58,0.5)" stroke-width="1.2"/>' +
-        '<text x="8" y="22" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700" fill="#d4883a">G</text>' +
-        '<text x="16" y="22" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700" fill="#00b4ff">G</text>' +
-        '</svg>';
+    function logoMark() {
+      return '<img src="' + rootPrefix() + 'assets/logo/gigalabor-segno.svg" alt="" width="931" height="435">';
     }
 
     function icon(type) {
@@ -208,7 +204,7 @@
       var px = rootPrefix();
       return '<header id="tb">' +
         '<a class="tb-logo" href="' + px + 'index.html" aria-label="GiGa Labor — Home">' +
-          '<div class="tb-logo-mark">' + logoSVG() + '</div>' +
+          '<div class="tb-logo-mark">' + logoMark() + '</div>' +
           '<div class="tb-logo-text"><span class="gi">Gi</span><span class="ga">Ga</span><span class="labor"> Labor</span></div>' +
         '</a>' +
         '<div class="tb-r">' +

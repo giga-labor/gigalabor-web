@@ -265,14 +265,22 @@ code, pre, .mono {
 }
 #page-loader.hidden { opacity: 0; visibility: hidden; }
 .loader-logo {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-family: 'Quicksand', 'Inter', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: center;
 }
-.loader-logo .gi     { color: var(--accent);   text-shadow: 0 0 20px var(--accent); }
-.loader-logo .ga     { color: var(--accent-2); text-shadow: 0 0 20px var(--accent-2); }
-.loader-logo .labor  { color: var(--text-muted); font-size: 0.85rem; }
+/* Il segno sta nel CSS: il markup del loader è ripetuto in ogni pagina */
+.loader-logo::before {
+  content: '';
+  display: block;
+  width: 9rem; aspect-ratio: 931 / 435;
+  margin: 0 auto .7rem;
+  background: url(../assets/logo/gigalabor-segno.svg) center / contain no-repeat;
+}
+.loader-logo .gi, .loader-logo .labor { color: var(--brand-blue); }
+.loader-logo .ga { color: var(--brand-amber); }
 
 /* -- COMPARSA ALLO SCROLL (classe .animated messa da app.js) -- */
 .animate { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }

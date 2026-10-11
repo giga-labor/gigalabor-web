@@ -5,6 +5,12 @@
 
 /* -- 1. DARK LAB (default) -------------------------------- */
 :root,
+/* Colori del logo: fissi in tutti i temi (il segno SVG usa gli stessi valori) */
+:root {
+  --brand-blue:  #00A6FF;
+  --brand-amber: #D88632;
+}
+
 [data-theme="dark-tech"] {
   /* Backgrounds */
   --bg-base:        #020408;
