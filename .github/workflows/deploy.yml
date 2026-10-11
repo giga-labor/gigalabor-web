@@ -34,6 +34,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Scrive nell'HTML testi, schede progetto e notizie dai file in js/data,
+      # così il sito pubblicato è sempre allineato ai dati anche senza JavaScript
+      - name: Prerender static content
+        run: node tools/prerender-i18n.js
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
 

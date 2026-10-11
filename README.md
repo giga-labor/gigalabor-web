@@ -42,7 +42,7 @@ gigalabor-site/
 │           ├── it.js / en.js           # Stringhe dell'interfaccia
 │           └── news-it.js / news-en.js # Testi delle notizie
 ├── tools/
-│   └── prerender-i18n.js   # Scrive nell'HTML i testi italiani di default (SEO)
+│   └── prerender-i18n.js   # Scrive nell'HTML testi, schede progetto e notizie (SEO)
 └── pages/
     ├── projects.html
     ├── about.html
@@ -75,7 +75,7 @@ Poi vai su `http://localhost:8080`
 1. Aggiungi l'oggetto progetto nell'array `GL.projects` in `js/data/gl-data.js`
 2. Aggiungi le traduzioni in `js/data/i18n/it.js` e `en.js` sotto la chiave `projects`
 3. Crea la pagina `pages/projects/nome-progetto.html` (parti da una esistente)
-4. Esegui `node tools/prerender-i18n.js` per aggiornare i testi statici nell'HTML
+4. Esegui `node tools/prerender-i18n.js` per aggiornare testi e schede statiche nell'HTML (il deploy lo esegue comunque)
 
 Il contatore nella home e la data "Aggiornato il" nel footer si calcolano da soli dai dati.
 
@@ -114,7 +114,7 @@ Then visit `http://localhost:8080`
 1. Add a project object to the `GL.projects` array in `js/data/gl-data.js`
 2. Add translations in `js/data/i18n/it.js` and `en.js` under the `projects` key
 3. Create the page `pages/projects/project-name.html` (start from an existing one)
-4. Run `node tools/prerender-i18n.js` to refresh the static text in the HTML
+4. Run `node tools/prerender-i18n.js` to refresh the static text and cards in the HTML (the deploy runs it anyway)
 
 The home counter and the footer "Updated" date are computed from the data.
 
@@ -162,5 +162,6 @@ To add a news item:
 1. add one metadata entry in `gl-news.js`
 2. add the same `id` entry in `news-it.js`
 3. add the same `id` entry in `news-en.js`
+4. run `node tools/prerender-i18n.js` to write the cards into the HTML (the deploy runs it anyway)
 
 The footer "Updated" date follows the most recent `sort_date` automatically.
