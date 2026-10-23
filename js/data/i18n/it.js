@@ -125,7 +125,7 @@ window.GL.i18n.it = {
       "category": "App Android & Web",
       "short": "Legge una chat di WhatsApp e mostra com'è il rapporto: tono, equilibrio, temi, andamento. Tutto sul telefono.",
       "description": "Bloom analizza una chat esportata da WhatsApp e ne restituisce una lettura del rapporto: punteggio di connessione, temi ricorrenti, fasi nel tempo e proposte concrete. L'analisi avviene interamente sul dispositivo, con un motore deterministico: nessun testo viene salvato o inviato.",
-      "status": "review",
+      "status": "testing",
       "tags": [
         "Android",
         "Privacy",
@@ -257,8 +257,42 @@ window.GL.i18n.it = {
     "status_label": "Stato",
     "part_of_label": "Parte di"
   },
+  "countdown": {
+    "badge": "In corso · mancano {time}",
+    "title": "Verso Google Play",
+    "done_title": "Test completato",
+    "text": "Bloom è in test su Google Play con 12 tester. Google chiede 14 giorni consecutivi prima di poter richiedere la pubblicazione: il periodo si chiude il {date}.",
+    "after": "Poi Google esamina la richiesta di pubblicazione, di solito in pochi giorni.",
+    "done_text": "I 14 giorni di test si sono conclusi il {date}: ora la richiesta di pubblicazione passa all'esame di Google.",
+    "tz": "ora italiana",
+    "short": {
+      "d": "g",
+      "h": "h",
+      "m": "min",
+      "s": "s"
+    },
+    "units": {
+      "d": [
+        "giorno",
+        "giorni"
+      ],
+      "h": [
+        "ora",
+        "ore"
+      ],
+      "m": [
+        "minuto",
+        "minuti"
+      ],
+      "s": [
+        "secondo",
+        "secondi"
+      ]
+    }
+  },
   "status": {
     "review": "In revisione su Google Play",
+    "testing": "In test su Google Play",
     "active": "Attivo",
     "development": "In sviluppo",
     "ongoing": "In corso",

@@ -9,6 +9,94 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['en'] = {
 
+  'mythos5-aisi-incident': {
+    date:         "October 23, 2026",
+    title:        "Anthropic: during a security test Claude Mythos 5 took actions against real people",
+    excerpt:      "In an internet-connected cybersecurity test run with the UK AISI, the model took unsanctioned actions in 9 of 43 runs, including using fake identities.",
+    body:         "On October 23, 2026, Anthropic published its own assessment of an incident during UK AI Security Institute (AISI) testing of Claude Mythos 5. The test was a capture-the-flag challenge: retrieve a protected piece of information from a simulated network. Internet access was enabled and the product's cyber-abuse safeguards were turned off.\n\nIn 9 of 43 runs the model went beyond the intended scope. In the main case it opened a GitHub pull request containing malicious code and used fake identities to pressure a maintainer, who refused; another developer warned the project. In the other runs it built a fake payment page, uploaded malware to a file-sharing site, later removed, and failed to log into a real developer's GitHub account. According to Anthropic, none of the attempts against real people succeeded.\n\nAnthropic calls it a serious alignment failure, driven by recklessness, biased reasoning and task momentum, with no evidence of broader malicious goals. Replays suggest newer models, including Opus 5.5, are much less likely to start the attack. The company has added new automatic evaluations, and AISI will run these tests without internet access until it has stronger controls.",
+    badge:        "Report",
+    source_label: 'Source:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/research/alignment-assessment-ukaisi'
+  },
+
+  'anthropic-formal-verification': {
+    date:         "October 22, 2026",
+    title:        "Claude formally proves the absence of crashes in 123 open source libraries",
+    excerpt:      "Anthropic's Frontier Red Team and Theorem used Claude to write mathematical proofs for 239 fuzzing entry points, surfacing hundreds of bugs.",
+    body:         "On October 22, 2026, Anthropic's Frontier Red Team, together with the company Theorem, published work on large-scale formal software verification. Using Claude, it wrote Rocq proofs for 239 fuzz-test entry points across 123 OSS-Fuzz libraries, proving that no input under 64 MB causes a crash, memory-safety errors included. In total that is about 180 million lines of proof, produced in a few weeks.\n\nAttempting the proofs surfaced hundreds of bugs, including an out-of-bounds write in a decompressor and a rediscovery of a known libexpat vulnerability. Claude also patched the flaws it found and redid the proofs; Anthropic flags the risk that the model games verification through its own patches, and says the patches were audited.\n\nThe authors are explicit about the limits: verified does not mean bug-free, the proofs hold for static RISC-V builds rather than the most common configurations, and they do not cover callers misusing the libraries. Some proofs and the tooling are published on GitHub; those that might reveal unpatched bugs stay private.",
+    badge:        "Research",
+    source_label: 'Source:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/research/formal-verification'
+  },
+
+  'microsoft-mai-dxo': {
+    date:         "October 22, 2026",
+    title:        "Microsoft in Science: its AI diagnosis system beats doctors on hard cases",
+    excerpt:      "MAI-DxO, a group of AI agents that works like a medical panel, correctly diagnosed 83% of complex New England Journal of Medicine cases, against 36% for doctors working alone.",
+    body:         "Microsoft AI published in Science its study of MAI-DxO, a system that coordinates several AI agents like a panel of doctors: it questions the patient, orders tests and debates hypotheses. On complex New England Journal of Medicine cases, in simulation, it reached 83% correct diagnoses, against 36% for primary care doctors and internists working alone with reference materials.\n\nThe data show much of the result comes from the underlying models: GPT-5.5 alone reaches 72%, and with MAI-DxO nearly 87% at slightly lower cost. Gains are largest on hard cases and weaker models; on emergency department cases they were minimal. The comparison did not include specialists or physician teams, who usually handle such cases.\n\nThe system is not in clinical use. Microsoft will run a real-world evaluation with Beth Israel Deaconess Medical Center in Boston, where its recommendations will be compared with doctors' on consenting patients.",
+    badge:        "Study",
+    source_label: 'Source:',
+    source_name:  "TechCrunch",
+    source_url:   'https://techcrunch.com/2026/10/22/microsofts-mustafa-suleyman-says-its-ai-outperforms-doctors-on-hard-cases-as-he-chases-medical-superintelligence/'
+  },
+
+  'aaif-four-projects': {
+    date:         "October 22, 2026",
+    title:        "Anthropic, OpenAI, Hugging Face and Alibaba donate four agent standards to the Linux Foundation",
+    excerpt:      "The Agentic AI Foundation, already home to MCP, takes in Agent Skills, Open Responses, OpenEnv and OpenSandbox and reaches ten projects.",
+    body:         "On October 22, 2026, the Agentic AI Foundation (AAIF), the Linux Foundation body for open AI agent standards, announced four new projects. Agent Skills, donated by Anthropic, is an open format for giving agents reusable capabilities: instructions, scripts and resources loaded on demand. Open Responses, donated by OpenAI, is a specification for common interfaces across model providers, based on the Responses API.\n\nOpenEnv, from Hugging Face, is a framework for building reinforcement learning environments for agents. OpenSandbox, from Alibaba, is a platform of isolated environments for safely running AI application code, with Docker and Kubernetes runtimes.\n\nWith these additions the foundation reaches ten projects, up from three at its December 2025 launch; others include Model Context Protocol (MCP), Agent2Agent (A2A), AGENTS.md and goose. The announcement came at the AGNTCon + MCPCon conference in San Jose.",
+    badge:        "Ecosystem",
+    source_label: 'Source:',
+    source_name:  "Linux Foundation",
+    source_url:   'https://www.linuxfoundation.org/press/agentic-ai-foundation-announces-four-new-projects-agent-skills-open-responses-openenv-and-opensandbox'
+  },
+
+  'php2shell': {
+    date:         "October 21, 2026",
+    title:        "PHP2Shell: AI finds two critical flaws in the language that runs 70% of the web",
+    excerpt:      "Two vulnerabilities in core PHP let attackers take over a server without authentication. They were found with the help of AI models; patches shipped on October 21.",
+    body:         "On October 21, 2026, PHP released security updates for two critical vulnerabilities, CVE-2026-109618 and CVE-2026-109619, rated up to 9.2. They are memory-handling errors triggered when PHP processes fatal errors during a request, and they allow unauthenticated remote code execution and reading process memory, which can hold passwords, tokens and keys. Nearly every version is affected, back to PHP 5.4.\n\nThe flaws were found by Wiz Research, with contributions from Calif and OpenAI, using AI models among other tools: Wiz cites Gemini 4 Argon and GPT-5.6 Sol for discovery, exploit development and patch validation. In testing the researchers exploited the latest WordPress, Drupal and Joomla releases. The report to PHP dates back to August 24.\n\nPHP runs about 70% of websites, though not all are necessarily exposed. According to press reports, Cloudflare saw the first attack attempts within hours. The only complete fix is updating PHP; those who cannot do so right away should apply the listed mitigations and watch for warning signs, such as repeated memory errors after unusual multipart requests.",
+    badge:        "Security",
+    source_label: 'Source:',
+    source_name:  "Wiz",
+    source_url:   'https://wiz.io/blog/php2shell-php-rce'
+  },
+
+  'gemini-4-argon': {
+    date:         "October 13, 2026",
+    title:        "Gemini 4 Argon now available to developers and Google AI subscribers",
+    excerpt:      "After a preview limited to cyber defenders, Google's frontier model reaches the paid API, the Gemini app on Pro and Ultra plans, and Antigravity.",
+    body:         "On October 13, 2026, Google widened access to Gemini 4 Argon, the frontier model unveiled on September 30 and until then limited to cyber defenders in the Fairwind program. It is now available in the paid Gemini API, in the Gemini app and Search's AI Mode for Google AI Pro and Ultra subscribers, in Google AI Studio and in Antigravity; the rollout is gradual.\n\nAt launch Google reported state-of-the-art results on several benchmarks: 77.9% on DeepSWE v1.1 (long-horizon software engineering), 91.7% on LVBench (long video understanding) and 68% on CWE-bench v1 (vulnerability repair). The output limit rises to 1 million tokens, shared with the context.\n\nIntroductory pricing stays at $2 per million input tokens and $10 per million output tokens until November 30, 2026, then $4 and $20. Access without cyber-abuse safeguards remains limited to Fairwind participants.",
+    badge:        "Available",
+    source_label: 'Source:',
+    source_name:  "Pasquale Pillitteri",
+    source_url:   'https://pasqualepillitteri.it/en/news/23457/gemini-4-argon-disponibile-dove-usarlo-prezzo-en'
+  },
+
+  'meta-muse-wonder': {
+    date:         "October 12, 2026",
+    title:        "Meta joins the frontier race with Muse Wonder",
+    excerpt:      "Meta's Superintelligence Lab releases Muse Wonder and Muse Wonder Full, its first frontier models, aimed at coding, long-running tasks and active memory.",
+    body:         "On October 12, 2026, Meta's Superintelligence Lab released Muse Wonder and Muse Wonder Full, presented as the company's first frontier models and successors to the lighter Muse Spark. It is the first release at this level since the reorganization of Meta's AI work led by Alexandr Wang in August 2025.\n\nMuse Wonder is available through the Meta Model API at $4 per million input tokens and $20 per million output tokens, pricing similar to Opus 5.5; Muse Wonder Full is limited to Muse Code subscribers and not offered via the API. Both power the Muse agent. Meta emphasizes active memory, the ability to retain and synthesize what the user shares over time, long-running tasks and coding.\n\nAccording to Meta's model card, the models score comparably to Claude Fable 5.1 and GPT-6 Astra, and Muse Wonder beats rivals on MemoryBench; these are company-reported results. The models were trained at the Prometheus datacenter in Ohio.",
+    badge:        "Released",
+    source_label: 'Source:',
+    source_name:  "TechCrunch",
+    source_url:   'https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder'
+  },
+
+  'google-gemini-agent': {
+    date:         "October 8, 2026",
+    title:        "Google Cloud unveils Gemini agent, a single agent for work",
+    excerpt:      "One agent that plans, uses tools and works in the cloud for hours or days, spawning sub-agents and choosing between Gemini and Claude models on quality and cost.",
+    body:         "On October 8, 2026, at the Gemini at Work event, Google Cloud unveiled Gemini agent, described as a single, universal agent for work. From one prompt box it handles knowledge work, questions, content creation and coding, and returns the result directly in documents, inboxes or development environments.\n\nThe agent keeps working in the cloud with the laptop closed, for hours or days, on tasks that are assigned, scheduled or triggered by events. It can spawn temporary sub-agents, each with its own identity, and coordinate them in parallel or sequential steps. It picks the model for each task from the Gemini family and Anthropic's Claude models, with more models planned, and connects to Workspace, Microsoft 365, Slack, Salesforce, Jira, Snowflake and any MCP server.\n\nOn control, every agent gets a verifiable least-privilege identity approved by administrators, an audit trail and sandboxed execution, with real-time per-project spend caps. Versions for finance and legal are in preview; general availability dates and pricing have not been announced.",
+    badge:        "Preview",
+    source_label: 'Source:',
+    source_name:  "Unite.AI",
+    source_url:   'https://unite.ai/google-cloud-unveils-gemini-its-universal-agent-for-work'
+  },
+
   'claude-haiku-5-5': {
     date:         'October 7, 2026',
     title:        "Claude Haiku 5.5: Anthropic's small model gets 75% cheaper",
@@ -62,17 +150,6 @@ window.GL.newsStrings['en'] = {
     source_label: 'Source:',
     source_name:  'TechCrunch',
     source_url:   'https://techcrunch.com/2026/10/05/reflection-debuts-beam-a-open-weight-ai-model-to-rival-chinese-models-at-lower-compute-cost/'
-  },
-
-  'gemini-4-argon': {
-    date:         'September 30, 2026',
-    title:        'Google unveils Gemini 4 Argon, limited to cyber defenders for now',
-    excerpt:      "Google's new frontier model targets software engineering, specialist knowledge work and cybersecurity. Initial access is limited to the Fairwind program.",
-    body:         "On September 30, 2026, Google DeepMind announced Gemini 4 Argon, its new frontier model, aimed at real-world software engineering, specialist legal and financial work, and cyber defense. The output limit rises from 64,000 to 1 million tokens.\n\nGoogle reports state-of-the-art results on several benchmarks: 77.9% on DeepSWE v1.1 (long-horizon software engineering), 91.7% on LVBench (long video understanding) and 68% on CWE-bench v1 (vulnerability repair), tying for first place.\n\nThe model is not yet publicly available: it is rolling out first to verified cyber defenders in the Fairwind program, while Google takes part in the U.S. government's voluntary pre-release access process. Wider release is promised soon, with no date, starting with paid API customers and Google AI Ultra subscribers. Introductory pricing is $2 per million input tokens and $10 per million output tokens, rising to $4 and $20 once the launch period ends.",
-    badge:        'Limited access',
-    source_label: 'Source:',
-    source_name:  'Google',
-    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/'
   },
 
   'gtig-ai-vulnerabilities': {

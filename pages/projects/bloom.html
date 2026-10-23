@@ -31,7 +31,7 @@
     <span class="section-label" data-i18n="sections.ecosystem_label">Progetti personali</span>
     <div style="display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:.75rem;">
       <span class="project-emoji" aria-hidden="true">🌸</span>
-      <span class="badge badge--review" data-i18n="status.review">In revisione su Google Play</span>
+      <span class="badge badge--testing" data-countdown-project="bloom">In test su Google Play</span>
     </div>
     <h1 class="section-title project-accent" data-i18n="projects.bloom.name">Bloom</h1>
     <p class="text-secondary mt-2" style="font-size:1.05rem;" data-i18n="projects.bloom.short">Legge una chat di WhatsApp e mostra com'è il rapporto: tono, equilibrio, temi, andamento. Tutto sul telefono.</p>
@@ -272,7 +272,7 @@
         <div data-lang="it">
           <h2 class="sec-title">In revisione su Google Play</h2>
           <div class="sec-body">
-            <p>La versione web è online. L'app Android è in test chiuso su Google Play: l'11 ottobre 2026 scheda dello Store e dichiarazioni sono state inviate a Google per la revisione. Per gli account sviluppatore nuovi Google chiede almeno 12 tester per 14 giorni prima della pubblicazione aperta a tutti.</p>
+            <p>La versione web è online. L'app Android è in test su Google Play con 12 tester dal 14 ottobre 2026. Per gli account sviluppatore nuovi Google chiede almeno 12 tester per 14 giorni prima di poter richiedere la pubblicazione aperta a tutti: il periodo si chiude il 28 ottobre, poi la richiesta passa all'esame di Google.</p>
             <p><strong>Vuoi dare una mano?</strong> Bastano due passi, spiegati nella pagina per i tester: iscriversi al gruppo di prova, poi installare l'app da Google Play. Serve un telefono Android. Ogni tester in più avvicina la pubblicazione.</p>
           </div>
           <div class="link-grid">
@@ -284,7 +284,7 @@
         <div data-lang="en">
           <h2 class="sec-title">Under review on Google Play</h2>
           <div class="sec-body">
-            <p>The web version is online. The Android app is in closed testing on Google Play: on 11 October 2026 the Store listing and declarations were sent to Google for review. For new developer accounts Google requires at least 12 testers for 14 days before a public release.</p>
+            <p>The web version is online. The Android app has been tested on Google Play by 12 testers since 14 October 2026. For new developer accounts Google requires at least 12 testers for 14 days before a public release can be requested: the period ends on 28 October, then the request goes to Google for review.</p>
             <p><strong>Want to help?</strong> It takes two steps, explained on the tester page: join the test group, then install the app from Google Play. You need an Android phone. Every extra tester brings the release closer.</p>
           </div>
           <div class="link-grid">
@@ -299,10 +299,15 @@
 
     <!-- ════ COLONNA DESTRA ════ -->
     <aside>
+      <!-- Conto alla rovescia: il testo statico vale senza JavaScript, Countdown in app.js lo sostituisce -->
+      <div class="side-card countdown-card animate" data-countdown-project="bloom" data-countdown-mode="panel" style="margin-bottom:1.25rem;">
+        <div class="cd-title">Verso Google Play</div>
+        <p class="cd-text">Bloom è in test su Google Play con 12 tester. Google chiede 14 giorni consecutivi prima di poter richiedere la pubblicazione: il periodo si chiude il 28 ottobre alle 08:00 (ora italiana).</p>
+      </div>
       <div class="side-card animate">
         <div class="side-row">
           <span class="side-label" data-i18n="project_detail.status_label">Stato</span>
-          <span class="badge badge--review" style="width:fit-content;" data-i18n="status.review">In revisione su Google Play</span>
+          <span class="badge badge--testing" style="width:fit-content;" data-countdown-project="bloom">In test su Google Play</span>
         </div>
         <div class="divider"></div>
         <div class="side-row">

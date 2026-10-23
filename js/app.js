@@ -447,6 +447,7 @@
         var data = i18nProj[meta.id];
         if (!data) return;
         var statusLabel = i18nStatus[data.status] || data.status;
+        var countdownAttr = meta.countdown ? ' data-countdown-project="' + meta.id + '"' : '';
         var card = document.createElement('a');
         card.className = 'project-card animate';
         card.href = px + meta.page;
@@ -462,7 +463,7 @@
           '<p class="project-card__desc">' + data.short + '</p>' +
           '<div class="project-card__footer">' +
             '<div class="flex-gap" style="flex-wrap:wrap;">' +
-              '<span class="badge badge--' + data.status + '">' + statusLabel + '</span>' +
+              '<span class="badge badge--' + data.status + '"' + countdownAttr + '>' + statusLabel + '</span>' +
               data.tags.slice(0, 2).map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') +
             '</div>' +
             '<div class="project-card__arrow">\u2192</div>' +
@@ -472,6 +473,7 @@
       document.querySelectorAll('.animate:not(.animated)').forEach(function(el) {
         setTimeout(function() { el.classList.add('animated'); }, 50);
       });
+      Countdown.render();
     }
 
     function init() {
@@ -480,6 +482,86 @@
     }
 
     return { init: init, renderCards: renderCards };
+  })();
+
+  /* =
+     COUNTDOWN - scadenze dei progetti (GL.projects[].countdown, data ISO)
+     [data-countdown-project="id"]: badge con il tempo che manca;
+     con data-countdown-mode="panel": riquadro con giorni, ore, minuti e spiegazione.
+     Alla scadenza il badge torna a "In revisione su Google Play".
+  = */
+  var Countdown = (function () {
+    var timer = null;
+
+    function endFor(id) {
+      var p = PROJECTS.filter(function(x) { return x.id === id; })[0];
+      return p && p.countdown ? Date.parse(p.countdown) : NaN;
+    }
+
+    function split(ms) {
+      var sec = Math.max(0, Math.ceil(ms / 1000));
+      return { d: Math.floor(sec / 86400), h: Math.floor(sec % 86400 / 3600), m: Math.floor(sec % 3600 / 60), s: sec % 60 };
+    }
+
+    function short(ms) {
+      var t = split(ms), u = I18n.t('countdown.short') || {};
+      var parts = [];
+      if (t.d > 0) parts.push(t.d + ' ' + u.d);
+      if (t.d > 0 || t.h > 0) parts.push(t.h + ' ' + u.h);
+      parts.push(t.m + ' ' + u.m, t.s + ' ' + u.s);
+      return parts.join(' ');
+    }
+
+    function dateText(end) {
+      var locale = I18n.current === 'it' ? 'it-IT' : 'en-GB';
+      return new Date(end).toLocaleString(locale, {
+        day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome'
+      }) + ' (' + I18n.t('countdown.tz') + ')';
+    }
+
+    function panelHTML(end, left) {
+      var date = dateText(end);
+      if (left <= 0) {
+        return '<div class="cd-title">' + I18n.t('countdown.done_title') + '</div>' +
+          '<p class="cd-text">' + I18n.t('countdown.done_text').replace('{date}', date) + '</p>';
+      }
+      var t = split(left), units = I18n.t('countdown.units') || {};
+      var cell = function(n, k) {
+        return '<div><b>' + n + '</b><span>' + (units[k] ? units[k][n === 1 ? 0 : 1] : k) + '</span></div>';
+      };
+      return '<div class="cd-title">' + I18n.t('countdown.title') + '</div>' +
+        '<div class="cd-time">' + cell(t.d, 'd') + cell(t.h, 'h') + cell(t.m, 'm') + cell(t.s, 's') + '</div>' +
+        '<p class="cd-text">' + I18n.t('countdown.text').replace('{date}', date) + '</p>' +
+        '<p class="cd-text">' + I18n.t('countdown.after') + '</p>';
+    }
+
+    function render() {
+      var now = Date.now(), active = false;
+      document.querySelectorAll('[data-countdown-project]').forEach(function(el) {
+        var end = endFor(el.getAttribute('data-countdown-project'));
+        if (isNaN(end)) return;
+        var left = end - now;
+        if (left > 0) active = true;
+        if (el.getAttribute('data-countdown-mode') === 'panel') {
+          el.innerHTML = panelHTML(end, left);
+        } else if (left > 0) {
+          el.textContent = I18n.t('countdown.badge').replace('{time}', short(left));
+        } else {
+          el.textContent = I18n.t('status.review');
+          el.classList.remove('badge--testing');
+          el.classList.add('badge--review');
+        }
+      });
+      if (active && !timer) timer = setInterval(render, 1000);
+      if (!active && timer) { clearInterval(timer); timer = null; }
+    }
+
+    function init() {
+      render();
+      document.addEventListener('langChange', render);
+    }
+
+    return { init: init, render: render };
   })();
 
   /* =
@@ -1475,6 +1557,9 @@
     if (page === 'scritti')        { ScrittiPage.init(); }
     if (page === 'contact')        { Forms.setupForm('contact-form', 'form-feedback'); }
     if (page === 'project-detail') { ProjectDetail.init(); }
+
+    /* conti alla rovescia: dopo le schede, che li creano */
+    Countdown.init();
   }
 
   document.addEventListener('DOMContentLoaded', boot);
