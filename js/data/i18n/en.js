@@ -475,6 +475,7 @@ window.GL.i18n.en = {
     "scroll": "scroll",
     "scroll_down": "Scroll down",
     "back_to_top": "Back to top",
+    "audio": "Background music",
     "all_news": "All news ->",
     "open_page": "Open →",
     "read_write": "Read and write ->",

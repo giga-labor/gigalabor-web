@@ -169,6 +169,40 @@
 }
 
 
+/* Musica di sottofondo: stessa cornice del pulsante lingua */
+.audio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, color 0.2s, transform 0.15s;
+}
+.audio-btn svg { width: 18px; height: 18px; }
+.audio-btn:hover {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 8px var(--accent-2-glow);
+  transform: translateY(-1px);
+}
+.audio-btn .ax { display: none; }
+.audio-btn.is-off .aw { display: none; }
+.audio-btn.is-off .ax { display: inline; }
+.audio-btn.is-wait .aw { opacity: 0.35; }
+.audio-btn.is-on { color: var(--accent); }
+.audio-btn.is-on .aw { animation: audioWave 2.4s ease-in-out infinite; }
+.audio-btn.is-on .aw2 { animation-delay: 0.4s; }
+@keyframes audioWave { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) {
+  .audio-btn.is-on .aw { animation: none; }
+}
+
+
 /* -- HAMBURGER -------------------------------------------- */
 .navbar__hamburger {
   display: none;

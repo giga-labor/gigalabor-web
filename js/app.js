@@ -61,6 +61,7 @@
         btn.classList.toggle('active', btn.dataset.theme === theme);
       });
       try { localStorage.setItem(CFG.storageKeys.theme, theme); } catch(e) {}
+      document.dispatchEvent(new CustomEvent('themeChange', { detail: theme }));
     }
 
     function init() {
@@ -195,6 +196,7 @@
         news:    '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="14" height="12" rx="1"/><line x1="5" y1="7" x2="13" y2="7" stroke-linecap="round"/><line x1="5" y1="10" x2="10" y2="10" stroke-linecap="round"/></svg>',
         home:    '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2.5 8.5 9 2.5l6.5 6v7h-4.2v-4.5H6.7v4.5H2.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         about:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="9" cy="6" r="3"/><path d="M2 16c0-3.31 3.13-6 7-6s7 2.69 7 6" stroke-linecap="round"/></svg>',
+        audio:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7h2.8L9 4v10l-3.7-3H2.5z"/><path class="aw" d="M11.5 6.8a3 3 0 0 1 0 4.4"/><path class="aw aw2" d="M13.6 4.8a6 6 0 0 1 0 8.4"/><path class="ax" d="M12 7l4 4M16 7l-4 4"/></svg>',
         contact: '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="4" width="14" height="10" rx="1"/><polyline points="2,4 9,10 16,4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       };
       return icons[type] || '';
@@ -213,6 +215,7 @@
             '<button class="theme-btn theme-btn--light"    data-theme="light"     title="Light"         aria-label="Light"></button>' +
             '<button class="theme-btn theme-btn--contrast" data-theme="contrast"  title="High Contrast" aria-label="High Contrast"></button>' +
           '</div>' +
+          '<button class="audio-btn" type="button" aria-pressed="false" data-i18n-attr="aria-label:ui.audio,title:ui.audio">' + icon('audio') + '</button>' +
           '<button class="navbar__lang-btn" id="lang-toggle" aria-label="Cambia lingua">EN</button>' +
           '<div class="tb-sep"></div>' +
           '<span class="tb-time" id="tb-time" aria-hidden="true">--:--:--</span>' +
@@ -1484,6 +1487,548 @@
   })();
 
   /* =
+     MUSICA DI SOTTOFONDO - synth cinematico generativo in Web Audio
+     Atmosfera alla Vangelis (pad "ottoni" che si gonfiano, melodie lente con
+     vibrato, pioggia, riverbero lungo) su un motore alla Tron Legacy (basso in
+     sedicesimi, arpeggio serrato, pad che pompano sul battito, ottoni gravi).
+     Nessun file audio: tutto e sintetizzato dal vivo, le note sono generate.
+     Parte da sola se il browser lo permette, altrimenti al primo clic o tasto.
+     Il pulsante in topbar la spegne e la scelta resta salvata.
+  = */
+  var Ambient = (function () {
+    var STORE_KEY = 'gl_audio';
+    var VOLUME    = 0.6;            /* guadagno finale, dopo il compressore */
+    var FADE_IN   = 4;              /* secondi */
+    var FADE_OUT  = 1.2;
+    var BPM       = 96;
+    var STEP      = 60 / BPM / 4;   /* sedicesimo */
+    var CHORD_SEC = STEP * 16 * 6;  /* sei battute per accordo (15 s) */
+    var XFADE     = 6;              /* dissolvenza dei pad, a cavallo del cambio */
+
+    /* Re minore con l'ombra frigia del bII (Eb): otto accordi, ~2 minuti per giro.
+       Note MIDI, voci larghe; la prima e la fondamentale per il basso. */
+    var CHORDS = [
+      [50, 57, 60, 64, 65],   /* Dm9      */
+      [46, 53, 57, 62, 64],   /* Bbmaj7#11 */
+      [43, 50, 53, 57, 58],   /* Gm9      */
+      [51, 58, 62, 65, 67],   /* Ebmaj9   */
+      [50, 57, 62, 64, 65],   /* Dm9      */
+      [48, 53, 57, 64, 67],   /* Fmaj9/C  */
+      [46, 53, 57, 60, 62],   /* Bbmaj9   */
+      [45, 52, 57, 62, 64]    /* Asus4    */
+    ];
+    var ARP  = [0, 1, 2, 3, 4, 3, 2, 1, 0, 2, 4, 2, 1, 3, 4, 3];   /* indici nell'accordo */
+    var BASS = [0, 0, 12, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, 12, 0, 12];  /* ottave sul basso */
+    var DRONE  = 38;   /* D2, pedale sotto tutti gli accordi */
+    /* luminosita del passa-basso dei pad per ogni tema (Hz) */
+    var BRIGHT = { 'dark-tech': 2600, 'light': 3800, 'contrast': 3000 };
+
+    var ctx = null;
+    var comp, master, send, echoIn, padBus, pump, padFilter, brassBus, keysBus, leadBus, arpBus, bassBus, noiseBuf;
+    var pref = 'on';
+    var chordIdx = 0, nextChordAt = 0, nextStepAt = 0, step = 0;
+    var harmony = [];   /* cambi d'accordo programmati: { at, notes } */
+    var stopTimer;
+    var GESTURES = ['pointerdown', 'keydown', 'touchend'];
+
+    function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+    function rand(a, b) { return a + Math.random() * (b - a); }
+    function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
+
+    function impulse(seconds, decay) {
+      var rate = ctx.sampleRate, len = Math.floor(rate * seconds);
+      var buf = ctx.createBuffer(2, len, rate);
+      for (var c = 0; c < 2; c++) {
+        var d = buf.getChannelData(c);
+        for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
+      }
+      return buf;
+    }
+
+    function pinkNoise(seconds) {
+      var rate = ctx.sampleRate, len = Math.floor(rate * seconds);
+      var buf = ctx.createBuffer(1, len, rate);
+      var d = buf.getChannelData(0), b0 = 0, b1 = 0, b2 = 0;
+      for (var i = 0; i < len; i++) {
+        var w = Math.random() * 2 - 1;
+        b0 = 0.99765 * b0 + w * 0.0990460;
+        b1 = 0.96300 * b1 + w * 0.2965164;
+        b2 = 0.57000 * b2 + w * 1.0526913;
+        d[i] = (b0 + b1 + b2 + w * 0.1848) * 0.11;
+      }
+      return buf;
+    }
+
+    function lfo(freq, depth, target) {
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = freq;
+      g.gain.value = depth;
+      o.connect(g); g.connect(target);
+      o.start();
+      return o;
+    }
+
+    function gain(v) { var g = ctx.createGain(); g.gain.value = v; return g; }
+
+    function filter(type, freq, q) {
+      var f = ctx.createBiquadFilter();
+      f.type = type; f.frequency.value = freq; f.Q.value = q || 0.7;
+      return f;
+    }
+
+    /* uscita a secco + mandata al riverbero (+ eco, se richiesta) */
+    function route(node, dry, wet, echo) {
+      var d = gain(dry), w = gain(wet);
+      node.connect(d); d.connect(comp);
+      node.connect(w); w.connect(send);
+      if (echo) { var e = gain(echo); node.connect(e); e.connect(echoIn); }
+    }
+
+    function build() {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ctx = new AC();
+
+      comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -22; comp.knee.value = 18; comp.ratio.value = 3;
+      comp.attack.value = 0.03;   comp.release.value = 0.3;
+      /* un filo d'aria sugli acuti in uscita */
+      var air = filter('highshelf', 3500);
+      air.gain.value = 5;
+      master = gain(0);
+      comp.connect(air); air.connect(master); master.connect(ctx.destination);
+
+      /* riverbero da cattedrale con un filo di pre-delay */
+      send = gain(1);
+      var pre = ctx.createDelay(1), verb = ctx.createConvolver(), damp = filter('lowpass', 7000);
+      pre.delayTime.value = 0.035;
+      verb.buffer = impulse(6, 2.2);
+      send.connect(pre); pre.connect(verb); verb.connect(damp); damp.connect(comp);
+
+      /* eco ping-pong a croma puntata, a tempo con l'arpeggio */
+      echoIn = gain(1);
+      var dl = ctx.createDelay(2), dr = ctx.createDelay(2), fbf = filter('lowpass', 2400), fb = gain(0.4);
+      var merge = ctx.createChannelMerger(2), echoOut = gain(0.45);
+      dl.delayTime.value = STEP * 3; dr.delayTime.value = STEP * 3;
+      echoIn.connect(dl); dl.connect(fbf); fbf.connect(dr); dr.connect(fb); fb.connect(dl);
+      dl.connect(merge, 0, 0); dr.connect(merge, 0, 1);
+      merge.connect(echoOut); echoOut.connect(comp); echoOut.connect(send);
+
+      /* pad: pompano sul battito, lasciano i bassi al basso, poi un passa-basso che respira */
+      padBus = gain(1); pump = gain(1);
+      var padCut = filter('highpass', 170);
+      padFilter = filter('lowpass', BRIGHT[Theme.current] || BRIGHT['dark-tech'], 0.5);
+      lfo(0.03, 400, padFilter.frequency);
+      padBus.connect(pump); pump.connect(padCut); padCut.connect(padFilter);
+      route(padFilter, 0.55, 0.9);
+
+      brassBus = gain(1);
+      var brassCut = filter('highpass', 60);
+      brassBus.connect(brassCut); route(brassCut, 0.5, 0.8);
+      keysBus  = gain(1);  route(keysBus, 0.3, 0.9, 1);
+      leadBus  = gain(1);  route(leadBus, 0.45, 1, 0.3);
+
+      /* arpeggio e basso: il loro volume sale e scende in cicli di un paio di minuti */
+      arpBus = gain(1);
+      var arpFilter = filter('lowpass', 2200, 4), arpLevel = gain(0.5);
+      lfo(0.017, 1200, arpFilter.frequency);
+      lfo(0.009, 0.5, arpLevel.gain);
+      arpBus.connect(arpFilter); arpFilter.connect(arpLevel);
+      route(arpLevel, 0.7, 0.6, 0.8);
+
+      bassBus = gain(1);
+      var bassFilter = filter('lowpass', 520, 6), bassLevel = gain(0.42);
+      lfo(0.02, 220, bassFilter.frequency);
+      lfo(0.006, 0.3, bassLevel.gain);
+      bassBus.connect(bassFilter); bassFilter.connect(bassLevel);
+      route(bassLevel, 0.9, 0.15);
+
+      /* pioggia: rumore rosa tagliato in alto e in basso */
+      noiseBuf = pinkNoise(4);
+      var rain = ctx.createBufferSource(), hp = filter('highpass', 1800), lp = filter('lowpass', 7500), rainLevel = gain(0.06);
+      rain.buffer = noiseBuf; rain.loop = true;
+      lfo(0.03, 0.015, rainLevel.gain);
+      rain.connect(hp); hp.connect(lp); lp.connect(rainLevel);
+      route(rainLevel, 1, 0.3);
+      rain.start();
+
+      /* pedale grave */
+      var drone = ctx.createOscillator(), droneLevel = gain(0.045);
+      drone.frequency.value = mtof(DRONE);
+      lfo(0.11, 0.015, droneLevel.gain);
+      drone.connect(droneLevel); droneLevel.connect(comp);
+      drone.start();
+
+      /* l'accordo di partenza dipende dall'ora: cambiando pagina l'armonia prosegue */
+      chordIdx = Math.floor(Date.now() / 1000 / CHORD_SEC) % CHORDS.length;
+      nextChordAt = nextStepAt = ctx.currentTime + 0.05;
+      ctx.onstatechange = onState;
+      scheduleMusic();
+      scheduleKeys();
+      scheduleThunder();
+      return true;
+    }
+
+    function notesAt(t) {
+      var notes = harmony[0].notes;
+      for (var i = 0; i < harmony.length && harmony[i].at <= t; i++) notes = harmony[i].notes;
+      return notes;
+    }
+
+    /* pad "ottoni": tre dente di sega scordate che derivano piano di intonazione */
+    function padNote(midi, t0, dur, dest) {
+      var env = ctx.createGain(), pan = ctx.createStereoPanner();
+      pan.pan.value = rand(-0.6, 0.6);
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(1, t0 + XFADE);
+      env.gain.setValueAtTime(1, t0 + dur - XFADE);
+      env.gain.linearRampToValueAtTime(0, t0 + dur);
+      env.connect(pan); pan.connect(dest);
+      var drift = ctx.createOscillator(), driftDepth = gain(5);
+      drift.frequency.value = rand(0.08, 0.25);
+      drift.connect(driftDepth);
+      [-9, 0, 9].forEach(function (cents) {
+        var o = ctx.createOscillator(), g = gain(0.045);
+        o.type = 'sawtooth';
+        o.frequency.value = mtof(midi);
+        o.detune.value = cents + rand(-2, 2);
+        driftDepth.connect(o.detune);
+        o.connect(g); g.connect(env);
+        o.start(t0); o.stop(t0 + dur + 0.1);
+      });
+      drift.start(t0); drift.stop(t0 + dur + 0.1);
+    }
+
+    /* ogni accordo ha il suo filtro risonante che si apre come un fiato */
+    function chord(notes, t0, dur) {
+      var swell = filter('lowpass', 250, 3), f = swell.frequency;
+      f.setValueAtTime(250, t0);
+      f.linearRampToValueAtTime(3200, t0 + XFADE + 1);
+      f.linearRampToValueAtTime(1500, t0 + dur * 0.6);
+      f.linearRampToValueAtTime(400, t0 + dur);
+      swell.connect(padBus);
+      notes.forEach(function (m) { padNote(m, t0, dur, swell); });
+    }
+
+    /* ottoni gravi sul cambio d'accordo: fondamentale, ottava sotto e quinta */
+    function brass(root, t0) {
+      var swell = filter('lowpass', 150, 2), env = gain(0);
+      swell.frequency.setValueAtTime(150, t0);
+      swell.frequency.linearRampToValueAtTime(1800, t0 + 1.4);
+      swell.frequency.linearRampToValueAtTime(300, t0 + 6);
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(0.16, t0 + 0.9);
+      env.gain.exponentialRampToValueAtTime(0.001, t0 + 7);
+      swell.connect(env); env.connect(brassBus);
+      [root - 12, root, root + 7].forEach(function (m) {
+        [-8, 8].forEach(function (cents) {
+          var o = ctx.createOscillator();
+          o.type = 'sawtooth';
+          o.frequency.value = mtof(m);
+          o.detune.value = cents;
+          o.connect(swell);
+          o.start(t0); o.stop(t0 + 7.1);
+        });
+      });
+    }
+
+    function arpNote(midi, t0, accent) {
+      var o = ctx.createOscillator(), env = ctx.createGain();
+      o.type = 'square';
+      o.frequency.value = mtof(midi);
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(accent ? 0.06 : 0.04, t0 + 0.003);
+      env.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.14);
+      o.connect(env); env.connect(arpBus);
+      o.start(t0); o.stop(t0 + 0.16);
+    }
+
+    function bassNote(midi, t0) {
+      var o = ctx.createOscillator(), env = ctx.createGain();
+      o.type = 'sawtooth';
+      o.frequency.value = mtof(midi);
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(0.22, t0 + 0.004);
+      env.gain.exponentialRampToValueAtTime(0.001, t0 + STEP * 0.9);
+      o.connect(env); env.connect(bassBus);
+      o.start(t0); o.stop(t0 + STEP);
+    }
+
+    /* melodia lenta da synth polifonico: legato, portamento e vibrato che arriva tardi */
+    function phrase(notes, t0) {
+      var pool = notes.map(function (n) { return n + 12; }).filter(function (n) { return n >= 60 && n <= 79; });
+      if (pool.length < 2) return;
+      var filt = filter('lowpass', 500, 2), env = gain(0);
+      var vib = ctx.createOscillator(), vibDepth = gain(0);
+      var oscs = [ctx.createOscillator(), ctx.createOscillator()];
+      vib.frequency.value = 5.2;
+      vibDepth.gain.setValueAtTime(0, t0);
+      vibDepth.gain.linearRampToValueAtTime(14, t0 + 1.5);
+      vib.connect(vibDepth);
+      filt.connect(env); env.connect(leadBus);
+      var t = t0, last = null, count = 2 + Math.floor(Math.random() * 3);
+      for (var i = 0; i < count; i++) {
+        var m;
+        do { m = pick(pool); } while (m === last);
+        last = m;
+        var f = mtof(m), len = rand(1.6, 3.2);
+        oscs.forEach(function (o) {
+          if (i === 0) o.frequency.setValueAtTime(f, t);
+          else o.frequency.setTargetAtTime(f, t, 0.09);
+        });
+        env.gain.setTargetAtTime(0.1, t, 0.25);
+        filt.frequency.setTargetAtTime(2600, t, 0.35);
+        env.gain.setTargetAtTime(0.065, t + len * 0.6, 0.4);
+        filt.frequency.setTargetAtTime(1200, t + len * 0.6, 0.5);
+        t += len;
+      }
+      env.gain.setTargetAtTime(0, t, 0.8);
+      filt.frequency.setTargetAtTime(400, t, 0.8);
+      oscs.forEach(function (o, k) {
+        o.type = 'sawtooth';
+        o.detune.value = k ? 6 : -6;
+        vibDepth.connect(o.detune);
+        o.connect(filt);
+        o.start(t0); o.stop(t + 5);
+      });
+      vib.start(t0); vib.stop(t + 5);
+    }
+
+    /* piano elettrico in FM (rapporto 1:1): note sparse dell'accordo, due ottave sopra */
+    function tine(midi, t0) {
+      var f = mtof(midi);
+      var car = ctx.createOscillator(), mod = ctx.createOscillator(), modDepth = ctx.createGain();
+      var env = ctx.createGain(), pan = ctx.createStereoPanner();
+      car.frequency.value = f; mod.frequency.value = f;
+      modDepth.gain.setValueAtTime(f * 2.5, t0);
+      modDepth.gain.exponentialRampToValueAtTime(f * 0.2, t0 + 1.5);
+      mod.connect(modDepth); modDepth.connect(car.frequency);
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(0.07, t0 + 0.008);
+      env.gain.exponentialRampToValueAtTime(0.0001, t0 + 5);
+      pan.pan.value = rand(-0.7, 0.7);
+      car.connect(env); env.connect(pan); pan.connect(keysBus);
+      car.start(t0); mod.start(t0); car.stop(t0 + 5.1); mod.stop(t0 + 5.1);
+    }
+
+    /* tuono lontano: rumore rosa filtrato molto in basso */
+    function thunder(t0) {
+      var src = ctx.createBufferSource(), lp = filter('lowpass', 90), env = gain(0);
+      src.buffer = noiseBuf; src.loop = true;
+      lp.frequency.setValueAtTime(90, t0);
+      lp.frequency.linearRampToValueAtTime(260, t0 + 1.2);
+      lp.frequency.linearRampToValueAtTime(70, t0 + 8);
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(0.8, t0 + 1.5);
+      env.gain.exponentialRampToValueAtTime(0.001, t0 + 9);
+      src.connect(lp); lp.connect(env); env.connect(comp); env.connect(send);
+      src.start(t0, rand(0, 3)); src.stop(t0 + 9.2);
+    }
+
+    /* sequencer: accordi, basso, arpeggio e pompaggio sulla stessa griglia */
+    function scheduleMusic() {
+      if (ctx.state === 'running') {
+        var now = ctx.currentTime, ahead = now + 1;
+        if (nextChordAt < now) nextChordAt = now;
+        if (nextStepAt < now) nextStepAt = now;
+        /* i pad partono mezza dissolvenza prima del cambio, basso e arpeggio sul cambio */
+        while (nextChordAt - XFADE / 2 < ahead) {
+          var notes = CHORDS[chordIdx];
+          chord(notes, Math.max(now, nextChordAt - XFADE / 2), CHORD_SEC + XFADE);
+          if (Math.random() < 0.4) brass(notes[0], nextChordAt);
+          if (Math.random() < 0.45) phrase(notes, nextChordAt + rand(3, 6));
+          harmony.push({ at: nextChordAt, notes: notes });
+          if (harmony.length > 3) harmony.shift();
+          chordIdx = (chordIdx + 1) % CHORDS.length;
+          nextChordAt += CHORD_SEC;
+        }
+        while (nextStepAt < ahead) {
+          var sorted = notesAt(nextStepAt).slice().sort(function (a, b) { return a - b; });
+          var s = step % 16;
+          arpNote(sorted[ARP[s] % sorted.length] + 12, nextStepAt, s % 4 === 0);
+          bassNote(sorted[0] - 12 + BASS[s], nextStepAt);
+          if (s % 4 === 0) {
+            pump.gain.setValueAtTime(0.6, nextStepAt);
+            pump.gain.setTargetAtTime(1, nextStepAt + 0.01, 0.13);
+          }
+          step++;
+          nextStepAt += STEP;
+        }
+      }
+      setTimeout(scheduleMusic, 250);
+    }
+
+    function scheduleKeys() {
+      if (ctx.state === 'running' && harmony.length) {
+        var t = ctx.currentTime + 0.05, notes = notesAt(t);
+        var n = Math.random() < 0.3 ? 3 : 1;
+        for (var i = 0; i < n; i++) tine(Math.min(pick(notes) + 24, 89), t + i * STEP * 2);
+      }
+      setTimeout(scheduleKeys, rand(3000, 9000));
+    }
+
+    function scheduleThunder() {
+      if (ctx.state === 'running') thunder(ctx.currentTime + 0.05);
+      setTimeout(scheduleThunder, rand(45000, 100000));
+    }
+
+    function fadeTo(v, sec) {
+      var g = master.gain, t = ctx.currentTime;
+      g.cancelScheduledValues(t);
+      g.setValueAtTime(g.value, t);
+      g.linearRampToValueAtTime(v, t + sec);
+    }
+
+    function audible() { return !!ctx && ctx.state === 'running' && pref === 'on'; }
+
+    /* documenti serviti: il proprio e, in navigazione continua, quello nel riquadro */
+    function docs() {
+      var list = [document];
+      if (frame && frame.contentDocument) list.push(frame.contentDocument);
+      return list;
+    }
+
+    function onState() {
+      if (audible() && !document.hidden) {
+        fadeTo(VOLUME, FADE_IN);
+        docs().forEach(function (d) {
+          GESTURES.forEach(function (ev) { d.removeEventListener(ev, onGesture, true); });
+        });
+      }
+      paint();
+    }
+
+    /* porta l'audio dove deve stare: acceso se voluto e la scheda e visibile */
+    function ensure() {
+      var wanted = pref === 'on' && !document.hidden;
+      clearTimeout(stopTimer);
+      if (wanted) {
+        if (!ctx && !build()) return;
+        if (ctx.state === 'running') onState();
+        else { var p = ctx.resume(); if (p && p.catch) p.catch(function () {}); }
+      } else if (ctx && ctx.state === 'running') {
+        fadeTo(0, FADE_OUT);
+        stopTimer = setTimeout(function () { ctx.suspend(); }, FADE_OUT * 1000 + 100);
+      }
+      paint();
+    }
+
+    function onGesture(e) {
+      if (e.target && e.target.closest && e.target.closest('.audio-btn')) return;
+      if (pref === 'on') ensure();
+    }
+
+    function onTheme(e) {
+      if (ctx) padFilter.frequency.setTargetAtTime(BRIGHT[e.detail] || BRIGHT['dark-tech'], ctx.currentTime, 2);
+    }
+
+    function toggle() {
+      pref = audible() ? 'off' : 'on';
+      try { localStorage.setItem(STORE_KEY, pref); } catch (e) {}
+      ensure();
+    }
+
+    function paint() {
+      var on = audible(), waiting = pref === 'on' && !on;
+      docs().forEach(function (d) {
+        d.querySelectorAll('.audio-btn').forEach(function (btn) {
+          btn.classList.toggle('is-on', on);
+          btn.classList.toggle('is-wait', waiting);
+          btn.classList.toggle('is-off', pref === 'off');
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      });
+    }
+
+    /* NAVIGAZIONE CONTINUA
+       Con la musica accesa i link interni non ricaricano la finestra: la nuova pagina
+       si apre in un riquadro a tutto schermo e questo documento, nascosto sotto,
+       continua a suonare. Indirizzo, titolo e tasto Indietro seguono il riquadro. */
+    var frame = null;
+
+    function onLink(e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+      var url = new URL(a.href, a.ownerDocument.baseURI);
+      if (!/^https?:$/.test(url.protocol)) return;
+      if (url.origin !== location.origin) {
+        /* i siti esterni non si aprono nel riquadro: escono dalla finestra */
+        if (a.ownerDocument !== document) { e.preventDefault(); location.href = url.href; }
+        return;
+      }
+      if (!frame && !(pref === 'on' && ctx)) return;
+      var here = a.ownerDocument.location;
+      if (url.pathname === here.pathname && url.search === here.search && url.hash) return;
+      e.preventDefault();
+      go(url.href);
+    }
+
+    function go(url) {
+      if (!frame) {
+        history.replaceState({ glFrame: location.href }, '', location.href);
+        /* la pagina ospite resta nascosta: le sue animazioni si fermano al prossimo fotogramma */
+        window.requestAnimationFrame = function () { return 0; };
+        /* stili in linea: non dipendono da un CSS magari ancora in cache */
+        Array.prototype.forEach.call(document.body.children, function (el) { el.style.setProperty('display', 'none', 'important'); });
+        document.documentElement.style.overflow = document.body.style.overflow = 'hidden';
+        frame = document.createElement('iframe');
+        frame.id = 'gl-frame';
+        frame.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:100000;background:var(--bg-base);';
+        frame.addEventListener('load', onFrameLoad);
+        document.body.appendChild(frame);
+        window.addEventListener('popstate', function (e) {
+          if (e.state && e.state.glFrame) frame.contentWindow.location.replace(e.state.glFrame);
+        });
+      }
+      frame.contentWindow.location.replace(url);
+      history.pushState({ glFrame: url }, '', url);
+    }
+
+    function onFrameLoad() {
+      var w = frame.contentWindow, d = frame.contentDocument;
+      /* il riquadro appena inserito carica prima una pagina vuota */
+      if (!d || w.location.protocol === 'about:') return;
+      function sync() {
+        if (w.location.href !== location.href) history.replaceState({ glFrame: w.location.href }, '', w.location.href);
+      }
+      document.title = frame.title = d.title;
+      sync();
+      w.addEventListener('hashchange', sync);
+      try { w.focus(); } catch (e) {}
+    }
+
+    /* collega un documento: pulsante, gesti, tema e link */
+    function attach(doc) {
+      doc.querySelectorAll('.audio-btn').forEach(function (btn) {
+        btn.addEventListener('click', toggle);
+      });
+      if (!audible()) GESTURES.forEach(function (ev) { doc.addEventListener(ev, onGesture, true); });
+      doc.addEventListener('themeChange', onTheme);
+      doc.addEventListener('click', onLink);
+      paint();
+    }
+
+    function init() {
+      /* dentro il riquadro: suona il documento ospite, qui si collega solo la pagina */
+      var host = null;
+      try { if (window.parent !== window) host = window.parent.__glAudioHost; } catch (e) {}
+      if (host) { host.attach(document); return; }
+      window.__glAudioHost = { attach: attach };
+
+      try { if (localStorage.getItem(STORE_KEY) === 'off') pref = 'off'; } catch (e) {}
+      attach(document);
+      document.addEventListener('visibilitychange', ensure);
+      /* tentativo di partenza automatica; dove il browser lo vieta di sicuro
+         si aspetta il primo gesto, senza creare il contesto (e l'avviso in console) */
+      var policy = navigator.getAutoplayPolicy ? navigator.getAutoplayPolicy('audiocontext') : 'unknown';
+      if (pref === 'on' && policy !== 'disallowed') ensure();
+    }
+
+    return { init: init };
+  })();
+
+  /* =
      BOOT
   = */
   function detectPage() {
@@ -1515,6 +2060,9 @@
 
     /* topbar: tema, lingua, orologio */
     Navbar.init();
+
+    /* musica di sottofondo (pulsante in topbar) */
+    Ambient.init();
 
     /* bottombar: data dell'ultimo aggiornamento */
     Footer.init();

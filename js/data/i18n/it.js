@@ -475,6 +475,7 @@ window.GL.i18n.it = {
     "scroll": "scroll",
     "scroll_down": "Scorri in basso",
     "back_to_top": "Torna su",
+    "audio": "Musica di sottofondo",
     "all_news": "Tutte le notizie ->",
     "open_page": "Apri →",
     "read_write": "Leggi e scrivi ->",
