@@ -445,6 +445,7 @@ window.GL.i18n.en = {
     "audio_volume": "Music volume",
     "audio_off": "Turn music off",
     "audio_on": "Turn music on",
+    "audio_quality": "Audio quality",
     "all_news": "All news ->",
     "open_page": "Open →",
     "read_write": "Read and write ->",

@@ -445,6 +445,7 @@ window.GL.i18n.it = {
     "audio_volume": "Volume della musica",
     "audio_off": "Spegni musica",
     "audio_on": "Accendi musica",
+    "audio_quality": "Qualità audio",
     "all_news": "Tutte le notizie ->",
     "open_page": "Apri →",
     "read_write": "Leggi e scrivi ->",

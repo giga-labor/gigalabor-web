@@ -241,6 +241,12 @@
   transition: border-color 0.2s, color 0.2s;
 }
 .audio-toggle:hover { border-color: var(--accent-2); color: var(--text-primary); }
+.audio-note {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
 .audio-toggle .at-on { display: none; }
 .audio-toggle.is-off .at-on { display: inline; }
 .audio-toggle.is-off .at-off { display: none; }

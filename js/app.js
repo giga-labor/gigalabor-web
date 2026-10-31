@@ -225,6 +225,7 @@
               '<button class="audio-toggle" type="button">' +
                 '<span class="at-off" data-i18n="ui.audio_off"></span><span class="at-on" data-i18n="ui.audio_on"></span>' +
               '</button>' +
+              '<div class="audio-note"><span data-i18n="ui.audio_quality"></span> <span class="audio-tier"></span></div>' +
             '</div>' +
           '</div>' +
           '<button class="navbar__lang-btn" id="lang-toggle" aria-label="Cambia lingua">EN</button>' +
@@ -1423,13 +1424,22 @@
      Nessun file audio: tutto e sintetizzato dal vivo, le note sono generate.
      Parte da sola se il browser lo permette, altrimenti al primo clic o tasto.
      Il pulsante in topbar apre il pannello con volume e spegnimento; le scelte
-     restano salvate. Su telefoni e computer deboli suona una versione alleggerita
-     (lite): la sintesi dal vivo pesa, e se il processore non regge l'audio gracchia.
+     restano salvate. La sintesi dal vivo pesa e se il processore non regge l'audio
+     gracchia, quindi la qualita si adatta alla resa misurata: quattro livelli, si
+     parte dal piu basso (o dall'ultimo che ha retto) e si sale o si scende suonando.
   = */
   var Ambient = (function () {
     var STORE_KEY = 'gl_audio';
     var VOL_KEY   = 'gl_audio_vol';
+    var TIER_KEY  = 'gl_audio_tier';
     var VOL_START = 75;             /* volume iniziale del cursore, 0-100 */
+    var AHEAD     = 2;              /* secondi di note programmate in anticipo */
+    var WINDOW    = 3;              /* secondi di ogni misura della resa */
+    var MAX_LATE  = 0.08;           /* secondi persi in una misura oltre i quali e un inceppo */
+    var MAX_LOAD  = 0.3;            /* si sale solo se il livello dopo pesa meno del 30% */
+    var HOLD      = 20;             /* secondi senza inceppi prima di ricordare un livello e salire */
+    var WAIT_DOWN = 60;             /* attesa dopo una discesa: raddoppia a ogni ricaduta */
+    var WAIT_MAX  = 480;
     var FADE_IN   = 4;              /* secondi */
     var FADE_OUT  = 1.2;
     var BPM       = 96;
@@ -1452,13 +1462,25 @@
     var ARP  = [0, 1, 2, 3, 4, 3, 2, 1, 0, 2, 4, 2, 1, 3, 4, 3];   /* indici nell'accordo */
     var BASS = [0, 0, 12, 0, 0, 0, 12, 0, 0, 0, 12, 0, 0, 12, 0, 12];  /* ottave sul basso */
     var DRONE  = 38;   /* D2, pedale sotto tutti gli accordi */
+    /* livelli di qualita, dal piu leggero al completo. notes: note dei pad; voices: dente
+       di sega per nota (cents); drift: intonazione che deriva; brass: voci degli ottoni;
+       lead: oscillatori della melodia; triple: tre tocchi di piano; arp: una nota ogni
+       quanti sedicesimi; verb/chans: durata e canali del riverbero (0 = solo eco) */
+    var TIERS = [
+      { notes: 3, voices: [0],        drift: false, brass: null,    lead: 0, triple: false, arp: 2, verb: 0,   chans: 1 },
+      { notes: 3, voices: [-7, 7],    drift: false, brass: [0],     lead: 1, triple: false, arp: 1, verb: 1.5, chans: 1 },
+      { notes: 5, voices: [-7, 7],    drift: false, brass: [-8, 8], lead: 2, triple: false, arp: 1, verb: 2.5, chans: 1 },
+      { notes: 5, voices: [-9, 0, 9], drift: true,  brass: [-8, 8], lead: 2, triple: true,  arp: 1, verb: 6,   chans: 2 }
+    ];
     /* luminosita del passa-basso dei pad per ogni tema (Hz) */
     var BRIGHT = { 'dark-tech': 2600, 'light': 3800, 'contrast': 3000 };
 
     var ctx = null;
-    var comp, lowCut, master, send, verb, echoIn, padBus, pump, padFilter, brassBus, keysBus, leadBus, arpBus, bassBus, noiseBuf;
+    var comp, lowCut, master, send, verb, verbWet, echoAid, echoIn, padBus, pump, padFilter, brassBus, keysBus, leadBus, arpBus, bassBus, noiseBuf;
     var pref = 'on', vol = VOL_START;
-    var lite = false, meter = null;
+    var tier = 0, stored = 0, cfg = TIERS[0];
+    var meter = null, stalled = false, strikes = 0, probing = false;
+    var retryAt = 0, keepAt = 0, backoff = WAIT_DOWN;
     var chordIdx = 0, nextChordAt = 0, nextStepAt = 0, step = 0;
     var harmony = [];   /* cambi d'accordo programmati: { at, notes } */
     var stopTimer;
@@ -1467,13 +1489,6 @@
     function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
     function rand(a, b) { return a + Math.random() * (b - a); }
     function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
-
-    function weakDevice() {
-      var nav = navigator;
-      var mobile = nav.userAgentData ? nav.userAgentData.mobile : /Android|iPhone|iPad|iPod|Mobi/i.test(nav.userAgent);
-      return mobile || window.matchMedia('(pointer: coarse)').matches ||
-        nav.hardwareConcurrency <= 4 || nav.deviceMemory <= 4;
-    }
 
     function impulse(seconds, decay, channels) {
       var rate = ctx.sampleRate, len = Math.floor(rate * seconds);
@@ -1527,10 +1542,10 @@
     function build() {
       var AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return false;
-      lite = weakDevice();
-      /* niente da sincronizzare: un buffer piu ampio evita i buchi, e in lite si calcola meno */
+      /* niente da sincronizzare: un buffer piu ampio evita i buchi. La frequenza non si
+         cambia suonando, quindi vale quella del livello di partenza */
       var opts = { latencyHint: 'playback' };
-      if (lite) opts.sampleRate = 32000;
+      if (tier < 2) opts.sampleRate = 32000;
       try { ctx = new AC(opts); } catch (e) { ctx = new AC(); }
 
       comp = ctx.createDynamicsCompressor();
@@ -1540,17 +1555,17 @@
       var air = filter('highshelf', 3500);
       air.gain.value = 5;
       /* gli altoparlanti piccoli non rendono i bassi profondi e li distorcono */
-      lowCut = filter('highpass', lite ? 90 : 20);
+      lowCut = filter('highpass', window.matchMedia('(pointer: coarse)').matches ? 90 : 20);
       master = gain(0);
       comp.connect(air); air.connect(lowCut); lowCut.connect(master); master.connect(ctx.destination);
 
       /* riverbero da cattedrale con un filo di pre-delay */
       send = gain(1);
       var pre = ctx.createDelay(1), damp = filter('lowpass', 7000);
-      verb = ctx.createConvolver();
+      verb = ctx.createConvolver(); verbWet = gain(1);
       pre.delayTime.value = 0.035;
-      verb.buffer = lite ? impulse(2.5, 2.2, 1) : impulse(6, 2.2, 2);
-      send.connect(pre); pre.connect(verb); verb.connect(damp); damp.connect(comp);
+      verb.buffer = makeVerb(cfg);
+      send.connect(pre); pre.connect(verb); verb.connect(verbWet); verbWet.connect(damp); damp.connect(comp);
 
       /* eco ping-pong a croma puntata, a tempo con l'arpeggio */
       echoIn = gain(1);
@@ -1560,6 +1575,9 @@
       echoIn.connect(dl); dl.connect(fbf); fbf.connect(dr); dr.connect(fb); fb.connect(dl);
       dl.connect(merge, 0, 0); dr.connect(merge, 0, 1);
       merge.connect(echoOut); echoOut.connect(comp); echoOut.connect(send);
+      /* senza riverbero un po' di ambiente arriva dall'eco */
+      echoAid = gain(cfg.verb ? 0 : 0.3);
+      send.connect(echoAid); echoAid.connect(echoIn);
 
       /* pad: pompano sul battito, lasciano i bassi al basso, poi un passa-basso che respira */
       padBus = gain(1); pump = gain(1);
@@ -1622,20 +1640,102 @@
       return notes;
     }
 
-    /* il tempo audio resta indietro rispetto all'orologio: il processore non ce la fa.
-       Si passa a lite senza interrompere, le note gia programmate finiscono da sole */
+    function makeVerb(c) { return c.verb ? impulse(c.verb, 2.2, c.chans) : null; }
+
+    /* vale per le note nuove: quelle gia programmate finiscono da sole, senza stacchi */
+    function setTier(i, buf) {
+      tier = i; cfg = TIERS[i];
+      echoAid.gain.setTargetAtTime(cfg.verb ? 0 : 0.3, ctx.currentTime, 0.3);
+      /* il riverbero si cambia a mandata chiusa: lo scambio taglierebbe la coda */
+      verbWet.gain.setTargetAtTime(0, ctx.currentTime, 0.1);
+      setTimeout(function () {
+        verb.buffer = buf;
+        verbWet.gain.setTargetAtTime(1, ctx.currentTime, 0.4);
+      }, 400);
+      paint();
+    }
+
+    function remember() {
+      if (stored === tier) return;
+      stored = tier;
+      try { localStorage.setItem(TIER_KEY, String(tier)); } catch (e) {}
+    }
+
+    /* prova muta: quanto pesa il momento piu carico di un livello (due accordi in
+       dissolvenza) sul tempo che dura. 0,3 = trenta millesimi per ogni decimo di audio */
+    function probe(c, buf) {
+      var rate = ctx.sampleRate, sec = 0.25;
+      var off = new OfflineAudioContext(2, Math.round(rate * sec), rate);
+      var out = off.createDynamicsCompressor(), low = off.createBiquadFilter();
+      low.connect(out); out.connect(off.destination);
+      for (var i = 0, n = c.notes * c.voices.length * 2; i < n; i++) {
+        var o = off.createOscillator();
+        o.type = 'sawtooth';
+        o.frequency.value = 110 + i * 37;
+        o.connect(low); o.start();
+      }
+      if (buf) {
+        var conv = off.createConvolver();
+        conv.buffer = buf;
+        out.connect(conv); conv.connect(off.destination);
+      }
+      var t0 = performance.now();
+      return off.startRendering().then(function () {
+        return (performance.now() - t0) / 1000 / sec;
+      });
+    }
+
+    function climb() {
+      var next = TIERS[tier + 1], buf = makeVerb(next);
+      probing = true;
+      probe(next, buf).then(function (load) {
+        var now = performance.now() / 1000;
+        probing = false;
+        if (load <= MAX_LOAD && ctx.state === 'running') {
+          setTier(tier + 1, buf);
+          keepAt = now + HOLD;
+        } else {
+          retryAt = now + WAIT_DOWN;
+        }
+      }, function () {
+        probing = false;
+        retryAt = performance.now() / 1000 + WAIT_DOWN;
+      });
+    }
+
+    /* ogni pochi secondi: se il tempo audio resta indietro rispetto all'orologio il
+       processore non regge, se le note arrivano tardi e la pagina a bloccare i timer.
+       Due misure cattive fanno scendere di un livello, e la risalita aspetta sempre di
+       piu; se regge si ricorda il livello e si prova quello dopo */
     function watchLoad() {
       var wall = performance.now() / 1000, audio = ctx.currentTime;
-      if (!meter) { meter = { wall: wall, audio: audio, bad: 0 }; return; }
-      var dt = wall - meter.wall;
-      if (dt < 4) return;
-      meter.bad = dt - (audio - meter.audio) > 0.08 ? meter.bad + 1 : 0;
-      meter.wall = wall; meter.audio = audio;
-      if (meter.bad >= 2) {
-        lite = true;
-        lowCut.frequency.value = 90;
-        verb.buffer = impulse(2.5, 2.2, 1);
+      if (!meter) {
+        meter = { wall: wall, audio: audio };
+        stalled = false;
+        keepAt = wall + HOLD;
+        return;
       }
+      var dt = wall - meter.wall;
+      if (dt < WINDOW) return;
+      var bad = stalled || dt - (audio - meter.audio) > MAX_LATE;
+      meter.wall = wall; meter.audio = audio;
+      stalled = false;
+      if (bad) {
+        keepAt = wall + HOLD;
+        if (++strikes >= 2 && tier > 0) {
+          strikes = 0;
+          setTier(tier - 1, makeVerb(TIERS[tier - 1]));
+          remember();
+          retryAt = wall + backoff;
+          backoff = Math.min(backoff * 2, WAIT_MAX);
+        }
+        return;
+      }
+      strikes = 0;
+      if (wall < keepAt) return;
+      if (tier > stored) backoff = WAIT_DOWN;
+      remember();
+      if (tier < TIERS.length - 1 && wall >= retryAt && !probing) climb();
     }
 
     /* pad "ottoni": tre dente di sega scordate che derivano piano di intonazione */
@@ -1647,9 +1747,9 @@
       env.gain.setValueAtTime(1, t0 + dur - XFADE);
       env.gain.linearRampToValueAtTime(0, t0 + dur);
       env.connect(pan); pan.connect(dest);
-      var voices = lite ? [-7, 7] : [-9, 0, 9];
+      var voices = cfg.voices;
       var drift = null, driftDepth = null;
-      if (!lite) {
+      if (cfg.drift) {
         drift = ctx.createOscillator(); driftDepth = gain(5);
         drift.frequency.value = rand(0.08, 0.25);
         drift.connect(driftDepth);
@@ -1674,7 +1774,7 @@
       f.linearRampToValueAtTime(1500, t0 + dur * 0.6);
       f.linearRampToValueAtTime(400, t0 + dur);
       swell.connect(padBus);
-      var played = lite ? [notes[0], notes[2], notes[4]] : notes;
+      var played = cfg.notes === 3 ? [notes[0], notes[2], notes[4]] : notes;
       played.forEach(function (m) { padNote(m, t0, dur, swell); });
     }
 
@@ -1689,7 +1789,7 @@
       env.gain.exponentialRampToValueAtTime(0.001, t0 + 7);
       swell.connect(env); env.connect(brassBus);
       [root - 12, root, root + 7].forEach(function (m) {
-        (lite ? [0] : [-8, 8]).forEach(function (cents) {
+        cfg.brass.forEach(function (cents) {
           var o = ctx.createOscillator();
           o.type = 'sawtooth';
           o.frequency.value = mtof(m);
@@ -1728,7 +1828,7 @@
       if (pool.length < 2) return;
       var filt = filter('lowpass', 500, 2), env = gain(0);
       var vib = ctx.createOscillator(), vibDepth = gain(0);
-      var oscs = lite ? [ctx.createOscillator()] : [ctx.createOscillator(), ctx.createOscillator()];
+      var oscs = cfg.lead > 1 ? [ctx.createOscillator(), ctx.createOscillator()] : [ctx.createOscillator()];
       vib.frequency.value = 5.2;
       vibDepth.gain.setValueAtTime(0, t0);
       vibDepth.gain.linearRampToValueAtTime(14, t0 + 1.5);
@@ -1796,17 +1896,17 @@
     /* sequencer: accordi, basso, arpeggio e pompaggio sulla stessa griglia */
     function scheduleMusic() {
       if (ctx.state === 'running') {
-        if (!lite) watchLoad();
-        /* una pagina che carica puo fermare i timer: in lite ci si tiene piu margine */
-        var now = ctx.currentTime, ahead = now + (lite ? 2 : 1);
+        var now = ctx.currentTime, ahead = now + AHEAD;
+        if (nextStepAt < now) stalled = true;
+        watchLoad();
         if (nextChordAt < now) nextChordAt = now;
         if (nextStepAt < now) nextStepAt = now;
         /* i pad partono mezza dissolvenza prima del cambio, basso e arpeggio sul cambio */
         while (nextChordAt - XFADE / 2 < ahead) {
           var notes = CHORDS[chordIdx];
           chord(notes, Math.max(now, nextChordAt - XFADE / 2), CHORD_SEC + XFADE);
-          if (Math.random() < 0.4) brass(notes[0], nextChordAt);
-          if (Math.random() < 0.45) phrase(notes, nextChordAt + rand(3, 6));
+          if (cfg.brass && Math.random() < 0.4) brass(notes[0], nextChordAt);
+          if (cfg.lead && Math.random() < 0.45) phrase(notes, nextChordAt + rand(3, 6));
           harmony.push({ at: nextChordAt, notes: notes });
           if (harmony.length > 3) harmony.shift();
           chordIdx = (chordIdx + 1) % CHORDS.length;
@@ -1815,7 +1915,7 @@
         while (nextStepAt < ahead) {
           var sorted = notesAt(nextStepAt).slice().sort(function (a, b) { return a - b; });
           var s = step % 16;
-          arpNote(sorted[ARP[s] % sorted.length] + 12, nextStepAt, s % 4 === 0);
+          if (s % cfg.arp === 0) arpNote(sorted[ARP[s] % sorted.length] + 12, nextStepAt, s % 4 === 0);
           bassNote(sorted[0] - 12 + BASS[s], nextStepAt);
           if (s % 4 === 0) {
             pump.gain.setValueAtTime(0.6, nextStepAt);
@@ -1833,7 +1933,7 @@
     function scheduleKeys() {
       if (ctx.state === 'running' && harmony.length) {
         var t = ctx.currentTime + 0.05, notes = notesAt(t);
-        var n = !lite && Math.random() < 0.3 ? 3 : 1;
+        var n = cfg.triple && Math.random() < 0.3 ? 3 : 1;
         for (var i = 0; i < n; i++) tine(Math.min(pick(notes) + 24, 89), t + i * STEP * 2);
       }
       setTimeout(scheduleKeys, rand(3000, 9000));
@@ -1924,6 +2024,7 @@
         });
         d.querySelectorAll('.audio-vol').forEach(function (el) { el.value = vol; });
         d.querySelectorAll('.audio-val').forEach(function (el) { el.textContent = vol; });
+        d.querySelectorAll('.audio-tier').forEach(function (el) { el.textContent = (tier + 1) + '/' + TIERS.length; });
       });
     }
 
@@ -2019,6 +2120,8 @@
         if (localStorage.getItem(STORE_KEY) === 'off') pref = 'off';
         var saved = parseInt(localStorage.getItem(VOL_KEY), 10);
         if (saved >= 0 && saved <= 100) vol = saved;
+        var last = parseInt(localStorage.getItem(TIER_KEY), 10);
+        if (TIERS[last]) { tier = stored = last; cfg = TIERS[last]; }
       } catch (e) {}
       attach(document);
       document.addEventListener('visibilitychange', ensure);
