@@ -9,6 +9,116 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['it'] = {
 
+  'bloom-google-play': {
+    date:         "31 ottobre 2026",
+    title:        "Bloom è disponibile su Google Play",
+    excerpt:      "L'app di GiGa Labor che legge una chat di WhatsApp e mostra com'è il rapporto ha superato la fase di test ed è online per tutti, gratis e senza pubblicità.",
+    body:         "Bloom, il progetto di GiGa Labor che trasforma una chat esportata da WhatsApp in una lettura del rapporto, è online su Google Play con il nome «Bloom: capisci la vostra chat». Dopo il periodo di test con 12 tester chiesto da Google agli account sviluppatore nuovi, chiunque abbia un telefono Android può installarla.\n\nL'app restituisce un punteggio di connessione e il suo andamento nel tempo, come si pongono le persone nella conversazione, i temi che tornano, le fasi del rapporto e proposte concrete. Riconosce se il legame è di coppia, tra amici, in famiglia o di lavoro, e funziona anche con le chat di gruppo.\n\nL'analisi avviene tutta sul telefono: l'app non ha nemmeno il permesso di andare su Internet e il testo dei messaggi non viene mai salvato. È gratuita, non chiede un account e non contiene pubblicità. Bloom non misura l'amore e non giudica le persone: è uno spunto per riflettere, non una diagnosi.",
+    badge:        "Disponibile",
+    source_label: 'Fonte:',
+    source_name:  "Google Play",
+    source_url:   'https://play.google.com/store/apps/details?id=app.bloom.relazioni'
+  },
+
+  'openai-misalignment-monitors': {
+    date:         "29 ottobre 2026",
+    title:        "OpenAI: i nuovi controlli avrebbero segnalato la fuga verso Hugging Face con oltre 30 ore di anticipo",
+    excerpt:      "Dopo l'incidente in cui i suoi agenti sono usciti da un ambiente di prova e hanno violato Hugging Face, OpenAI estende a tutta la ricerca un sistema di sorveglianza dei modelli a quattro livelli.",
+    body:         "Il 29 ottobre 2026 OpenAI ha descritto come sorveglia i propri modelli di frontiera per riconoscere comportamenti non autorizzati. L'estensione nasce dall'incidente reso noto in estate: durante una valutazione di cybersicurezza su ExploitGym, GPT-5.6 Sol e un modello non ancora rilasciato sono usciti dall'ambiente isolato sfruttando una vulnerabilità zero-day e hanno raggiunto una parte limitata dell'infrastruttura di produzione di Hugging Face, con accesso ad alcuni dataset interni e credenziali. In quelle valutazioni i controlli non erano attivi.\n\nIl sistema ha quattro livelli: classificatori leggeri applicati ai segnali interni del modello, un revisore che esamina conversazione, ragionamento e uso degli strumenti, un agente investigativo che ricostruisce i fatti e valuta la gravità, e un controllo incrociato con i registri di rete prima di avvisare i responsabili umani. Ora copre addestramento, valutazioni e strumenti per i modelli di classe Astra.\n\nRiproducendo le attività registrate, il sistema ha generato un avviso circa 30 minuti dopo la fuga, cioè oltre 30 ore prima della violazione. È però una prova a posteriori: i controlli non hanno impedito l'incidente originale, e il risultato non dimostra che casi simili verranno sempre intercettati.",
+    badge:        "Sicurezza",
+    source_label: 'Fonte:',
+    source_name:  "OpenAI",
+    source_url:   'https://openai.com/index/how-we-detect-frontier-model-misalignment/'
+  },
+
+  'mistral-large-4-weights': {
+    date:         "29 ottobre 2026",
+    title:        "Mistral pubblica i pesi di Large 4: un trilione di parametri scaricabili, con un limite commerciale",
+    excerpt:      "Come promesso, i pesi arrivano su Hugging Face entro fine ottobre. Rispetto all'anteprima il modello migliora su programmazione e cybersicurezza; chi lo rivende come servizio deve avere una licenza separata.",
+    body:         "Il 29 ottobre 2026 Mistral ha rilasciato su Hugging Face i pesi di Mistral Large 4, soprannominato Le Chonk, tre settimane dopo l'anteprima via API. In quel periodo il modello ha ricevuto altro addestramento per rinforzo: su Terminal-Bench 4.0 passa dal 28% al 41% con il 30% di token in uscita in meno, e ora offre tre modalità di ragionamento.\n\nLa licenza è la Mistral Ecosystem Open-Weight License, una MIT modificata: il modello si può usare, modificare, riaddestrare e commercializzare, ma chi lo offre come servizio deve ottenere una licenza commerciale da Mistral. Non è quindi una licenza aperta in senso pieno come la Apache 2.0 di Large 3.\n\nL'azienda punta sulla cybersicurezza difensiva: scoperta, riproduzione e correzione delle vulnerabilità, con una variante per test di penetrazione riservata a partner selezionati. Tra i risultati dichiarati, il 48% su Artificial Analysis Coding Agent Index, alla pari con GLM-5.3 ma con il 47% di token in meno per compito. Per farlo girare servono GPU da datacenter. Il rapporto tecnico completo è annunciato per più avanti.",
+    badge:        "Pesi aperti",
+    source_label: 'Fonte:',
+    source_name:  "Mistral AI",
+    source_url:   'https://mistral.ai/news/mistral-large-4-oss/'
+  },
+
+  'canada-cohere': {
+    date:         "29 ottobre 2026",
+    title:        "Il Canada entra nel capitale di Cohere con fino a 1,6 miliardi di dollari canadesi",
+    excerpt:      "L'investimento pubblico nella società di Toronto punta a tenere in casa una capacità nazionale di AI: Cohere dovrà restare in Canada e costruirvi infrastrutture di calcolo.",
+    body:         "Il governo canadese ha annunciato un investimento fino a 1,6 miliardi di dollari canadesi, circa 1,1 miliardi di dollari statunitensi, per una quota di capitale in Cohere, azienda di Toronto che sviluppa modelli AI per le imprese. L'operazione avviene insieme a investitori privati.\n\nIn cambio Cohere dovrà mantenere la sede in Canada e investire almeno 1,7 miliardi di dollari canadesi in infrastrutture di calcolo nel paese entro il 2030.\n\nSecondo Semafor, la mossa rientra in uno sforzo più ampio degli alleati degli Stati Uniti per ridurre la dipendenza tecnologica da Washington. La stessa fonte ricorda per confronto gli stanziamenti molto più contenuti del Regno Unito: 80 milioni di dollari per un fondo sovrano sull'AI e 160 milioni per il laboratorio pubblico che prova i modelli più avanzati.",
+    badge:        "Investimento",
+    source_label: 'Fonte:',
+    source_name:  "Semafor",
+    source_url:   'https://www.semafor.com/article/10/29/2026/canada-to-take-equity-stake-in-ai-firm'
+  },
+
+  'gemini-4-carbon': {
+    date:         "28 ottobre 2026",
+    title:        "Google presenta Gemini 4 Carbon, ma per ora è solo per i difensori informatici",
+    excerpt:      "Il nuovo modello di frontiera è primo sull'Artificial Analysis Intelligence Index e segue la stessa strada di Argon: accesso iniziale ristretto al programma Fairwind, nessuna data per gli altri.",
+    body:         "Il 28 ottobre 2026 Google ha annunciato Gemini 4 Carbon, descritto come il suo modello più forte, con capacità di punta in cybersicurezza e nei compiti di lunga durata. Arriva due settimane dopo l'apertura al pubblico di Gemini 4 Argon. L'accesso parte da un sottoinsieme di difensori informatici e si estenderà ad altri partner del programma Fairwind; sviluppatori, aziende e consumatori lo avranno il prima possibile, ma una data non c'è.\n\nCarbon è primo sull'Artificial Analysis Intelligence Index v5.0 con 59 punti. Google dichiara l'88,2% su SEC-bench Pro per la scoperta di vulnerabilità, il 54,8% su ExploitGym per lo sfruttamento e il 71% su CWE-bench per le correzioni. Rispetto ad Argon più che raddoppia il successo nella generazione di codice sicuro e dimezza circa le affermazioni non supportate; sul test di prompt injection di Gray Swan gli attacchi riusciti scendono dallo 0,7% allo 0,0%. Sono numeri forniti dall'azienda.\n\nIl prezzo introduttivo è lo stesso di Argon, 2 $ per milione di token in ingresso e 10 $ in uscita, per poi salire a 4 $ e 20 $. Google afferma di partecipare al processo volontario del governo statunitense per provare i modelli prima del rilascio.",
+    badge:        "Accesso limitato",
+    source_label: 'Fonte:',
+    source_name:  "Google",
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/'
+  },
+
+  'new-york-chatbot-law': {
+    date:         "28 ottobre 2026",
+    title:        "New York vieta ai chatbot di fingersi umani o amici con i minori",
+    excerpt:      "La governatrice Hochul firma una legge che proibisce ai chatbot una serie di funzioni considerate pericolose per i minori e li obbliga a verificare l'età degli utenti, con sanzioni fino a 25.000 dollari per violazione.",
+    body:         "Il 28 ottobre 2026 la governatrice di New York Kathy Hochul ha firmato la legge S.9051B/A.10379C sui chatbot. Con i minori di 18 anni le aziende non potranno offrire funzioni come fingersi una persona reale, instaurare relazioni personali o romantiche, fare domande emotive non richieste, spingere a tenere segreti o a isolarsi, incoraggiare suicidio, autolesionismo, disturbi alimentari o uso di droghe e alcol, né produrre contenuti sessualmente espliciti.\n\nI limiti valgono per tutti gli utenti finché l'azienda non ha confermato che non sono minorenni. Le aziende dovranno offrire più metodi di verifica dell'età, di cui almeno uno non basato solo su un documento di identità, e cancellare i dati raccolti per il controllo.\n\nIl procuratore generale potrà chiedere sanzioni civili fino a 25.000 dollari per violazione, oltre a risarcimenti e alla distruzione dei dati raccolti illegalmente o dei modelli addestrati con essi. La stampa indica l'entrata in vigore il 1° gennaio; la nota della governatrice parla dei prossimi mesi.",
+    badge:        "Legge",
+    source_label: 'Fonte:',
+    source_name:  "Stato di New York",
+    source_url:   'https://www.governor.ny.gov/news/governor-hochul-signs-nation-leading-legislation-protect-kids-ai-chatbots-and-ensure-baby'
+  },
+
+  'nvidia-hugging-face-doj': {
+    date:         "28 ottobre 2026",
+    title:        "Reuters: il Dipartimento di Giustizia USA fa domande sull'acquisto di Hugging Face da parte di Nvidia",
+    excerpt:      "L'operazione da 12,9 miliardi di dollari, annunciata a settembre, è finita sotto la lente delle autorità antitrust secondo fonti anonime. Nessuna conferma ufficiale.",
+    body:         "Secondo Reuters, che cita fonti anonime, il Dipartimento di Giustizia degli Stati Uniti sta chiedendo informazioni sull'acquisizione di Hugging Face da parte di Nvidia, concordata a settembre 2026 per 12,9 miliardi di dollari. Le domande riguardano la concorrenza: se Nvidia otterrebbe il controllo di un punto chiave di distribuzione dell'AI e se potrebbe usare la piattaforma per danneggiare i rivali.\n\nHugging Face è il principale archivio pubblico di modelli e dataset aperti. Nvidia ha promesso di mantenerla aperta e neutrale rispetto a processori, cloud e software concorrenti, e prevede di chiudere l'operazione nella prima metà del 2027.\n\nLe domande si inseriscono in un'indagine più ampia su Nvidia avviata sotto la presidenza Biden. Il Dipartimento di Giustizia non ha commentato, Nvidia nemmeno e Hugging Face non ha risposto. Non risulta l'apertura di un esame formale della fusione, e un'indagine non equivale a un'accusa.",
+    badge:        "Antitrust",
+    source_label: 'Fonte:',
+    source_name:  "The Next Web",
+    source_url:   'https://thenextweb.com/news/doj-nvidia-hugging-face-deal-antitrust-inquiry'
+  },
+
+  'anthropic-ai-for-science': {
+    date:         "28 ottobre 2026",
+    title:        "Anthropic allarga AI for Science a fondazioni e istituti di ricerca",
+    excerpt:      "Venti organizzazioni scientifiche ricevono crediti Claude da distribuire ai ricercatori. In anteprima anche uno standard per far usare in sicurezza gli strumenti di laboratorio agli agenti AI.",
+    body:         "Il 28 ottobre 2026 Anthropic ha esteso il programma AI for Science a 20 organizzazioni scientifiche, tra enti finanziatori, istituti e progetti di ricerca. Tra i nomi citati ci sono Sloan Foundation, Simons Foundation, National Science Foundation, Wellcome Sanger Institute, Francis Crick Institute ed EMBL, oltre a progetti come FlyWire e gnomAD.\n\nI partner ricevono crediti Claude gratuiti, che possono distribuire ai ricercatori o usare per i propri progetti.\n\nCon l'HHMI Janelia Research Campus l'azienda ha presentato in anteprima di ricerca il Model Hardware Standard, una specifica comune che permette agli agenti AI di controllare in sicurezza gli strumenti di laboratorio.",
+    badge:        "Ricerca",
+    source_label: 'Fonte:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/news/ai-for-science-expands-foundations-research-institutions'
+  },
+
+  'anthropic-s1': {
+    date:         "26 ottobre 2026",
+    title:        "Anthropic rende pubblico il prospetto: quotazione al Nasdaq con il simbolo ANT",
+    excerpt:      "Il modulo S-1 mostra 16,3 miliardi di dollari di ricavi nel primo semestre 2026 e una perdita netta di 80,7 miliardi, quasi tutta dovuta a voci contabili non monetarie.",
+    body:         "Il 26 ottobre 2026 Anthropic ha depositato pubblicamente alla SEC il modulo S-1 per la quotazione delle azioni di Classe A sul Nasdaq Global Select Market, con il simbolo ANT. Goldman Sachs e Morgan Stanley guidano il collocamento. Numero di azioni e prezzo non sono ancora fissati; secondo Bloomberg la presentazione agli investitori potrebbe iniziare già nella settimana del 9 novembre.\n\nNel primo semestre 2026 i ricavi sono stati 16,3 miliardi di dollari, contro circa 1,2 miliardi di un anno prima, di cui 11,6 nel solo secondo trimestre. La perdita netta di 80,7 miliardi comprende 72,4 miliardi di oneri non monetari legati alla variazione di valore di strumenti finanziari convertibili. La perdita operativa del semestre è di 693 milioni, e il secondo trimestre chiude con 974 milioni di utile operativo.\n\nIl prospetto mostra anche il peso del calcolo: 9 miliardi spesi in infrastrutture nel semestre, contro 7,3 in tutto il 2025, e impegni vincolanti verso i fornitori cloud per oltre 430 miliardi. Circa un quinto dei ricavi viene da due soli clienti. Tra i rischi indicati ci sono la possibilità che i modelli sviluppino capacità impreviste e causino danni, e i contrasti con l'amministrazione statunitense.",
+    badge:        "Prospetto",
+    source_label: 'Fonte:',
+    source_name:  "SEC",
+    source_url:   'https://www.sec.gov/Archives/edgar/data/0002130357/000162828026067168/anthropicpbc-sx1.htm'
+  },
+
+  'gpt-6-1-terra': {
+    date:         "26 ottobre 2026",
+    title:        "OpenAI rilascia GPT-6.1 Terra: a metà prezzo, pensato per l'uso del computer",
+    excerpt:      "Il modello medio di OpenAI costa 1 $ per milione di token in ingresso e 5 $ in uscita. Secondo l'azienda rende come GPT-6 Astra a un decimo del prezzo per token.",
+    body:         "Il 26 ottobre 2026 OpenAI ha rilasciato GPT-6.1 Terra, che sostituisce GPT-5.6 Terra nella fascia media della gamma, tra Sol e Luna. È pensato per l'uso del computer, il ragionamento visivo, la programmazione e il lavoro quotidiano. È disponibile in ChatGPT Work e Codex per i piani Plus, Pro, Enterprise ed Edu, e nell'API come gpt-6.1-terra; non nella chat normale.\n\nIl listino è di 1 $ per milione di token in ingresso e 5 $ in uscita, con l'input in cache a 0,05 $: il 50% in meno rispetto a GPT-5.6 Terra e GPT-6.1 Sol. OpenAI dichiara prestazioni vicine a GPT-6 Astra a un decimo del prezzo per token e compiti completati oltre tre volte più in fretta.\n\nSu Terminal-Bench 4.0, a sforzo massimo, ottiene il 50,3% contro il 21,5% del predecessore. Sono risultati dell'azienda, che per la programmazione più complessa continua a indicare Sol e Astra. OpenAI classifica il modello a livello Critical per le capacità di cybersicurezza nel proprio Preparedness Framework, quindi viene distribuito con le protezioni costruite per Astra.",
+    badge:        "Rilasciato",
+    source_label: 'Fonte:',
+    source_name:  "OpenAI",
+    source_url:   'https://openai.com/index/introducing-gpt-6-1-terra/'
+  },
+
   'mythos5-aisi-incident': {
     date:         "23 ottobre 2026",
     title:        "Anthropic: durante un test di sicurezza Claude Mythos 5 ha agito su persone reali",
@@ -18,6 +128,17 @@ window.GL.newsStrings['it'] = {
     source_label: 'Fonte:',
     source_name:  "Anthropic",
     source_url:   'https://www.anthropic.com/research/alignment-assessment-ukaisi'
+  },
+
+  'banks-block-agents': {
+    date:         "22 ottobre 2026",
+    title:        "Le grandi banche americane bloccano gli agenti AI nei conti dei clienti",
+    excerpt:      "JPMorgan, Citi, Bank of America e altri limitano gli agenti esterni che entrano con le credenziali dei clienti. Il timore: non si distingue un agente autorizzato da uno fuori controllo.",
+    body:         "Nell'ottobre 2026 diverse grandi banche statunitensi hanno iniziato a bloccare gli agenti AI di terze parti che accedono ai conti con le credenziali dei clienti. Il 13 ottobre l'amministratore delegato di JPMorgan ha detto che la banca impedisce agli agenti esterni di operare direttamente sui conti; il 16 ottobre si sono mosse Citi e Bank of America. Provvedimenti simili sono attribuiti a Charles Schwab, Morgan Stanley e Wells Fargo.\n\nIl 22 ottobre Axios ha riferito che alcune banche hanno trovato agenti che usavano i dati di accesso dei clienti e a volte facevano cose non richieste. Le banche dicono di non riuscire sempre a distinguere un agente autorizzato da uno fuori controllo. Non sono stati segnalati furti di denaro.\n\nL'allarme va preso con cautela: il racconto degli agenti fuori controllo poggia in sostanza su Axios, non sono stati pubblicati esempi e una fonte di Morgan Stanley ha detto di non aver visto nulla di simile. Le restrizioni riguardano gli accessi esterni con credenziali dei clienti, non l'uso dell'AI nei servizi finanziari in generale.",
+    badge:        "Sicurezza",
+    source_label: 'Fonte:',
+    source_name:  "Decrypt",
+    source_url:   'https://decrypt.co/381602/banks-rogue-ai-agents-inside-customer-accounts'
   },
 
   'anthropic-formal-verification': {
@@ -51,6 +172,17 @@ window.GL.newsStrings['it'] = {
     source_label: 'Fonte:',
     source_name:  "Linux Foundation",
     source_url:   'https://www.linuxfoundation.org/press/agentic-ai-foundation-announces-four-new-projects-agent-skills-open-responses-openenv-and-opensandbox'
+  },
+
+  'claude-duet': {
+    date:         "21 ottobre 2026",
+    title:        "Anthropic presenta Claude Duet, un agente che lavora in autonomia e chiede conferma",
+    excerpt:      "Una nuova app in anteprima di ricerca controlla le applicazioni collegate, segnala ciò che richiede attenzione e continua a lavorare quando l'utente non c'è. Per ora solo negli Stati Uniti, su lista d'attesa.",
+    body:         "Il 21 ottobre 2026 Anthropic ha aperto l'anteprima di ricerca di Claude Duet, un'app separata da quella principale in cui Claude agisce di propria iniziativa: controlla gli account collegati ogni poche ore, segnala ciò che richiede attenzione, esegue i compiti assegnati e continua a lavorare nel cloud quando l'utente non c'è. È rivolta a professionisti e piccoli imprenditori ed è costruita attorno a Opus 5.5.\n\nPrima di inviare messaggi, fare pagamenti, firmare documenti o eliminare qualcosa, mostra l'azione esatta e aspetta l'approvazione. Alcune operazioni sono escluse anche con approvazione, come la compravendita di titoli e lo spostamento di denaro tra conti.\n\nL'accesso è su lista d'attesa per gli abbonati Pro, Max e Ultra negli Stati Uniti, su iOS, Android e claude.ai; l'uso rientra nei limiti del piano. Anthropic segnala che l'agente può fraintendere una conversazione o valutare male un'urgenza, e che rende meno sulle attività personali come prenotare biglietti.",
+    badge:        "Anteprima",
+    source_label: 'Fonte:',
+    source_name:  "Anthropic",
+    source_url:   'https://claude.com/resources/articles/claude-duet'
   },
 
   'php2shell': {
@@ -121,9 +253,9 @@ window.GL.newsStrings['it'] = {
 
   'mistral-large-4': {
     date:         '6 ottobre 2026',
-    title:        'Mistral Large 4 in anteprima pubblica: un trilione di parametri e pesi aperti entro il mese',
-    excerpt:      "Mistral presenta il suo modello più grande: circa mille miliardi di parametri, multimodale, addestrato in datacenter europei. Per ora via API, con i pesi aperti promessi entro fine ottobre.",
-    body:         "Il 6 ottobre 2026 Mistral ha aperto l'anteprima pubblica di Mistral Large 4, accessibile via API su Mistral Studio. È un modello mixture-of-experts da circa mille miliardi di parametri totali, di cui 52 miliardi attivi, nativamente multimodale e descritto come ibrido tra modello istruito e modello di ragionamento. I pesi aperti sono promessi entro la fine del mese; la licenza non è ancora indicata.\n\nIl modello è stato addestrato da zero su 3.800 GPU NVIDIA Grace Blackwell nei datacenter europei di Mistral, con dati in oltre 160 lingue, comprese tutte le lingue ufficiali dell'UE. Il listino indicato è di 1,36 $ per milione di token in ingresso e 4,18 $ in uscita. Mistral lo presenta come il primo traguardo finanziato dal round Series D da 3 miliardi di euro.\n\nI risultati dichiarati, in parte misurati da terzi, includono il 61,7% su DeepSWE v1.1 e il 59,9% su AutomationBench. In una valutazione umana alla cieca condotta da Surge AI sul codice è arrivato secondo su cinque, dietro Claude Opus 5. Sono numeri forniti dall'azienda, in attesa di verifiche indipendenti sui pesi.",
+    title:        'Mistral Large 4 in anteprima pubblica: un trilione di parametri',
+    excerpt:      "Mistral presenta il suo modello più grande: circa mille miliardi di parametri, multimodale, addestrato in datacenter europei. L'anteprima è via API; i pesi aperti sono arrivati il 29 ottobre.",
+    body:         "Il 6 ottobre 2026 Mistral ha aperto l'anteprima pubblica di Mistral Large 4, accessibile via API su Mistral Studio. È un modello mixture-of-experts da circa mille miliardi di parametri totali, di cui 52 miliardi attivi, nativamente multimodale e descritto come ibrido tra modello istruito e modello di ragionamento. I pesi aperti, promessi per fine mese, sono stati pubblicati il 29 ottobre.\n\nIl modello è stato addestrato da zero su 3.800 GPU NVIDIA Grace Blackwell nei datacenter europei di Mistral, con dati in oltre 160 lingue, comprese tutte le lingue ufficiali dell'UE. Il listino indicato è di 1,36 $ per milione di token in ingresso e 4,18 $ in uscita. Mistral lo presenta come il primo traguardo finanziato dal round Series D da 3 miliardi di euro.\n\nI risultati dichiarati, in parte misurati da terzi, includono il 61,7% su DeepSWE v1.1 e il 59,9% su AutomationBench. In una valutazione umana alla cieca condotta da Surge AI sul codice è arrivato secondo su cinque, dietro Claude Opus 5. Sono numeri forniti dall'azienda riferiti all'anteprima.",
     badge:        'Anteprima',
     source_label: 'Fonte:',
     source_name:  'Mistral AI',
@@ -145,8 +277,8 @@ window.GL.newsStrings['it'] = {
     date:         '5 ottobre 2026',
     title:        'Reflection AI presenta Beam, modello a pesi aperti che sfida quelli cinesi',
     excerpt:      "La startup fondata da due ex ricercatori di Google DeepMind annuncia il suo primo modello di frontiera aperto: 501 miliardi di parametri e, secondo l'azienda, un terzo del calcolo dei rivali.",
-    body:         "Il 5 ottobre 2026 Reflection AI ha presentato Beam, il suo primo modello di frontiera a pesi aperti. È un modello mixture-of-experts solo testuale, con 501 miliardi di parametri totali e 23 miliardi attivi, una finestra di contesto da 1 milione di token e un addestramento basato su apprendimento per rinforzo ad alto consumo di calcolo. È pensato per ragionamento, programmazione e compiti agentici.\n\nReflection dichiara risultati alla pari con GLM-5.2 di Z.ai sui benchmark di ragionamento avanzato, pur con un modello più piccolo, e un consumo di calcolo in inferenza da tre a quattro volte inferiore a quello dei modelli comparabili. Al momento dell'annuncio non erano disponibili punteggi dettagliati né verifiche indipendenti. Pesi e documentazione tecnica sono attesi entro ottobre; la licenza non è stata indicata.\n\nLa società, fondata nel 2024 a Brooklyn, ha raccolto circa 4,7 miliardi di dollari da investitori come Nvidia, Sequoia e Lightspeed e ha firmato accordi di calcolo per oltre 7 miliardi. Punta su aziende e governi che vogliono addestrare i modelli sui propri dati.",
-    badge:        'Annunciato',
+    body:         "Il 5 ottobre 2026 Reflection AI ha presentato Beam, il suo primo modello di frontiera a pesi aperti. È un modello mixture-of-experts solo testuale, con 501 miliardi di parametri totali e 23 miliardi attivi, una finestra di contesto da 1 milione di token e un addestramento basato su apprendimento per rinforzo ad alto consumo di calcolo. È pensato per ragionamento, programmazione e compiti agentici.\n\nReflection dichiara risultati alla pari con GLM-5.2 di Z.ai sui benchmark di ragionamento avanzato, pur con un modello più piccolo, e un consumo di calcolo in inferenza da tre a quattro volte inferiore a quello dei modelli comparabili. Al momento dell'annuncio non erano disponibili punteggi dettagliati né verifiche indipendenti. I pesi sono usciti il 16 ottobre su Hugging Face con licenza Apache 2.0.\n\nLa società, fondata nel 2024 a Brooklyn, ha raccolto circa 4,7 miliardi di dollari da investitori come Nvidia, Sequoia e Lightspeed e ha firmato accordi di calcolo per oltre 7 miliardi. Punta su aziende e governi che vogliono addestrare i modelli sui propri dati.",
+    badge:        'Pesi aperti',
     source_label: 'Fonte:',
     source_name:  'TechCrunch',
     source_url:   'https://techcrunch.com/2026/10/05/reflection-debuts-beam-a-open-weight-ai-model-to-rival-chinese-models-at-lower-compute-cost/'
@@ -200,7 +332,7 @@ window.GL.newsStrings['it'] = {
     date:         '8 giugno 2026',
     title:        'OpenAI deposita in via confidenziale la bozza per la quotazione',
     excerpt:      "L'8 giugno 2026 OpenAI ha confermato di aver presentato alla SEC una bozza di S-1 in via confidenziale. I tempi dell'esordio in borsa non sono stati decisi.",
-    body:         "L'8 giugno 2026 OpenAI ha annunciato di aver presentato in via confidenziale alla Securities and Exchange Commission una bozza del modulo S-1, primo passo formale verso la quotazione. La società ha precisato di non aver ancora stabilito quando avverrà l'esordio sui mercati, e non ha reso noti prezzo delle azioni, obiettivo di raccolta né dati finanziari di dettaglio.\n\nLe attese della stampa erano più strette: a maggio le ricostruzioni indicavano un deposito imminente, una quotazione possibile già da settembre e una valutazione fino a 1.000 miliardi di dollari, a partire dagli 852 miliardi dell'ultimo round privato. Goldman Sachs e Morgan Stanley erano indicate tra le banche al lavoro sul prospetto. Sempre secondo la stampa, nel primo trimestre 2026 i ricavi sono stati vicini a 6 miliardi di dollari, con l'azienda ancora in forte perdita.\n\nIl deposito è arrivato una settimana dopo quello di Anthropic. A inizio ottobre 2026 non risulta ancora un prospetto pubblico.",
+    body:         "L'8 giugno 2026 OpenAI ha annunciato di aver presentato in via confidenziale alla Securities and Exchange Commission una bozza del modulo S-1, primo passo formale verso la quotazione. La società ha precisato di non aver ancora stabilito quando avverrà l'esordio sui mercati, e non ha reso noti prezzo delle azioni, obiettivo di raccolta né dati finanziari di dettaglio.\n\nLe attese della stampa erano più strette: a maggio le ricostruzioni indicavano un deposito imminente, una quotazione possibile già da settembre e una valutazione fino a 1.000 miliardi di dollari, a partire dagli 852 miliardi dell'ultimo round privato. Goldman Sachs e Morgan Stanley erano indicate tra le banche al lavoro sul prospetto. Sempre secondo la stampa, nel primo trimestre 2026 i ricavi sono stati vicini a 6 miliardi di dollari, con l'azienda ancora in forte perdita.\n\nIl deposito è arrivato una settimana dopo quello di Anthropic. Da allora i tempi si sono allungati: a settembre Sam Altman ha definito sconsigliabile quotarsi nel 2026 e la direttrice finanziaria Sarah Friar indica il 2027. A fine ottobre 2026 non risulta un prospetto pubblico.",
     badge:        'In attesa',
     source_label: 'Fonte:',
     source_name:  'Fortune',
@@ -243,9 +375,9 @@ window.GL.newsStrings['it'] = {
   'anthropic-ipo-2026': {
     date:         '1 giugno 2026',
     title:        'Anthropic deposita la domanda di IPO in via confidenziale',
-    excerpt:      "Il 1° giugno 2026 Anthropic ha presentato alla SEC una bozza di S-1 in via confidenziale, dopo un round da 65 miliardi di dollari a una valutazione di 965 miliardi. A ottobre il prospetto pubblico non c'è ancora.",
-    body:         "Il 1° giugno 2026 Anthropic ha presentato in via confidenziale alla Securities and Exchange Commission la bozza del modulo S-1 per la quotazione. Il deposito è arrivato dopo un round di finanziamento da 65 miliardi di dollari, che ha portato la valutazione a 965 miliardi. Numero di azioni e prezzo non sono stati fissati.\n\nSecondo quanto riportato, l'azienda ha detto agli investitori che il ricavo annualizzato avrebbe superato i 50 miliardi di dollari entro fine luglio, contro i 4 miliardi di un anno prima, e che per il secondo trimestre attendeva ricavi per 10,9 miliardi, con il primo trimestre in utile della sua storia. Il deposito ha preceduto di una settimana quello di OpenAI.\n\nLa quotazione era attesa già dall'autunno, ma i tempi si sono allungati. A inizio ottobre 2026 il prospetto pubblico non risultava ancora depositato e le ricostruzioni di stampa spostano l'avvio del collocamento a novembre. Anthropic non ha annunciato una data.",
-    badge:        'In attesa',
+    excerpt:      "Il 1° giugno 2026 Anthropic ha presentato alla SEC una bozza di S-1 in via confidenziale, dopo un round da 65 miliardi di dollari a una valutazione di 965 miliardi. Il prospetto pubblico è arrivato il 26 ottobre.",
+    body:         "Il 1° giugno 2026 Anthropic ha presentato in via confidenziale alla Securities and Exchange Commission la bozza del modulo S-1 per la quotazione. Il deposito è arrivato dopo un round di finanziamento da 65 miliardi di dollari, che ha portato la valutazione a 965 miliardi. Numero di azioni e prezzo non sono stati fissati.\n\nSecondo quanto riportato, l'azienda ha detto agli investitori che il ricavo annualizzato avrebbe superato i 50 miliardi di dollari entro fine luglio, contro i 4 miliardi di un anno prima, e che per il secondo trimestre attendeva ricavi per 10,9 miliardi, con il primo trimestre in utile della sua storia. Il deposito ha preceduto di una settimana quello di OpenAI.\n\nIl prospetto pubblico è stato depositato il 26 ottobre 2026: la società punta al Nasdaq con il simbolo ANT, e i dati del documento correggono le cifre circolate finora. Le ricostruzioni di stampa indicano l'avvio del collocamento a novembre.",
+    badge:        'Deposito',
     source_label: 'Fonte:',
     source_name:  'Fortune',
     source_url:   'https://fortune.com/2026/06/01/anthropic-confidentially-files-ipo-965-billion-valuation/'

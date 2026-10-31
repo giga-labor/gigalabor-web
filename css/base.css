@@ -176,36 +176,11 @@ code, pre, .mono {
   color: var(--warning);
   border: 1px solid rgba(255, 176, 0, 0.2);
 }
-.badge--review {
+.badge--available {
   background: rgba(226, 96, 127, 0.10);
   color: #ec7f9a;
   border: 1px solid rgba(226, 96, 127, 0.30);
 }
-.badge--testing {
-  background: rgba(226, 96, 127, 0.10);
-  color: #ec7f9a;
-  border: 1px solid rgba(226, 96, 127, 0.30);
-  font-variant-numeric: tabular-nums;
-}
-
-/* Conto alla rovescia (pagina progetto): riempito da Countdown in app.js */
-.countdown-card { border-color: rgba(226, 96, 127, 0.35); }
-.cd-title {
-  font-family: 'JetBrains Mono', monospace; font-size: .72rem; font-weight: 700;
-  letter-spacing: .12em; text-transform: uppercase; color: #ec7f9a; margin-bottom: .8rem;
-}
-.cd-time { display: flex; gap: .45rem; margin-bottom: .9rem; }
-.cd-time > div {
-  flex: 1; text-align: center; padding: .6rem .3rem;
-  background: rgba(226, 96, 127, 0.08); border: 1px solid rgba(226, 96, 127, 0.22); border-radius: 10px;
-}
-.cd-time b {
-  display: block; font-family: 'JetBrains Mono', monospace; font-size: 1.45rem; line-height: 1.1;
-  color: var(--text-primary); font-variant-numeric: tabular-nums;
-}
-.cd-time span { font-size: .62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
-.cd-text { font-size: .85rem; line-height: 1.6; color: var(--text-secondary); margin: 0 0 .5rem; }
-.cd-text:last-child { margin-bottom: 0; }
 
 .badge--concept {
   background: rgba(122, 174, 138, 0.08);
