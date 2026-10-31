@@ -225,7 +225,8 @@
               '<button class="audio-toggle" type="button">' +
                 '<span class="at-off" data-i18n="ui.audio_off"></span><span class="at-on" data-i18n="ui.audio_on"></span>' +
               '</button>' +
-              '<div class="audio-note"><span data-i18n="ui.audio_quality"></span> <span class="audio-tier"></span></div>' +
+              '<div class="audio-note"><span data-i18n="ui.audio_quality"></span> <span class="audio-tier"></span>' +
+                ' · <span data-i18n="ui.audio_glitches"></span> <span class="audio-holes">0</span></div>' +
             '</div>' +
           '</div>' +
           '<button class="navbar__lang-btn" id="lang-toggle" aria-label="Cambia lingua">EN</button>' +
@@ -1437,8 +1438,10 @@
     var VOL_START = 75;             /* volume iniziale del cursore, 0-100 */
     var AHEAD     = 2;              /* secondi di note programmate in anticipo */
     var WINDOW    = 3;              /* secondi di ogni misura della resa */
-    var MAX_LATE  = 0.08;           /* secondi persi in una misura oltre i quali e un inceppo */
-    var MAX_LOAD  = 0.3;            /* si sale solo se il livello dopo pesa meno del 30% */
+    var MAX_LATE  = 0.03;           /* senza contatore: secondi persi in una misura per dire inceppo */
+    var MAX_LOAD  = 0.2;            /* si sale solo se il livello dopo pesa meno del 20% */
+    var BAD_SPAN  = 30;             /* due misure cattive in questi secondi fanno scendere */
+    var FULL_RATE = 48000;          /* frequenza del livello massimo */
     var HOLD      = 20;             /* secondi senza inceppi prima di ricordare un livello e salire */
     var WAIT_DOWN = 60;             /* attesa dopo una discesa: raddoppia a ogni ricaduta */
     var WAIT_MAX  = 480;
@@ -1481,7 +1484,7 @@
     var comp, lowCut, master, send, verb, verbWet, echoAid, echoIn, padBus, pump, padFilter, brassBus, keysBus, leadBus, arpBus, bassBus, noiseBuf;
     var pref = 'on', vol = VOL_START;
     var tier = 0, stored = 0, cfg = TIERS[0];
-    var meter = null, stalled = false, strikes = 0, probing = false;
+    var meter = null, stalled = false, badAt = [], glitches = 0, probing = false;
     var retryAt = 0, keepAt = 0, backoff = WAIT_DOWN;
     var chordIdx = 0, nextChordAt = 0, nextStepAt = 0, step = 0;
     var harmony = [];   /* cambi d'accordo programmati: { at, notes } */
@@ -1545,9 +1548,9 @@
       var AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return false;
       /* niente da sincronizzare: un buffer piu ampio evita i buchi. La frequenza non si
-         cambia suonando, quindi vale quella del livello di partenza */
+         cambia suonando: resta bassa finche il livello massimo non ha retto */
       var opts = { latencyHint: 'playback' };
-      if (tier < 2) opts.sampleRate = 32000;
+      if (tier < TIERS.length - 1) opts.sampleRate = 32000;
       try { ctx = new AC(opts); } catch (e) { ctx = new AC(); }
 
       comp = ctx.createDynamicsCompressor();
@@ -1664,7 +1667,7 @@
     }
 
     /* prova muta: quanto pesa il momento piu carico di un livello (due accordi in
-       dissolvenza) sul tempo che dura. 0,3 = trenta millesimi per ogni decimo di audio */
+       dissolvenza) sul tempo che dura: 0,2 vuol dire un quinto del tempo disponibile */
     function probe(c, buf) {
       var rate = ctx.sampleRate, sec = 0.25;
       var off = new OfflineAudioContext(2, Math.round(rate * sec), rate);
@@ -1693,6 +1696,8 @@
       probe(next, buf).then(function (load) {
         var now = performance.now() / 1000;
         probing = false;
+        /* alla prossima visita il livello massimo suonera a frequenza piena: pesa di piu */
+        if (tier + 2 === TIERS.length) load *= Math.max(1, FULL_RATE / ctx.sampleRate);
         if (load <= MAX_LOAD && ctx.state === 'running') {
           setTier(tier + 1, buf);
           keepAt = now + HOLD;
@@ -1705,27 +1710,38 @@
       });
     }
 
-    /* ogni pochi secondi: se il tempo audio resta indietro rispetto all'orologio il
-       processore non regge, se le note arrivano tardi e la pagina a bloccare i timer.
-       Due misure cattive fanno scendere di un livello, e la risalita aspetta sempre di
-       piu; se regge si ricorda il livello e si prova quello dopo */
+    /* buchi nell'audio dall'avvio. Dove c'e, il contatore del browser dice quanti sono
+       davvero; altrimenti si stima dal tempo audio che resta indietro rispetto all'orologio
+       (un buffer ampio fa oscillare quel tempo, quindi la soglia cresce con lui) */
+    function underruns() {
+      return ctx.playbackStats ? ctx.playbackStats.underrunEvents : -1;
+    }
+
+    /* ogni pochi secondi. Due misure cattive vicine fanno scendere di un livello, anche
+       se in mezzo ce n'e una buona: un inceppo ogni tanto si sente lo stesso. La risalita
+       aspetta sempre di piu; se regge si ricorda il livello e si prova quello dopo */
     function watchLoad() {
-      var wall = performance.now() / 1000, audio = ctx.currentTime;
+      var wall = performance.now() / 1000, audio = ctx.currentTime, holes = underruns();
       if (!meter) {
-        meter = { wall: wall, audio: audio };
+        meter = { wall: wall, audio: audio, holes: holes };
         stalled = false;
         keepAt = wall + HOLD;
         return;
       }
       var dt = wall - meter.wall;
       if (dt < WINDOW) return;
-      var bad = stalled || dt - (audio - meter.audio) > MAX_LATE;
-      meter.wall = wall; meter.audio = audio;
+      var late = dt - (audio - meter.audio) > Math.max(MAX_LATE, 2 * (ctx.baseLatency || 0));
+      var fresh = holes >= 0 ? holes - meter.holes : (late ? 1 : 0);
+      var bad = stalled || fresh > 0;
+      meter.wall = wall; meter.audio = audio; meter.holes = holes;
       stalled = false;
+      if (fresh > 0) { glitches += fresh; paint(); }
       if (bad) {
         keepAt = wall + HOLD;
-        if (++strikes >= 2 && tier > 0) {
-          strikes = 0;
+        badAt = badAt.filter(function (t) { return wall - t < BAD_SPAN; });
+        badAt.push(wall);
+        if (badAt.length >= 2 && tier > 0) {
+          badAt = [];
           setTier(tier - 1, makeVerb(TIERS[tier - 1]));
           remember();
           retryAt = wall + backoff;
@@ -1733,7 +1749,6 @@
         }
         return;
       }
-      strikes = 0;
       if (wall < keepAt) return;
       if (tier > stored) backoff = WAIT_DOWN;
       remember();
@@ -2027,6 +2042,7 @@
         d.querySelectorAll('.audio-vol').forEach(function (el) { el.value = vol; });
         d.querySelectorAll('.audio-val').forEach(function (el) { el.textContent = vol; });
         d.querySelectorAll('.audio-tier').forEach(function (el) { el.textContent = (tier + 1) + '/' + TIERS.length; });
+        d.querySelectorAll('.audio-holes').forEach(function (el) { el.textContent = glitches; });
       });
     }
 
