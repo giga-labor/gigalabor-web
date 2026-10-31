@@ -215,7 +215,18 @@
             '<button class="theme-btn theme-btn--light"    data-theme="light"     title="Light"         aria-label="Light"></button>' +
             '<button class="theme-btn theme-btn--contrast" data-theme="contrast"  title="High Contrast" aria-label="High Contrast"></button>' +
           '</div>' +
-          '<button class="audio-btn" type="button" aria-pressed="false" data-i18n-attr="aria-label:ui.audio,title:ui.audio">' + icon('audio') + '</button>' +
+          '<div class="audio-ctl">' +
+            '<button class="audio-btn" type="button" aria-expanded="false" data-i18n-attr="aria-label:ui.audio,title:ui.audio">' + icon('audio') + '</button>' +
+            '<div class="audio-panel" role="group" data-i18n-attr="aria-label:ui.audio" hidden>' +
+              '<div class="audio-row">' +
+                '<input class="audio-vol" type="range" min="0" max="100" step="1" data-i18n-attr="aria-label:ui.audio_volume">' +
+                '<span class="audio-val" aria-hidden="true"></span>' +
+              '</div>' +
+              '<button class="audio-toggle" type="button">' +
+                '<span class="at-off" data-i18n="ui.audio_off"></span><span class="at-on" data-i18n="ui.audio_on"></span>' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
           '<button class="navbar__lang-btn" id="lang-toggle" aria-label="Cambia lingua">EN</button>' +
           '<div class="tb-sep"></div>' +
           '<span class="tb-time" id="tb-time" aria-hidden="true">--:--:--</span>' +
@@ -1411,11 +1422,14 @@
      sedicesimi, arpeggio serrato, pad che pompano sul battito, ottoni gravi).
      Nessun file audio: tutto e sintetizzato dal vivo, le note sono generate.
      Parte da sola se il browser lo permette, altrimenti al primo clic o tasto.
-     Il pulsante in topbar la spegne e la scelta resta salvata.
+     Il pulsante in topbar apre il pannello con volume e spegnimento; le scelte
+     restano salvate. Su telefoni e computer deboli suona una versione alleggerita
+     (lite): la sintesi dal vivo pesa, e se il processore non regge l'audio gracchia.
   = */
   var Ambient = (function () {
     var STORE_KEY = 'gl_audio';
-    var VOLUME    = 0.6;            /* guadagno finale, dopo il compressore */
+    var VOL_KEY   = 'gl_audio_vol';
+    var VOL_START = 75;             /* volume iniziale del cursore, 0-100 */
     var FADE_IN   = 4;              /* secondi */
     var FADE_OUT  = 1.2;
     var BPM       = 96;
@@ -1442,8 +1456,9 @@
     var BRIGHT = { 'dark-tech': 2600, 'light': 3800, 'contrast': 3000 };
 
     var ctx = null;
-    var comp, master, send, echoIn, padBus, pump, padFilter, brassBus, keysBus, leadBus, arpBus, bassBus, noiseBuf;
-    var pref = 'on';
+    var comp, lowCut, master, send, verb, echoIn, padBus, pump, padFilter, brassBus, keysBus, leadBus, arpBus, bassBus, noiseBuf;
+    var pref = 'on', vol = VOL_START;
+    var lite = false, meter = null;
     var chordIdx = 0, nextChordAt = 0, nextStepAt = 0, step = 0;
     var harmony = [];   /* cambi d'accordo programmati: { at, notes } */
     var stopTimer;
@@ -1453,10 +1468,17 @@
     function rand(a, b) { return a + Math.random() * (b - a); }
     function pick(list) { return list[Math.floor(Math.random() * list.length)]; }
 
-    function impulse(seconds, decay) {
+    function weakDevice() {
+      var nav = navigator;
+      var mobile = nav.userAgentData ? nav.userAgentData.mobile : /Android|iPhone|iPad|iPod|Mobi/i.test(nav.userAgent);
+      return mobile || window.matchMedia('(pointer: coarse)').matches ||
+        nav.hardwareConcurrency <= 4 || nav.deviceMemory <= 4;
+    }
+
+    function impulse(seconds, decay, channels) {
       var rate = ctx.sampleRate, len = Math.floor(rate * seconds);
-      var buf = ctx.createBuffer(2, len, rate);
-      for (var c = 0; c < 2; c++) {
+      var buf = ctx.createBuffer(channels, len, rate);
+      for (var c = 0; c < channels; c++) {
         var d = buf.getChannelData(c);
         for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
       }
@@ -1505,7 +1527,11 @@
     function build() {
       var AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return false;
-      ctx = new AC();
+      lite = weakDevice();
+      /* niente da sincronizzare: un buffer piu ampio evita i buchi, e in lite si calcola meno */
+      var opts = { latencyHint: 'playback' };
+      if (lite) opts.sampleRate = 32000;
+      try { ctx = new AC(opts); } catch (e) { ctx = new AC(); }
 
       comp = ctx.createDynamicsCompressor();
       comp.threshold.value = -22; comp.knee.value = 18; comp.ratio.value = 3;
@@ -1513,14 +1539,17 @@
       /* un filo d'aria sugli acuti in uscita */
       var air = filter('highshelf', 3500);
       air.gain.value = 5;
+      /* gli altoparlanti piccoli non rendono i bassi profondi e li distorcono */
+      lowCut = filter('highpass', lite ? 90 : 20);
       master = gain(0);
-      comp.connect(air); air.connect(master); master.connect(ctx.destination);
+      comp.connect(air); air.connect(lowCut); lowCut.connect(master); master.connect(ctx.destination);
 
       /* riverbero da cattedrale con un filo di pre-delay */
       send = gain(1);
-      var pre = ctx.createDelay(1), verb = ctx.createConvolver(), damp = filter('lowpass', 7000);
+      var pre = ctx.createDelay(1), damp = filter('lowpass', 7000);
+      verb = ctx.createConvolver();
       pre.delayTime.value = 0.035;
-      verb.buffer = impulse(6, 2.2);
+      verb.buffer = lite ? impulse(2.5, 2.2, 1) : impulse(6, 2.2, 2);
       send.connect(pre); pre.connect(verb); verb.connect(damp); damp.connect(comp);
 
       /* eco ping-pong a croma puntata, a tempo con l'arpeggio */
@@ -1593,6 +1622,22 @@
       return notes;
     }
 
+    /* il tempo audio resta indietro rispetto all'orologio: il processore non ce la fa.
+       Si passa a lite senza interrompere, le note gia programmate finiscono da sole */
+    function watchLoad() {
+      var wall = performance.now() / 1000, audio = ctx.currentTime;
+      if (!meter) { meter = { wall: wall, audio: audio, bad: 0 }; return; }
+      var dt = wall - meter.wall;
+      if (dt < 4) return;
+      meter.bad = dt - (audio - meter.audio) > 0.08 ? meter.bad + 1 : 0;
+      meter.wall = wall; meter.audio = audio;
+      if (meter.bad >= 2) {
+        lite = true;
+        lowCut.frequency.value = 90;
+        verb.buffer = impulse(2.5, 2.2, 1);
+      }
+    }
+
     /* pad "ottoni": tre dente di sega scordate che derivano piano di intonazione */
     function padNote(midi, t0, dur, dest) {
       var env = ctx.createGain(), pan = ctx.createStereoPanner();
@@ -1602,19 +1647,23 @@
       env.gain.setValueAtTime(1, t0 + dur - XFADE);
       env.gain.linearRampToValueAtTime(0, t0 + dur);
       env.connect(pan); pan.connect(dest);
-      var drift = ctx.createOscillator(), driftDepth = gain(5);
-      drift.frequency.value = rand(0.08, 0.25);
-      drift.connect(driftDepth);
-      [-9, 0, 9].forEach(function (cents) {
-        var o = ctx.createOscillator(), g = gain(0.045);
+      var voices = lite ? [-7, 7] : [-9, 0, 9];
+      var drift = null, driftDepth = null;
+      if (!lite) {
+        drift = ctx.createOscillator(); driftDepth = gain(5);
+        drift.frequency.value = rand(0.08, 0.25);
+        drift.connect(driftDepth);
+        drift.start(t0); drift.stop(t0 + dur + 0.1);
+      }
+      voices.forEach(function (cents) {
+        var o = ctx.createOscillator(), g = gain(0.135 / voices.length);
         o.type = 'sawtooth';
         o.frequency.value = mtof(midi);
         o.detune.value = cents + rand(-2, 2);
-        driftDepth.connect(o.detune);
+        if (driftDepth) driftDepth.connect(o.detune);
         o.connect(g); g.connect(env);
         o.start(t0); o.stop(t0 + dur + 0.1);
       });
-      drift.start(t0); drift.stop(t0 + dur + 0.1);
     }
 
     /* ogni accordo ha il suo filtro risonante che si apre come un fiato */
@@ -1625,7 +1674,8 @@
       f.linearRampToValueAtTime(1500, t0 + dur * 0.6);
       f.linearRampToValueAtTime(400, t0 + dur);
       swell.connect(padBus);
-      notes.forEach(function (m) { padNote(m, t0, dur, swell); });
+      var played = lite ? [notes[0], notes[2], notes[4]] : notes;
+      played.forEach(function (m) { padNote(m, t0, dur, swell); });
     }
 
     /* ottoni gravi sul cambio d'accordo: fondamentale, ottava sotto e quinta */
@@ -1639,7 +1689,7 @@
       env.gain.exponentialRampToValueAtTime(0.001, t0 + 7);
       swell.connect(env); env.connect(brassBus);
       [root - 12, root, root + 7].forEach(function (m) {
-        [-8, 8].forEach(function (cents) {
+        (lite ? [0] : [-8, 8]).forEach(function (cents) {
           var o = ctx.createOscillator();
           o.type = 'sawtooth';
           o.frequency.value = mtof(m);
@@ -1678,7 +1728,7 @@
       if (pool.length < 2) return;
       var filt = filter('lowpass', 500, 2), env = gain(0);
       var vib = ctx.createOscillator(), vibDepth = gain(0);
-      var oscs = [ctx.createOscillator(), ctx.createOscillator()];
+      var oscs = lite ? [ctx.createOscillator()] : [ctx.createOscillator(), ctx.createOscillator()];
       vib.frequency.value = 5.2;
       vibDepth.gain.setValueAtTime(0, t0);
       vibDepth.gain.linearRampToValueAtTime(14, t0 + 1.5);
@@ -1746,7 +1796,9 @@
     /* sequencer: accordi, basso, arpeggio e pompaggio sulla stessa griglia */
     function scheduleMusic() {
       if (ctx.state === 'running') {
-        var now = ctx.currentTime, ahead = now + 1;
+        if (!lite) watchLoad();
+        /* una pagina che carica puo fermare i timer: in lite ci si tiene piu margine */
+        var now = ctx.currentTime, ahead = now + (lite ? 2 : 1);
         if (nextChordAt < now) nextChordAt = now;
         if (nextStepAt < now) nextStepAt = now;
         /* i pad partono mezza dissolvenza prima del cambio, basso e arpeggio sul cambio */
@@ -1772,6 +1824,8 @@
           step++;
           nextStepAt += STEP;
         }
+      } else {
+        meter = null;
       }
       setTimeout(scheduleMusic, 250);
     }
@@ -1779,7 +1833,7 @@
     function scheduleKeys() {
       if (ctx.state === 'running' && harmony.length) {
         var t = ctx.currentTime + 0.05, notes = notesAt(t);
-        var n = Math.random() < 0.3 ? 3 : 1;
+        var n = !lite && Math.random() < 0.3 ? 3 : 1;
         for (var i = 0; i < n; i++) tine(Math.min(pick(notes) + 24, 89), t + i * STEP * 2);
       }
       setTimeout(scheduleKeys, rand(3000, 9000));
@@ -1797,6 +1851,16 @@
       g.linearRampToValueAtTime(v, t + sec);
     }
 
+    /* guadagno finale, dopo il compressore: curva al quadrato, l'orecchio non e lineare */
+    function level() { return vol * vol / 10000; }
+
+    function setVolume(v) {
+      vol = v;
+      try { localStorage.setItem(VOL_KEY, String(vol)); } catch (e) {}
+      if (audible() && !document.hidden) fadeTo(level(), 0.1);
+      paint();
+    }
+
     function audible() { return !!ctx && ctx.state === 'running' && pref === 'on'; }
 
     /* documenti serviti: il proprio e, in navigazione continua, quello nel riquadro */
@@ -1808,7 +1872,7 @@
 
     function onState() {
       if (audible() && !document.hidden) {
-        fadeTo(VOLUME, FADE_IN);
+        fadeTo(level(), FADE_IN);
         docs().forEach(function (d) {
           GESTURES.forEach(function (ev) { d.removeEventListener(ev, onGesture, true); });
         });
@@ -1832,7 +1896,7 @@
     }
 
     function onGesture(e) {
-      if (e.target && e.target.closest && e.target.closest('.audio-btn')) return;
+      if (e.target && e.target.closest && e.target.closest('.audio-toggle')) return;
       if (pref === 'on') ensure();
     }
 
@@ -1852,9 +1916,14 @@
         d.querySelectorAll('.audio-btn').forEach(function (btn) {
           btn.classList.toggle('is-on', on);
           btn.classList.toggle('is-wait', waiting);
-          btn.classList.toggle('is-off', pref === 'off');
-          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.classList.toggle('is-off', pref === 'off' || vol === 0);
         });
+        d.querySelectorAll('.audio-toggle').forEach(function (btn) {
+          btn.classList.toggle('is-off', pref === 'off');
+          btn.setAttribute('aria-pressed', pref === 'on' ? 'true' : 'false');
+        });
+        d.querySelectorAll('.audio-vol').forEach(function (el) { el.value = vol; });
+        d.querySelectorAll('.audio-val').forEach(function (el) { el.textContent = vol; });
       });
     }
 
@@ -1916,11 +1985,23 @@
       try { w.focus(); } catch (e) {}
     }
 
-    /* collega un documento: pulsante, gesti, tema e link */
+    /* pannello in topbar: si apre dall'icona, si chiude toccando fuori o con Esc */
+    function bindPanel(box, doc) {
+      var btn = box.querySelector('.audio-btn'), panel = box.querySelector('.audio-panel');
+      function show(open) {
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      btn.addEventListener('click', function () { show(panel.hidden); });
+      box.querySelector('.audio-vol').addEventListener('input', function () { setVolume(Number(this.value)); });
+      box.querySelector('.audio-toggle').addEventListener('click', toggle);
+      doc.addEventListener('click', function (e) { if (!box.contains(e.target)) show(false); });
+      doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') show(false); });
+    }
+
+    /* collega un documento: pannello, gesti, tema e link */
     function attach(doc) {
-      doc.querySelectorAll('.audio-btn').forEach(function (btn) {
-        btn.addEventListener('click', toggle);
-      });
+      doc.querySelectorAll('.audio-ctl').forEach(function (box) { bindPanel(box, doc); });
       if (!audible()) GESTURES.forEach(function (ev) { doc.addEventListener(ev, onGesture, true); });
       doc.addEventListener('themeChange', onTheme);
       doc.addEventListener('click', onLink);
@@ -1934,7 +2015,11 @@
       if (host) { host.attach(document); return; }
       window.__glAudioHost = { attach: attach };
 
-      try { if (localStorage.getItem(STORE_KEY) === 'off') pref = 'off'; } catch (e) {}
+      try {
+        if (localStorage.getItem(STORE_KEY) === 'off') pref = 'off';
+        var saved = parseInt(localStorage.getItem(VOL_KEY), 10);
+        if (saved >= 0 && saved <= 100) vol = saved;
+      } catch (e) {}
       attach(document);
       document.addEventListener('visibilitychange', ensure);
       /* tentativo di partenza automatica; dove il browser lo vieta di sicuro
