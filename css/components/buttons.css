@@ -17,11 +17,16 @@
   border: 1px solid transparent;
   text-decoration: none;
   white-space: nowrap;
+  max-width: 100%;
   user-select: none;
   transition: background 0.2s, border-color 0.2s, color 0.2s,
               box-shadow 0.2s, transform 0.15s;
 }
 .btn:active { transform: scale(0.97); }
+/* su schermi stretti le etichette lunghe vanno a capo invece di uscire dalla pagina */
+@media (max-width: 479px) {
+  .btn { white-space: normal; text-align: center; }
+}
 
 /* PRIMARY */
 .btn--primary {

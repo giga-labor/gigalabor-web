@@ -17,20 +17,35 @@
    responsive.css, altrimenti le regole base (scritte qui dopo gli @import)
    vincevano sulle media query e su mobile le griglie restavano a 3 colonne. */
 
+/* ── BARRE FISSE IN BASSO: un'altezza sola per barre e contenuti ──
+   Queste regole vengono dopo gli @import e battono le media query di shell.css:
+   con altezze scritte a mano qui, su mobile la pagina finiva sotto la tab bar. */
+:root { --bar-b: 52px; --tab-b: 0px; --tb-pad: 1.6rem; }
+@media (max-width: 767px) {
+  :root { --tab-b: 60px; --tb-pad: .75rem; }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  :root { --bar-b: 36px; --tab-b: 0px; }
+}
+
 /* ── SAFE AREA INSETS (notch / dynamic island / home bar) ── */
 #tb {
-  padding-left:  max(1.6rem, env(safe-area-inset-left,  0px));
-  padding-right: max(1.6rem, env(safe-area-inset-right, 0px));
+  padding-left:  max(var(--tb-pad), env(safe-area-inset-left,  0px));
+  padding-right: max(var(--tb-pad), env(safe-area-inset-right, 0px));
 }
 #bb {
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  height: calc(52px + env(safe-area-inset-bottom, 0px));
+  height: calc(var(--bar-b) + env(safe-area-inset-bottom, 0px));
 }
 #side {
   padding-left: env(safe-area-inset-left, 0px);
+  bottom: calc(var(--bar-b) + env(safe-area-inset-bottom, 0px));
+}
+body[data-page="home"] {
+  padding-bottom: calc(var(--bar-b) + var(--tab-b) + env(safe-area-inset-bottom, 0px));
 }
 body:not([data-page="home"]):not([data-page="splash"]) {
-  padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--bar-b) + var(--tab-b) + env(safe-area-inset-bottom, 0px) + 1rem);
 }
 
 /* ── FOCUS VISIBLE — ring uniforme per tutti gli elementi ── */

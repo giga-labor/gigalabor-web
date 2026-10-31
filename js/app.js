@@ -373,7 +373,7 @@
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0 });   /* basta che entri: i blocchi molto alti non resterebbero invisibili */
       els.forEach(function(el) { obs.observe(el); });
     }
 
@@ -856,11 +856,13 @@
         try { localStorage.setItem(INTRO_KEY, '1'); } catch(e) {}
         window.removeEventListener('keydown', enter);
         window.removeEventListener('wheel', enter);
+        window.removeEventListener('touchmove', enter);
         setTimeout(function() { intro.remove(); }, 900);
       }
       intro.addEventListener('click', enter);
       window.addEventListener('keydown', enter);
       window.addEventListener('wheel', enter, { passive: true });
+      window.addEventListener('touchmove', enter, { passive: true });
     }
 
     function initRatioTooltip() {
