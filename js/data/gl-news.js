@@ -10,7 +10,15 @@
 window.GL = window.GL || {};
 
 window.GL.NEWS = [
-  { id: 'bloom-google-play',        category: 'platforms', sort_date: '2026-10-31', badge_class: 'badge--active'      },
+  { id: 'bloom-play-update',        category: 'platforms', sort_date: '2026-11-07', badge_class: 'badge--active'      },
+  { id: 'metr-anthropic-acceleration',  category: 'research',  sort_date: '2026-11-05', badge_class: 'badge--ongoing'     },
+  { id: 'gpt-6-cyber',              category: 'models',    sort_date: '2026-11-05', badge_class: 'badge--development' },
+  { id: 'doj-superintelligence-task-force',  category: 'research',  sort_date: '2026-11-05', badge_class: 'badge--active'      },
+  { id: 'openai-linux-root',        category: 'security',  sort_date: '2026-11-04', badge_class: 'badge--ongoing'     },
+  { id: 'meta-conductor',           category: 'platforms', sort_date: '2026-11-04', badge_class: 'badge--active'      },
+  { id: 'anthropic-vault-particles',  category: 'research',  sort_date: '2026-11-04', badge_class: 'badge--active'      },
+  { id: 'anthropic-s1-amended',     category: 'platforms', sort_date: '2026-11-02', badge_class: 'badge--development' },
+  { id: 'bloom-google-play',       category: 'platforms', sort_date: '2026-10-31', badge_class: 'badge--active'      },
   { id: 'openai-misalignment-monitors',  category: 'security',  sort_date: '2026-10-29', badge_class: 'badge--ongoing'     },
   { id: 'mistral-large-4-weights',  category: 'models',    sort_date: '2026-10-29', badge_class: 'badge--active'      },
   { id: 'canada-cohere',            category: 'platforms', sort_date: '2026-10-29', badge_class: 'badge--development' },

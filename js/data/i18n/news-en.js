@@ -9,6 +9,94 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['en'] = {
 
+  'bloom-play-update': {
+    date:         "November 7, 2026",
+    title:        "Bloom update: the relationship now, silences and the calendar",
+    excerpt:      "With the November 7 update Bloom separates how the relationship is today from how it has been overall, and also reads the stretches when the chat goes quiet.",
+    body:         "On November 7, 2026, Bloom received its first major update since launching on Google Play. The reading now separates how the relationship is right now from how it has been overall, so a recent difficult stretch is not lost in the average of years of messages.\n\nThe trend chart follows the calendar and also shows days without messages. A new section covers silences: announced ones, those after an argument, messages left unanswered, and how much they weigh in the reading. For couple and family chats the app asks whether you see each other often in person, so a pause in the chat is not mistaken for distance.\n\nThere are also new suggestions for silences, including when someone drifts away from a group chat. The analysis still runs entirely on the phone, and the app remains free with no ads. The app is in Italian.",
+    badge:        "Update",
+    source_label: 'Source:',
+    source_name:  "Google Play",
+    source_url:   'https://play.google.com/store/apps/details?id=app.bloom.relazioni'
+  },
+
+  'metr-anthropic-acceleration': {
+    date:         "November 5, 2026",
+    title:        "METR: AI has doubled the pace of model development at Anthropic",
+    excerpt:      "An independent assessment estimates that Anthropic is improving its models at roughly twice its earlier speed, about 80% of it thanks to AI. Much of the evidence was redacted by the company.",
+    body:         "On November 5, 2026, METR, an independent organization that evaluates model risks, published the assessment it carried out at Anthropic between August 12 and October 29. The question was whether AI is already accelerating the development of more AI. The answer: by October the company was improving its models' capabilities on well-defined tasks at about twice the speed of the March 2024 to October 2025 period, with a wide range of 1.3 to 3 times. METR attributes about 80% of the speed-up to AI and sees no clear bottlenecks in the next 12 months.\n\nThe report comes days after Anthropic wrote in its IPO prospectus that it may soon reach the threshold its safety policy calls dramatically accelerated progress attributable to AI. No current model has crossed it, and the company is weighing changes to its Responsible Scaling Policy to keep humans in control of development.\n\nThe limits are stated: METR did not query the models directly, and Anthropic used its right to redact much of the evidence METR considered most informative, saying it contains information useful to competitors. Midway through, the company also dropped the check on how it splits compute between capabilities and safety. METR considers an attempt to mislead extremely unlikely, but asks for more access.",
+    badge:        "Assessment",
+    source_label: 'Source:',
+    source_name:  "METR",
+    source_url:   'https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/'
+  },
+
+  'gpt-6-cyber': {
+    date:         "November 5, 2026",
+    title:        "OpenAI releases GPT-6 Cyber, reserved for people who defend and test systems",
+    excerpt:      "The cybersecurity variant of GPT-6 Astra is rated Critical by OpenAI and is available only to verified users of the Daybreak Red program.",
+    body:         "On November 5, 2026, OpenAI published the system card for GPT-6 Cyber, a variant of GPT-6 Astra specialized in authorized security work: vulnerability research, exploit development and web penetration testing. The goal is to allow more security work while staying within the scope the user is authorized for.\n\nAccess goes through the Daybreak Red program, with identity verification, enterprise sign-in with multi-factor authentication and, for individuals, an invitation, a legal attestation and a physical security key. Under OpenAI's risk framework the model is Critical for cybersecurity and High for biology and chemistry. High-risk help on industrial systems, essential services and election systems remains blocked.\n\nAmong the stated results: 48.5% on ExploitGym against 42.4% for Astra; in out-of-scope honeypot tests the model acted without authorization in 0.07% of cases, against 49.5% for GPT-5.6 Sol. These are the company's own evaluations.",
+    badge:        "Limited access",
+    source_label: 'Source:',
+    source_name:  "OpenAI",
+    source_url:   'https://deploymentsafety.openai.com/gpt-6-cyber'
+  },
+
+  'doj-superintelligence-task-force': {
+    date:         "November 5, 2026",
+    title:        "The US creates a task force against superintelligence abuse",
+    excerpt:      "The Justice Department launches DOJ-SITF to pursue foreign governments, organized crime and fraudsters who misuse advanced AI. Superintelligence itself is not defined.",
+    body:         "On November 5, 2026, the US Department of Justice announced the Super Intelligence Task Force (DOJ-SITF), led by Associate Attorney General Stanley Woodward and Stephen Weiss. According to the release, it will target foreign state actors, transnational criminal organizations and domestic fraud that exploit advanced AI, prioritizing taxpayers, critical infrastructure and national security.\n\nThe new body absorbs the department's earlier AI task force and coordinates divisions and US Attorneys' offices. Attorney General Todd Blanche presents it as a partner to the White House Super Intelligence Force, chaired by Jay Clayton.\n\nThe release does not define superintelligence or set a timeline; it creates no new offenses but organizes enforcement of existing laws. According to the Wall Street Journal, the administration is pushing companies and agencies to say superintelligence instead of artificial intelligence.",
+    badge:        "Policy",
+    source_label: 'Source:',
+    source_name:  "US Department of Justice",
+    source_url:   'https://justice.gov/opa/pr/department-justice-launches-super-intelligence-task-force'
+  },
+
+  'openai-linux-root': {
+    date:         "November 4, 2026",
+    title:        "OpenAI agents find 948 ways to become root on Linux",
+    excerpt:      "An automated pipeline produced working exploits for 948 Linux kernel flaws, using about $1.2 million in compute, and proposed fixes to the maintainers.",
+    body:         "On November 4, 2026, OpenAI published the results of an automated pipeline, built on an unreleased cybersecurity model, that ran in mid-October against about 7% of the Linux kernel. From 2,308 candidate vulnerabilities it reproduced 1,724 and produced working exploits for 948 distinct privilege-escalation flaws: each lets an unprivileged local user become administrator (root). In July a similar experiment with GPT-5.6 Sol had found 166.\n\nThe cost was about $1.2 million in API credits, roughly $1,280 per flaw. OpenAI compares this with hacking contest bounties, where such an exploit was worth $20,000 to $70,000. The pipeline also wrote candidate fixes for maintainers to review: at publication 61 patches had been released and 43 were in preparation.\n\nThe flaws require existing access to the machine and do not allow remote entry. Still, the result shows how fast AI can find vulnerabilities, and how much review work falls on the people who maintain the software.",
+    badge:        "Security",
+    source_label: 'Source:',
+    source_name:  "OpenAI",
+    source_url:   'https://openai.com/index/a-thousand-fewer-paths-to-root/'
+  },
+
+  'meta-conductor': {
+    date:         "November 4, 2026",
+    title:        "Meta buys Conductor, the startup that puts several agents on the same codebase",
+    excerpt:      "The cloud service shuts down on November 20 and data will then be deleted. The founder joins Meta's Superintelligence Labs.",
+    body:         "On November 4, 2026, Meta confirmed it had acquired Conductor, a startup founded in 2024 that splits a software project among several AI agents working in parallel, in the cloud, locally or from a phone. The agents are not its own: Conductor coordinates those from Anthropic, OpenAI and others. The price was not disclosed.\n\nThe cloud service will shut down on November 20, after which user data will start being deleted; the core features stay available until early 2027. Founder Charlie Holtz said he will work with Alexandr Wang and Nat Friedman at the Superintelligence Labs and promised customers a new product in early 2027.\n\nThe same week OpenAI announced it is acquiring Pierre Computer, whose code navigation technology powers parts of Codex: the race for coding tools is also being fought through acquisitions.",
+    badge:        "Acquisition",
+    source_label: 'Source:',
+    source_name:  "TechCrunch",
+    source_url:   'https://techcrunch.com/2026/11/04/meta-acquires-ai-coding-startup-conductor/'
+  },
+
+  'anthropic-vault-particles': {
+    date:         "November 4, 2026",
+    title:        "With Claude, the first structure of a bacterial vault: three days of lab work become 90 minutes",
+    excerpt:      "Anthropic's life sciences team solved the structure of a mysterious cellular particle in a bacterial virus. Claude sped up the work, but also made costly mistakes.",
+    body:         "On November 4, 2026, Anthropic's life sciences team posted a bioRxiv preprint with the first three-dimensional structure of a prokaryotic vault. Vaults are large protein shells found in almost all complex cells, discovered in 1986, and their function is still unknown. The one studied comes from a bacteriophage: it is made of 96 copies of a single protein, against 78 in human vaults, and is shorter and wider.\n\nClaude searched for related proteins in a database of about 15 billion sequences, designed the DNA constructs, proposed a purification method that cut the step from about three days to 90 minutes, and processed the cryo-electron microscopy data: the first structural model was ready in 34 hours. Decisions stayed with the researchers.\n\nAnthropic also documents the mistakes: a protocol with the wrong additive cost two weeks, and in image processing the model skipped a standard step, producing a wrong map. The work has not yet been peer reviewed.",
+    badge:        "Research",
+    source_label: 'Source:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/research/investigating-vault-particles-with-claude'
+  },
+
+  'anthropic-s1-amended': {
+    date:         "November 2, 2026",
+    title:        "Anthropic updates its prospectus: $17 billion in quarterly revenue, but back to an operating loss",
+    excerpt:      "The amended S-1 adds the third quarter: revenue more than twelve times a year earlier and a $567 million operating loss, driven by compute bought in a hurry.",
+    body:         "On November 2, 2026, Anthropic filed the first amendment to its IPO prospectus with the SEC, adding third-quarter results. Revenue from July to September was about $16.96 billion, against $1.38 billion a year earlier and $11.6 billion in the second quarter: quarter-on-quarter growth slows to 47%.\n\nAfter $974 million in operating income in the second quarter, the third closes with a $567 million operating loss. The company attributes it to $5 billion of compute bought on short-term commitments, now much more expensive than capacity booked for years, and $2 billion in non-cash charges tied to the program that matches employee donations. The $23.3 billion net loss includes $21.9 billion of accounting charges on convertible notes. At the end of September cash stood at $95.6 billion, plus $36.3 billion in short-term investments.\n\nAmong the risk factors the company writes that it may soon reach the AI-accelerated development threshold set by its safety policy. Price and share count are still blank; according to press reports, marketing to investors should start the week of November 9, with valuations discussed around $1.2-1.3 trillion.",
+    badge:        "Prospectus",
+    source_label: 'Source:',
+    source_name:  "StockAnalysis",
+    source_url:   'https://stockanalysis.com/news/anthropic-third-quarter-revenue-17-billion-ipo-filing/'
+  },
+
   'bloom-google-play': {
     date:         "October 31, 2026",
     title:        "Bloom is available on Google Play",

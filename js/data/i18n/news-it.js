@@ -9,6 +9,94 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['it'] = {
 
+  'bloom-play-update': {
+    date:         "7 novembre 2026",
+    title:        "Bloom si aggiorna: il rapporto di adesso, i silenzi e il calendario",
+    excerpt:      "Con l'aggiornamento del 7 novembre Bloom distingue com'è il rapporto oggi da com'è stato nel complesso, e legge anche i periodi in cui la chat tace.",
+    body:         "Il 7 novembre 2026 Bloom ha ricevuto il primo aggiornamento importante dopo l'uscita su Google Play. La lettura ora separa com'è il rapporto adesso da com'è stato nel complesso, così un periodo difficile recente non si perde nella media di anni di messaggi.\n\nIl grafico dell'andamento segue il calendario e mostra anche i giorni senza messaggi. Una nuova sezione è dedicata ai silenzi: quelli annunciati, quelli dopo una lite, i messaggi rimasti senza risposta, e quanto pesano nella lettura. Per le chat di coppia e di famiglia l'app chiede se vi vedete spesso di persona, così una pausa nella chat non viene scambiata per distanza.\n\nSono arrivati anche suggerimenti nuovi per i silenzi, compreso il caso di chi si defila da una chat di gruppo. L'analisi resta tutta sul telefono, e l'app è sempre gratuita e senza pubblicità.",
+    badge:        "Aggiornamento",
+    source_label: 'Fonte:',
+    source_name:  "Google Play",
+    source_url:   'https://play.google.com/store/apps/details?id=app.bloom.relazioni'
+  },
+
+  'metr-anthropic-acceleration': {
+    date:         "5 novembre 2026",
+    title:        "METR: in Anthropic l'AI ha raddoppiato il ritmo di sviluppo dei modelli",
+    excerpt:      "Una valutazione indipendente stima che Anthropic migliori i propri modelli a circa il doppio della velocità di prima, per l'80% grazie all'AI. Gran parte delle prove è stata oscurata dall'azienda.",
+    body:         "Il 5 novembre 2026 METR, organizzazione indipendente che valuta i rischi dei modelli, ha pubblicato la valutazione condotta in Anthropic tra il 12 agosto e il 29 ottobre. La domanda era se l'AI stia già accelerando lo sviluppo di altra AI. La risposta: a ottobre l'azienda migliorava le capacità dei suoi modelli su compiti ben definiti a circa il doppio della velocità rispetto al periodo tra marzo 2024 e ottobre 2025, con un margine ampio, tra 1,3 e 3 volte. METR attribuisce all'AI circa l'80% di questa accelerazione e non vede colli di bottiglia evidenti nei prossimi 12 mesi.\n\nIl rapporto arriva pochi giorni dopo che Anthropic ha scritto nel prospetto per la borsa di poter raggiungere presto la soglia che la sua politica di sicurezza chiama progresso drasticamente accelerato dall'AI. Nessun modello attuale l'ha superata, e l'azienda valuta modifiche alla Responsible Scaling Policy per mantenere il controllo umano sullo sviluppo.\n\nI limiti sono dichiarati: METR non ha interrogato direttamente i modelli, e Anthropic ha esercitato il diritto di oscurare buona parte delle prove che METR riteneva più informative, sostenendo che contengono informazioni utili ai concorrenti. A metà lavoro l'azienda ha anche cancellato la verifica di come divide il calcolo tra capacità e sicurezza. METR giudica molto improbabile un tentativo di fuorviare, ma chiede più accesso.",
+    badge:        "Valutazione",
+    source_label: 'Fonte:',
+    source_name:  "METR",
+    source_url:   'https://metr.org/blog/2026-11-05-anthropic-ai-rd-acceleration-assessment/'
+  },
+
+  'gpt-6-cyber': {
+    date:         "5 novembre 2026",
+    title:        "OpenAI rilascia GPT-6 Cyber, riservato a chi difende e verifica i sistemi",
+    excerpt:      "La variante di GPT-6 Astra per la sicurezza informatica è classificata Critical da OpenAI ed è disponibile solo per utenti verificati del programma Daybreak Red.",
+    body:         "Il 5 novembre 2026 OpenAI ha pubblicato la scheda di GPT-6 Cyber, una variante di GPT-6 Astra specializzata nel lavoro di sicurezza autorizzato: ricerca di vulnerabilità, sviluppo di exploit, test di penetrazione sul web. L'obiettivo è permettere più attività di sicurezza restando dentro il perimetro autorizzato dall'utente.\n\nL'accesso passa dal programma Daybreak Red, con verifica dell'identità, accesso aziendale con autenticazione a più fattori e, per i singoli, invito, attestazione legale e chiave di sicurezza fisica. Nel quadro di valutazione dei rischi di OpenAI il modello è Critical per la cybersicurezza e High per biologia e chimica. Restano bloccati gli aiuti ad alto rischio su sistemi industriali, servizi essenziali e sistemi elettorali.\n\nTra i risultati dichiarati: 48,5% su ExploitGym contro il 42,4% di Astra; nei test con esche fuori dal perimetro il modello ha agito senza autorizzazione nello 0,07% dei casi, contro il 49,5% di GPT-5.6 Sol. Sono valutazioni dell'azienda.",
+    badge:        "Accesso limitato",
+    source_label: 'Fonte:',
+    source_name:  "OpenAI",
+    source_url:   'https://deploymentsafety.openai.com/gpt-6-cyber'
+  },
+
+  'doj-superintelligence-task-force': {
+    date:         "5 novembre 2026",
+    title:        "Gli Stati Uniti creano una task force contro gli abusi della superintelligenza",
+    excerpt:      "Il Dipartimento di Giustizia lancia la DOJ-SITF per perseguire governi stranieri, criminalità organizzata e truffatori che usano l'AI avanzata. La superintelligenza però non viene definita.",
+    body:         "Il 5 novembre 2026 il Dipartimento di Giustizia degli Stati Uniti ha annunciato la Super Intelligence Task Force (DOJ-SITF), guidata dal vice procuratore generale associato Stanley Woodward e da Stephen Weiss. Secondo il comunicato si occuperà di attori statali stranieri, organizzazioni criminali transnazionali e frodi interne che sfruttano l'AI avanzata, con priorità alla tutela dei contribuenti, delle infrastrutture critiche e della sicurezza nazionale.\n\nLa nuova struttura assorbe la precedente task force sull'AI del Dipartimento e coordina divisioni e procure federali. Il procuratore generale Todd Blanche la presenta come partner della Super Intelligence Force della Casa Bianca, guidata da Jay Clayton.\n\nIl comunicato non definisce che cosa sia la superintelligenza e non fissa tempi; non introduce nuovi reati, ma organizza l'applicazione delle leggi esistenti. Secondo il Wall Street Journal, l'amministrazione sta spingendo aziende e uffici a usare il termine superintelligenza al posto di intelligenza artificiale.",
+    badge:        "Politica",
+    source_label: 'Fonte:',
+    source_name:  "Dipartimento di Giustizia USA",
+    source_url:   'https://justice.gov/opa/pr/department-justice-launches-super-intelligence-task-force'
+  },
+
+  'openai-linux-root': {
+    date:         "4 novembre 2026",
+    title:        "Agenti di OpenAI trovano 948 modi per diventare amministratore su Linux",
+    excerpt:      "Una pipeline automatica ha prodotto exploit funzionanti per 948 falle del kernel Linux, con circa 1,2 milioni di dollari di calcolo, e ha proposto le correzioni ai manutentori.",
+    body:         "Il 4 novembre 2026 OpenAI ha pubblicato i risultati di una pipeline automatica, basata su un modello di cybersicurezza non ancora rilasciato, eseguita a metà ottobre su circa il 7% del kernel Linux. Da 2.308 possibili vulnerabilità ne ha riprodotte 1.724 e ha prodotto exploit funzionanti per 948 falle distinte di escalation dei privilegi: ognuna permette a un utente locale senza privilegi di diventare amministratore (root). A luglio un esperimento simile con GPT-5.6 Sol ne aveva trovate 166.\n\nIl costo è stato di circa 1,2 milioni di dollari in crediti API, circa 1.280 dollari per falla. OpenAI confronta la cifra con i premi dei concorsi di hacking, dove un exploit del genere valeva tra 20.000 e 70.000 dollari. La pipeline ha anche scritto proposte di correzione, che i manutentori devono rivedere: al momento della pubblicazione 61 patch risultavano già rilasciate e 43 in preparazione.\n\nLe falle richiedono un accesso già esistente alla macchina e non permettono di entrare da remoto. Il risultato mostra però la velocità con cui l'AI può trovare vulnerabilità, e quanto lavoro di revisione ricade su chi mantiene il software.",
+    badge:        "Sicurezza",
+    source_label: 'Fonte:',
+    source_name:  "OpenAI",
+    source_url:   'https://openai.com/index/a-thousand-fewer-paths-to-root/'
+  },
+
+  'meta-conductor': {
+    date:         "4 novembre 2026",
+    title:        "Meta compra Conductor, la startup che fa lavorare più agenti sullo stesso codice",
+    excerpt:      "Il servizio cloud chiude il 20 novembre e i dati verranno poi cancellati. Il fondatore entra nei Superintelligence Labs di Meta.",
+    body:         "Il 4 novembre 2026 Meta ha confermato l'acquisizione di Conductor, startup fondata nel 2024 che permette di dividere un progetto software tra più agenti AI al lavoro in parallelo, in cloud, in locale o dal telefono. Gli agenti non sono suoi: Conductor coordina quelli di Anthropic, OpenAI e altri. Il prezzo non è stato reso noto.\n\nIl servizio cloud chiuderà il 20 novembre e dopo quella data i dati degli utenti inizieranno a essere cancellati; le funzioni principali restano attive fino all'inizio del 2027. Il fondatore Charlie Holtz ha detto di voler lavorare con Alexandr Wang e Nat Friedman nei Superintelligence Labs e ha promesso un nuovo prodotto per i clienti a inizio 2027.\n\nNella stessa settimana OpenAI ha annunciato l'acquisizione di Pierre Computer, la società la cui tecnologia di navigazione del codice alimenta parti di Codex: la corsa agli strumenti di programmazione passa anche dalle acquisizioni.",
+    badge:        "Acquisizione",
+    source_label: 'Fonte:',
+    source_name:  "TechCrunch",
+    source_url:   'https://techcrunch.com/2026/11/04/meta-acquires-ai-coding-startup-conductor/'
+  },
+
+  'anthropic-vault-particles': {
+    date:         "4 novembre 2026",
+    title:        "Con Claude la prima struttura di una vault batterica: tre giorni di laboratorio diventano 90 minuti",
+    excerpt:      "Il gruppo di scienze della vita di Anthropic ha risolto la struttura di una misteriosa particella cellulare in un virus dei batteri. Claude ha accelerato il lavoro, ma ha anche commesso errori costosi.",
+    body:         "Il 4 novembre 2026 il gruppo di scienze della vita di Anthropic ha pubblicato in preprint su bioRxiv la prima struttura tridimensionale di una vault procariotica. Le vault sono grandi gusci di proteine presenti in quasi tutte le cellule complesse, scoperte nel 1986, e la loro funzione è ancora sconosciuta. Quella studiata viene da un batteriofago: è fatta di 96 copie di una sola proteina, contro le 78 delle vault umane, ed è più corta e larga.\n\nClaude ha cercato proteine simili in un archivio di circa 15 miliardi di sequenze, ha progettato i costrutti di DNA, ha proposto un metodo di purificazione che ha ridotto il passaggio da circa tre giorni a 90 minuti e ha elaborato i dati di microscopia crioelettronica: il primo modello strutturale era pronto in 34 ore. Le decisioni sono rimaste ai ricercatori.\n\nAnthropic documenta anche gli errori: un protocollo con un additivo sbagliato ha fatto perdere due settimane, e nell'elaborazione delle immagini il modello ha saltato un passaggio standard, producendo una mappa errata. Il lavoro non è ancora passato dalla revisione paritaria.",
+    badge:        "Ricerca",
+    source_label: 'Fonte:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/research/investigating-vault-particles-with-claude'
+  },
+
+  'anthropic-s1-amended': {
+    date:         "2 novembre 2026",
+    title:        "Anthropic aggiorna il prospetto: 17 miliardi di ricavi nel trimestre, ma torna in perdita operativa",
+    excerpt:      "L'S-1 modificato aggiunge il terzo trimestre: ricavi oltre dodici volte quelli di un anno prima e una perdita operativa di 567 milioni, dovuta al calcolo comprato in fretta.",
+    body:         "Il 2 novembre 2026 Anthropic ha depositato alla SEC la prima modifica al prospetto di quotazione, con i conti del terzo trimestre. I ricavi tra luglio e settembre sono stati circa 16,96 miliardi di dollari, contro 1,38 miliardi un anno prima e 11,6 nel secondo trimestre: la crescita sul trimestre precedente rallenta al 47%.\n\nDopo l'utile operativo di 974 milioni del secondo trimestre, il terzo chiude con una perdita operativa di 567 milioni. L'azienda la attribuisce a 5 miliardi di capacità di calcolo acquistata con impegni a breve termine, oggi molto più cara di quella prenotata per anni, e a 2 miliardi di oneri non monetari legati al programma che raddoppia le donazioni dei dipendenti. La perdita netta di 23,3 miliardi include 21,9 miliardi di oneri contabili sulle obbligazioni convertibili. A fine settembre la liquidità era di 95,6 miliardi, più 36,3 di investimenti a breve.\n\nTra i fattori di rischio l'azienda scrive di poter raggiungere presto la soglia di sviluppo accelerato dall'AI prevista dalla sua politica di sicurezza. Prezzo e numero di azioni non sono ancora indicati; secondo la stampa la presentazione agli investitori dovrebbe partire nella settimana del 9 novembre, con valutazioni discusse intorno a 1.200-1.300 miliardi di dollari.",
+    badge:        "Prospetto",
+    source_label: 'Fonte:',
+    source_name:  "StockAnalysis",
+    source_url:   'https://stockanalysis.com/news/anthropic-third-quarter-revenue-17-billion-ipo-filing/'
+  },
+
   'bloom-google-play': {
     date:         "31 ottobre 2026",
     title:        "Bloom è disponibile su Google Play",
