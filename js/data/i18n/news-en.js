@@ -9,6 +9,83 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['en'] = {
 
+  'bloom-help-update': {
+    date:         "November 13, 2026",
+    title:        "Bloom: help that adapts, and images you can save to the gallery",
+    excerpt:      "The new update makes the hints more discreet as you learn the app, and brings image creation to the front.",
+    body:         "On November 13, 2026, Bloom received a new update on Google Play. The hints that guide you through the app now adapt: they fade as you learn to use it, and how often they appear can be set under Profile, Help.\n\nThe Create image button is clearly visible at the top and bottom of the analysis page, and images can be saved to the gallery as well as shared. A daisy opens while the previews are being prepared.\n\nThere is also more care in tone: the help stays quiet when the moment is delicate. As always the analysis runs entirely on the phone, and the app remains free with no ads. The app is in Italian.",
+    badge:        "Update",
+    source_label: 'Source:',
+    source_name:  "Google Play",
+    source_url:   'https://play.google.com/store/apps/details?id=app.bloom.relazioni'
+  },
+
+  'gemini-4-hydrogen': {
+    date:         "November 12, 2026",
+    title:        "Google launches Gemini 4 Hydrogen, the fast model for coding and agents",
+    excerpt:      "It costs $1.50 per million input tokens and is available right away to developers, businesses and, in the Gemini app and Search, to everyone.",
+    body:         "On November 12, 2026, Google introduced Gemini 4 Hydrogen, built to run everyday coding and agent workflows quickly. It sits alongside Carbon and Argon, which are better suited to deep reasoning, and can act as the fast executor in multi-model systems. It has four reasoning levels, from low to extra high.\n\nIt is available worldwide in the Gemini API, Google AI Studio and Android Studio, in Antigravity for AI Pro and Ultra subscribers, in the Gemini app (free users get it through automatic model selection), in Google Search and in Google Sheets. The price is $1.50 per million input tokens and $7.50 output, flat across the full one-million-token context window.\n\nGoogle says it scores 51 on the Artificial Analysis Intelligence Index, one point above Argon, and up to 54 at the highest level; on Terminal-Bench 4.1 it reaches 57%, against 18.2% for Gemini 3.8 Flash, and finishes tasks 2.5 times faster. These are company figures.",
+    badge:        "Released",
+    source_label: 'Source:',
+    source_name:  "Google",
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/'
+  },
+
+  'fireworks-notion-breach': {
+    date:         "November 12, 2026",
+    title:        "Fireworks AI attack: Notion customers' chat transcripts stolen",
+    excerpt:      "By breaching the cloud provider of the open-model platform, attackers took billing data, some datasets and Notion AI conversations. Notion says about 1% of customers were affected.",
+    body:         "Fireworks AI, a platform tens of thousands of developers use to run open-source models, was attacked: the intruders breached its cloud provider and reached a development system, from which they took billing information and some customer datasets. It is the second breach involving the company in two months.\n\nNotion is among the affected customers. The attackers obtained transcripts of Notion AI chats made with the Insights feature, meaning everything that went into or came out of the model in those conversations; much of the data, Notion says, cannot be tied to a specific customer. The company estimates about 1% of customers were affected and on November 3 disconnected its systems from Fireworks and deleted the stored data.\n\nFireworks believes the attackers are financially motivated: reselling stolen access to language models to people who use them without paying. The case highlights a less visible risk of AI in products: conversations often pass through third-party providers.",
+    badge:        "Security",
+    source_label: 'Source:',
+    source_name:  "TechCrunch",
+    source_url:   'https://techcrunch.com/2026/11/12/cyberattack-on-fireworks-ai-allowed-hackers-to-access-notion-customers-chat-transcripts/'
+  },
+
+  'anthropic-ipo-roadshow': {
+    date:         "November 10, 2026",
+    title:        "Anthropic sets its price range: $70 to $78 per share",
+    excerpt:      "The investor roadshow is under way: 825 million shares on Nasdaq under the symbol ANT. At the top of the range the valuation would exceed $1.4 trillion.",
+    body:         "On November 10, 2026, Anthropic launched its roadshow, the presentation of the offering to investors, with a price range of $70 to $78 per share. It is selling 825 million Class A shares: about 801.4 million issued by the company and 23.6 million sold by existing shareholders, plus an option for the banks on another 123.75 million. Goldman Sachs and Morgan Stanley lead the deal; the listing is planned on Nasdaq under the symbol ANT.\n\nGross proceeds would range from about $57.8 billion to $64.4 billion. According to TechCrunch, at the top of the range the valuation would be about $1.404 trillion on a fully diluted basis. The day before, according to Reuters, inaccurate pricing details had circulated and been withdrawn.\n\nPress reports point to November 18 for pricing and November 19 for the start of trading, but the company has not announced dates and the SEC registration is not yet effective. The offering comes amid a slide in AI stocks, and a Federal Reserve governor has warned of the risk of a correction if returns disappoint.",
+    badge:        "IPO",
+    source_label: 'Source:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/news/roadshow-launch'
+  },
+
+  'gemini-4-carbon-available': {
+    date:         "November 10, 2026",
+    title:        "Gemini 4 Carbon opens up to developers and Ultra subscribers",
+    excerpt:      "After two weeks reserved for cyber defenders, Google's frontier model reaches the paid API, the Gemini app for Ultra subscribers and Search, together with /swarm agent teams.",
+    body:         "On November 10, 2026, Google made Gemini 4 Carbon available beyond the Fairwind program, to which it had been limited since October 28. Developers and businesses on paid plans get it in the API through Google AI Studio and Gemini for business, and in Android Studio; Google AI Ultra subscribers get it in Antigravity, the Gemini app and AI Mode in Search.\n\nThe introductory price stays at $2 per million input tokens and $10 output, rising to $4 and $20 from November 30. /swarm arrives in preview: in Antigravity a single request becomes a coordinated team of agents, with Carbon in the design and review roles and faster models doing the execution. Scientists can apply for six months of free access.\n\nOn safety, Google says that in simulated attack tests Carbon blocked 99% of an adversarial agent's attack paths, and that an external test found no new universal jailbreaks. It acknowledges, however, that malicious instructions hidden in content remain an area to improve.",
+    badge:        "Available",
+    source_label: 'Source:',
+    source_name:  "Google",
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/'
+  },
+
+  'alphaproof-code-signal': {
+    date:         "November 10, 2026",
+    title:        "DeepMind mathematically proves the security of Signal's code in four weeks",
+    excerpt:      "With AlphaProof Code, teams of AI agents wrote more than six million lines of formal proof on the compiled code of Signal's cryptographic protocol.",
+    body:         "On November 10, 2026, Google DeepMind introduced AlphaProof Code, an agent system for formal software verification: people decide what to prove, the agents write the proofs and the Lean program checks them automatically. The first test case is Signal's cryptographic protocol, also used by Google Messages, verified down to the compiled code that runs on devices rather than only the design.\n\nThe properties proved include protection of messages before and after a temporary compromise of the device. Agents based on Gemini Carbon produced more than six million lines of proof in about four weeks, work that DeepMind says would take an expert team years; about 1% of the code was flagged for human review. To check the method, two old, already fixed bugs were reintroduced: in both cases the system proved the flawed version was insecure.\n\nThe limits: the work covers the cryptographic core, not Signal's servers or apps, and a formal proof holds for the specified properties, it does not rule out every flaw. The artifacts and specifications are published as open source.",
+    badge:        "Research",
+    source_label: 'Source:',
+    source_name:  "Google DeepMind",
+    source_url:   'https://deepmind.google/blog/introducing-alphaproof-code/'
+  },
+
+  'claude-fable-mythos-5-2': {
+    date:         "November 9, 2026",
+    title:        "Anthropic releases Claude Fable 5.2 and Mythos 5.2",
+    excerpt:      "One model in two versions: Fable for everyone, with filters on cybersecurity and biology, Mythos only for verified organizations. Pricing unchanged at $8 and $40 per million tokens.",
+    body:         "On November 9, 2026, Anthropic released Claude Fable 5.2 and Claude Mythos 5.2. They are the same model: Fable has strong cybersecurity and biology safeguards and is available to everyone, on every cloud platform; Mythos lacks some of them and is reserved for organizations in the verification programs. For everyday work the company still recommends Opus 5.5. Pricing stays at $8 per million input tokens and $40 output, with output up to 30% faster than Fable 5.1.\n\nAmong the stated results: 69.9% on FrontierSWE v2 (Opus 5.5 at 62.3%, GPT-6 Astra at 65.5%) and 89.3% on OSWorld 2.1; on AutomationBench it trails Gemini 4 Carbon. Anthropic also cites experiments: more than 1,000 agents coordinated for eight days built from scratch an operating system that boots on a laptop, the model helped solve two open problems on black holes, and it designed three working electronic devices.\n\nThe filters block about 55% fewer legitimate requests than Fable 5.1, and AI research capabilities were deliberately limited. The company notes that the models more often suspect they are being tested, and that some results come from internal tests.",
+    badge:        "Released",
+    source_label: 'Source:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/claude-fable-and-mythos-5-2'
+  },
+
   'bloom-play-update': {
     date:         "November 7, 2026",
     title:        "Bloom update: the relationship now, silences and the calendar",
@@ -145,7 +222,7 @@ window.GL.newsStrings['en'] = {
     date:         "October 28, 2026",
     title:        "Google unveils Gemini 4 Carbon, for now only for cyber defenders",
     excerpt:      "The new frontier model tops the Artificial Analysis Intelligence Index and follows Argon's path: initial access restricted to the Fairwind program, no date for anyone else.",
-    body:         "On October 28, 2026, Google announced Gemini 4 Carbon, described as its strongest model, with leading capabilities in cybersecurity and long-running tasks. It arrives two weeks after Gemini 4 Argon opened up to the public. Access starts with a subset of cyber defenders and will extend to other Fairwind program partners; developers, businesses and consumers will get it as soon as possible, but there is no date.\n\nCarbon ranks first on the Artificial Analysis Intelligence Index v5.0 with 59 points. Google reports 88.2% on SEC-bench Pro for vulnerability finding, 54.8% on ExploitGym for exploitation and 71% on CWE-bench for patching. Compared with Argon it more than doubles the success rate on secure code generation and roughly halves unsupported claims; on Gray Swan's prompt injection test, successful attacks fall from 0.7% to 0.0%. These figures come from the company.\n\nThe introductory price matches Argon's, $2 per million input tokens and $10 output, later rising to $4 and $20. Google says it takes part in the US government's voluntary process for testing models before release.",
+    body:         "On October 28, 2026, Google announced Gemini 4 Carbon, described as its strongest model, with leading capabilities in cybersecurity and long-running tasks. It arrives two weeks after Gemini 4 Argon opened up to the public. Access starts with a subset of cyber defenders and will extend to other Fairwind program partners; developers, businesses and consumers will get it as soon as possible: it opened up on November 10.\n\nCarbon ranks first on the Artificial Analysis Intelligence Index v5.0 with 59 points. Google reports 88.2% on SEC-bench Pro for vulnerability finding, 54.8% on ExploitGym for exploitation and 71% on CWE-bench for patching. Compared with Argon it more than doubles the success rate on secure code generation and roughly halves unsupported claims; on Gray Swan's prompt injection test, successful attacks fall from 0.7% to 0.0%. These figures come from the company.\n\nThe introductory price matches Argon's, $2 per million input tokens and $10 output, later rising to $4 and $20. Google says it takes part in the US government's voluntary process for testing models before release.",
     badge:        "Limited access",
     source_label: 'Source:',
     source_name:  "Google",

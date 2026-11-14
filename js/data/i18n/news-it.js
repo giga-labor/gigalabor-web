@@ -9,6 +9,83 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['it'] = {
 
+  'bloom-help-update': {
+    date:         "13 novembre 2026",
+    title:        "Bloom: un aiuto che si adatta e immagini da salvare in galleria",
+    excerpt:      "Il nuovo aggiornamento rende i suggerimenti più discreti man mano che si impara a usare l'app, e porta in primo piano la creazione delle immagini da condividere.",
+    body:         "Il 13 novembre 2026 Bloom ha ricevuto un nuovo aggiornamento su Google Play. I suggerimenti che accompagnano il percorso nell'app ora si adattano: calano man mano che si impara a usarla, e la loro frequenza si regola da Profilo, alla voce Aiuto.\n\nIl pulsante «Crea immagine» è ben visibile in cima e in fondo alla pagina di analisi, e le immagini si possono salvare in galleria oltre che condividere. Mentre si preparano le anteprime si apre una margherita animata.\n\nC'è anche un'attenzione in più al tono: quando il momento è delicato l'aiuto tace. Come sempre l'analisi avviene tutta sul telefono, e l'app resta gratuita e senza pubblicità.",
+    badge:        "Aggiornamento",
+    source_label: 'Fonte:',
+    source_name:  "Google Play",
+    source_url:   'https://play.google.com/store/apps/details?id=app.bloom.relazioni'
+  },
+
+  'gemini-4-hydrogen': {
+    date:         "12 novembre 2026",
+    title:        "Google lancia Gemini 4 Hydrogen, il modello veloce per programmare e far lavorare gli agenti",
+    excerpt:      "Costa 1,50 $ per milione di token in ingresso ed è disponibile da subito per sviluppatori, aziende e, nell'app Gemini e nella Ricerca, per tutti.",
+    body:         "Il 12 novembre 2026 Google ha presentato Gemini 4 Hydrogen, pensato per eseguire in fretta la programmazione di tutti i giorni e i flussi di lavoro con agenti. Affianca Carbon e Argon, più adatti al ragionamento profondo, e può fare da esecutore veloce in sistemi con più modelli. Ha quattro livelli di ragionamento, da basso a molto alto.\n\nÈ disponibile in tutto il mondo nell'API Gemini, in Google AI Studio e Android Studio, in Antigravity per gli abbonati AI Pro e Ultra, nell'app Gemini (anche per gli utenti gratuiti, tramite la scelta automatica del modello), nella Ricerca Google e in Fogli Google. Il listino è di 1,50 $ per milione di token in ingresso e 7,50 $ in uscita, uguale su tutta la finestra di contesto da un milione di token.\n\nSecondo Google ottiene 51 punti sull'Artificial Analysis Intelligence Index, uno più di Argon, e fino a 54 al livello massimo; su Terminal-Bench 4.1 arriva al 57%, contro il 18,2% di Gemini 3.8 Flash, e completa i compiti 2,5 volte più in fretta. Sono dati dell'azienda.",
+    badge:        "Rilasciato",
+    source_label: 'Fonte:',
+    source_name:  "Google",
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/'
+  },
+
+  'fireworks-notion-breach': {
+    date:         "12 novembre 2026",
+    title:        "Attacco a Fireworks AI: rubate trascrizioni di chat dei clienti di Notion",
+    excerpt:      "Violando il fornitore cloud della piattaforma di modelli aperti, gli aggressori hanno preso dati di fatturazione, alcuni dataset e conversazioni di Notion AI. Notion parla di circa l'1% dei clienti.",
+    body:         "Fireworks AI, piattaforma usata da decine di migliaia di sviluppatori per far girare modelli open source, ha subito un attacco: gli aggressori hanno violato il suo fornitore cloud e raggiunto un sistema di sviluppo, da cui hanno sottratto informazioni di fatturazione e alcuni dataset dei clienti. È la seconda violazione che la riguarda in due mesi.\n\nTra i clienti colpiti c'è Notion. Gli aggressori hanno ottenuto trascrizioni delle chat di Notion AI fatte con la funzione Insights, cioè tutto ciò che è entrato o uscito dal modello in quelle conversazioni; gran parte dei dati, secondo Notion, non è attribuibile a un cliente preciso. L'azienda stima coinvolto circa l'1% dei clienti e il 3 novembre ha scollegato i propri sistemi da Fireworks, cancellando i dati conservati.\n\nSecondo Fireworks gli autori puntano al guadagno: rivendere accessi rubati ai modelli linguistici a chi li usa senza pagarli. Il caso mostra un rischio poco visibile dell'AI nei prodotti: le conversazioni passano spesso per fornitori terzi.",
+    badge:        "Sicurezza",
+    source_label: 'Fonte:',
+    source_name:  "TechCrunch",
+    source_url:   'https://techcrunch.com/2026/11/12/cyberattack-on-fireworks-ai-allowed-hackers-to-access-notion-customers-chat-transcripts/'
+  },
+
+  'anthropic-ipo-roadshow': {
+    date:         "10 novembre 2026",
+    title:        "Anthropic fissa la forchetta di prezzo: tra 70 e 78 dollari per azione",
+    excerpt:      "Al via la presentazione agli investitori: 825 milioni di azioni sul Nasdaq con il simbolo ANT. Al prezzo massimo la valutazione supererebbe 1.400 miliardi di dollari.",
+    body:         "Il 10 novembre 2026 Anthropic ha avviato il roadshow, la presentazione dell'offerta agli investitori, e ha indicato una forchetta di prezzo tra 70 e 78 dollari per azione. Sono in vendita 825 milioni di azioni di Classe A: circa 801,4 milioni emesse dall'azienda e 23,6 milioni cedute da azionisti esistenti, più un'opzione per le banche su altri 123,75 milioni. Guidano il collocamento Goldman Sachs e Morgan Stanley; la quotazione è prevista al Nasdaq con il simbolo ANT.\n\nLa raccolta lorda andrebbe da circa 57,8 a 64,4 miliardi di dollari. Secondo TechCrunch, al prezzo massimo la valutazione sarebbe di circa 1.404 miliardi su base pienamente diluita. Il giorno prima, secondo Reuters, erano circolati e poi ritirati dettagli inesatti sul prezzo.\n\nLa stampa indica il 18 novembre per la fissazione del prezzo e il 19 per l'inizio delle contrattazioni, ma l'azienda non ha comunicato date e la registrazione alla SEC non è ancora efficace. L'offerta arriva in un momento di cali dei titoli legati all'AI, e una governatrice della Federal Reserve ha avvertito del rischio di una correzione se i rendimenti deluderanno.",
+    badge:        "Quotazione",
+    source_label: 'Fonte:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/news/roadshow-launch'
+  },
+
+  'gemini-4-carbon-available': {
+    date:         "10 novembre 2026",
+    title:        "Gemini 4 Carbon si apre a sviluppatori e abbonati Ultra",
+    excerpt:      "Dopo due settimane riservate ai difensori informatici, il modello di frontiera di Google arriva nell'API a pagamento, nell'app Gemini per gli abbonati Ultra e nella Ricerca, insieme agli sciami di agenti /swarm.",
+    body:         "Il 10 novembre 2026 Google ha reso disponibile Gemini 4 Carbon oltre il programma Fairwind, a cui era riservato dal 28 ottobre. Gli sviluppatori e le aziende con piano a pagamento lo trovano nell'API tramite Google AI Studio e Gemini for business, oltre che in Android Studio; gli abbonati Google AI Ultra in Antigravity, nell'app Gemini e nella AI Mode della Ricerca.\n\nIl prezzo introduttivo resta di 2 $ per milione di token in ingresso e 10 $ in uscita, e dal 30 novembre sale a 4 $ e 20 $. In anteprima arriva /swarm: in Antigravity una sola richiesta diventa un gruppo coordinato di agenti, con Carbon nei ruoli di progettazione e controllo e modelli più veloci per l'esecuzione. Gli scienziati possono chiedere sei mesi di accesso gratuito.\n\nSul fronte sicurezza Google dichiara che nei test di attacco simulato Carbon ha bloccato il 99% dei percorsi di un agente avversario, e che un test esterno non ha trovato nuovi metodi universali per aggirarne le protezioni. Riconosce però che le istruzioni malevole nascoste nei contenuti restano un punto da migliorare.",
+    badge:        "Disponibile",
+    source_label: 'Fonte:',
+    source_name:  "Google",
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/'
+  },
+
+  'alphaproof-code-signal': {
+    date:         "10 novembre 2026",
+    title:        "DeepMind dimostra matematicamente la sicurezza del codice di Signal in quattro settimane",
+    excerpt:      "Con AlphaProof Code gruppi di agenti AI hanno scritto oltre sei milioni di righe di prova formale sul codice compilato del protocollo crittografico di Signal.",
+    body:         "Il 10 novembre 2026 Google DeepMind ha presentato AlphaProof Code, un sistema di agenti per la verifica formale del software: le persone decidono che cosa dimostrare, gli agenti scrivono le dimostrazioni e il programma Lean le controlla in modo automatico. Il primo banco di prova è il protocollo crittografico di Signal, usato anche da Google Messages, verificato fino al codice compilato che gira sui dispositivi e non solo sul progetto.\n\nTra le proprietà dimostrate c'è la protezione dei messaggi prima e dopo una compromissione temporanea del dispositivo. Agenti basati su Gemini Carbon hanno prodotto oltre sei milioni di righe di prova in circa quattro settimane, un lavoro che secondo DeepMind richiederebbe anni a un gruppo di esperti; circa l'1% del codice è stato segnalato per una revisione umana. Per controllare il metodo sono stati reintrodotti due vecchi bug già corretti: in entrambi i casi il sistema ha dimostrato che la versione difettosa non era sicura.\n\nI limiti: il lavoro copre il nucleo crittografico, non i server né le app di Signal, e una prova formale vale per le proprietà specificate, non esclude ogni difetto. Gli artefatti e le specifiche sono pubblicati come open source.",
+    badge:        "Ricerca",
+    source_label: 'Fonte:',
+    source_name:  "Google DeepMind",
+    source_url:   'https://deepmind.google/blog/introducing-alphaproof-code/'
+  },
+
+  'claude-fable-mythos-5-2': {
+    date:         "9 novembre 2026",
+    title:        "Anthropic rilascia Claude Fable 5.2 e Mythos 5.2",
+    excerpt:      "Lo stesso modello in due versioni: Fable per tutti, con filtri su cybersicurezza e biologia, Mythos solo per organizzazioni verificate. Prezzo invariato a 8 $ e 40 $ per milione di token.",
+    body:         "Il 9 novembre 2026 Anthropic ha rilasciato Claude Fable 5.2 e Claude Mythos 5.2. Sono lo stesso modello: Fable ha salvaguardie forti su cybersicurezza e biologia ed è disponibile per tutti, su tutte le piattaforme cloud; Mythos ne è privo in parte ed è riservato alle organizzazioni dei programmi di verifica. Per il lavoro quotidiano l'azienda continua a indicare Opus 5.5. Il listino resta di 8 $ per milione di token in ingresso e 40 $ in uscita, con generazione fino al 30% più veloce di Fable 5.1.\n\nTra i risultati dichiarati: 69,9% su FrontierSWE v2 (Opus 5.5 al 62,3%, GPT-6 Astra al 65,5%) e 89,3% su OSWorld 2.1; su AutomationBench resta dietro a Gemini 4 Carbon. Anthropic cita anche esperimenti: oltre 1.000 agenti coordinati per otto giorni hanno costruito da zero un sistema operativo che si avvia su un portatile, il modello ha contribuito a risolvere due problemi aperti sui buchi neri e ha progettato tre dispositivi elettronici funzionanti.\n\nI filtri bloccano circa il 55% di richieste legittime in meno rispetto a Fable 5.1, e le capacità di ricerca sull'AI sono state limitate di proposito. L'azienda segnala che i modelli sospettano più spesso di essere sotto test, e che alcuni risultati vengono da prove interne.",
+    badge:        "Rilasciato",
+    source_label: 'Fonte:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/claude-fable-and-mythos-5-2'
+  },
+
   'bloom-play-update': {
     date:         "7 novembre 2026",
     title:        "Bloom si aggiorna: il rapporto di adesso, i silenzi e il calendario",
@@ -145,7 +222,7 @@ window.GL.newsStrings['it'] = {
     date:         "28 ottobre 2026",
     title:        "Google presenta Gemini 4 Carbon, ma per ora è solo per i difensori informatici",
     excerpt:      "Il nuovo modello di frontiera è primo sull'Artificial Analysis Intelligence Index e segue la stessa strada di Argon: accesso iniziale ristretto al programma Fairwind, nessuna data per gli altri.",
-    body:         "Il 28 ottobre 2026 Google ha annunciato Gemini 4 Carbon, descritto come il suo modello più forte, con capacità di punta in cybersicurezza e nei compiti di lunga durata. Arriva due settimane dopo l'apertura al pubblico di Gemini 4 Argon. L'accesso parte da un sottoinsieme di difensori informatici e si estenderà ad altri partner del programma Fairwind; sviluppatori, aziende e consumatori lo avranno il prima possibile, ma una data non c'è.\n\nCarbon è primo sull'Artificial Analysis Intelligence Index v5.0 con 59 punti. Google dichiara l'88,2% su SEC-bench Pro per la scoperta di vulnerabilità, il 54,8% su ExploitGym per lo sfruttamento e il 71% su CWE-bench per le correzioni. Rispetto ad Argon più che raddoppia il successo nella generazione di codice sicuro e dimezza circa le affermazioni non supportate; sul test di prompt injection di Gray Swan gli attacchi riusciti scendono dallo 0,7% allo 0,0%. Sono numeri forniti dall'azienda.\n\nIl prezzo introduttivo è lo stesso di Argon, 2 $ per milione di token in ingresso e 10 $ in uscita, per poi salire a 4 $ e 20 $. Google afferma di partecipare al processo volontario del governo statunitense per provare i modelli prima del rilascio.",
+    body:         "Il 28 ottobre 2026 Google ha annunciato Gemini 4 Carbon, descritto come il suo modello più forte, con capacità di punta in cybersicurezza e nei compiti di lunga durata. Arriva due settimane dopo l'apertura al pubblico di Gemini 4 Argon. L'accesso parte da un sottoinsieme di difensori informatici e si estenderà ad altri partner del programma Fairwind; sviluppatori, aziende e consumatori lo avranno il prima possibile: l'apertura è poi arrivata il 10 novembre.\n\nCarbon è primo sull'Artificial Analysis Intelligence Index v5.0 con 59 punti. Google dichiara l'88,2% su SEC-bench Pro per la scoperta di vulnerabilità, il 54,8% su ExploitGym per lo sfruttamento e il 71% su CWE-bench per le correzioni. Rispetto ad Argon più che raddoppia il successo nella generazione di codice sicuro e dimezza circa le affermazioni non supportate; sul test di prompt injection di Gray Swan gli attacchi riusciti scendono dallo 0,7% allo 0,0%. Sono numeri forniti dall'azienda.\n\nIl prezzo introduttivo è lo stesso di Argon, 2 $ per milione di token in ingresso e 10 $ in uscita, per poi salire a 4 $ e 20 $. Google afferma di partecipare al processo volontario del governo statunitense per provare i modelli prima del rilascio.",
     badge:        "Accesso limitato",
     source_label: 'Fonte:',
     source_name:  "Google",

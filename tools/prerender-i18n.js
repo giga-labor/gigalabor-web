@@ -28,7 +28,7 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const DEFAULT_LANG = 'it';
 const HOME_COUNT = 3;   // schede in home, come in ProjectCards e HomeNews
-const MAX_NEWS = 50;    // come in pages/news.html
+const MAX_NEWS = 100;   // come in pages/news.html
 
 function loadData() {
   const sandbox = { window: {} };

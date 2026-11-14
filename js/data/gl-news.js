@@ -10,7 +10,14 @@
 window.GL = window.GL || {};
 
 window.GL.NEWS = [
-  { id: 'bloom-play-update',        category: 'platforms', sort_date: '2026-11-07', badge_class: 'badge--active'      },
+  { id: 'bloom-help-update',        category: 'platforms', sort_date: '2026-11-13', badge_class: 'badge--active'      },
+  { id: 'gemini-4-hydrogen',        category: 'models',    sort_date: '2026-11-12', badge_class: 'badge--active'      },
+  { id: 'fireworks-notion-breach',  category: 'security',  sort_date: '2026-11-12', badge_class: 'badge--ongoing'     },
+  { id: 'anthropic-ipo-roadshow',   category: 'platforms', sort_date: '2026-11-10', badge_class: 'badge--development' },
+  { id: 'gemini-4-carbon-available',  category: 'models',    sort_date: '2026-11-10', badge_class: 'badge--active'      },
+  { id: 'alphaproof-code-signal',   category: 'research',  sort_date: '2026-11-10', badge_class: 'badge--active'      },
+  { id: 'claude-fable-mythos-5-2',  category: 'models',    sort_date: '2026-11-09', badge_class: 'badge--active'      },
+  { id: 'bloom-play-update',       category: 'platforms', sort_date: '2026-11-07', badge_class: 'badge--active'      },
   { id: 'metr-anthropic-acceleration',  category: 'research',  sort_date: '2026-11-05', badge_class: 'badge--ongoing'     },
   { id: 'gpt-6-cyber',              category: 'models',    sort_date: '2026-11-05', badge_class: 'badge--development' },
   { id: 'doj-superintelligence-task-force',  category: 'research',  sort_date: '2026-11-05', badge_class: 'badge--active'      },
