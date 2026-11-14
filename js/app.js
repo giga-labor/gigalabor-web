@@ -1422,7 +1422,7 @@
   /* =
      MUSICA DI SOTTOFONDO - synth cinematico generativo in Web Audio
      Atmosfera alla Vangelis (pad "ottoni" che si gonfiano, melodie lente con
-     vibrato, pioggia, riverbero lungo) su un motore alla Tron Legacy (basso in
+     vibrato, pioggia all'attacco, riverbero lungo) su un motore alla Tron Legacy (basso in
      sedicesimi, arpeggio serrato, pad che pompano sul battito, ottoni gravi).
      Nessun file audio: tutto e sintetizzato dal vivo, le note sono generate.
      Parte da sola se il browser lo permette, altrimenti al primo clic o tasto.
@@ -1447,6 +1447,7 @@
     var WAIT_MAX  = 480;
     var FADE_IN   = 4;              /* secondi */
     var FADE_OUT  = 1.2;
+    var RAIN      = [2, 5, 6];      /* pioggia all'attacco: salita, tenuta, sfumatura (s) */
     var BPM       = 96;
     var STEP      = 60 / BPM / 4;   /* sedicesimo */
     var CHORD_SEC = STEP * 16 * 6;  /* sei battute per accordo (15 s) */
@@ -1488,7 +1489,7 @@
     var retryAt = 0, keepAt = 0, backoff = WAIT_DOWN;
     var chordIdx = 0, nextChordAt = 0, nextStepAt = 0, step = 0;
     var harmony = [];   /* cambi d'accordo programmati: { at, notes } */
-    var stopTimer;
+    var stopTimer, wasOn = false;
     var GESTURES = ['pointerdown', 'keydown', 'touchend'];
 
     function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
@@ -1613,14 +1614,8 @@
       bassBus.connect(bassFilter); bassFilter.connect(bassLevel);
       route(bassLevel, 0.9, 0.15);
 
-      /* pioggia: rumore rosa tagliato in alto e in basso */
+      /* rumore rosa per pioggia e tuoni */
       noiseBuf = pinkNoise(4);
-      var rain = ctx.createBufferSource(), hp = filter('highpass', 1800), lp = filter('lowpass', 7500), rainLevel = gain(0.06);
-      rain.buffer = noiseBuf; rain.loop = true;
-      lfo(0.03, 0.015, rainLevel.gain);
-      rain.connect(hp); hp.connect(lp); lp.connect(rainLevel);
-      route(rainLevel, 1, 0.3);
-      rain.start();
 
       /* pedale grave */
       var drone = ctx.createOscillator(), droneLevel = gain(0.045);
@@ -1896,6 +1891,21 @@
       car.start(t0); mod.start(t0); car.stop(t0 + 5.1); mod.stop(t0 + 5.1);
     }
 
+    /* pioggia: accompagna solo l'entrata della musica (avvio e ripresa), poi sfuma
+       e la sorgente si ferma: tenuta sempre accesa stancava e pesava sul processore */
+    function rain(t0) {
+      var src = ctx.createBufferSource(), hp = filter('highpass', 1800), lp = filter('lowpass', 7500), env = gain(0);
+      var up = t0 + RAIN[0], hold = up + RAIN[1], end = hold + RAIN[2];
+      src.buffer = noiseBuf; src.loop = true;
+      env.gain.setValueAtTime(0, t0);
+      env.gain.linearRampToValueAtTime(0.06, up);
+      env.gain.setValueAtTime(0.06, hold);
+      env.gain.linearRampToValueAtTime(0, end);
+      src.connect(hp); hp.connect(lp); lp.connect(env);
+      route(env, 1, 0.3);
+      src.start(t0, rand(0, 3)); src.stop(end + 0.1);
+    }
+
     /* tuono lontano: rumore rosa filtrato molto in basso */
     function thunder(t0) {
       var src = ctx.createBufferSource(), lp = filter('lowpass', 90), env = gain(0);
@@ -1988,12 +1998,15 @@
     }
 
     function onState() {
-      if (audible() && !document.hidden) {
+      var on = audible() && !document.hidden;
+      if (on) {
+        if (!wasOn) rain(ctx.currentTime + 0.05);
         fadeTo(level(), FADE_IN);
         docs().forEach(function (d) {
           GESTURES.forEach(function (ev) { d.removeEventListener(ev, onGesture, true); });
         });
       }
+      wasOn = on;
       paint();
     }
 
