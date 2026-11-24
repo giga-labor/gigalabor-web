@@ -22,7 +22,7 @@ window.GL = {
     { id: 'lab',          icon: '\u{1F9EA}', color: '#ffb000', page: 'pages/projects/lab.html',          updated_at: '2026-03-15', order: 4 },
     { id: 'kairos',       icon: 'K·O',       color: '#7aae8a', page: 'pages/projects/kairos.html',       updated_at: '2026-06-08', order: 5 },
     { id: 'betareader',   icon: '📖',        color: '#c8a27c', page: 'pages/projects/betareader.html',   updated_at: '2026-09-28', order: 6 },
-    { id: 'bloom',        icon: '🌸',        color: '#e2607f', page: 'pages/projects/bloom.html',        updated_at: '2026-11-13', order: 7 }
+    { id: 'bloom',        icon: '🌸',        color: '#e2607f', page: 'pages/projects/bloom.html',        updated_at: '2026-11-23', order: 7 }
   ],
 
   langBadges: {

@@ -276,6 +276,7 @@
         '<span class="bb-sep">\u00b7</span>' +
         '<span id="bb-msg"></span>' +
         '<div class="bb-r">' +
+          '<a href="https://youtube.com/@gigalabor" target="_blank" rel="noopener" data-i18n="footer.links.youtube" class="bb-link"></a>' +
           '<a href="' + px + 'pages/privacy.html" data-i18n="footer.links.privacy" class="bb-link"></a>' +
           '<a href="' + px + 'pages/terms.html"   data-i18n="footer.links.terms" class="bb-link"></a>' +
           '<span class="bb-copy" data-i18n="footer.copy"></span>' +

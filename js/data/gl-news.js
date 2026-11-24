@@ -10,6 +10,11 @@
 window.GL = window.GL || {};
 
 window.GL.NEWS = [
+  { id: 'youtube-channel',           category: 'platforms', sort_date: '2026-11-24', badge_class: 'badge--active'      },
+  { id: 'bloom-portrait-update',    category: 'platforms', sort_date: '2026-11-23', badge_class: 'badge--active'      },
+  { id: 'anthropic-ipo-debut',      category: 'platforms', sort_date: '2026-11-19', badge_class: 'badge--active'      },
+  { id: 'gemini-4-neon',            category: 'models',    sort_date: '2026-11-18', badge_class: 'badge--active'      },
+  { id: 'gpt-6-2-astra-sol',        category: 'models',    sort_date: '2026-11-17', badge_class: 'badge--active'      },
   { id: 'bloom-help-update',        category: 'platforms', sort_date: '2026-11-13', badge_class: 'badge--active'      },
   { id: 'gemini-4-hydrogen',        category: 'models',    sort_date: '2026-11-12', badge_class: 'badge--active'      },
   { id: 'fireworks-notion-breach',  category: 'security',  sort_date: '2026-11-12', badge_class: 'badge--ongoing'     },

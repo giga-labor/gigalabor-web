@@ -9,6 +9,61 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['it'] = {
 
+  'youtube-channel': {
+    date:         "24 novembre 2026",
+    title:        "GiGa Labor ha un canale YouTube",
+    excerpt:      "È nato il canale ufficiale: video e tutorial dei progetti, a partire da Bloom, con la guida passo passo dall'esportazione della chat alla lettura del risultato.",
+    body:         "Da oggi GiGa Labor ha il suo canale YouTube, @gigalabor. Ci finiranno i video dei progetti: come si installano, come si usano e cosa c'è sotto il cofano.\n\nIl primo video è dedicato a Bloom: mostra l'installazione da Google Play, l'esportazione della chat da WhatsApp, la scelta del legame e la lettura del risultato, fino alla parte sulla privacy. La chat mostrata è inventata e la voce narrante è sintetica.\n\nIl link al canale è anche nel piè di pagina del sito e nella pagina Contatti.",
+    badge:        "Novità",
+    source_label: 'Fonte:',
+    source_name:  "YouTube · GiGa Labor",
+    source_url:   'https://youtube.com/@gigalabor'
+  },
+
+  'bloom-portrait-update': {
+    date:         "23 novembre 2026",
+    title:        "Bloom: arriva il Ritratto e la scelta del periodo",
+    excerpt:      "Una nuova voce racconta come ci si comporta nelle proprie chat. Nella scheda Dati si sceglie il periodo da guardare e compaiono i dettagli del rapporto.",
+    body:         "Il 23 novembre 2026 Bloom ha ricevuto un nuovo aggiornamento, già attivo su Google Play. La novità principale è Ritratto, la quinta voce della barra in basso: 18 parametri in cinque gruppi che descrivono come ci si comporta nelle proprie chat, ognuno con una descrizione a cinque gradi, il margine di incertezza e l'andamento nel tempo. Il ritratto si forma da solo a ogni chat analizzata e non dimentica; si azzera solo dal suo tasto.\n\nNella scheda Dati si può scegliere il periodo (fasce pronte o due date) e compaiono i «Dettagli del rapporto»: 14 misure in parole concrete, con «Cosa si è mosso nel periodo». Il metodo di calcolo dei punteggi non cambia.\n\nLe soglie dei gradi sono stime ragionate, non ancora tarate su chat reali: vanno lette come tendenze. Come sempre l'analisi avviene sul telefono e l'app è gratuita e senza pubblicità.",
+    badge:        "Aggiornamento",
+    source_label: 'Fonte:',
+    source_name:  "Google Play",
+    source_url:   'https://play.google.com/store/apps/details?id=app.bloom.relazioni'
+  },
+
+  'anthropic-ipo-debut': {
+    date:         "19 novembre 2026",
+    title:        "Anthropic debutta al Nasdaq: prezzo a 83 dollari, sopra la forchetta",
+    excerpt:      "Le azioni sono quotate con il simbolo ANT. La raccolta, di circa 81 miliardi di dollari, è la più grande della storia delle quotazioni.",
+    body:         "Il 18 novembre 2026 Anthropic ha fissato il prezzo dell'offerta pubblica a 83 dollari per azione, sopra la forchetta di 70-78 dollari indicata durante il roadshow. Il 19 novembre le azioni hanno iniziato le contrattazioni al Nasdaq con il simbolo ANT.\n\nSecondo la stampa l'operazione vale circa 81,3 miliardi di dollari su 980 milioni di azioni di classe A, con una valutazione intorno a 1.500 miliardi di dollari, più una raccolta privata separata. Il titolo ha aperto a 111,50 dollari, circa il 34% sopra il prezzo dell'offerta, e secondo CNBC ha chiuso la prima seduta a 97,17.\n\nLe cifre arrivano da fonti giornalistiche e possono differire: per i numeri esatti valgono i documenti depositati e i dati di borsa.",
+    badge:        "IPO",
+    source_label: 'Fonte:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/news/anthropic-prices-initial-public-offering'
+  },
+
+  'gemini-4-neon': {
+    date:         "18 novembre 2026",
+    title:        "Google lancia Gemini 4 Neon, il modello di mezzo della famiglia",
+    excerpt:      "Sta tra Carbon, per i progetti più difficili, e Hydrogen, il modello veloce: in Antigravity può fare da pianificatore con Hydrogen come esecutore.",
+    body:         "Il 18 novembre 2026 Google ha presentato Gemini 4 Neon, il quarto modello della famiglia Gemini 4 in circa un mese. Si colloca tra Gemini 4 Carbon, riservato ai progetti più difficili e lunghi, e Gemini 4 Hydrogen, il modello veloce di uso quotidiano.\n\nSecondo l'annuncio è disponibile nell'API Gemini in Google AI Studio, in Gemini per le aziende, in Google Antigravity e nell'app Gemini per gli abbonati Pro e Ultra. In Antigravity l'Orchestrator può abbinare Neon come pianificatore e Hydrogen come esecutore nella stessa sessione.\n\nGoogle lo colloca al terzo posto nell'indice di intelligenza di Artificial Analysis; i prezzi riportati dalla stampa vanno verificati sulla pagina ufficiale. Una variante per la sicurezza informatica andrà ai difensori del programma Fairwind.",
+    badge:        "Rilasciato",
+    source_label: 'Fonte:',
+    source_name:  "Google",
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/'
+  },
+
+  'gpt-6-2-astra-sol': {
+    date:         "17 novembre 2026",
+    title:        "OpenAI presenta GPT-6.2 Astra e GPT-6.2 Sol",
+    excerpt:      "Astra è il modello di punta per lavoro professionale, programmazione e uso del computer; Sol è quello economico di ogni giorno. Entrambi sono già in ChatGPT, Codex e API.",
+    body:         "Il 17 novembre 2026 OpenAI ha rilasciato GPT-6.2 Astra e GPT-6.2 Sol, disponibili subito in ChatGPT Work, in Codex e nell'API (gpt-6.2-astra e gpt-6.2-sol). Astra costa 8 dollari per milione di token in ingresso e 40 in uscita, il 20% meno di GPT-6 Astra; Sol costa 2 e 10 dollari, come GPT-6.1 Sol.\n\nOpenAI dichiara che Astra migliora di 6,2 punti percentuali rispetto a GPT-6 Astra usando il 22% di token in meno in uscita: sono risultati forniti dall'azienda, non verificati in modo indipendente. Per la sicurezza informatica entrambi i modelli superano la soglia Critica del Preparedness Framework e sono usciti con protezioni più strette.\n\nIl lancio arriva quasi due mesi dopo la cancellazione di GPT-6.1 Astra per motivi di sicurezza.",
+    badge:        "Rilasciato",
+    source_label: 'Fonte:',
+    source_name:  "OpenAI",
+    source_url:   'https://openai.com/index/introducing-gpt-6-2-astra-sol'
+  },
+
   'bloom-help-update': {
     date:         "13 novembre 2026",
     title:        "Bloom: un aiuto che si adatta e immagini da salvare in galleria",

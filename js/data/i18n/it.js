@@ -124,7 +124,7 @@ window.GL.i18n.it = {
       "domain": "bloom-drab-gamma.vercel.app",
       "category": "App Android & Web",
       "short": "Legge una chat di WhatsApp e mostra com'è il rapporto: tono, equilibrio, temi, andamento. Tutto sul telefono.",
-      "description": "Bloom analizza una chat esportata da WhatsApp e ne restituisce una lettura del rapporto: punteggio di connessione, temi ricorrenti, fasi nel tempo e proposte concrete. L'analisi avviene interamente sul dispositivo, con un motore deterministico: nessun testo viene salvato o inviato.",
+      "description": "Bloom analizza una chat esportata da WhatsApp e ne restituisce una lettura del rapporto: punteggio di connessione, temi ricorrenti, fasi nel tempo e proposte concrete. L'analisi avviene interamente sul dispositivo, con un motore deterministico: nessun testo viene salvato o inviato. Con il Ritratto racconta anche come ci si comporta nelle proprie chat, e la margherita guida senza invadere.",
       "status": "available",
       "tags": [
         "Android",
@@ -306,6 +306,7 @@ window.GL.i18n.it = {
     "name_placeholder": "Il tuo nome (opzionale)",
     "email_placeholder": "La tua email (opzionale)",
     "message_placeholder": "Scrivi qui il tuo messaggio",
+    "youtube_label": "YouTube",
     "project_site_label": "Sito principale",
     "location_label": "Area",
     "location_value": "Italia",
@@ -422,6 +423,7 @@ window.GL.i18n.it = {
     "tagline": "Laboratorio digitale personale.",
     "site_title": "Sito",
     "links": {
+      "youtube": "YouTube",
       "privacy": "Privacy",
       "terms": "Termini"
     }

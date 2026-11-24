@@ -124,7 +124,7 @@ window.GL.i18n.en = {
       "domain": "bloom-drab-gamma.vercel.app",
       "category": "Android & Web App",
       "short": "Reads a WhatsApp chat and shows what the relationship looks like: tone, balance, themes, trend. All on the phone.",
-      "description": "Bloom analyses a chat exported from WhatsApp and returns a reading of the relationship: connection score, recurring themes, phases over time and concrete suggestions. The analysis runs entirely on the device with a deterministic engine: no text is stored or sent.",
+      "description": "Bloom analyses a chat exported from WhatsApp and returns a reading of the relationship: connection score, recurring themes, phases over time and concrete suggestions. The analysis runs entirely on the device with a deterministic engine: no text is stored or sent. With Portrait it also describes how you behave in your own chats, and the daisy guides without intruding.",
       "status": "available",
       "tags": [
         "Android",
@@ -306,6 +306,7 @@ window.GL.i18n.en = {
     "name_placeholder": "Your name (optional)",
     "email_placeholder": "Your email (optional)",
     "message_placeholder": "Write your message here",
+    "youtube_label": "YouTube",
     "project_site_label": "Main website",
     "location_label": "Region",
     "location_value": "Italy",
@@ -422,6 +423,7 @@ window.GL.i18n.en = {
     "tagline": "Personal digital laboratory.",
     "site_title": "Site",
     "links": {
+      "youtube": "YouTube",
       "privacy": "Privacy",
       "terms": "Terms"
     }

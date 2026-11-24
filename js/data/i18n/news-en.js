@@ -9,6 +9,61 @@ window.GL.newsStrings = window.GL.newsStrings || {};
 
 window.GL.newsStrings['en'] = {
 
+  'youtube-channel': {
+    date:         "November 24, 2026",
+    title:        "GiGa Labor has a YouTube channel",
+    excerpt:      "The official channel is live: videos and tutorials on the projects, starting with Bloom and a step-by-step guide from exporting a chat to reading the result.",
+    body:         "GiGa Labor now has its own YouTube channel, @gigalabor. It will host videos about the projects: how to install them, how to use them and what is under the hood.\n\nThe first video is about Bloom: it shows the installation from Google Play, exporting the chat from WhatsApp, choosing the bond and reading the result, down to the privacy section. The chat shown is invented and the narrating voice is synthetic.\n\nThe channel link is also in the site footer and on the Contact page.",
+    badge:        "News",
+    source_label: 'Source:',
+    source_name:  "YouTube · GiGa Labor",
+    source_url:   'https://youtube.com/@gigalabor'
+  },
+
+  'bloom-portrait-update': {
+    date:         "November 23, 2026",
+    title:        "Bloom: the Portrait arrives, and you can choose the period",
+    excerpt:      "A new section describes how you behave in your own chats. In the Data tab you pick the period to look at and the relationship details appear.",
+    body:         "On November 23, 2026 Bloom received a new update, now live on Google Play. The main addition is Portrait, the fifth item on the bottom bar: 18 parameters in five groups describing how you behave in your own chats, each with a five-step description, a margin of uncertainty and its trend over time. The portrait builds itself with every analysed chat and does not forget; it is reset only from its own button.\n\nIn the Data tab you can choose the period (ready-made ranges or two dates) and the “Relationship details” appear: 14 measures in concrete words, plus “What moved in the period”. The scoring method does not change.\n\nThe thresholds for the steps are reasoned estimates, not yet calibrated on real chats: read them as tendencies. As always the analysis runs on the phone and the app is free and ad-free.",
+    badge:        "Update",
+    source_label: 'Source:',
+    source_name:  "Google Play",
+    source_url:   'https://play.google.com/store/apps/details?id=app.bloom.relazioni'
+  },
+
+  'anthropic-ipo-debut': {
+    date:         "November 19, 2026",
+    title:        "Anthropic debuts on Nasdaq: priced at $83, above the range",
+    excerpt:      "Shares trade under the symbol ANT. The raise, about $81 billion, is the largest in the history of stock listings.",
+    body:         "On November 18, 2026 Anthropic priced its public offering at $83 per share, above the $70 to $78 range given during the roadshow. On November 19 the shares began trading on Nasdaq under the symbol ANT.\n\nAccording to the press the deal is worth about $81.3 billion on 980 million Class A shares, at a valuation around $1.5 trillion, plus a separate private placement. The stock opened at $111.50, about 34% above the offer price, and according to CNBC closed its first session at $97.17.\n\nThe figures come from press reports and may differ: for exact numbers rely on the filed documents and exchange data.",
+    badge:        "IPO",
+    source_label: 'Source:',
+    source_name:  "Anthropic",
+    source_url:   'https://www.anthropic.com/news/anthropic-prices-initial-public-offering'
+  },
+
+  'gemini-4-neon': {
+    date:         "November 18, 2026",
+    title:        "Google launches Gemini 4 Neon, the middle model of the family",
+    excerpt:      "It sits between Carbon, for the hardest projects, and Hydrogen, the fast model: in Antigravity it can act as planner with Hydrogen as executor.",
+    body:         "On November 18, 2026 Google introduced Gemini 4 Neon, the fourth Gemini 4 model in about a month. It sits between Gemini 4 Carbon, kept for the hardest long-running projects, and Gemini 4 Hydrogen, the fast everyday model.\n\nAccording to the announcement it is available in the Gemini API in Google AI Studio, in Gemini for business, in Google Antigravity and in the Gemini app for Pro and Ultra subscribers. In Antigravity the Orchestrator can pair Neon as planner and Hydrogen as executor in the same session.\n\nGoogle ranks it third on the Artificial Analysis Intelligence Index; prices reported in the press should be checked on the official page. A cybersecurity variant will go to defenders in the Fairwind program.",
+    badge:        "Released",
+    source_label: 'Source:',
+    source_name:  "Google",
+    source_url:   'https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/'
+  },
+
+  'gpt-6-2-astra-sol': {
+    date:         "November 17, 2026",
+    title:        "OpenAI introduces GPT-6.2 Astra and GPT-6.2 Sol",
+    excerpt:      "Astra is the flagship for professional work, coding and computer use; Sol is the affordable everyday model. Both are already in ChatGPT, Codex and the API.",
+    body:         "On November 17, 2026 OpenAI released GPT-6.2 Astra and GPT-6.2 Sol, available immediately in ChatGPT Work, Codex and the API (gpt-6.2-astra and gpt-6.2-sol). Astra costs $8 per million input tokens and $40 output, 20% less than GPT-6 Astra; Sol costs $2 and $10, the same as GPT-6.1 Sol.\n\nOpenAI states that Astra improves by 6.2 percentage points over GPT-6 Astra while using 22% fewer output tokens: these are company-provided results, not independently verified. On cybersecurity both models exceed the Critical threshold of the Preparedness Framework and launched with tighter safeguards.\n\nThe launch comes almost two months after OpenAI cancelled GPT-6.1 Astra over safety concerns.",
+    badge:        "Released",
+    source_label: 'Source:',
+    source_name:  "OpenAI",
+    source_url:   'https://openai.com/index/introducing-gpt-6-2-astra-sol'
+  },
+
   'bloom-help-update': {
     date:         "November 13, 2026",
     title:        "Bloom: help that adapts, and images you can save to the gallery",
