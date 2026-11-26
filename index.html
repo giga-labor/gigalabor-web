@@ -109,7 +109,10 @@
 
       </div><!-- /.h-bottom -->
 
-      <a class="btn btn--primary h-cta" href="#progetti" data-i18n="hero.cta_primary">Esplora i progetti</a>
+      <div class="h-ctas">
+        <a class="btn btn--primary h-cta" href="#progetti" data-i18n="hero.cta_primary">Esplora i progetti</a>
+        <a class="btn btn--secondary h-cta h-cta--yt" href="#youtube" data-i18n="hero.cta_youtube">Guarda il canale YouTube</a>
+      </div>
     </section>
 
     <!-- Progetti: le tre schede più recenti (render da GL.projects) -->
@@ -130,6 +133,48 @@
 <a class="project-card animate" href="pages/projects/kairos.html" style="--card-accent: #7aae8a;"><div class="project-card__header"><div><div class="project-card__name">KAIROS</div><div class="project-card__category">AI & Inferenza causale</div></div><div class="project-card__icon">K·O</div></div><p class="project-card__desc">Paradigma sperimentale per inferenza causale adattiva oltre l'apprendimento statistico.</p><div class="project-card__footer"><div class="flex-gap" style="flex-wrap:wrap;"><span class="badge badge--concept">Concetto</span><span class="tag">AI</span><span class="tag">Inferenza</span></div><div class="project-card__arrow">→</div></div></a>
 <!-- prerender:end -->
 </div>
+      </div>
+    </section>
+
+    <!-- YouTube: canale con i video dei progetti e la musica fatta con l'AI -->
+    <section class="section home-section" id="youtube" aria-labelledby="home-yt-title">
+      <div class="container">
+        <div class="home-section__head">
+          <div>
+            <span class="section-label" data-i18n="home.yt_label">Canale YouTube</span>
+            <h2 class="section-title" id="home-yt-title" data-i18n="home.yt_title">Video e musica su YouTube</h2>
+            <p class="section-subtitle" data-i18n="home.yt_subtitle">Sul canale @gigalabor trovi i video dei progetti realizzati e la musica creata con l'intelligenza artificiale.</p>
+          </div>
+          <a class="home-more" href="pages/youtube.html">→ <span data-i18n="home.yt_all">Tutti i video</span></a>
+        </div>
+        <div class="yt-grid">
+          <article class="yt-card yt-card--project animate">
+            <a class="yt-embed" href="https://www.youtube.com/watch?v=VFLBK5iJfsc" data-yt-id="VFLBK5iJfsc" data-yt-title="Bloom: capisci il tuo rapporto da come vi scrivete" target="_blank" rel="noopener">
+              <span class="yt-embed__tag" data-i18n="youtube_page.badge_project">Progetto</span>
+              <span class="yt-embed__play" aria-hidden="true"></span>
+            </a>
+            <div class="yt-card__body">
+              <h3 class="yt-card__title" data-i18n="youtube_page.bloom_title">Bloom: capisci il tuo rapporto da come vi scrivete</h3>
+              <p class="yt-card__desc" data-i18n="youtube_page.bloom_desc">Come si installa e come funziona: dall'installazione da Google Play all'esportazione della chat da WhatsApp, fino alla lettura del risultato e alla privacy. La chat mostrata è inventata e la voce narrante è sintetica.</p>
+              <div class="yt-card__foot"><a class="btn btn--secondary btn--sm" href="https://www.youtube.com/watch?v=VFLBK5iJfsc" target="_blank" rel="noopener" data-i18n="youtube_page.watch_on_yt">Guarda su YouTube</a></div>
+            </div>
+          </article>
+          <article class="yt-card yt-card--music animate">
+            <a class="yt-embed" href="https://www.youtube.com/watch?v=zBZGnvk2Dy8" data-yt-id="zBZGnvk2Dy8" data-yt-title="I Am Enough (And so are you)" target="_blank" rel="noopener">
+              <span class="yt-embed__tag" data-i18n="youtube_page.badge_music">Musica AI</span>
+              <span class="yt-embed__play" aria-hidden="true"></span>
+            </a>
+            <div class="yt-card__body">
+              <h3 class="yt-card__title" data-i18n="youtube_page.music_video_title">I Am Enough (And so are you)</h3>
+              <p class="yt-card__desc" data-i18n="youtube_page.music_video_desc">Official Lyric Video di GiGa Labor: un brano musicale creato con l'intelligenza artificiale.</p>
+              <div class="yt-card__foot"><a class="btn btn--secondary btn--sm" href="https://www.youtube.com/watch?v=zBZGnvk2Dy8" target="_blank" rel="noopener" data-i18n="youtube_page.watch_on_yt">Guarda su YouTube</a></div>
+            </div>
+          </article>
+        </div>
+        <div class="yt-channel animate" style="margin-top:1.5rem;">
+          <div><div class="yt-channel__name">GiGa Labor</div><div class="yt-channel__handle">youtube.com/@gigalabor</div></div>
+          <div class="yt-channel__actions"><a class="btn btn--primary" href="https://www.youtube.com/@gigalabor?sub_confirmation=1" target="_blank" rel="noopener" data-i18n="youtube_page.subscribe">Iscriviti al canale</a></div>
+        </div>
       </div>
     </section>
 
@@ -188,5 +233,6 @@
   <script src="js/data/i18n/news-it.js"></script>
   <script src="js/data/i18n/news-en.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/yt-embed.js"></script>
 </body>
 </html>

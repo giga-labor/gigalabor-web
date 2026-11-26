@@ -119,6 +119,8 @@
         customDesc  = get(_strings, 'privacy_page.meta_description');
       } else if (/\/pages\/terms/.test(path)) {
         customDesc  = get(_strings, 'terms_page.meta_description');
+      } else if (/\/pages\/youtube/.test(path)) {
+        customDesc  = get(_strings, 'youtube_page.meta_description');
       }
       /* Titolo: "<h1 della pagina> — GiGa Labor" sulle pagine interne, sito + tagline sulla home */
       var onHome = document.body && document.body.getAttribute('data-page') === 'home';
@@ -196,6 +198,7 @@
         news:    '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="3" width="14" height="12" rx="1"/><line x1="5" y1="7" x2="13" y2="7" stroke-linecap="round"/><line x1="5" y1="10" x2="10" y2="10" stroke-linecap="round"/></svg>',
         home:    '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2.5 8.5 9 2.5l6.5 6v7h-4.2v-4.5H6.7v4.5H2.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         about:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="9" cy="6" r="3"/><path d="M2 16c0-3.31 3.13-6 7-6s7 2.69 7 6" stroke-linecap="round"/></svg>',
+        yt:      '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><rect x="1.5" y="3.5" width="15" height="11" rx="3"/><path d="M7.5 6.6v4.8l4-2.4z" fill="currentColor" stroke="none"/></svg>',
         audio:   '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7h2.8L9 4v10l-3.7-3H2.5z"/><path class="aw" d="M11.5 6.8a3 3 0 0 1 0 4.4"/><path class="aw aw2" d="M13.6 4.8a6 6 0 0 1 0 8.4"/><path class="ax" d="M12 7l4 4M16 7l-4 4"/></svg>',
         contact: '<svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="2" y="4" width="14" height="10" rx="1"/><polyline points="2,4 9,10 16,4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       };
@@ -243,6 +246,7 @@
       var items = [
         { id: 'home',    labelKey: 'nav.home',     href: px + 'index.html',          page: 'home'     },
         { id: 'proj',    labelKey: 'nav.projects', href: px + 'pages/projects.html', page: 'projects' },
+        { id: 'yt',      labelKey: 'nav.youtube',  href: px + 'pages/youtube.html',  page: 'youtube'  },
         { id: 'news',    labelKey: 'nav.news',     href: px + 'pages/news.html',     page: 'news'     },
         { id: 'about',   labelKey: 'nav.about',    href: px + 'pages/about.html',    page: 'about'    },
         { id: 'contact', labelKey: 'nav.contact',  href: px + 'pages/contact.html',  page: 'contact'  }

@@ -720,6 +720,7 @@ body:not([data-page="home"]):not([data-page="splash"])::-webkit-scrollbar-thumb:
 #side.si-animate .si:nth-child(3) { animation: siAttention 1.4s 2.04s both, siGlow 1.4s 2.04s both; }
 #side.si-animate .si:nth-child(4) { animation: siAttention 1.4s 2.26s both, siGlow 1.4s 2.26s both; }
 #side.si-animate .si:nth-child(5) { animation: siAttention 1.4s 2.48s both, siGlow 1.4s 2.48s both; }
+#side.si-animate .si:nth-child(6) { animation: siAttention 1.4s 2.7s both, siGlow 1.4s 2.7s both; }
 
 /* Layout mobile: tab bar orizzontale con etichette (il telefono girato tiene il rail laterale) */
 @media (max-width: 767px) and (min-height: 501px), (max-width: 767px) and (orientation: portrait) {
@@ -828,7 +829,9 @@ body[data-page="home"] #hero {
   padding-top: 3rem; padding-bottom: 3rem;
   overflow: visible; touch-action: auto;
 }
-.h-cta { margin-top: 2rem; pointer-events: auto; animation: shellFU .7s 1.2s both; }
+.h-ctas { display: flex; flex-wrap: wrap; gap: .75rem 1rem; margin-top: 2rem; }
+.h-cta { margin-top: 0; pointer-events: auto; animation: shellFU .7s 1.2s both; }
+.h-cta--yt { animation-delay: 1.35s; }
 
 /* Sezioni di contenuto: velo semitrasparente, lo sfondo animato resta visibile */
 .home-section {
@@ -890,4 +893,10 @@ body[data-page="home"] #hero {
     border-top: 1px solid rgba(255,255,255,.08); padding-top: 1rem;
     align-items: center;
   }
+}
+
+/* Tab bar mobile a sei voci: etichette più strette perché "CONTATTI" e "CHI SIAMO" non vengano tagliate */
+@media (max-width: 767px) and (min-height: 501px), (max-width: 767px) and (orientation: portrait) {
+  #side .si { min-width: 0; }
+  #side .si-lbl { font-size: .52rem; letter-spacing: .02em; max-width: 100%; overflow: hidden; text-overflow: clip; white-space: nowrap; }
 }

@@ -13,6 +13,7 @@ window.GL.i18n.en = {
     "scritti": "Written by you",
     "about": "About",
     "contact": "Contact",
+    "youtube": "YouTube",
     "toggleTheme": "Theme",
     "toggleLang": "IT"
   },
@@ -85,6 +86,7 @@ window.GL.i18n.en = {
     },
     "subheadline": "Personal laboratory dedicated to software development, intelligent systems and applied research.",
     "cta_primary": "Explore projects",
+    "cta_youtube": "Watch the YouTube channel",
     "cta_secondary": "About us",
     "metric_projects": "Active projects",
     "metric_founded": "Founded",
@@ -104,7 +106,11 @@ window.GL.i18n.en = {
     "news_title": "Latest news",
     "all_news": "All news",
     "about_cta": "Read more",
-    "contact_cta": "Get in touch"
+    "contact_cta": "Get in touch",
+    "yt_label": "YouTube channel",
+    "yt_title": "Video and music on YouTube",
+    "yt_subtitle": "On the @gigalabor channel you will find videos of the projects built and music created with artificial intelligence.",
+    "yt_all": "All videos"
   },
   "sections": {
     "ecosystem_label": "Personal Projects",
@@ -268,6 +274,7 @@ window.GL.i18n.en = {
   "about": {
     "headline": "Who is GiGa Labor",
     "body": "GiGa Labor is a personal digital lab where projects, tools and ideas evolve over time with an authorial direction.",
+    "channel": "The lab also has a YouTube channel, @gigalabor: you will find videos of the projects built and music created with artificial intelligence.",
     "mission_title": "Approach",
     "mission": "Build intelligent, autonomous and modular tools that expand human capabilities in the digital domain.",
     "values_title": "Values",
@@ -387,7 +394,7 @@ window.GL.i18n.en = {
     "s5_title": "5. Retention",
     "s5_text": "Contact data is retained only for the time strictly necessary to provide a response, unless legal obligations require otherwise.",
     "s6_title": "6. Cookies",
-    "s6_text": "This website does not use profiling cookies. Essential technical cookies for browser/session operation and local storage for theme/language preferences may be used.",
+    "s6_text": "This website does not use profiling cookies. Essential technical cookies for browser/session operation and local storage for theme/language preferences may be used. Embedded YouTube videos (youtube-nocookie.com) are loaded only when the user presses Play: until then the site does not contact YouTube.",
     "s7_title": "7. Data subject rights",
     "s7_text": "Users can exercise rights of access, rectification, erasure, restriction, objection, and portability by writing to",
     "s7_text_tail": ". The right to lodge a complaint with the competent Data Protection Authority remains unaffected.",
@@ -416,6 +423,31 @@ window.GL.i18n.en = {
     "s7_text": "These terms are governed by Italian law. Competent court, where applicable, is determined by current regulations.",
     "s8_title": "8. Contacts",
     "s8_text": "For communications:"
+  },
+  "youtube_page": {
+    "meta_description": "The GiGa Labor YouTube channel: videos of the projects built and music created with artificial intelligence.",
+    "headline": "Video and music on YouTube",
+    "subheadline": "The @gigalabor channel collects videos of the projects built and music created with artificial intelligence.",
+    "subscribe": "Subscribe to the channel",
+    "open_channel": "Open the channel on YouTube",
+    "projects_label": "Projects",
+    "projects_title": "Project videos",
+    "projects_desc": "Demos of the projects at work: how they are installed, how they are used and what is under the hood.",
+    "music_label": "Music",
+    "music_title": "Music made with AI",
+    "music_desc": "Songs created with artificial intelligence, released with an official lyric video.",
+    "badge_project": "Project",
+    "badge_music": "AI music",
+    "bloom_title": "Bloom: understand your relationship from how you write to each other",
+    "bloom_desc": "How to install it and how it works: from installing it from Google Play to exporting the chat from WhatsApp, through to reading the result and the privacy side. The chat shown is invented and the narrator voice is synthetic. The video is in Italian.",
+    "music_video_title": "I Am Enough (And so are you)",
+    "music_video_desc": "Official Lyric Video by GiGa Labor: a song created with artificial intelligence.",
+    "play": "Play",
+    "play_video": "Play the video",
+    "watch_on_yt": "Watch on YouTube",
+    "more_title": "More videos coming",
+    "more_desc": "The channel grows along with the lab: new projects and new music are added as they take shape. Subscribe so you don't miss anything.",
+    "privacy_note": "The video loads only when you start it, via youtube-nocookie.com: until you press Play, the site does not contact YouTube."
   },
   "footer": {
     "updated": "Updated",

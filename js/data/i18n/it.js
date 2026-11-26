@@ -13,6 +13,7 @@ window.GL.i18n.it = {
     "scritti": "Scritti da voi",
     "about": "Chi siamo",
     "contact": "Contatti",
+    "youtube": "YouTube",
     "toggleTheme": "Tema",
     "toggleLang": "EN"
   },
@@ -85,6 +86,7 @@ window.GL.i18n.it = {
     },
     "subheadline": "Laboratorio personale dedicato allo sviluppo di software, sistemi intelligenti e ricerca applicata.",
     "cta_primary": "Esplora i progetti",
+    "cta_youtube": "Guarda il canale YouTube",
     "cta_secondary": "Scopri chi siamo",
     "metric_projects": "Progetti attivi",
     "metric_founded": "Fondazione",
@@ -104,7 +106,11 @@ window.GL.i18n.it = {
     "news_title": "Ultime notizie",
     "all_news": "Tutte le notizie",
     "about_cta": "Scopri di più",
-    "contact_cta": "Scrivimi"
+    "contact_cta": "Scrivimi",
+    "yt_label": "Canale YouTube",
+    "yt_title": "Video e musica su YouTube",
+    "yt_subtitle": "Sul canale @gigalabor trovi i video dei progetti realizzati e la musica creata con l'intelligenza artificiale.",
+    "yt_all": "Tutti i video"
   },
   "sections": {
     "ecosystem_label": "Progetti personali",
@@ -268,6 +274,7 @@ window.GL.i18n.it = {
   "about": {
     "headline": "Chi è GiGa Labor",
     "body": "GiGa Labor è un laboratorio digitale personale dove progetti, strumenti e idee evolvono nel tempo con una direzione autoriale.",
+    "channel": "Il laboratorio ha anche un canale YouTube, @gigalabor: ci trovi i video dei progetti realizzati e la musica creata con l'intelligenza artificiale.",
     "mission_title": "Approccio",
     "mission": "Costruire strumenti intelligenti, autonomi e modulari che amplino le capacità umane nel dominio digitale.",
     "values_title": "Valori",
@@ -387,7 +394,7 @@ window.GL.i18n.it = {
     "s5_title": "5. Conservazione",
     "s5_text": "I dati di contatto sono conservati per il tempo strettamente necessario a fornire riscontro, salvo ulteriori obblighi di legge.",
     "s6_title": "6. Cookie",
-    "s6_text": "Questo sito non utilizza cookie di profilazione. Possono essere presenti cookie tecnici essenziali al funzionamento di base del browser/sessione e dello storage locale per preferenze di tema/lingua.",
+    "s6_text": "Questo sito non utilizza cookie di profilazione. Possono essere presenti cookie tecnici essenziali al funzionamento di base del browser/sessione e dello storage locale per preferenze di tema/lingua. I video YouTube incorporati (youtube-nocookie.com) vengono caricati solo quando l'utente preme Riproduci: fino a quel momento il sito non contatta YouTube.",
     "s7_title": "7. Diritti dell'interessato",
     "s7_text": "L'utente può esercitare i diritti di accesso, rettifica, cancellazione, limitazione, opposizione e portabilità scrivendo a",
     "s7_text_tail": ". Resta salvo il diritto di reclamo al Garante per la protezione dei dati personali.",
@@ -416,6 +423,31 @@ window.GL.i18n.it = {
     "s7_text": "I presenti termini sono regolati dalla legge italiana. Foro competente, ove applicabile, quello previsto dalla normativa vigente.",
     "s8_title": "8. Contatti",
     "s8_text": "Per comunicazioni:"
+  },
+  "youtube_page": {
+    "meta_description": "Il canale YouTube di GiGa Labor: video dei progetti realizzati e musica creata con l'intelligenza artificiale.",
+    "headline": "Video e musica su YouTube",
+    "subheadline": "Il canale @gigalabor raccoglie i video dei progetti realizzati e la musica creata con l'intelligenza artificiale.",
+    "subscribe": "Iscriviti al canale",
+    "open_channel": "Apri il canale su YouTube",
+    "projects_label": "Progetti",
+    "projects_title": "Video dei progetti",
+    "projects_desc": "Dimostrazioni dei progetti in funzione: come si installano, come si usano e cosa c'è sotto il cofano.",
+    "music_label": "Musica",
+    "music_title": "Musica fatta con l'AI",
+    "music_desc": "Brani realizzati con l'intelligenza artificiale, pubblicati con il lyric video ufficiale.",
+    "badge_project": "Progetto",
+    "badge_music": "Musica AI",
+    "bloom_title": "Bloom: capisci il tuo rapporto da come vi scrivete",
+    "bloom_desc": "Come si installa e come funziona: dall'installazione da Google Play all'esportazione della chat da WhatsApp, fino alla lettura del risultato e alla privacy. La chat mostrata è inventata e la voce narrante è sintetica.",
+    "music_video_title": "I Am Enough (And so are you)",
+    "music_video_desc": "Official Lyric Video di GiGa Labor: un brano musicale creato con l'intelligenza artificiale.",
+    "play": "Riproduci",
+    "play_video": "Riproduci il video",
+    "watch_on_yt": "Guarda su YouTube",
+    "more_title": "Altri video in arrivo",
+    "more_desc": "Il canale cresce insieme al laboratorio: nuovi progetti e nuova musica si aggiungono man mano che prendono forma. Iscriviti per non perdere le novità.",
+    "privacy_note": "Il video si carica solo quando lo avvii, tramite youtube-nocookie.com: finché non premi Riproduci, il sito non contatta YouTube."
   },
   "footer": {
     "updated": "Aggiornato il",
