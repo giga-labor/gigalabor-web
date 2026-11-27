@@ -17,7 +17,7 @@
 }
 .yt-card:hover { border-color: var(--yt-accent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--yt-accent) 40%, transparent); }
 .yt-card--music { --yt-accent: #b07cff; }
-.yt-card--project { --yt-accent: #e2607f; }
+.yt-card--project { --yt-accent: #00b4ff; }
 
 /* Riquadro 16:9: scheda con tasto play, poi sostituita dall'iframe */
 .yt-embed {
@@ -71,4 +71,53 @@
   .yt-grid { grid-template-columns: 1fr; }
   .yt-channel { padding: 1.25rem; }
   .yt-embed__play { width: 56px; height: 56px; }
+}
+
+/* Aree separate della pagina: software/app e musica, ognuna con il suo colore */
+.yt-area {
+  --area: var(--accent);
+  position: relative;
+  padding: 1.75rem; border: 1px solid color-mix(in srgb, var(--area) 35%, transparent);
+  border-left: 4px solid var(--area); border-radius: 12px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--area) 9%, transparent), transparent 55%);
+}
+.yt-area + .yt-area, .yt-area + .yt-block { margin-top: 2.5rem; }
+.yt-area--project { --area: #00b4ff; }
+.yt-area--music   { --area: #b07cff; }
+.yt-area .section-label { color: var(--area); }
+.yt-area__head { display: flex; align-items: flex-start; gap: 1.1rem; margin-bottom: 1.5rem; max-width: 760px; }
+.yt-area__head .section-title { margin-bottom: .4rem; }
+.yt-area__icon {
+  flex: none; width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 700; color: var(--area);
+  background: color-mix(in srgb, var(--area) 16%, transparent); border: 1px solid color-mix(in srgb, var(--area) 45%, transparent);
+}
+.yt-music-info { margin-bottom: 1.5rem; max-width: 760px; }
+.yt-music-info__title { font-family: 'BioRhyme', serif; font-size: 1.05rem; color: var(--text-primary); margin: 0 0 .5rem; }
+.yt-music-info p { font-size: .98rem; line-height: 1.75; color: var(--text-secondary); margin: 0 0 .9rem; }
+.yt-tags { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; }
+.yt-tags li {
+  font-family: 'JetBrains Mono', monospace; font-size: .74rem; letter-spacing: .02em;
+  padding: .3rem .7rem; border-radius: 999px; color: var(--text-primary);
+  border: 1px solid color-mix(in srgb, #b07cff 50%, transparent); background: color-mix(in srgb, #b07cff 12%, transparent);
+}
+
+/* Voce di menu YouTube: icona e etichetta sempre rosse, così si distingue dalle altre */
+#side .si--yt, #side .si--yt .si-lbl { color: #ff3d3d; }
+#side .si--yt svg { color: #ff3d3d; filter: drop-shadow(0 0 5px rgba(255,61,61,.45)); }
+#side .si--yt:hover svg, #side .si--yt.on svg { filter: drop-shadow(0 0 8px rgba(255,61,61,.8)); }
+
+@media (max-width: 767px) {
+  .yt-area { padding: 1.1rem; border-left-width: 3px; }
+  .yt-area__icon { width: 42px; height: 42px; font-size: 1rem; }
+}
+
+/* Short (verticale 9:16): riquadro stretto accanto al testo */
+.yt-grid { align-items: start; }
+.yt-card--short { flex-direction: row; }
+.yt-embed--short { width: min(240px, 42%); flex: none; aspect-ratio: 9 / 16; }
+.yt-card--short .yt-card__body { min-width: 0; }
+@media (max-width: 767px) {
+  .yt-card--short { flex-direction: column; }
+  .yt-embed--short { width: min(280px, 100%); margin: 1rem auto 0; border-radius: 8px; }
 }

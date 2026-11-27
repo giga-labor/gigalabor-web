@@ -259,7 +259,7 @@
 
       var itemsHTML = items.map(function(item) {
         var active = isActive(item);
-        return '<a class="si' + (active ? ' on' : '') + '" href="' + item.href + '"' +
+        return '<a class="si' + (item.id === 'yt' ? ' si--yt' : '') + (active ? ' on' : '') + '" href="' + item.href + '"' +
             (active ? ' aria-current="page"' : '') + ' data-i18n-attr="aria-label:' + item.labelKey + '">' +
           icon(item.id) +
           /* .si-lbl: etichetta sotto l'icona (desktop e tab bar mobile) */

@@ -43,32 +43,50 @@
   <section class="section">
     <div class="container">
 
-      <div class="yt-block">
-        <div class="yt-block__head">
-          <span class="section-label" data-i18n="youtube_page.projects_label">Progetti</span>
-          <h2 class="section-title" data-i18n="youtube_page.projects_title">Video dei progetti</h2>
-          <p class="text-secondary" data-i18n="youtube_page.projects_desc">Dimostrazioni dei progetti in funzione: come si installano, come si usano e cosa c'è sotto il cofano.</p>
-        </div>
+      <section class="yt-area yt-area--project" aria-labelledby="yt-projects-title">
+        <header class="yt-area__head">
+          <span class="yt-area__icon" aria-hidden="true">&lt;/&gt;</span>
+          <div>
+            <span class="section-label" data-i18n="youtube_page.area_projects">Software e app</span>
+            <h2 class="section-title" id="yt-projects-title" data-i18n="youtube_page.projects_title">Video dei progetti</h2>
+            <p class="text-secondary" data-i18n="youtube_page.projects_desc">Software, app e sistemi intelligenti di GiGa Labor: come si installano, come si usano e cosa c'è sotto il cofano.</p>
+          </div>
+        </header>
         <div class="yt-grid">
-          <article class="yt-card yt-card--project animate">
-            <a class="yt-embed" href="https://www.youtube.com/watch?v=VFLBK5iJfsc" data-yt-id="VFLBK5iJfsc" data-yt-title="Bloom: capisci il tuo rapporto da come vi scrivete" target="_blank" rel="noopener">
+          <article class="yt-card yt-card--project yt-card--short animate">
+            <a class="yt-embed yt-embed--short" href="https://www.youtube.com/shorts/iJSdk2SMp-M" data-yt-id="iJSdk2SMp-M" data-yt-title="Bloom: scopri come cambia la vostra chat nel tempo" target="_blank" rel="noopener">
               <span class="yt-embed__tag" data-i18n="youtube_page.badge_project">Progetto</span>
               <span class="yt-embed__play" aria-hidden="true"></span>
             </a>
             <div class="yt-card__body">
-              <h3 class="yt-card__title" data-i18n="youtube_page.bloom_title">Bloom: capisci il tuo rapporto da come vi scrivete</h3>
-              <p class="yt-card__desc" data-i18n="youtube_page.bloom_desc">Come si installa e come funziona: dall'installazione da Google Play all'esportazione della chat da WhatsApp, fino alla lettura del risultato e alla privacy. La chat mostrata è inventata e la voce narrante è sintetica.</p>
-              <div class="yt-card__foot"><a class="btn btn--secondary btn--sm" href="https://www.youtube.com/watch?v=VFLBK5iJfsc" target="_blank" rel="noopener" data-i18n="youtube_page.watch_on_yt">Guarda su YouTube</a></div>
+              <h3 class="yt-card__title" data-i18n="youtube_page.bloom_title">Bloom: scopri come cambia la vostra chat nel tempo</h3>
+              <p class="yt-card__desc" data-i18n="youtube_page.bloom_desc">Short su Bloom: come cambia nel tempo la chat tra due persone, letta dall'app direttamente sul telefono.</p>
+              <div class="yt-card__foot"><a class="btn btn--secondary btn--sm" href="https://www.youtube.com/shorts/iJSdk2SMp-M" target="_blank" rel="noopener" data-i18n="youtube_page.watch_on_yt">Guarda su YouTube</a></div>
             </div>
           </article>
         </div>
-      </div>
+      </section>
 
-      <div class="yt-block">
-        <div class="yt-block__head">
-          <span class="section-label" data-i18n="youtube_page.music_label">Musica</span>
-          <h2 class="section-title" data-i18n="youtube_page.music_title">Musica fatta con l'AI</h2>
-          <p class="text-secondary" data-i18n="youtube_page.music_desc">Brani realizzati con l'intelligenza artificiale, pubblicati con il lyric video ufficiale.</p>
+      <section class="yt-area yt-area--music" aria-labelledby="yt-music-title">
+        <header class="yt-area__head">
+          <span class="yt-area__icon" aria-hidden="true">♪</span>
+          <div>
+            <span class="section-label" data-i18n="youtube_page.area_music">Musica</span>
+            <h2 class="section-title" id="yt-music-title" data-i18n="youtube_page.music_title">Musica fatta con l'AI</h2>
+            <p class="text-secondary" data-i18n="youtube_page.music_desc">Brani composti e prodotti con l'intelligenza artificiale, ognuno pubblicato con il suo lyric video ufficiale.</p>
+          </div>
+        </header>
+        <div class="yt-music-info">
+          <h3 class="yt-music-info__title" data-i18n="youtube_page.music_style_title">Che musica è</h3>
+          <p data-i18n="youtube_page.music_style_desc">Il primo brano è un inno emotivo e crescente. Parte intimo, con pianoforte e sintetizzatori, poi entrano voce, basso, chitarra e batteria e sale fino a un ritornello ripetuto e di grande impatto, per chiudersi in un finale calmo. Il testo, in inglese, racconta le notti in cui ci si sente inadeguati e la scelta di accettarsi: nessuna corona, nessun salvataggio, basta esserci. Il refrain è «I am enough… and so are you».</p>
+          <ul class="yt-tags">
+            <li data-i18n="youtube_page.music_tag_genre">Emotiva ed epica</li>
+            <li data-i18n="youtube_page.music_tag_bpm">136 BPM</li>
+            <li data-i18n="youtube_page.music_tag_key">Sol minore</li>
+            <li data-i18n="youtube_page.music_tag_lyrics">Testo in inglese sull'autostima</li>
+            <li data-i18n="youtube_page.music_tag_band">Voce, chitarra, basso, batteria, piano e synth</li>
+            <li data-i18n="youtube_page.music_tag_ai">Creata con l'AI</li>
+          </ul>
         </div>
         <div class="yt-grid">
           <article class="yt-card yt-card--music animate">
@@ -83,7 +101,7 @@
             </div>
           </article>
         </div>
-      </div>
+      </section>
 
       <div class="yt-block">
         <div class="yt-channel animate">
